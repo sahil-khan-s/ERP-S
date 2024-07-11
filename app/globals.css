@@ -1,25 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
 body {
-    background: white;
+	background: white;
 }
 .custom-form {
-    border: none !important;
-  }
+	border: none !important;
+}
 
-  .CircularProgressbar-text {
-    text-anchor: middle;
-  }
+.CircularProgressbar-text {
+	text-anchor: middle;
+}
 
-.class1{
-  border: none;
+.class1 {
+	border: none;
 }
 
 .active {
-  background-color: #DDFF8F;
-  border-radius: 10px;
-  color: black;
+	background-color: #ddff8f;
+	border-radius: 10px;
+	color: black;
 }
