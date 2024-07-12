@@ -1,11 +1,20 @@
-import React from 'react'
+"use client";
+import React, { useState } from 'react'
 import Contract from './page'
 import Nav from '../components/common/nav'
+import NewContract from '../components/contract/newContract';
 
 const layout = ({ children }: { children: React.ReactNode }) => {
+    const [openContractPopUp, setOpenContractPopUp] = useState(false);
+
     return (
-        <div className='bg-white p-5'>
+        <div className='bg-white p-5 min-h-screen'>
             <Nav />
+
+            {
+                openContractPopUp ? <NewContract setOpenContractPopUp={setOpenContractPopUp} /> : null
+            }
+
             {/* search, filter and add new contract button */}
             <div className="flex justify-between items-center mt-14">
 
@@ -27,8 +36,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
                 </div>
 
 
-
-                <button className="flex justify-between gap-x-2 bg-[#DDFF8F] items-center p-4  h-14 rounded-2xl">
+                <button onClick={() => setOpenContractPopUp(true)} className="flex justify-between gap-x-2 bg-[#DDFF8F] items-center p-4  h-14 rounded-2xl">
                     <p className="text-black font-outfit font-light text-sm capitalize">
                         Add new Contract
                     </p>

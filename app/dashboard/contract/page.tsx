@@ -152,10 +152,6 @@ export default function Contract() {
       </div>
 
 
-
-
-
-
       <div className="w-full flex justify-between gap-x-14 mt-10">
         {/* task list , right side */}
         <div className=" p-4 w-7/12 rounded-2xl border-[0.48px] border-gray-500">
