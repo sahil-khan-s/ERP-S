@@ -11,7 +11,7 @@ const Task = (task: Task) => {
         <div>
             <div className='flex justify-between items-center'>
                 <div className='flex items-center gap-x-2'>
-                    <input checked={task.completed} className='size-4 outline-none border-[0.48px] border-gray-500' type="checkbox" name="" id="" />
+                    <input checked={task.completed} className='size-4 text-black outline-none border-[0.48px] border-gray-500' type="checkbox" name="" id="" />
                     <p className='font-outfit text-[15px] text-[#A2A1A8]'>{task.content}</p>
                 </div>
                 <p className='font-outfit text-[15px] text-[#A2A1A8]'>{task.time}</p>
