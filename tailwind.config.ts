@@ -16,6 +16,7 @@ const config: Config = {
 		},
 		fontFamily: {
 			outfit: ["Outfit", "sans-serif"],
+			lexend: ["Lexend", "sans-serif"],
 		},
 	},
 	plugins: [],

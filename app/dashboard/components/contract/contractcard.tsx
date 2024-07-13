@@ -8,9 +8,11 @@ export interface ContractInterface {
     location: string
     from: string
     to: string
-    date: string
+    dateFrom: string
+    dateTo: string
+    content: string
 }
-const ContractCard = (contract: ContractInterface) => {
+const ContractCard = ({ contract }: { contract: ContractInterface }) => {
 
     const profileText: string = contract.title.split(" ").length >= 2
         ? contract.title.split(" ")[0]?.at(0) + contract.title.split(" ")[1]?.at(0)
@@ -29,7 +31,7 @@ const ContractCard = (contract: ContractInterface) => {
 
                 <div>
                     <p>{contract.from}</p>
-                    <p className='text-[15px] text-[#A2A1A8] font-outfit'>{contract.date}</p>
+                    <p className='text-[15px] text-[#A2A1A8] font-outfit'>{contract.dateFrom}</p>
                 </div>
             </div>
             <hr className='mt-2' />
