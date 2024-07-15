@@ -165,7 +165,7 @@ export default function Contract() {
 
 
 
-  const stateData: DataPoint[] = [
+  const stateChartData: DataPoint[] = [
     {
       month: 'Jan',
       percent: 62,
@@ -213,14 +213,43 @@ export default function Contract() {
   ];
 
 
+  const stats = [
+    {
+      title: "Active",
+      value: Math.floor(Math.random() * 400)
+    },
+    {
+      title: "Renewal",
+      value: Math.floor(Math.random() * 400)
+    },
+    {
+      title: "Modified",
+      value: Math.floor(Math.random() * 400)
+    },
+    {
+      title: "Viewed",
+      value: Math.floor(Math.random() * 400)
+    },
+    {
+      title: "Signed",
+      value: Math.floor(Math.random() * 400)
+    },
+    {
+      title: "Not Signed",
+      value: Math.floor(Math.random() * 400)
+    }
+  ]
+
+
+
   return (
     <main className="max-h-screen bg-white mt-10">
 
       {/* Stats Cards */}
       <div className="h-[154px] justify-between items-center mt-10 flex gap-x-5">
         {
-          Array.from({ length: 6 }).map((_, index) => (
-            <StatsCard key={index} />
+          stats.map((state, index) => (
+            <StatsCard key={index} data={state} />
           ))
         }
       </div>
@@ -233,7 +262,11 @@ export default function Contract() {
 
           <div className="flex justify-between items-center">
             <div className="flex justify-center items-center gap-x-2">
-              <img className="size-8" src="https://static.thenounproject.com/png/699088-200.png" alt="" />
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 18H14V20H8V18ZM8 22H18V24H8V22Z" fill="#16151C" />
+                <path d="M26 4H6C5.46981 4.00079 4.96156 4.21176 4.58666 4.58666C4.21176 4.96156 4.00079 5.46981 4 6V26C4.00079 26.5302 4.21176 27.0384 4.58666 27.4133C4.96156 27.7882 5.46981 27.9992 6 28H26C26.5302 27.9992 27.0384 27.7882 27.4133 27.4133C27.7882 27.0384 27.9992 26.5302 28 26V6C27.9992 5.46981 27.7882 4.96156 27.4133 4.58666C27.0384 4.21176 26.5302 4.00079 26 4ZM18 6V10H14V6H18ZM6 26V6H12V12H20V6H26L26.001 26H6Z" fill="#16151C" />
+              </svg>
+
               <h2 className="text-xl font-outfit capitalize">Task list for today <span className="text-[#6BA10F]">(13 Dec)</span></h2>
             </div>
             <h2 className="text-xl font-outfit text-[#6BA10F]">+Add new task</h2>
@@ -254,7 +287,11 @@ export default function Contract() {
           {/* completed tasks */}
           <div className="flex justify-start mt-5 items-center">
             <div className="flex justify-center items-center gap-x-2">
-              <img className="size-8" src="https://cdn2.iconfinder.com/data/icons/beauty-15/42/task-512.png" alt="" />
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 18H14V20H8V18ZM8 22H18V24H8V22Z" fill="#A2A1A8" />
+                <path d="M26 4H6C5.46981 4.00079 4.96156 4.21176 4.58666 4.58666C4.21176 4.96156 4.00079 5.46981 4 6V26C4.00079 26.5302 4.21176 27.0384 4.58666 27.4133C4.96156 27.7882 5.46981 27.9992 6 28H26C26.5302 27.9992 27.0384 27.7882 27.4133 27.4133C27.7882 27.0384 27.9992 26.5302 28 26V6C27.9992 5.46981 27.7882 4.96156 27.4133 4.58666C27.0384 4.21176 26.5302 4.00079 26 4ZM18 6V10H14V6H18ZM6 26V6H12V12H20V6H26L26.001 26H6Z" fill="#A2A1A8" />
+              </svg>
+
               <h2 className="text-xl text-[#A2A1A8] font-outfit capitalize">Task list for today <span className="">(13 Dec)</span></h2>
             </div>
           </div>
@@ -288,7 +325,7 @@ export default function Contract() {
 
 
             <div className="w-full h-64 mt-4">
-              <StateChart data={stateData} />
+              <StateChart data={stateChartData} />
             </div>
 
           </div>
@@ -300,7 +337,10 @@ export default function Contract() {
               <h2 className="text-[20px] font-outfit">Contracts</h2>
               <div className="flex gap-x-2">
                 <button className="flex items-center gap-x-1 p-2 rounded-lg border-[0.48px] border-gray-500">
-                  <img className="size-3" src="https://icons.veryicon.com/png/o/internet--web/collection-and-payment/pencil-43.png" alt="" />
+                  <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.54659 0.948852C8.94747 0.349732 7.97614 0.349732 7.37702 0.948852L1.295 7.03088C1.25332 7.07256 1.22322 7.12423 1.20751 7.18096L0.407704 10.0684C0.374811 10.1868 0.408236 10.3136 0.495062 10.4005C0.58202 10.4874 0.708795 10.5208 0.827181 10.488L3.71465 9.6881C3.77138 9.67239 3.82305 9.64229 3.86473 9.60061L9.94662 3.51845C10.5448 2.91893 10.5448 1.94841 9.94662 1.34889L9.54659 0.948852ZM2.03781 7.25247L7.01547 2.27467L8.62081 3.88L3.64301 8.8578L2.03781 7.25247ZM1.71714 7.89593L2.99968 9.1786L1.22562 9.67012L1.71714 7.89593ZM9.46456 3.03639L9.10301 3.39793L7.49754 1.79247L7.85922 1.43092C8.19201 1.09813 8.7316 1.09813 9.06439 1.43092L9.46456 1.83095C9.79681 2.16414 9.79681 2.70333 9.46456 3.03639Z" fill="black" fill-opacity="0.6" />
+                  </svg>
+
                   <p className="font-outfit capitalize font-light text-xs">edit</p>
                 </button>
                 <Link href={"/dashboard/contract/details"} className="font-outfit font-light text-xs rounded-lg  p-2 border-[0.48px] border-gray-500">View All</Link>
