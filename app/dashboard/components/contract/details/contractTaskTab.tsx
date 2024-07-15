@@ -1,21 +1,22 @@
 import React from 'react'
+import { ContractInterface } from '../contractcard'
 
-const ContractTaskTab = () => {
+const ContractTaskTab = ({ contract }: { contract: ContractInterface }) => {
     return (
         <div className='min-h-[660px]'>
             <div className='flex justify-between'>
-                <h2 className='font-outfit text-xl text-[#16151C]'>Service contract</h2>
-                <h2 className='font-outfit font-light text-[17px] text-[#A2A1A8]'>29 Dec ‘13 to 28 Dec ‘14</h2>
+                <h2 className='font-outfit text-xl text-[#16151C]'>{contract.title}</h2>
+                <h2 className='font-outfit font-light text-[17px] text-[#A2A1A8]'>{contract.dateFrom} to {contract.dateTo}</h2>
             </div>
 
             <div className='flex justify-between items-center mt-2'>
                 <div>
-                    <p className='font-outfit text-[#16151C] font-light'>for <span className='font-normal'>Ang lee</span></p>
-                    <p className='font-outfit text-[#16151C] font-light'>by <span className='font-normal'>John Doe</span></p>
+                    <p className='font-outfit text-[#16151C] font-light'>for <span className='font-normal'>{contract.to}</span></p>
+                    <p className='font-outfit text-[#16151C] font-light'>by <span className='font-normal'>{contract.from}</span></p>
                 </div>
                 <div>
-                    <p className='font-outfit font-light text-[#A2A1A8]'>Shanghai, China</p>
-                    <p className='text-right font-outfit font-light text-[#A2A1A8]'>#508787257</p>
+                    <p className='font-outfit font-light text-[#A2A1A8]'>{contract.location}</p>
+                    <p className='text-right font-outfit font-light text-[#A2A1A8]'>#{contract.id}</p>
                 </div>
             </div>
 
@@ -30,7 +31,7 @@ const ContractTaskTab = () => {
             </div>
 
             <div className='h-[500px] max-h-[500px] overflow-hidden'>
-                <p className='mt-4 text-[#A2A1A8] font-light font-outfit'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rerum voluptatibus nobis repellendus fugit veniam alias id a eius? Vitae facilis doloribus eos minus nesciunt beatae vero neque maiores minima sit voluptatem, in facere provident fugiat perspiciatis, nobis velit eaque et architecto eveniet earum nisi modi mollitia atque. Dicta saepe ut sequi, animi totam sed eos vero facere odit obcaecati mollitia ullam, reprehenderit tempora deleniti iure vitae. Doloremque id ad molestiae nostrum laborum reprehenderit dicta, quos modi dolorem eos maiores a illum aperiam eius nisi quod totam cupiditate ipsum soluta, odit, saepe optio veniam! Atque, ipsa maiores saepe officiis praesentium soluta. Eaque ab, ipsa minima natus consequuntur voluptas fugiat blanditiis aut, ex temporibus dolore odio obcaecati, rerum dignissimos harum nam sed voluptatibus necessitatibus et ducimus quibusdam. Dolores perferendis, voluptatibus sint repellendus voluptatum voluptatem exercitationem aliquam possimus voluptate pariatur dolor dolorem iste inventore.
+                <p className='mt-4 text-[#A2A1A8] font-light font-outfit'>{contract.content}
                 </p>
             </div>
 

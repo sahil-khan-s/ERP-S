@@ -4,113 +4,11 @@ import ContractCard, { ContractInterface } from '../../components/contract/contr
 import ContractTaskTab from '../../components/contract/details/contractTaskTab';
 import ContractNotesTab from '../../components/contract/details/contractNotesTab';
 import ContractPrintTab from '../../components/contract/details/contractPrintTab';
-
+import { contracts } from '../page';
 const page = () => {
 
     const [activeTab, setActiveTab] = useState("task");
-    const [showDetails, setShowDetails] = useState<ContractInterface | undefined>({
-        id: 3441259408,
-        title: "Service Contract",
-        location: "New York, US",
-        from: "John Snow",
-        to: "Larry Page",
-        date: "24 OCT ’17"
-    })
-
-    const contracts: ContractInterface[] = [
-        {
-            id: 3441259408,
-            title: "Service Contract",
-            location: "New York, US",
-            from: "John Snow",
-            to: "Larry Page",
-            dateFrom: "24 OCT ’17",
-            dateTo: "24 OCT ’19",
-            content: "lorem ipsum doller emit"
-        },
-        {
-            id: 508787257,
-            title: "Non Disclosure Agreement",
-            location: "London, UK",
-            from: "John Snow",
-            to: "Larry Page",
-            dateFrom: "24 OCT ’17",
-            dateTo: "24 OCT ’19",
-            content: "lorem ipsum doller emit"
-        }, {
-            id: 508787257,
-            title: "Non Disclosure Agreement",
-            location: "London, UK",
-            from: "John Snow",
-            to: "Larry Page",
-            dateFrom: "24 OCT ’17",
-            dateTo: "24 OCT ’19",
-            content: "lorem ipsum doller emit"
-        }, {
-            id: 508787257,
-            title: "Non Disclosure Agreement",
-            location: "London, UK",
-            from: "John Snow",
-            to: "Larry Page",
-            dateFrom: "24 OCT ’17",
-            dateTo: "24 OCT ’19",
-            content: "lorem ipsum doller emit"
-        }, {
-            id: 508787257,
-            title: "Non Disclosure Agreement",
-            location: "London, UK",
-            from: "John Snow",
-            to: "Larry Page",
-            dateFrom: "24 OCT ’17",
-            dateTo: "24 OCT ’19",
-            content: "lorem ipsum doller emit"
-        }, {
-            id: 508787257,
-            title: "Non Disclosure Agreement",
-            location: "London, UK",
-            from: "John Snow",
-            to: "Larry Page",
-            dateFrom: "24 OCT ’17",
-            dateTo: "24 OCT ’19",
-            content: "lorem ipsum doller emit"
-        }, {
-            id: 508787257,
-            title: "Non Disclosure Agreement",
-            location: "London, UK",
-            from: "John Snow",
-            to: "Larry Page",
-            dateFrom: "24 OCT ’17",
-            dateTo: "24 OCT ’19",
-            content: "lorem ipsum doller emit"
-        }, {
-            id: 508787257,
-            title: "Non Disclosure Agreement",
-            location: "London, UK",
-            from: "John Snow",
-            to: "Larry Page",
-            dateFrom: "24 OCT ’17",
-            dateTo: "24 OCT ’19",
-            content: "lorem ipsum doller emit"
-        }, {
-            id: 508787257,
-            title: "Non Disclosure Agreement",
-            location: "London, UK",
-            from: "John Snow",
-            to: "Larry Page",
-            dateFrom: "24 OCT ’17",
-            dateTo: "24 OCT ’19",
-            content: "lorem ipsum doller emit"
-        }, {
-            id: 508787257,
-            title: "Non Disclosure Agreement",
-            location: "London, UK",
-            from: "John Snow",
-            to: "Larry Page",
-            dateFrom: "24 OCT ’17",
-            dateTo: "24 OCT ’19",
-            content: "lorem ipsum doller emit"
-        }
-    ]
+    const [showDetails, setShowDetails] = useState<ContractInterface | undefined>(contracts[0])
 
     return (
         <div className='w-full h-full bg-white flex mt-10 justify-between gap-x-10'>
@@ -196,7 +94,7 @@ const page = () => {
                 <div className='w-full mt-4'>
                     {
                         activeTab === "task"
-                            ? <ContractTaskTab />
+                            ? <ContractTaskTab contract={showDetails ? showDetails : contracts[0]} />
                             : activeTab === "notes"
                                 ? <ContractNotesTab /> :
                                 activeTab === "print" ?
