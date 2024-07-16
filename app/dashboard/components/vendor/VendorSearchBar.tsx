@@ -13,7 +13,7 @@ const VendorSearchBar = () => {
         placeholder="Search by name, role"
         className=" rounded pl-10 pr-4 py-2 w-full border rounded-xl-md focus:outline-none focus:ring-1 focus:ring-black"
         />
-        
+      
       <kbd className="absolute right-3 text-gray-400">⌘</kbd>
     </div>
     <button className=" text-gray-600 font-light flex items-center px-4 py-2 border rounded-xl-md focus:outline-none focus:ring-1 focus:ring-black">
