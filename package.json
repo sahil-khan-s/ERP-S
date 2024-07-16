@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
     "seed": "node --loader ts-node/esm prisma/seed.js"
@@ -42,6 +42,7 @@
     "react-datepicker": "^6.9.0",
     "react-dom": "^18.2.0",
     "react-google-calendar-api": "^2.3.0",
+    "react-icons": "^5.2.1",
     "recharts": "^2.12.7",
     "sharp": "^0.33.3"
   },
