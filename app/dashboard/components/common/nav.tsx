@@ -26,7 +26,7 @@ export default function Nav() {
 
 
     useEffect(() => {
-        fetchData()
+        // fetchData()
     }, []);
     const fetchData = () => {
         const storedUser = localStorage.getItem('user');
@@ -78,15 +78,15 @@ export default function Nav() {
             }
         };
 
-        fetchUnreadNotifications();
+        // fetchUnreadNotifications();
     }, []);
 
 
     return (
 
-        <div className="flex justify-between pt-5">
+        <div className="flex w-full justify-between items-center">
             <div>
-                <h1 className="text-[19px]">Welcome back , <span className="font-medium">{user?.name}</span></h1>
+                <h1 className="text-[19px]">Welcome back , <span className="font-medium">{user?.name || "Aamir"}</span></h1>
             </div>
 
             <div className="flex items-center gap-8 px-4">
@@ -116,7 +116,7 @@ export default function Nav() {
                         {hasUnread && (
                             <span className="absolute top-0 right-0 block h-2 w-2 rounded-full ring-2 ring-white bg-red-400"></span>
                         )}
-                            <span className="absolute top-0 right-0 block h-2 w-2 rounded-full ring-2 ring-white bg-red-400"></span>
+                        <span className="absolute top-0 right-0 block h-2 w-2 rounded-full ring-2 ring-white bg-red-400"></span>
 
                     </div>
                 </Link>
@@ -124,7 +124,7 @@ export default function Nav() {
                     <div className="flex items-center pl-4 space-x-2">
                         <div>
                             {/* <h1 className="font-semibold">{user?.name}</h1> */}
-                            <h1 className="font-semibold">{user?.email}</h1>
+                            <h1 className="font-semibold">{user?.email || "aamir@khan.com"}</h1>
                         </div>
                         <div>
                             {profile ? (
@@ -139,7 +139,7 @@ export default function Nav() {
                         <div className="flex flex-col">
                             <div className="flex gap-2 justify-between">
 
-                                <div className="flex items-center hidden md:flex">
+                                <div className="flex items-center md:flex">
                                     <ExpandMoreIcon
                                         className="cursor-pointer"
                                         // onClick={handleChangePassword} 
