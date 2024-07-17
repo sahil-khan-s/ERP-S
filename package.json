@@ -32,6 +32,7 @@
     "next": "^14.0.4",
     "next-auth": "^4.24.7",
     "next-iron-session": "^4.2.0",
+    "next-plugin-svgr": "^1.1.10",
     "postgres": "^3.4.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",
@@ -41,6 +42,8 @@
     "react-datepicker": "^6.9.0",
     "react-dom": "^18.2.0",
     "react-google-calendar-api": "^2.3.0",
+    "react-icons": "^5.2.1",
+    "recharts": "^2.12.7",
     "sharp": "^0.33.3"
   },
   "compilerOptions": {
