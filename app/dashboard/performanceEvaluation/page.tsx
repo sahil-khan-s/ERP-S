@@ -9,7 +9,7 @@ export interface VendorScore {
     ratingAndReviews: number
 }
 
-const CustomTooltip = ({ active, payload, label }) => {
+const CustomTooltip = ({ active, payload, label }: { active: boolean, payload: any, label: string }) => {
     if (active && payload && payload.length) {
         return (
             <div className="bg-black px-4 py-3 rounded-lg">
