@@ -16,8 +16,6 @@ import transactionListSvg from "@/public/Transaction_Management_Assets/Svgs/Tran
 import Image from "next/image";
 import ActivityCharts from "../components/TransactionManagement/ActivityCharts";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import PaymentModal from "../components/TransactionManagement/PaymentModal";
-import { useState } from "react";
 
 export default function Transcation() {
 
