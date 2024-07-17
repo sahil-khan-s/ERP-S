@@ -18,16 +18,16 @@ const style = {
 };
 
 const PaymentModal = ({
-  open,
-  handleModalClose,
+  openPaymentModal,
+  handlePaymentModalClose,
 }: {
-  open: boolean;
-  handleModalClose: () => void;
+  openPaymentModal: boolean;
+  handlePaymentModalClose: () => void;
 }) => {
   return (
     <Modal
-      open={open}
-      onClose={handleModalClose}
+      open={openPaymentModal}
+      onClose={handlePaymentModalClose}
       aria-labelledby="modal-title"
       aria-describedby="modal-description"
       closeAfterTransition

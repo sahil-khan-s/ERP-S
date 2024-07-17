@@ -20,10 +20,10 @@ import PaymentModal from "../components/TransactionManagement/PaymentModal";
 import { useState } from "react";
 
 export default function Transcation() {
-  const [open, setOpen] = useState<boolean>(false);
+  const [openPaymentModal, setOpenPaymentModal] = useState<boolean>(false);
 
-  const handleModalOpen = () => setOpen(true);
-  const handleModalClose = () => setOpen(false);
+  const handlePaymentModalOpen = () => setOpenPaymentModal(true);
+  const handlePaymentModalClose = () => setOpenPaymentModal(false);
 
   return (
     <>
@@ -114,12 +114,15 @@ export default function Transcation() {
       </section>
       <div className="p-2 bg-white">
         <button
-          onClick={handleModalOpen}
+          onClick={handlePaymentModalOpen}
           className="bg-blue-500 text-white py-2 px-4 rounded-lg"
         >
           Open Payment Modal
         </button>
-        <PaymentModal open={open} handleModalClose={handleModalClose} />
+        <PaymentModal
+          openPaymentModal={openPaymentModal}
+          handlePaymentModalClose={handlePaymentModalClose}
+        />
       </div>
     </>
   );
