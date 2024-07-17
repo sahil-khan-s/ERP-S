@@ -91,7 +91,7 @@ export default function Nav() {
     <div className="flex justify-between pt-5">
       <div>
         <h1 className="text-[19px]">
-          Welcome back , <span className="font-medium">{user?.name}</span>
+          Welcome back , <span className="font-medium">{user?.name || "Anas"}</span>
         </h1>
       </div>
 
