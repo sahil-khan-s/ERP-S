@@ -19,7 +19,7 @@ function ComplianceAlerts() {
       <div className="text-lg font-bold mb-2">Risk Assessment</div>
       <RiskComplianceAlert />
       <div>
-        <div className='bg-[#F5F5F5]  my-4 flex flex-row rounded-xl justify-between'>
+        <div className='bg-[#F5F5F5]  mt-4 flex flex-row rounded-xl justify-between'>
           <div className='p-3'>Department</div><div className='p-3'>Risk Percentage</div><div className='p-3'>Risk Status</div>
         </div>
         <RiskPercentage />

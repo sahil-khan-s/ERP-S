@@ -1,7 +1,8 @@
 import React from 'react';
+//COMPONENTS
 import RiskAssessment from '../components/complaince&risk/RiskAssessment';
 import ComplianceAlerts from '../components/complaince&risk/ComplianceAlerts';
-import VendorSearchBar from '../components/vendor/VendorSearchBar';
+import VendorSearchBar from '../components/common/SearchBar';
 import Nav from '../components/common/nav';
 
 

@@ -3,7 +3,7 @@ import React from 'react'
 import { CiSearch } from "react-icons/ci";
 import { GoFilter } from "react-icons/go";
 
-const VendorSearchBar = () => {
+const SearchBar = () => {
   return (
     <div className="flex items-center space-x-4">
       <div className="relative flex items-center w-full max-w-xs">
@@ -24,4 +24,4 @@ const VendorSearchBar = () => {
   )
 }
 
-export default VendorSearchBar
+export default SearchBar

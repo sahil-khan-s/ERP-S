@@ -46,9 +46,9 @@ const VendorsList = () => {
                 <span className="bg-[#f1f6e7] text-[#6BA10F] px-2 py-1 rounded">{vendor.status}</span>
               </td>
               <td className="px-4 py-2">
-                <button className="p-1"><RiEyeLine /></button>
-                <button className="p-1"><RiEdit2Line /></button>
-                <button className="p-1"><RiDeleteBin6Line /></button>
+                <button className="p-1 mx-1"><RiEyeLine /></button>
+                <button className="p-1 mx-1"><RiEdit2Line /></button>
+                <button className="p-1 mx-1"><RiDeleteBin6Line /></button>
               </td>
             </tr>
           ))}

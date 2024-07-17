@@ -1,7 +1,7 @@
 "use client"
 //COMPONENTS
 import Nav from "../components/common/nav";
-import VendorSearchBar from "../components/vendor/VendorSearchBar";
+import SearchBar from "../components/common/SearchBar";
 import VendorsList from "../components/vendor/VendorsList";
 import VendorInputFields from "../components/vendor/VendorInputFields";
 import NewVendor from "../components/vendor/NewVendor";
@@ -21,7 +21,7 @@ export default function Vendor() {
 
   return (
     <div className="bg-white">
-      <Nav />
+      <Nav/>
 
       {/* Rendor Conditionally */}
       <NewVendor />
@@ -32,7 +32,7 @@ export default function Vendor() {
             <main>
               <div className="bg-white p-4 rounded shadow">
                 <div className="flex justify-between items-center mb-4">
-                  <VendorSearchBar />
+                  <SearchBar />
                   <button onClick={handlePage} className="text-sm bg-[#DDFF8F] text-black p-[15.24px] rounded-[11.43px]">Add New Vendor<AddCircleOutlineIcon className="mx-1" /></button>
                 </div>
                 <VendorsList />

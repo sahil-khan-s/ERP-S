@@ -38,7 +38,7 @@ export default class VendorPageChart extends PureComponent<Props, ExampleState> 
 
 
     return (
-      <div style={{ position: 'relative', width: '250px', height: '280px' }}>
+      <div style={{ position: 'relative', width: '220px', height: '250px' }}>
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
