@@ -1,5 +1,6 @@
+"use client";
 import React from 'react'
-
+import { ResponsiveContainer, LineChart, Line, Legend, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 
 
 export interface VendorScore {
@@ -7,6 +8,21 @@ export interface VendorScore {
     evaluationScore: number
     ratingAndReviews: number
 }
+
+const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+        return (
+            <div className="bg-black px-4 py-3 rounded-lg">
+                <p className="text-white font-medium text-lg font-outfit">{`${label}. ${payload[0].value}`}</p>
+            </div>
+        );
+    }
+
+    return null;
+};
+
+
+
 const page = () => {
 
 
@@ -25,58 +41,69 @@ const page = () => {
             name: "Marry Doe",
             evaluationScore: 4.6,
             ratingAndReviews: 4.1
-        }, {
-            name: 'John Doe',
-            evaluationScore: 4.3,
-            ratingAndReviews: 3.3
-        },
-        {
-            name: "Flody",
-            evaluationScore: 4.3,
-            ratingAndReviews: 4.9
-        }, {
-            name: "Marry Doe",
-            evaluationScore: 4.6,
-            ratingAndReviews: 4.1
-        }, {
-            name: 'John Doe',
-            evaluationScore: 4.3,
-            ratingAndReviews: 3.3
-        },
-        {
-            name: "Flody",
-            evaluationScore: 4.3,
-            ratingAndReviews: 4.9
-        }, {
-            name: "Marry Doe",
-            evaluationScore: 4.6,
-            ratingAndReviews: 4.1
-        }, {
-            name: 'John Doe',
-            evaluationScore: 4.3,
-            ratingAndReviews: 3.3
-        },
-        {
-            name: "Flody",
-            evaluationScore: 4.3,
-            ratingAndReviews: 4.9
-        }, {
-            name: "Marry Doe",
-            evaluationScore: 4.6,
-            ratingAndReviews: 4.1
         }
     ]
 
+    const data = [
+        {
+            name: 'Jan',
+            uv: 3.2,
+        },
+        {
+            name: 'Feb',
+            uv: 4.1,
+        },
+        {
+            name: 'Mar',
+            uv: 2.4,
+        },
+        {
+            name: 'Apr',
+            uv: 3.9,
+        },
+        {
+            name: 'May',
+            uv: 3.0,
+        },
+        {
+            name: 'Jun',
+            uv: 4.9,
+        },
+        {
+            name: 'Jul',
+            uv: 4.2,
+        },
+        {
+            name: 'Aug',
+            uv: 2.8,
+        }, {
+            name: 'Sep',
+            uv: 4.0,
+        },
+        {
+            name: 'Oct',
+            uv: 2.4,
+        },
+        {
+            name: 'Nov',
+            uv: 3.8,
+        },
+        {
+            name: 'Dec',
+            uv: 3.9,
+        },
+    ];
 
 
+    const toPercent = (decimal: number) => `${decimal}.0`;
 
 
     return (
-        <div className='mt-4 w-full h-screen'>
+        <div className='mt-4 w-full'>
             <div className='flex justify-between pr-10 gap-x-5'>
                 {/* venders */}
-                <div className='w-7/12'>
-                    <table className="min-w-full my-5 rounded-xl max-h-40">
+                <div className='w-7/12 max-h-52 overflow-scroll'>
+                    <table className="min-w-full my-5 rounded-xl">
                         <thead className="text-left bg-[#F5F5F5]">
                             <tr>
                                 <th className="whitespace-nowrap px-4 py-2 font-normal font-outfit text-xs">Vender Name</th>
@@ -105,12 +132,12 @@ const page = () => {
                                                 </button>
                                                 <button>
                                                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M3.60107 19.0878H19.3511M13.0374 5.36052C13.0374 5.36052 13.0374 6.79081 14.4677 8.22111C15.898 9.65141 17.3283 9.65141 17.3283 9.65141M7.38075 16.4523L10.3844 16.0232C10.8176 15.9613 11.2191 15.7606 11.5286 15.4511L18.7586 8.22111C19.5486 7.43118 19.5486 6.15045 18.7586 5.36051L17.3283 3.93022C16.5384 3.14029 15.2577 3.14029 14.4677 3.93022L7.23772 11.1602C6.92824 11.4697 6.72749 11.8712 6.6656 12.3045L6.23651 15.3081C6.14116 15.9756 6.71328 16.5477 7.38075 16.4523Z" stroke="#16151C" stroke-linecap="round" />
+                                                        <path d="M3.60107 19.0878H19.3511M13.0374 5.36052C13.0374 5.36052 13.0374 6.79081 14.4677 8.22111C15.898 9.65141 17.3283 9.65141 17.3283 9.65141M7.38075 16.4523L10.3844 16.0232C10.8176 15.9613 11.2191 15.7606 11.5286 15.4511L18.7586 8.22111C19.5486 7.43118 19.5486 6.15045 18.7586 5.36051L17.3283 3.93022C16.5384 3.14029 15.2577 3.14029 14.4677 3.93022L7.23772 11.1602C6.92824 11.4697 6.72749 11.8712 6.6656 12.3045L6.23651 15.3081C6.14116 15.9756 6.71328 16.5477 7.38075 16.4523Z" stroke="#16151C" strokeLinecap="round" />
                                                     </svg>
                                                 </button>
                                                 <button>
                                                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M16.7358 8.58777L16.1094 16.7312C15.9692 18.5547 14.4486 19.9628 12.6197 19.9628H8.60195C6.77307 19.9628 5.25253 18.5547 5.11226 16.7312L4.48584 8.58777M18.4858 6.83777C16.2127 5.73 13.5103 5.08777 10.6108 5.08777C7.71139 5.08777 5.00902 5.73 2.73584 6.83777M8.86084 5.08777V4.21277C8.86084 3.24627 9.64434 2.46277 10.6108 2.46277C11.5773 2.46277 12.3608 3.24627 12.3608 4.21277V5.08777M8.86084 10.3378V15.5878M12.3608 10.3378V15.5878" stroke="#16151C" stroke-linecap="round" />
+                                                        <path d="M16.7358 8.58777L16.1094 16.7312C15.9692 18.5547 14.4486 19.9628 12.6197 19.9628H8.60195C6.77307 19.9628 5.25253 18.5547 5.11226 16.7312L4.48584 8.58777M18.4858 6.83777C16.2127 5.73 13.5103 5.08777 10.6108 5.08777C7.71139 5.08777 5.00902 5.73 2.73584 6.83777M8.86084 5.08777V4.21277C8.86084 3.24627 9.64434 2.46277 10.6108 2.46277C11.5773 2.46277 12.3608 3.24627 12.3608 4.21277V5.08777M8.86084 10.3378V15.5878M12.3608 10.3378V15.5878" stroke="#16151C" strokeLinecap="round" />
                                                     </svg>
                                                 </button>
                                             </td>
@@ -146,7 +173,7 @@ const page = () => {
                                     <path d="M10.3626 2.74231L6.26929 13.6578" stroke="black" strokeOpacity="0.4" strokeWidth="2.45597" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                                 <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <g clip-path="url(#clip0_1_1696)">
+                                    <g clipPath="url(#clip0_1_1696)">
                                         <path d="M6.46789 11.6112H5.10346C4.19879 11.6112 3.33116 11.2518 2.69146 10.6121C2.05176 9.97243 1.69238 9.10481 1.69238 8.20014C1.69238 7.29547 2.05176 6.42784 2.69146 5.78814C3.33116 5.14844 4.19879 4.78906 5.10346 4.78906H6.46789" stroke="black" strokeOpacity="0.4" strokeWidth="2.45597" strokeLinecap="round" strokeLinejoin="round" />
                                         <path d="M10.5596 4.78906H11.924C12.8287 4.78906 13.6963 5.14844 14.336 5.78814C14.9757 6.42784 15.3351 7.29547 15.3351 8.20014C15.3351 9.10481 14.9757 9.97243 14.336 10.6121C13.6963 11.2518 12.8287 11.6112 11.924 11.6112H10.5596" stroke="black" strokeOpacity="0.4" strokeWidth="2.45597" strokeLinecap="round" strokeLinejoin="round" />
                                         <path d="M5.78589 8.20007H11.2436" stroke="black" strokeOpacity="0.4" strokeWidth="2.45597" strokeLinecap="round" strokeLinejoin="round" />
@@ -164,6 +191,35 @@ const page = () => {
 
                     <button className='font-lexend font-semibold text-[11.46px] capitalize mt-3'>load more</button>
                 </div>
+            </div>
+
+
+            <div className='w-full mt-10 h-[500px] border-[0.48px] border-[#000]/50 p-6 rounded-2xl'>
+
+                <div className="flex  items-center gap-x-5 mb-5">
+                    <h2 className='font-medium text-[22px] text-[#1A1B2F] font-outfit'>Rating</h2>
+                    <select name="vender" id="vender" className='text-[#C9C9C9] text-[22px] capitalize'>
+                        <option defaultChecked value="vender1">vender 1</option>
+                        <option value="vender2">vender 2</option>
+                        <option value="vender3">vender 3</option>
+                        <option value="vender4">vender 4</option>
+                    </select>
+                </div>
+
+                <ResponsiveContainer width="100%" height="90%">
+                    <LineChart
+                        width={500}
+                        height={300}
+                        data={data}
+                    >
+                        <XAxis axisLine={false} dataKey="name" tickLine={false} />
+                        <YAxis axisLine={false} tickFormatter={toPercent} domain={[1, 5]} tickLine={false} type={"number"} interval={"preserveEnd"} />
+                        <Tooltip content={<CustomTooltip />} />
+                        <Line type="linear" dot={false} dataKey="uv" isAnimationActive={false} stroke="#6BA10F" strokeWidth={3} />
+                    </LineChart>
+                </ResponsiveContainer>
+
+
             </div>
         </div>
     )
