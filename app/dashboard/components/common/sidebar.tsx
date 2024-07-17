@@ -12,7 +12,7 @@ import { usePathname } from 'next/navigation'
 
 const Sidebar = () => {
 
-  const [open, setOpen] = useState(true); 
+  const [open, setOpen] = useState(true);
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter();
   const toggleSidebar = () => {
@@ -20,7 +20,7 @@ const Sidebar = () => {
   };
 
   const handleDropdown = () => {
-    setIsOpen((prevOpen) => !prevOpen); 
+    setIsOpen((prevOpen) => !prevOpen);
   };
 
   const currentPath = usePathname();
@@ -29,7 +29,7 @@ const Sidebar = () => {
   const matches = useMediaQuery('(max-width:1100px)');
   useEffect(() => {
     setIsSmallScreen(matches);
-    setOpen(!matches); 
+    setOpen(!matches);
   }, [matches]);
 
 
@@ -128,33 +128,33 @@ const Sidebar = () => {
               <div>
                 {open ? (
                   <>
-                  <div className={currentPath === "/dashboard/vendor" ? "active" : "text-white"}>
+                    <div className={currentPath === "/dashboard/vendor" ? "active" : "text-white"}>
 
-                    <div className="flex space-x-4 px-10 hover:bg-[#DDFF8F] hover:text-black cursor-pointer hover:rounded-[10px]  mt-2 py-2 items-center">
-                      <div>
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="white" xmlns="http://www.w3.org/2000/svg">
-                          <g clipPath="url(#clip0_150_1907)">
-                            <path d="M16.5825 14.9523C17.1772 14.9523 17.6502 14.578 18.0749 14.0548C18.9443 12.9836 17.5168 12.1275 16.9724 11.7083C16.419 11.2821 15.801 11.0407 15.1745 10.984M14.3809 9.39672C15.4767 9.39672 16.365 8.5084 16.365 7.41259C16.365 6.31679 15.4767 5.42847 14.3809 5.42847" stroke="black" strokeWidth="0.952381" strokeLinecap="round" />
-                            <path d="M2.65579 14.9523C2.06111 14.9523 1.5881 14.578 1.1634 14.0548C0.293992 12.9836 1.72144 12.1275 2.26586 11.7083C2.8193 11.2821 3.43724 11.0407 4.06376 10.984M4.46059 9.39672C3.36479 9.39672 2.47646 8.5084 2.47646 7.41259C2.47646 6.31679 3.36479 5.42847 4.46059 5.42847" stroke="black" strokeWidth="0.952381" strokeLinecap="round" />
-                            <path d="M6.51109 12.6595C5.70015 13.1609 3.57393 14.1848 4.86894 15.466C5.50154 16.0919 6.2061 16.5395 7.0919 16.5395H12.1465C13.0323 16.5395 13.7368 16.0919 14.3694 15.466C15.6644 14.1848 13.5382 13.1609 12.7273 12.6595C10.8256 11.4836 8.41272 11.4836 6.51109 12.6595Z" stroke="black" strokeWidth="0.952381" strokeLinecap="round" strokeLinejoin="round" />
-                            <path d="M12.3969 6.61896C12.3969 8.15309 11.1532 9.39674 9.61909 9.39674C8.08496 9.39674 6.84131 8.15309 6.84131 6.61896C6.84131 5.08484 8.08496 3.84119 9.61909 3.84119C11.1532 3.84119 12.3969 5.08484 12.3969 6.61896Z" stroke="black" strokeWidth="0.952381" />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_150_1907">
-                              <rect width="19.0476" height="19.0476" fill="white" transform="translate(0.0952148 0.666626)" />
-                            </clipPath>
-                          </defs>
-                        </svg>
+                      <div className="flex space-x-4 px-10 hover:bg-[#DDFF8F] hover:text-black cursor-pointer hover:rounded-[10px]  mt-2 py-2 items-center">
+                        <div>
+                          <svg width="20" height="20" viewBox="0 0 20 20" fill="white" xmlns="http://www.w3.org/2000/svg">
+                            <g clipPath="url(#clip0_150_1907)">
+                              <path d="M16.5825 14.9523C17.1772 14.9523 17.6502 14.578 18.0749 14.0548C18.9443 12.9836 17.5168 12.1275 16.9724 11.7083C16.419 11.2821 15.801 11.0407 15.1745 10.984M14.3809 9.39672C15.4767 9.39672 16.365 8.5084 16.365 7.41259C16.365 6.31679 15.4767 5.42847 14.3809 5.42847" stroke="black" strokeWidth="0.952381" strokeLinecap="round" />
+                              <path d="M2.65579 14.9523C2.06111 14.9523 1.5881 14.578 1.1634 14.0548C0.293992 12.9836 1.72144 12.1275 2.26586 11.7083C2.8193 11.2821 3.43724 11.0407 4.06376 10.984M4.46059 9.39672C3.36479 9.39672 2.47646 8.5084 2.47646 7.41259C2.47646 6.31679 3.36479 5.42847 4.46059 5.42847" stroke="black" strokeWidth="0.952381" strokeLinecap="round" />
+                              <path d="M6.51109 12.6595C5.70015 13.1609 3.57393 14.1848 4.86894 15.466C5.50154 16.0919 6.2061 16.5395 7.0919 16.5395H12.1465C13.0323 16.5395 13.7368 16.0919 14.3694 15.466C15.6644 14.1848 13.5382 13.1609 12.7273 12.6595C10.8256 11.4836 8.41272 11.4836 6.51109 12.6595Z" stroke="black" strokeWidth="0.952381" strokeLinecap="round" strokeLinejoin="round" />
+                              <path d="M12.3969 6.61896C12.3969 8.15309 11.1532 9.39674 9.61909 9.39674C8.08496 9.39674 6.84131 8.15309 6.84131 6.61896C6.84131 5.08484 8.08496 3.84119 9.61909 3.84119C11.1532 3.84119 12.3969 5.08484 12.3969 6.61896Z" stroke="black" strokeWidth="0.952381" />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_150_1907">
+                                <rect width="19.0476" height="19.0476" fill="white" transform="translate(0.0952148 0.666626)" />
+                              </clipPath>
+                            </defs>
+                          </svg>
 
-                      </div>
-                      <div >
-                        <Typography className="" variant="body1">
-                        vendor 
-                        </Typography>
+                        </div>
+                        <div >
+                          <Typography className="" variant="body1">
+                            vendor
+                          </Typography>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                    
+
                   </>
                 ) : (
                   <div className="px-4 hover:bg-[#818081] hover:rounded-full mt-2  py-2">
@@ -177,7 +177,7 @@ const Sidebar = () => {
               </div>
             </Link>
             <Link href="/dashboard/contract">
-              <div className={currentPath === "/dashboard/contract" ? "active" : "text-white"} >
+              <div className={currentPath.startsWith("/dashboard/contract") ? "active" : "text-white"} >
                 {open ? (
                   <>
                     <div className="flex space-x-4 px-10 hover:bg-[#DDFF8F] hover:text-black cursor-pointer hover:rounded-[10px]  mt-2 py-2 items-center">
@@ -191,7 +191,7 @@ const Sidebar = () => {
 
                       </div>
                       <Typography className="" variant="body1">
-                      Contract
+                        Contract
                       </Typography>
                     </div>
                   </>
@@ -215,6 +215,42 @@ const Sidebar = () => {
                   <>
                     <div className="flex space-x-4  pl-10 hover:bg-[#DDFF8F] hover:text-black cursor-pointer hover:rounded-[10px] mt-2  py-2 items-center">
                       <div>
+                        <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M15.9704 7.11295C16.5966 7.11295 17.1043 6.60527 17.1043 5.97902C17.1043 5.35277 16.5966 4.84509 15.9704 4.84509C15.3441 4.84509 14.8364 5.35277 14.8364 5.97902C14.8364 6.60527 15.3441 7.11295 15.9704 7.11295Z" fill="#F5F5F5" fillOpacity="0.933333" />
+                          <path d="M10.3003 16.7514H6.33154V15.6175H10.3003C13.1141 15.6175 15.403 13.3286 15.403 10.5148V8.24695H16.5369V10.5148C16.5369 13.9534 13.7389 16.7514 10.3003 16.7514Z" fill="#F5F5F5" fillOpacity="0.933333" />
+                          <path d="M9.16636 12.2157C7.60324 12.2157 6.33154 10.944 6.33154 9.38084C6.33154 7.81772 7.60324 6.54602 9.16636 6.54602C10.7295 6.54602 12.0012 7.81772 12.0012 9.38084C12.0012 10.944 10.7295 12.2157 9.16636 12.2157ZM9.16636 7.67995C8.22861 7.67995 7.46547 8.44308 7.46547 9.38084C7.46547 10.3186 8.22861 11.0817 9.16636 11.0817C10.1041 11.0817 10.8673 10.3186 10.8673 9.38084C10.8673 8.44308 10.1041 7.67995 9.16636 7.67995Z" fill="#F5F5F5" fillOpacity="0.933333" />
+                          <path d="M2.36293 13.9165C2.98918 13.9165 3.49686 13.4089 3.49686 12.7826C3.49686 12.1564 2.98918 11.6487 2.36293 11.6487C1.73668 11.6487 1.229 12.1564 1.229 12.7826C1.229 13.4089 1.73668 13.9165 2.36293 13.9165Z" fill="#F5F5F5" fillOpacity="0.933333" />
+                          <path d="M2.93032 10.5147H1.79639V8.24686C1.79639 4.80822 4.59436 2.01025 8.03299 2.01025H12.0017V3.14418H8.03299C5.21915 3.14418 2.93032 5.43302 2.93032 8.24686V10.5147Z" fill="#F5F5F5" fillOpacity="0.933333" />
+                        </svg>
+
+
+                      </div>
+                      <Typography className="" variant="body1">
+                        Transcation Managment
+                      </Typography>
+                    </div>
+                  </>
+                ) : (
+                  <div className="px-4 hover:bg-[#818081] hover:rounded-full mt-2  py-1">
+                    <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M15.9704 7.11295C16.5966 7.11295 17.1043 6.60527 17.1043 5.97902C17.1043 5.35277 16.5966 4.84509 15.9704 4.84509C15.3441 4.84509 14.8364 5.35277 14.8364 5.97902C14.8364 6.60527 15.3441 7.11295 15.9704 7.11295Z" fill="#F5F5F5" fillOpacity="0.933333" />
+                      <path d="M10.3003 16.7514H6.33154V15.6175H10.3003C13.1141 15.6175 15.403 13.3286 15.403 10.5148V8.24695H16.5369V10.5148C16.5369 13.9534 13.7389 16.7514 10.3003 16.7514Z" fill="#F5F5F5" fillOpacity="0.933333" />
+                      <path d="M9.16636 12.2157C7.60324 12.2157 6.33154 10.944 6.33154 9.38084C6.33154 7.81772 7.60324 6.54602 9.16636 6.54602C10.7295 6.54602 12.0012 7.81772 12.0012 9.38084C12.0012 10.944 10.7295 12.2157 9.16636 12.2157ZM9.16636 7.67995C8.22861 7.67995 7.46547 8.44308 7.46547 9.38084C7.46547 10.3186 8.22861 11.0817 9.16636 11.0817C10.1041 11.0817 10.8673 10.3186 10.8673 9.38084C10.8673 8.44308 10.1041 7.67995 9.16636 7.67995Z" fill="#F5F5F5" fillOpacity="0.933333" />
+                      <path d="M2.36293 13.9165C2.98918 13.9165 3.49686 13.4089 3.49686 12.7826C3.49686 12.1564 2.98918 11.6487 2.36293 11.6487C1.73668 11.6487 1.229 12.1564 1.229 12.7826C1.229 13.4089 1.73668 13.9165 2.36293 13.9165Z" fill="#F5F5F5" fillOpacity="0.933333" />
+                      <path d="M2.93032 10.5147H1.79639V8.24686C1.79639 4.80822 4.59436 2.01025 8.03299 2.01025H12.0017V3.14418H8.03299C5.21915 3.14418 2.93032 5.43302 2.93032 8.24686V10.5147Z" fill="#F5F5F5" fillOpacity="0.933333" />
+                    </svg>
+
+                  </div>
+                )}
+              </div>
+            </Link>
+
+            <Link href="/dashboard/performanceEvaluation">
+              <div className={currentPath === "/dashboard/performanceEvaluation" ? "active" : "text-white"}>
+                {open ? (
+                  <>
+                    <div className="flex space-x-4  pl-10 hover:bg-[#DDFF8F] hover:text-black cursor-pointer hover:rounded-[10px] mt-2  py-2 items-center">
+                      <div>
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="black" xmlns="http://www.w3.org/2000/svg">
                           <path d="M16.7618 17.5238H8.03163C5.41272 17.5238 4.10326 17.5238 3.28967 16.7102C2.47607 15.8966 2.47607 14.5871 2.47607 11.9682V3.23804" stroke="white" strokeWidth="0.952381" strokeLinecap="round" />
                           <path d="M14.1467 8.26454L11.8659 11.956C11.5336 12.4939 11.1562 13.3064 10.4721 13.186C9.66754 13.0444 9.28111 11.8451 8.58937 11.448C8.02606 11.1247 7.61881 11.5144 7.28947 11.9682M16.7619 4.03174L15.2908 6.41269M4.06348 16.7302L6.06849 13.7672" stroke="white" strokeWidth="0.952381" strokeLinecap="round" strokeLinejoin="round" />
@@ -222,7 +258,7 @@ const Sidebar = () => {
 
                       </div>
                       <Typography className="" variant="body1">
-                      Transcation Managment
+                        Performance Evaluation
                       </Typography>
                     </div>
                   </>
@@ -237,13 +273,13 @@ const Sidebar = () => {
                 )}
               </div>
             </Link>
-           
+
           </div>
-          
+
           <div className="absolute bottom-20  ">
             {open ? (
               <>
-                <div  className="cursor-pointer px-10 gap-4 flex items-center ">
+                <div className="cursor-pointer px-10 gap-4 flex items-center ">
                   <div >
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M17.5556 10.2385C17.5556 5.85533 14.0023 2.30203 9.61912 2.30203C5.23591 2.30203 1.68262 5.85533 1.68262 10.2385C1.68262 14.6218 5.23591 18.175 9.61912 18.175C14.0023 18.175 17.5556 14.6218 17.5556 10.2385Z" stroke="white" strokeWidth="0.952381" />
@@ -257,7 +293,7 @@ const Sidebar = () => {
                 </div>
               </>
             ) : (
-              <div  className="cursor-pointer px-5 hover:bg-[#818081] hover:rounded-full mt-5  py-2">
+              <div className="cursor-pointer px-5 hover:bg-[#818081] hover:rounded-full mt-5  py-2">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17.5556 10.2385C17.5556 5.85533 14.0023 2.30203 9.61912 2.30203C5.23591 2.30203 1.68262 5.85533 1.68262 10.2385C1.68262 14.6218 5.23591 18.175 9.61912 18.175C14.0023 18.175 17.5556 14.6218 17.5556 10.2385Z" stroke="white" strokeWidth="0.952381" />
                   <path d="M9.81123 14.2065V10.2383C9.81123 9.86416 9.81123 9.6771 9.695 9.56087C9.57877 9.44464 9.39171 9.44464 9.01758 9.44464" stroke="white" strokeWidth="0.952381" strokeLinecap="round" strokeLinejoin="round" />
@@ -270,7 +306,7 @@ const Sidebar = () => {
           <div className="absolute bottom-7  ">
             {open ? (
               <>
-                <div  className="cursor-pointer px-10 gap-4 flex items-center ">
+                <div className="cursor-pointer px-10 gap-4 flex items-center ">
                   <div >
                     <svg
                       width="18"
@@ -306,7 +342,7 @@ const Sidebar = () => {
                 </div>
               </>
             ) : (
-              <div  className=" cursor-pointer px-5 hover:bg-[#818081] hover:rounded-full mt-5  py-2">
+              <div className=" cursor-pointer px-5 hover:bg-[#818081] hover:rounded-full mt-5  py-2">
                 <svg
                   width="18"
                   height="18"
