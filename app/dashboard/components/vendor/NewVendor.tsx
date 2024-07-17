@@ -1,6 +1,6 @@
 import React from 'react';
 import VendorChartDetail from './VendorChartDetail';
-import { TiLocationOutline,TiBriefcase  } from "react-icons/ti";
+import { TiLocationOutline, TiBriefcase } from "react-icons/ti";
 
 
 const newVendorUser = {
@@ -9,7 +9,7 @@ const newVendorUser = {
     "Vendor Type": "Remote",
     "Email": "Jhonsmith90@gmail.com",
     "Phone": "034709897668"
-  }
+}
 
 const NewVendor = () => {
     return (
@@ -23,11 +23,11 @@ const NewVendor = () => {
                     <div className="text-2xl pt-4 font-semibold">Vendor Details</div>
                     <div className="mt-4 gap-2">
                         <div className="text-md font-medium text-gray-400 flex flex-row"></div>
-                        <div className="text-md font-medium text-gray-400 flex flex-row"><TiBriefcase className='text-2xl'/><p>Vendor Name: </p></div>
+                        <div className="text-md font-medium text-gray-400 flex flex-row"><TiBriefcase className='text-2xl' /><p>Vendor Name: </p></div>
                         <div className="text-md text-black font-semibold px-2">{newVendorUser['Vendor Name']}</div>
                     </div>
                     <div className="mt-5 gap-2">
-                        <div className="text-md font-medium text-gray-400 flex flex-row"><TiLocationOutline className='text-2xl'/><p>Location: </p></div>
+                        <div className="text-md font-medium text-gray-400 flex flex-row"><TiLocationOutline className='text-2xl' /><p>Location: </p></div>
                         <div className="text-md text-black font-semibold  px-2">{newVendorUser.Location}</div>
                     </div>
                     <div className="mt-5 flex flex-row gap-2">
@@ -44,7 +44,7 @@ const NewVendor = () => {
                     </div>
                 </div>
             </div>
-                <VendorChartDetail />
+            <VendorChartDetail />
         </div>
     );
 };

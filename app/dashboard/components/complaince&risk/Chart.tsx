@@ -7,7 +7,7 @@ const data = [
   { name: 'Group B', value: 300 },
   { name: 'Group B', value: 300 },
 ];
-const COLORS = ['#DDFF8F', '#000002',"#A9E338"];
+const COLORS = ['#DDFF8F', '#000002', "#A9E338"];
 
 interface Props {
   count: number;

@@ -8,9 +8,9 @@ import Nav from '../components/common/nav';
 function App() {
   return (
     <div className="min-h-screen bg-white">
-      <Nav/>
+      <Nav />
       <header className="flex justify-between items-center px-6">
-        <VendorSearchBar/>
+        <VendorSearchBar />
         <button className="bg-[#DDFF8F] text-black rounded-xl text-sm py-3  m-2 px-6">Date Range</button>
       </header>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

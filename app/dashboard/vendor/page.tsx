@@ -23,9 +23,9 @@ export default function Vendor() {
     <div className="bg-white">
       <Nav />
 
-         {/* Rendor Conditionally */}
-                 <NewVendor/>
-     
+      {/* Rendor Conditionally */}
+      <NewVendor />
+
       {page ?
         <div>
           <div className="min-h-screen bg-gray-100 ">
@@ -42,16 +42,16 @@ export default function Vendor() {
         </div>
         :
         <div className="bg-white p-8 shadow-lg w-full">
-            <VendorInputFields />        
-            <div className="flex justify-end gap-4">
-              <button
-                onClick={handlePage}
-                className="bg-white border border-gray-300 text-gray-700 font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline">
-                Cancel
-              </button>
-              <div className="py-2 px-10 ">
-              </div>
+          <VendorInputFields />
+          <div className="flex justify-end gap-4">
+            <button
+              onClick={handlePage}
+              className="bg-white border border-gray-300 text-gray-700 font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline">
+              Cancel
+            </button>
+            <div className="py-2 px-10 ">
             </div>
+          </div>
         </div>
       }
 
