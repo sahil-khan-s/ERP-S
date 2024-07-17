@@ -28,22 +28,45 @@ export default function Nav() {
   const [user, setUser] = useState<User | null>(null);
   const [isOpen, setIsOpen] = useState(false); // State to manage dropdown visibility
   const [open, setOpen] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [hasUnread, setHasUnread] = useState(false);
   const router = useRouter();
+
   useEffect(() => {
-    const fetchData = () => {
-      const storedUser = localStorage.getItem("user");
-      if (storedUser) {
-        const parsedUser = JSON.parse(storedUser);
-        setUser(parsedUser);
-      } else {
-        router.push("/"); // Redirect to login if user is not found
-      }
-    };
-
     fetchData();
+  }, []);
+  const fetchData = () => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser);
+    } else {
+      router.push("/"); // Redirect to login if user is not found
+    }
+  };
 
+  const profile = user?.profilePicture;
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const handleSignOut = () => {
+    localStorage.removeItem("user");
+    router.push("/");
+  };
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleModalOpen = () => {
+    setModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+    handleClose();
+  };
+
+  const [hasUnread, setHasUnread] = useState(false);
+
+  useEffect(() => {
     const fetchUnreadNotifications = async () => {
       try {
         const response = await fetch("/api/notifications");
@@ -62,33 +85,13 @@ export default function Nav() {
     };
 
     fetchUnreadNotifications();
-  }, [router]);
-
-  const profile = user?.profilePicture;
-
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  const handleSignOut = () => {
-    localStorage.removeItem("user");
-    router.push("/");
-  };
-
-  const handleModalOpen = () => {
-    setModalOpen(true);
-  };
-
-  const handleModalClose = () => {
-    setModalOpen(false);
-    handleClose();
-  };
+  }, []);
 
   return (
-    <div className="flex w-full justify-between items-center">
+    <div className="flex justify-between pt-5">
       <div>
         <h1 className="text-[19px]">
-          Welcome back ,{" "}
-          <span className="font-medium">{user?.name || "Aamir"}</span>
+          Welcome back , <span className="font-medium">{user?.name}</span>
         </h1>
       </div>
 
@@ -172,9 +175,7 @@ export default function Nav() {
           <div className="flex items-center pl-4 space-x-2">
             <div>
               {/* <h1 className="font-semibold">{user?.name}</h1> */}
-              <h1 className="font-semibold">
-                {user?.email || "aamir@khan.com"}
-              </h1>
+              <h1 className="font-semibold">{user?.email}</h1>
             </div>
             <div>
               {profile ? (
@@ -194,7 +195,7 @@ export default function Nav() {
             </div>
             <div className="flex flex-col">
               <div className="flex gap-2 justify-between">
-                <div className="flex items-center md:flex">
+                <div className="flex items-center hidden md:flex">
                   <ExpandMoreIcon
                     className="cursor-pointer"
                     // onClick={handleChangePassword}
@@ -273,71 +274,6 @@ export default function Nav() {
             </Modal>
           </div>
         </div>
-      </div>
-      <div style={{ position: "relative", backgroundColor: "white" }}>
-        {open && (
-          <div
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              backdropFilter: "blur(100px)",
-              zIndex: 998, // Adjust the z-index as needed
-            }}
-          />
-        )}
-        <Box
-          sx={{
-            position: "absolute",
-            top: "10px",
-            right: "40px",
-            zIndex: 999,
-          }}
-        ></Box>
-        <Modal
-          open={modalOpen}
-          onClose={handleModalClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-          style={{
-            display: "flex",
-            justifyContent: "end",
-            alignItems: "flex-start",
-            margin: "40px 70px",
-          }}
-        >
-          <Box sx={{ bgcolor: "background.paper", borderRadius: "8px" }}>
-            <List sx={{ pt: 0 }}>
-              <Link href="/dashboard/editProfile">
-                <ListItemButton
-                  onClick={() => {
-                    handleModalClose();
-                  }}
-                >
-                  <ListItemIcon>
-                    <PersonOutlineIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="My Profile" />
-                </ListItemButton>
-              </Link>
-              <Link href="/">
-                <div className="cursor-pointer border-none">
-                  <ListItemButton
-                    className="border-none"
-                    onClick={handleSignOut}
-                  >
-                    <ListItemIcon>
-                      <LogoutIcon className="text-red-500" />
-                    </ListItemIcon>
-                    <ListItemText className="text-red-500" primary="Logout" />
-                  </ListItemButton>
-                </div>
-              </Link>
-            </List>
-          </Box>
-        </Modal>
       </div>
     </div>
   );
