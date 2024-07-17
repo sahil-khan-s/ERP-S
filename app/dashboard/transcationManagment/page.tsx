@@ -16,8 +16,14 @@ import transactionListSvg from "@/public/Transaction_Management_Assets/Svgs/Tran
 import Image from "next/image";
 import ActivityCharts from "../components/TransactionManagement/ActivityCharts";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import PaymentModal from "../components/TransactionManagement/PaymentModal";
+import { useState } from "react";
 
 export default function Transcation() {
+  const [openPaymentModal, setOpenPaymentModal] = useState<boolean>(false);
+
+  const handlePaymentModalOpen = () => setOpenPaymentModal(true);
+  const handlePaymentModalClose = () => setOpenPaymentModal(false);
 
   return (
     <>
@@ -106,6 +112,18 @@ export default function Transcation() {
           </div>
         </div>
       </section>
+      <div className="p-2 bg-white">
+        <button
+          onClick={handlePaymentModalOpen}
+          className="bg-blue-500 text-white py-2 px-4 rounded-lg"
+        >
+          Open Payment Modal
+        </button>
+        <PaymentModal
+          openPaymentModal={openPaymentModal}
+          handlePaymentModalClose={handlePaymentModalClose}
+        />
+      </div>
     </>
   );
 }
