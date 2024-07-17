@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import StatsCard from "../components/contract/statsCard";
 import Task, { Task as TaskInterface } from "../components/contract/task";
