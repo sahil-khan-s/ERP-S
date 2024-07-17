@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React from "react";
 import { Modal, Box, Typography } from "@mui/material";
@@ -19,15 +19,15 @@ const style = {
 
 const PaymentModal = ({
   open,
-  handleClose,
+  handleModalClose,
 }: {
   open: boolean;
-  handleClose: () => void;
+  handleModalClose: () => void;
 }) => {
   return (
     <Modal
       open={open}
-      onClose={handleClose}
+      onClose={handleModalClose}
       aria-labelledby="modal-title"
       aria-describedby="modal-description"
       closeAfterTransition

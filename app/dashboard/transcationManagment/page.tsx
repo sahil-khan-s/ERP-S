@@ -22,8 +22,8 @@ import { useState } from "react";
 export default function Transcation() {
   const [open, setOpen] = useState<boolean>(false);
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleModalOpen = () => setOpen(true);
+  const handleModalClose = () => setOpen(false);
 
   return (
     <>
@@ -119,7 +119,7 @@ export default function Transcation() {
         >
           Open Payment Modal
         </button>
-        <PaymentModal open={open} handleClose={handleClose} />
+        <PaymentModal open={open} handleModalClose={handleModalClose} />
       </div>
     </>
   );
