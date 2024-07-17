@@ -114,7 +114,7 @@ export default function Transcation() {
       </section>
       <div className="p-2 bg-white">
         <button
-          onClick={handleOpen}
+          onClick={handleModalOpen}
           className="bg-blue-500 text-white py-2 px-4 rounded-lg"
         >
           Open Payment Modal
