@@ -31,7 +31,7 @@ export default function Nav() {
   const router = useRouter();
 
   useEffect(() => {
-    fetchData();
+    // fetchData();
   }, []);
   const fetchData = () => {
     const storedUser = localStorage.getItem("user");

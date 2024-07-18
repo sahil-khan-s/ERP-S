@@ -217,27 +217,27 @@ export default function Contract() {
   const stats = [
     {
       title: "Active",
-      value: Math.floor(Math.random() * 400)
+      value: 243
     },
     {
       title: "Renewal",
-      value: Math.floor(Math.random() * 400)
+      value: 33
     },
     {
       title: "Modified",
-      value: Math.floor(Math.random() * 400)
+      value: 192
     },
     {
       title: "Viewed",
-      value: Math.floor(Math.random() * 400)
+      value: 456
     },
     {
       title: "Signed",
-      value: Math.floor(Math.random() * 400)
+      value: 143
     },
     {
       title: "Not Signed",
-      value: Math.floor(Math.random() * 400)
+      value: 66
     }
   ]
 
@@ -319,8 +319,8 @@ export default function Contract() {
             <div className="flex justify-between items-center">
               <h2 className="text-[20px] font-outfit">Status</h2>
               <div className="flex gap-x-2">
-                <p className="flex items-center gap-x-1 text-xs font-light p-2 text-[#069855] bg-[#E6F5EE] rounded-lg border-[0.48px] border-[#069855]">Renewed</p>
-                <p className="flex items-center gap-x-1 text-xs font-light p-2 text-[#D39C1D] bg-[#FBF5E8] rounded-lg border-[0.48px] border-[#D39C1D]">Pending</p>
+                <p className="flex items-center gap-x-1 text-xs font-light p-2 text-[#069855] bg-[#E6F5EE] rounded-xl border-[0.48px] border-[#069855]">Renewed</p>
+                <p className="flex items-center gap-x-1 text-xs font-light p-2 text-[#D39C1D] bg-[#FBF5E8] rounded-xl border-[0.48px] border-[#D39C1D]">Pending</p>
               </div>
             </div>
 
@@ -337,14 +337,14 @@ export default function Contract() {
             <div className="flex justify-between items-center">
               <h2 className="text-[20px] font-outfit">Contracts</h2>
               <div className="flex gap-x-2">
-                <button className="flex items-center gap-x-1 p-2 rounded-lg border-[0.48px] border-gray-500">
+                <button className="flex items-center gap-x-1 p-2 rounded-xl border-[0.48px] border-gray-500">
                   <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9.54659 0.948852C8.94747 0.349732 7.97614 0.349732 7.37702 0.948852L1.295 7.03088C1.25332 7.07256 1.22322 7.12423 1.20751 7.18096L0.407704 10.0684C0.374811 10.1868 0.408236 10.3136 0.495062 10.4005C0.58202 10.4874 0.708795 10.5208 0.827181 10.488L3.71465 9.6881C3.77138 9.67239 3.82305 9.64229 3.86473 9.60061L9.94662 3.51845C10.5448 2.91893 10.5448 1.94841 9.94662 1.34889L9.54659 0.948852ZM2.03781 7.25247L7.01547 2.27467L8.62081 3.88L3.64301 8.8578L2.03781 7.25247ZM1.71714 7.89593L2.99968 9.1786L1.22562 9.67012L1.71714 7.89593ZM9.46456 3.03639L9.10301 3.39793L7.49754 1.79247L7.85922 1.43092C8.19201 1.09813 8.7316 1.09813 9.06439 1.43092L9.46456 1.83095C9.79681 2.16414 9.79681 2.70333 9.46456 3.03639Z" fill="black" fill-opacity="0.6" />
                   </svg>
 
                   <p className="font-outfit capitalize font-light text-xs">edit</p>
                 </button>
-                <Link href={"/dashboard/contract/details"} className="font-outfit font-light text-xs rounded-lg  p-2 border-[0.48px] border-gray-500">View All</Link>
+                <Link href={"/dashboard/contract/details"} className="font-outfit font-light text-xs rounded-xl  p-2 border-[0.48px] border-gray-500">View All</Link>
               </div>
             </div>
 
