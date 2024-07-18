@@ -32,7 +32,7 @@ const ComplainceList = () => {
         </thead>
         <tbody>
           {complaince.map((item, index) => (
-            <tr key={index}>
+            <tr className='border border-x-0 border-t-0 border-slate-100' key={index}>
               <td className="p-4">{item.description}</td>
               <td className="p-4">{item.id}</td>
               <td className="p-4">{item.assignTo}</td>

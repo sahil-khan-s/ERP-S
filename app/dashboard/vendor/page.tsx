@@ -24,7 +24,7 @@ export default function Vendor() {
       <Nav/>
 
       {/* Rendor Conditionally */}
-      <NewVendor />
+      {/* <NewVendor /> */}
 
       {page ?
         <div>
@@ -54,7 +54,6 @@ export default function Vendor() {
           </div>
         </div>
       }
-
     </div>
   );
 };

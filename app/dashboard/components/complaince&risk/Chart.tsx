@@ -18,7 +18,7 @@ interface ExampleState {
   activeIndex: number | null;
 }
 
-export default class VendorPageChart extends PureComponent<Props, ExampleState> {
+export default class ComplianceChart extends PureComponent<Props, ExampleState> {
   constructor(props: Props) {
     super(props);
     this.state = {

@@ -35,7 +35,7 @@ const VendorsList = () => {
         </thead>
         <tbody>
           {vendors.map((vendor, index) => (
-            <tr key={index}>
+            <tr className='border border-x-0 border-t-0 border-slate-100' key={index}>
               <td className="p-4"><AccountCircleIcon className=" text-3xl mx-2" />{vendor.name}</td>
               {/* vendor image here */}
               <td className="p-4">{vendor.id}</td>
