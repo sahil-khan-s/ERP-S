@@ -1,24 +1,23 @@
 "use client";
 
 import Nav from "../components/common/nav";
-import TransactionScreenCard from "../components/TransactionManagement/TransactionScreenCard";
+import TransactionScreenCard from "../components/transactionManagement/TransactionScreenCard";
 import UserSvg from "@/public/Svgs/Users.svg";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import TransactionDetails from "../components/TransactionManagement/TransactionDetails";
+import TransactionDetails from "../components/transactionManagement/TransactionDetails";
 import TransactionSvg from "@/public/Transaction_Management_Assets/Svgs/Transaction.svg";
 import QuickTransferSvg from "@/public/Transaction_Management_Assets/Svgs/Transfer.svg";
-import LineChart from "../components/TransactionManagement/LineChart";
+import LineChart from "../components/transactionManagement/LineChart";
 import CashIssueImage from "@/public/Transaction_Management_Assets/CardIssue.png";
 import TransactionImage from "@/public/Transaction_Management_Assets/Transaction.png";
-import TransactionList from "../components/TransactionManagement/TransactionList";
+import TransactionList from "../components/transactionManagement/TransactionList";
 import transactionListSvg from "@/public/Transaction_Management_Assets/Svgs/TransactionList.svg";
 import Image from "next/image";
-import ActivityCharts from "../components/TransactionManagement/ActivityCharts";
+import ActivityCharts from "../components/transactionManagement/ActivityCharts";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function Transcation() {
-
   return (
     <>
       <section className="bg-white px-4 py-1">

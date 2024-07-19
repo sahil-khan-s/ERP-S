@@ -38,9 +38,10 @@ export default function Nav() {
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
       setUser(parsedUser);
-    } else {
-      router.push("/"); // Redirect to login if user is not found
-    }
+    } 
+    // else {
+    //   router.push("/"); // Redirect to login if user is not found
+    // }
   };
 
   const profile = user?.profilePicture;
