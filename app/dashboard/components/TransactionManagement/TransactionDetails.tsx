@@ -4,7 +4,7 @@ import SpotifyLogo from "@/public/Transaction_Management_Assets/SpotifyLogo.png"
 import AdobeXdLogo from "@/public/Transaction_Management_Assets/AbobeXD.png";
 import UpworkLogo from "@/public/Transaction_Management_Assets/UpworkLogo.png";
 import GoogleCloudLogo from "@/public/Transaction_Management_Assets/GoogleCloud.png";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import visaImage from "@/public/Transaction_Management_Assets/Visa.png";
 import MasterCard from "@/public/Transaction_Management_Assets/MasterCard.png";
 
@@ -14,7 +14,7 @@ const TransactionDetails = ({
   ShowTransactionDetails,
 }: {
   mainTitle: string;
-  logo: any;
+  logo: StaticImageData;
   ShowTransactionDetails: boolean;
 }) => {
   return (
