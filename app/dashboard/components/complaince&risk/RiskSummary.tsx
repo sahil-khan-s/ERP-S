@@ -2,7 +2,7 @@ import React from 'react';
 
 const RiskSummary = () => {
   return (
-    <div className="flex flex-col gap-3 border rounded-2xl p-7  max-w-sm">
+    <div className="flex flex-col gap-2.5 border rounded-2xl p-7  max-w-sm">
       <div className="flex justify-between items-center">
         <h4 className="text-gray-700 text-xl font-semibold">Risk Summary</h4>
         <button className="text-gray-400 cursor-pointer">•••</button>

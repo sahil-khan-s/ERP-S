@@ -33,7 +33,7 @@ const RiskTabs = () => {
   </TabsList>
   <TabsContent value="information">
     {riskInformation.map((item,index)=>(
-         <div className=" border w-[600px] rounded-xl p-4 flex items-start mb-4">
+         <div className=" border w-[600px] rounded-xl p-4 flex items-start mb-3">
                <div className=' flex-shrink-0'> 
                 <img src={item.image} alt="Risk 1" className=" w-[151.2px] h-[221.13px] object-cover rounded-lg mr-2" />
                </div>
