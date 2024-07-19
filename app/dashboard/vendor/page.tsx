@@ -18,7 +18,6 @@ export default function Vendor() {
     setPage(!page)
   }
 
-
   return (
     <div className="bg-white">
       <Nav/>
