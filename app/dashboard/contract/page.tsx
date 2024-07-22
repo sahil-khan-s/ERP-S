@@ -6,8 +6,6 @@ import ContractCard, { ContractInterface } from "../components/contract/contract
 import Link from "next/link"
 import StateChart, { DataPoint } from "../components/contract/areaChart";
 
-
-
 export const contracts: ContractInterface[] = [
   {
     id: 1234567,
