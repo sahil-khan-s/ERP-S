@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+import Image from "next/image";
+
+export default function Contract() {
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <h1>Contract page </h1>
+=======
 "use client";
 import Image from "next/image";
 import StatsCard from "../components/contract/statsCard";
@@ -367,6 +375,7 @@ export default function Contract() {
 
 
       </div>
+>>>>>>> f329f86043d006aca95a17d54af2f7bd41bd5095
     </main>
   );
 }

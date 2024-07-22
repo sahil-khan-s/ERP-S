@@ -1,14 +1,27 @@
 "use client";
+//HOOKS
 import React, { useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
+//MATERIAL UI 
 import { useMediaQuery } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu"
+//ICONS
+import { TbAnalyze } from "react-icons/tb";
+import { PiArrowSquareIn } from "react-icons/pi";
+import { HiOutlineUserGroup } from "react-icons/hi2";
+import { BsGraphUpArrow } from "react-icons/bs";
+import { FaRegChartBar } from "react-icons/fa";
+import { FaListUl } from "react-icons/fa6";
+import { HiOutlineSquares2X2 } from "react-icons/hi2";
+
+
+
+
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
@@ -121,44 +134,16 @@ const Sidebar = () => {
             <div
               onClick={() => router.push("/dashboard")}
               className={
-                currentPath === "/dashboard" ? "active " : "text-white"
-              }
+                currentPath === "/dashboard" ? "active bg-[#DDFF8F] rounded-lg transition-all duration-300  text-black ease-in " : "rounded-xl group text-white hover:bg-[#DDFF8F] hover:text-black"}
             >
               {open ? (
                 <>
-                  <div className="flex  space-x-4 px-10 hover:bg-[#DDFF8F] hover:text-black cursor-pointer hover:rounded-[10px] mt-12  py-2 items-center">
+                  <div className="flex active:text-black space-x-3 px-5 hover:bg-[#DDFF8F]  cursor-pointer hover:rounded-[10px] mt-12  py-2 items-center">
                     <div>
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="black"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M1.68213 14.8571C1.68213 13.6345 1.68213 13.0232 1.95731 12.5742C2.11129 12.3229 2.32255 12.1117 2.57382 11.9577C3.02288 11.6825 3.63416 11.6825 4.85673 11.6825C6.0793 11.6825 6.69059 11.6825 7.13964 11.9577C7.39091 12.1117 7.60217 12.3229 7.75615 12.5742C8.03133 13.0232 8.03133 13.6345 8.03133 14.8571C8.03133 16.0797 8.03133 16.691 7.75615 17.14C7.60217 17.3913 7.39091 17.6025 7.13964 17.7565C6.69059 18.0317 6.0793 18.0317 4.85673 18.0317C3.63416 18.0317 3.02288 18.0317 2.57382 17.7565C2.32255 17.6025 2.11129 17.3913 1.95731 17.14C1.68213 16.691 1.68213 16.0797 1.68213 14.8571Z"
-                          stroke="white"
-                          strokeWidth="0.952381"
-                        />
-                        <path
-                          d="M11.2061 14.8571C11.2061 13.6345 11.2061 13.0232 11.4812 12.5742C11.6352 12.3229 11.8465 12.1117 12.0977 11.9577C12.5468 11.6825 13.1581 11.6825 14.3807 11.6825C15.6032 11.6825 16.2145 11.6825 16.6636 11.9577C16.9148 12.1117 17.1261 12.3229 17.2801 12.5742C17.5553 13.0232 17.5553 13.6345 17.5553 14.8571C17.5553 16.0797 17.5553 16.691 17.2801 17.14C17.1261 17.3913 16.9148 17.6025 16.6636 17.7565C16.2145 18.0317 15.6032 18.0317 14.3807 18.0317C13.1581 18.0317 12.5468 18.0317 12.0977 17.7565C11.8465 17.6025 11.6352 17.3913 11.4812 17.14C11.2061 16.691 11.2061 16.0797 11.2061 14.8571Z"
-                          stroke="white"
-                          strokeWidth="0.952381"
-                        />
-                        <path
-                          d="M1.68213 5.33329C1.68213 4.11072 1.68213 3.49944 1.95731 3.05038C2.11129 2.79911 2.32255 2.58785 2.57382 2.43387C3.02288 2.15869 3.63416 2.15869 4.85673 2.15869C6.0793 2.15869 6.69059 2.15869 7.13964 2.43387C7.39091 2.58785 7.60217 2.79911 7.75615 3.05038C8.03133 3.49944 8.03133 4.11072 8.03133 5.33329C8.03133 6.55586 8.03133 7.16715 7.75615 7.6162C7.60217 7.86748 7.39091 8.07874 7.13964 8.23272C6.69059 8.5079 6.0793 8.5079 4.85673 8.5079C3.63416 8.5079 3.02288 8.5079 2.57382 8.23272C2.32255 8.07874 2.11129 7.86748 1.95731 7.6162C1.68213 7.16715 1.68213 6.55586 1.68213 5.33329Z"
-                          stroke="white"
-                          strokeWidth="0.952381"
-                        />
-                        <path
-                          d="M11.2061 5.33329C11.2061 4.11072 11.2061 3.49944 11.4812 3.05038C11.6352 2.79911 11.8465 2.58785 12.0977 2.43387C12.5468 2.15869 13.1581 2.15869 14.3807 2.15869C15.6032 2.15869 16.2145 2.15869 16.6636 2.43387C16.9148 2.58785 17.1261 2.79911 17.2801 3.05038C17.5553 3.49944 17.5553 4.11072 17.5553 5.33329C17.5553 6.55586 17.5553 7.16715 17.2801 7.6162C17.1261 7.86748 16.9148 8.07874 16.6636 8.23272C16.2145 8.5079 15.6032 8.5079 14.3807 8.5079C13.1581 8.5079 12.5468 8.5079 12.0977 8.23272C11.8465 8.07874 11.6352 7.86748 11.4812 7.6162C11.2061 7.16715 11.2061 6.55586 11.2061 5.33329Z"
-                          stroke="white"
-                          strokeWidth="0.952381"
-                        />
-                      </svg>
+                    <HiOutlineSquares2X2 className="text-2xl" />
                     </div>
                     <Typography
-                      className="text-white hover:text-black "
+                      className={currentPath === "/dashboard"?"text-black group-hover:text-black":"text-white group-hover:text-black"}
                       variant="body1"
                     >
                       Dashboard
@@ -166,194 +151,43 @@ const Sidebar = () => {
                   </div>
                 </>
               ) : (
-                <div className="px-4 mt-12 hover:bg-[#818081] hover:rounded-full   py-2">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M1.68213 14.8571C1.68213 13.6345 1.68213 13.0232 1.95731 12.5742C2.11129 12.3229 2.32255 12.1117 2.57382 11.9577C3.02288 11.6825 3.63416 11.6825 4.85673 11.6825C6.0793 11.6825 6.69059 11.6825 7.13964 11.9577C7.39091 12.1117 7.60217 12.3229 7.75615 12.5742C8.03133 13.0232 8.03133 13.6345 8.03133 14.8571C8.03133 16.0797 8.03133 16.691 7.75615 17.14C7.60217 17.3913 7.39091 17.6025 7.13964 17.7565C6.69059 18.0317 6.0793 18.0317 4.85673 18.0317C3.63416 18.0317 3.02288 18.0317 2.57382 17.7565C2.32255 17.6025 2.11129 17.3913 1.95731 17.14C1.68213 16.691 1.68213 16.0797 1.68213 14.8571Z"
-                      stroke="white"
-                      strokeWidth="0.952381"
-                    />
-                    <path
-                      d="M11.2061 14.8571C11.2061 13.6345 11.2061 13.0232 11.4812 12.5742C11.6352 12.3229 11.8465 12.1117 12.0977 11.9577C12.5468 11.6825 13.1581 11.6825 14.3807 11.6825C15.6032 11.6825 16.2145 11.6825 16.6636 11.9577C16.9148 12.1117 17.1261 12.3229 17.2801 12.5742C17.5553 13.0232 17.5553 13.6345 17.5553 14.8571C17.5553 16.0797 17.5553 16.691 17.2801 17.14C17.1261 17.3913 16.9148 17.6025 16.6636 17.7565C16.2145 18.0317 15.6032 18.0317 14.3807 18.0317C13.1581 18.0317 12.5468 18.0317 12.0977 17.7565C11.8465 17.6025 11.6352 17.3913 11.4812 17.14C11.2061 16.691 11.2061 16.0797 11.2061 14.8571Z"
-                      stroke="white"
-                      strokeWidth="0.952381"
-                    />
-                    <path
-                      d="M1.68213 5.33329C1.68213 4.11072 1.68213 3.49944 1.95731 3.05038C2.11129 2.79911 2.32255 2.58785 2.57382 2.43387C3.02288 2.15869 3.63416 2.15869 4.85673 2.15869C6.0793 2.15869 6.69059 2.15869 7.13964 2.43387C7.39091 2.58785 7.60217 2.79911 7.75615 3.05038C8.03133 3.49944 8.03133 4.11072 8.03133 5.33329C8.03133 6.55586 8.03133 7.16715 7.75615 7.6162C7.60217 7.86748 7.39091 8.07874 7.13964 8.23272C6.69059 8.5079 6.0793 8.5079 4.85673 8.5079C3.63416 8.5079 3.02288 8.5079 2.57382 8.23272C2.32255 8.07874 2.11129 7.86748 1.95731 7.6162C1.68213 7.16715 1.68213 6.55586 1.68213 5.33329Z"
-                      stroke="white"
-                      strokeWidth="0.952381"
-                    />
-                    <path
-                      d="M11.2061 5.33329C11.2061 4.11072 11.2061 3.49944 11.4812 3.05038C11.6352 2.79911 11.8465 2.58785 12.0977 2.43387C12.5468 2.15869 13.1581 2.15869 14.3807 2.15869C15.6032 2.15869 16.2145 2.15869 16.6636 2.43387C16.9148 2.58785 17.1261 2.79911 17.2801 3.05038C17.5553 3.49944 17.5553 4.11072 17.5553 5.33329C17.5553 6.55586 17.5553 7.16715 17.2801 7.6162C17.1261 7.86748 16.9148 8.07874 16.6636 8.23272C16.2145 8.5079 15.6032 8.5079 14.3807 8.5079C13.1581 8.5079 12.5468 8.5079 12.0977 8.23272C11.8465 8.07874 11.6352 7.86748 11.4812 7.6162C11.2061 7.16715 11.2061 6.55586 11.2061 5.33329Z"
-                      stroke="white"
-                      strokeWidth="0.952381"
-                    />
-                  </svg>
+                <div className="px-4 mt-12 hover:bg[#ddff8f] hover:rounded-full   py-2">
+                  <HiOutlineSquares2X2 className="text-2xl" />
                 </div>
               )}
             </div>
             {/* </Link> */}
+
+            {/* -------Vendor-------- */}
             <Link href="/dashboard/vendor">
-              <div>
+              <div className={currentPath === "/dashboard/vendor" ? "active bg-[#DDFF8F] rounded-lg  hover:bg-[#DDFF8F]" : "text-white"}>
                 {open ? (
                   <>
-                    <div
-                      className={
-                        currentPath === "/dashboard/vendor"
-                          ? "active"
-                          : "text-white"
-                      }
-                    >
-                      <div className="flex space-x-4 px-10 hover:bg-[#DDFF8F] hover:text-black cursor-pointer hover:rounded-[10px]  mt-2 py-2 items-center">
-                        <div>
-                          <svg
-                            width="20"
-                            height="20"
-                            viewBox="0 0 20 20"
-                            fill="white"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <g clipPath="url(#clip0_150_1907)">
-                              <path
-                                d="M16.5825 14.9523C17.1772 14.9523 17.6502 14.578 18.0749 14.0548C18.9443 12.9836 17.5168 12.1275 16.9724 11.7083C16.419 11.2821 15.801 11.0407 15.1745 10.984M14.3809 9.39672C15.4767 9.39672 16.365 8.5084 16.365 7.41259C16.365 6.31679 15.4767 5.42847 14.3809 5.42847"
-                                stroke="black"
-                                strokeWidth="0.952381"
-                                strokeLinecap="round"
-                              />
-                              <path
-                                d="M2.65579 14.9523C2.06111 14.9523 1.5881 14.578 1.1634 14.0548C0.293992 12.9836 1.72144 12.1275 2.26586 11.7083C2.8193 11.2821 3.43724 11.0407 4.06376 10.984M4.46059 9.39672C3.36479 9.39672 2.47646 8.5084 2.47646 7.41259C2.47646 6.31679 3.36479 5.42847 4.46059 5.42847"
-                                stroke="black"
-                                strokeWidth="0.952381"
-                                strokeLinecap="round"
-                              />
-                              <path
-                                d="M6.51109 12.6595C5.70015 13.1609 3.57393 14.1848 4.86894 15.466C5.50154 16.0919 6.2061 16.5395 7.0919 16.5395H12.1465C13.0323 16.5395 13.7368 16.0919 14.3694 15.466C15.6644 14.1848 13.5382 13.1609 12.7273 12.6595C10.8256 11.4836 8.41272 11.4836 6.51109 12.6595Z"
-                                stroke="black"
-                                strokeWidth="0.952381"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                              <path
-                                d="M12.3969 6.61896C12.3969 8.15309 11.1532 9.39674 9.61909 9.39674C8.08496 9.39674 6.84131 8.15309 6.84131 6.61896C6.84131 5.08484 8.08496 3.84119 9.61909 3.84119C11.1532 3.84119 12.3969 5.08484 12.3969 6.61896Z"
-                                stroke="black"
-                                strokeWidth="0.952381"
-                              />
-                            </g>
-                            <defs>
-                              <clipPath id="clip0_150_1907">
-                                <rect
-                                  width="19.0476"
-                                  height="19.0476"
-                                  fill="white"
-                                  transform="translate(0.0952148 0.666626)"
-                                />
-                              </clipPath>
-                            </defs>
-                          </svg>
-                        </div>
-                        <div>
-                          <Typography className="" variant="body1">
-                            vendor
-                          </Typography>
-                        </div>
+                    <div className="flex space-x-4  pl-5 hover:bg-[#DDFF8F] hover:text-black cursor-pointer hover:rounded-[10px] mt-2  py-2 items-center">
+                      <div>
+                        <HiOutlineUserGroup className="text-xl" />
                       </div>
+                      <Typography className="" variant="body1">
+                        vendor
+                      </Typography>
                     </div>
                   </>
                 ) : (
-                  <div className="px-4 hover:bg-[#818081] hover:rounded-full mt-2  py-2">
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="white"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g clipPath="url(#clip0_150_1907)">
-                        <path
-                          d="M16.5825 14.9523C17.1772 14.9523 17.6502 14.578 18.0749 14.0548C18.9443 12.9836 17.5168 12.1275 16.9724 11.7083C16.419 11.2821 15.801 11.0407 15.1745 10.984M14.3809 9.39672C15.4767 9.39672 16.365 8.5084 16.365 7.41259C16.365 6.31679 15.4767 5.42847 14.3809 5.42847"
-                          stroke="black"
-                          strokeWidth="0.952381"
-                          strokeLinecap="round"
-                        />
-                        <path
-                          d="M2.65579 14.9523C2.06111 14.9523 1.5881 14.578 1.1634 14.0548C0.293992 12.9836 1.72144 12.1275 2.26586 11.7083C2.8193 11.2821 3.43724 11.0407 4.06376 10.984M4.46059 9.39672C3.36479 9.39672 2.47646 8.5084 2.47646 7.41259C2.47646 6.31679 3.36479 5.42847 4.46059 5.42847"
-                          stroke="black"
-                          strokeWidth="0.952381"
-                          strokeLinecap="round"
-                        />
-                        <path
-                          d="M6.51109 12.6595C5.70015 13.1609 3.57393 14.1848 4.86894 15.466C5.50154 16.0919 6.2061 16.5395 7.0919 16.5395H12.1465C13.0323 16.5395 13.7368 16.0919 14.3694 15.466C15.6644 14.1848 13.5382 13.1609 12.7273 12.6595C10.8256 11.4836 8.41272 11.4836 6.51109 12.6595Z"
-                          stroke="black"
-                          strokeWidth="0.952381"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                        <path
-                          d="M12.3969 6.61896C12.3969 8.15309 11.1532 9.39674 9.61909 9.39674C8.08496 9.39674 6.84131 8.15309 6.84131 6.61896C6.84131 5.08484 8.08496 3.84119 9.61909 3.84119C11.1532 3.84119 12.3969 5.08484 12.3969 6.61896Z"
-                          stroke="black"
-                          strokeWidth="0.952381"
-                        />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_150_1907">
-                          <rect
-                            width="19.0476"
-                            height="19.0476"
-                            fill="white"
-                            transform="translate(0.0952148 0.666626)"
-                          />
-                        </clipPath>
-                      </defs>
-                    </svg>
+                  <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-lg py-1">
+                    <HiOutlineUserGroup className="group-hover:text-black  text-xl" />
                   </div>
                 )}
               </div>
             </Link>
+
+            {/* -------Contract------ */}
             <Link href="/dashboard/contract">
-              <div
-                className={
-                  currentPath.startsWith("/dashboard/contract")
-                    ? "active"
-                    : "text-white"
-                }
-              >
+              <div className={currentPath === "/dashboard/contract" ? "active bg-[#DDFF8F] rounded-lg  hover:bg-[#DDFF8F]" : "text-white"}>
                 {open ? (
                   <>
-                    <div className="flex space-x-4 px-10 hover:bg-[#DDFF8F] hover:text-black cursor-pointer hover:rounded-[10px]  mt-2 py-2 items-center">
+                    <div className="flex space-x-4 pl-5 hover:bg-[#DDFF8F] hover:text-black cursor-pointer hover:rounded-[10px] mt-2  py-2 items-center">
                       <div>
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="black"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M4.20599 12.9017C3.20792 13.4867 0.591028 14.6812 2.18489 16.176C2.96348 16.9061 3.83062 17.4284 4.92084 17.4284H11.1418C12.232 17.4284 13.0992 16.9061 13.8778 16.176C15.4716 14.6812 12.8548 13.4867 11.8567 12.9017C9.51621 11.5298 6.54646 11.5298 4.20599 12.9017Z"
-                            stroke="white"
-                            strokeWidth="0.952381"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M11.2061 6.3173C11.2061 8.07059 9.78482 9.49191 8.03154 9.49191C6.27825 9.49191 4.85693 8.07059 4.85693 6.3173C4.85693 4.56402 6.27825 3.1427 8.03154 3.1427C9.78482 3.1427 11.2061 4.56402 11.2061 6.3173Z"
-                            stroke="white"
-                            strokeWidth="0.952381"
-                          />
-                          <path
-                            d="M15.571 3.9364V7.90466M17.5552 5.92053L13.5869 5.92053"
-                            stroke="white"
-                            strokeWidth="0.952381"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
+                        <PiArrowSquareIn className="text-xl" />
                       </div>
                       <Typography className="" variant="body1">
                         Contract
@@ -361,84 +195,21 @@ const Sidebar = () => {
                     </div>
                   </>
                 ) : (
-                  <div className="px-4 hover:bg-[#818081] hover:rounded-full mt-2  py-2">
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M4.20599 12.9017C3.20792 13.4867 0.591028 14.6812 2.18489 16.176C2.96348 16.9061 3.83062 17.4284 4.92084 17.4284H11.1418C12.232 17.4284 13.0992 16.9061 13.8778 16.176C15.4716 14.6812 12.8548 13.4867 11.8567 12.9017C9.51621 11.5298 6.54646 11.5298 4.20599 12.9017Z"
-                        stroke="white"
-                        strokeWidth="0.952381"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M11.2061 6.3173C11.2061 8.07059 9.78482 9.49191 8.03154 9.49191C6.27825 9.49191 4.85693 8.07059 4.85693 6.3173C4.85693 4.56402 6.27825 3.1427 8.03154 3.1427C9.78482 3.1427 11.2061 4.56402 11.2061 6.3173Z"
-                        stroke="white"
-                        strokeWidth="0.952381"
-                      />
-                      <path
-                        d="M15.571 3.9364V7.90466M17.5552 5.92053L13.5869 5.92053"
-                        stroke="white"
-                        strokeWidth="0.952381"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                  <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-lg py-1">
+                    <PiArrowSquareIn className="group-hover:text-black  text-xl" />
                   </div>
                 )}
               </div>
             </Link>
 
-            <Link href="/dashboard/transcationManagment">
-              <div
-                className={
-                  currentPath === "/dashboard/transcationManagment"
-                    ? "active"
-                    : "text-white"
-                }
-              >
+            {/* -------Transaction-------- */}
+            <Link href="/dashboard/transactionManagment">
+              <div className={currentPath === "/dashboard/transactionManagment" ? "active bg-[#DDFF8F] rounded-lg  hover:bg-[#DDFF8F]" : "text-white"}>
                 {open ? (
                   <>
-                    <div className="flex space-x-4  pl-10 hover:bg-[#DDFF8F] hover:text-black cursor-pointer hover:rounded-[10px] mt-2  py-2 items-center">
+                    <div className="flex space-x-4  pl-5 hover:bg-[#DDFF8F] hover:text-black cursor-pointer hover:rounded-[10px] mt-2  py-2 items-center">
                       <div>
-                        <svg
-                          width="19"
-                          height="19"
-                          viewBox="0 0 19 19"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M15.9704 7.11295C16.5966 7.11295 17.1043 6.60527 17.1043 5.97902C17.1043 5.35277 16.5966 4.84509 15.9704 4.84509C15.3441 4.84509 14.8364 5.35277 14.8364 5.97902C14.8364 6.60527 15.3441 7.11295 15.9704 7.11295Z"
-                            fill="#F5F5F5"
-                            fillOpacity="0.933333"
-                          />
-                          <path
-                            d="M10.3003 16.7514H6.33154V15.6175H10.3003C13.1141 15.6175 15.403 13.3286 15.403 10.5148V8.24695H16.5369V10.5148C16.5369 13.9534 13.7389 16.7514 10.3003 16.7514Z"
-                            fill="#F5F5F5"
-                            fillOpacity="0.933333"
-                          />
-                          <path
-                            d="M9.16636 12.2157C7.60324 12.2157 6.33154 10.944 6.33154 9.38084C6.33154 7.81772 7.60324 6.54602 9.16636 6.54602C10.7295 6.54602 12.0012 7.81772 12.0012 9.38084C12.0012 10.944 10.7295 12.2157 9.16636 12.2157ZM9.16636 7.67995C8.22861 7.67995 7.46547 8.44308 7.46547 9.38084C7.46547 10.3186 8.22861 11.0817 9.16636 11.0817C10.1041 11.0817 10.8673 10.3186 10.8673 9.38084C10.8673 8.44308 10.1041 7.67995 9.16636 7.67995Z"
-                            fill="#F5F5F5"
-                            fillOpacity="0.933333"
-                          />
-                          <path
-                            d="M2.36293 13.9165C2.98918 13.9165 3.49686 13.4089 3.49686 12.7826C3.49686 12.1564 2.98918 11.6487 2.36293 11.6487C1.73668 11.6487 1.229 12.1564 1.229 12.7826C1.229 13.4089 1.73668 13.9165 2.36293 13.9165Z"
-                            fill="#F5F5F5"
-                            fillOpacity="0.933333"
-                          />
-                          <path
-                            d="M2.93032 10.5147H1.79639V8.24686C1.79639 4.80822 4.59436 2.01025 8.03299 2.01025H12.0017V3.14418H8.03299C5.21915 3.14418 2.93032 5.43302 2.93032 8.24686V10.5147Z"
-                            fill="#F5F5F5"
-                            fillOpacity="0.933333"
-                          />
-                        </svg>
+                        <TbAnalyze className="text-xl" />
                       </div>
                       <Typography className="" variant="body1">
                         Transcation Managment
@@ -446,78 +217,20 @@ const Sidebar = () => {
                     </div>
                   </>
                 ) : (
-                  <div className="px-4 hover:bg-[#818081] hover:rounded-full mt-2  py-1">
-                    <svg
-                      width="19"
-                      height="19"
-                      viewBox="0 0 19 19"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M15.9704 7.11295C16.5966 7.11295 17.1043 6.60527 17.1043 5.97902C17.1043 5.35277 16.5966 4.84509 15.9704 4.84509C15.3441 4.84509 14.8364 5.35277 14.8364 5.97902C14.8364 6.60527 15.3441 7.11295 15.9704 7.11295Z"
-                        fill="#F5F5F5"
-                        fillOpacity="0.933333"
-                      />
-                      <path
-                        d="M10.3003 16.7514H6.33154V15.6175H10.3003C13.1141 15.6175 15.403 13.3286 15.403 10.5148V8.24695H16.5369V10.5148C16.5369 13.9534 13.7389 16.7514 10.3003 16.7514Z"
-                        fill="#F5F5F5"
-                        fillOpacity="0.933333"
-                      />
-                      <path
-                        d="M9.16636 12.2157C7.60324 12.2157 6.33154 10.944 6.33154 9.38084C6.33154 7.81772 7.60324 6.54602 9.16636 6.54602C10.7295 6.54602 12.0012 7.81772 12.0012 9.38084C12.0012 10.944 10.7295 12.2157 9.16636 12.2157ZM9.16636 7.67995C8.22861 7.67995 7.46547 8.44308 7.46547 9.38084C7.46547 10.3186 8.22861 11.0817 9.16636 11.0817C10.1041 11.0817 10.8673 10.3186 10.8673 9.38084C10.8673 8.44308 10.1041 7.67995 9.16636 7.67995Z"
-                        fill="#F5F5F5"
-                        fillOpacity="0.933333"
-                      />
-                      <path
-                        d="M2.36293 13.9165C2.98918 13.9165 3.49686 13.4089 3.49686 12.7826C3.49686 12.1564 2.98918 11.6487 2.36293 11.6487C1.73668 11.6487 1.229 12.1564 1.229 12.7826C1.229 13.4089 1.73668 13.9165 2.36293 13.9165Z"
-                        fill="#F5F5F5"
-                        fillOpacity="0.933333"
-                      />
-                      <path
-                        d="M2.93032 10.5147H1.79639V8.24686C1.79639 4.80822 4.59436 2.01025 8.03299 2.01025H12.0017V3.14418H8.03299C5.21915 3.14418 2.93032 5.43302 2.93032 8.24686V10.5147Z"
-                        fill="#F5F5F5"
-                        fillOpacity="0.933333"
-                      />
-                    </svg>
+                  <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-lg py-1">
+                    <TbAnalyze className=" group-hover:text-black  text-xl" />
                   </div>
                 )}
               </div>
             </Link>
-
+            {/* -------Performance Evulution------- */}
             <Link href="/dashboard/performanceEvaluation">
-              <div
-                className={
-                  currentPath === "/dashboard/performanceEvaluation"
-                    ? "active"
-                    : "text-white"
-                }
-              >
+              <div className={currentPath === "/dashboard/performanceEvaluation" ? "active bg-[#DDFF8F] rounded-lg  hover:bg-[#DDFF8F]" : "text-white"}>
                 {open ? (
                   <>
-                    <div className="flex space-x-4  pl-10 hover:bg-[#DDFF8F] hover:text-black cursor-pointer hover:rounded-[10px] mt-2  py-2 items-center">
+                    <div className="flex space-x-4 pl-5 hover:bg-[#DDFF8F] hover:text-black cursor-pointer hover:rounded-[10px] mt-2  py-2 items-center">
                       <div>
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="black"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M16.7618 17.5238H8.03163C5.41272 17.5238 4.10326 17.5238 3.28967 16.7102C2.47607 15.8966 2.47607 14.5871 2.47607 11.9682V3.23804"
-                            stroke="white"
-                            strokeWidth="0.952381"
-                            strokeLinecap="round"
-                          />
-                          <path
-                            d="M14.1467 8.26454L11.8659 11.956C11.5336 12.4939 11.1562 13.3064 10.4721 13.186C9.66754 13.0444 9.28111 11.8451 8.58937 11.448C8.02606 11.1247 7.61881 11.5144 7.28947 11.9682M16.7619 4.03174L15.2908 6.41269M4.06348 16.7302L6.06849 13.7672"
-                            stroke="white"
-                            strokeWidth="0.952381"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
+                        <BsGraphUpArrow className="text-xl" />
                       </div>
                       <Typography className="" variant="body1">
                         Performance Evaluation
@@ -525,35 +238,50 @@ const Sidebar = () => {
                     </div>
                   </>
                 ) : (
-                  <div className="px-4 hover:bg-[#818081] hover:rounded-full mt-2  py-1">
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M16.7618 17.5238H8.03163C5.41272 17.5238 4.10326 17.5238 3.28967 16.7102C2.47607 15.8966 2.47607 14.5871 2.47607 11.9682V3.23804"
-                        stroke="white"
-                        strokeWidth="0.952381"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M14.1467 8.26454L11.8659 11.956C11.5336 12.4939 11.1562 13.3064 10.4721 13.186C9.66754 13.0444 9.28111 11.8451 8.58937 11.448C8.02606 11.1247 7.61881 11.5144 7.28947 11.9682M16.7619 4.03174L15.2908 6.41269M4.06348 16.7302L6.06849 13.7672"
-                        stroke="white"
-                        strokeWidth="0.952381"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                  <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-xl py-1">
+                    <BsGraphUpArrow className="group-hover:text-black text-xl" />
                   </div>
                 )}
               </div>
             </Link>
+            {/* -------Compliance and Risk-------- */}
+
+            {/* -------Report & Analytics-------- */}
+            <Link href="/dashboard/compliance&risk">
+              <div className={currentPath === "/dashboard/compliance&risk" ? "active my-2 bg-[#DDFF8F] rounded-xl  hover:bg-[#DDFF8F] text-black" : "my-2 rounded-lg hover:bg-[#DDFF8F] group hover:text-black text-white"}>
+                {open ? (
+                  <NavigationMenu >
+                    <NavigationMenuList className="hover:bg-[#DDFF8F]">
+                      <NavigationMenuItem>
+                        <NavigationMenuTrigger className={currentPath !== "/dashboard/compliance&risk" ? " text-white text-md bg-transparent w-full group-hover:text-black font-normal rounded-lg" : "rounded-lg hover:bg-[#DDFF8F] group-hover:text-black w-full text-black font-normal text-md bg-transparent"}><FaRegChartBar className="text-xl ml-2 mr-3" />Compliance & Risk</NavigationMenuTrigger>
+                        <NavigationMenuContent className="flex justify-start border-0 outline-none ring-0 hover:text-black rounded-xl bg-black text-white hover:bg-[#ddff8f]">
+                          <NavigationMenuLink >
+                            <Link href="/dashboard/compliance&risk/list" className="hover:bg-slate-600">
+                              <div className="flex px-4 w-64 p-1.5 space-x-4 cursor-pointer items-center">
+                            <div>
+                              <FaListUl className=" text-xl" />
+                            </div>
+                            <Typography variant="body1">
+                              List
+                            </Typography>
+                          </div>
+                          </Link>
+                          </NavigationMenuLink>                         
+                        </NavigationMenuContent>
+                      </NavigationMenuItem>
+                    </NavigationMenuList>
+                  </NavigationMenu>
+                ) : (
+                  <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-xl py-1">
+                    <FaRegChartBar className="group-hover:text-black text-xl" />
+                  </div>
+                )}
+              </div>
+            </Link>
+
           </div>
 
-          <div className="absolute bottom-20  ">
+          <div className="absolute bottom-20">
             {open ? (
               <>
                 <div className="cursor-pointer px-10 gap-4 flex items-center ">
