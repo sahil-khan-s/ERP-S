@@ -12,7 +12,7 @@ export default function Vendor() {
   return (
     
       <div className="bg-white">
-            <Nav />
+      <div className="px-6"><Nav/></div>
           <div className=" bg-gray-100 ">
             <main>
               <div className="bg-white p-4 rounded shadow">

@@ -18,7 +18,7 @@ const userData = {
 const ProfileSettings = () => {
   return (
     <div className="bg-white h-screen">
-      <Nav />
+      <div className="px-6"><Nav/></div>
       <div className='w-[550px] flex flex-col gap-5 p-7'>
         <div className='flex flex-row items-center gap-10'>
           <Avatar>

@@ -20,7 +20,7 @@ export default function Vendor() {
 
   return (
     <div className="bg-white">
-      <Nav/>
+      <div className="px-6"><Nav/></div>
 
       {/* Rendor Conditionally */}
       {/* <NewVendor /> */}
@@ -45,7 +45,7 @@ export default function Vendor() {
           <div className="flex justify-end gap-4">
             <button
               onClick={handlePage}
-              className="bg-white border border-gray-300 text-gray-700 font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline">
+              className="bg-white border border-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline">
               Cancel
             </button>
             <div className="py-2 px-10 ">

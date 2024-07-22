@@ -8,7 +8,7 @@ import RiskSummary from '../../components/complaince&risk/RiskSummary';
 const RiskDashboard = () => {
   return (
     <div className='bg-white'>
-<Nav/>
+      <div className="px-6"><Nav/></div>
     <div className="flex flex-col md:flex-row gap-4 p-4">
     <RiskTabs/>
 

@@ -6,7 +6,7 @@ import {Select,SelectContent,SelectItem,SelectTrigger,SelectValue} from "@/compo
 const page = () => {
   return (
     <div className='min-h-screen  bg-white'>
-        <Nav/>
+      <div className="px-6"><Nav/></div>
         <div className="w-full mx-auto p-4">
       <div className="bg-white border border-slate-100 rounded-2xl p-6">
         <div className="space-y-6">
