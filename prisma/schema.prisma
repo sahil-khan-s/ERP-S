@@ -1,17 +1,51 @@
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") 
-  directUrl = env("POSTGRES_URL_NON_POOLING") 
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
-
 
 model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
   name  String?
+}
+
+// contract(id, title, location, from, to, dateFrom, dateTo, content, status)  schema.
+
+model Contract {
+  id       String         @id @default(uuid())
+  title    String
+  location String
+  from     String
+  to       String
+  dateFrom DateTime
+  dateTo   DateTime
+  content  String
+  status   ContractStatus @default(active)
+}
+
+enum ContractStatus {
+  active
+  renewal
+  modifed
+  viewed
+  signed
+  notSigned
+}
+
+// task(title , status, time)  schema
+model Task {
+  id     Int        @id @default(autoincrement())
+  title  String
+  time   DateTime
+  status TaskStatus @default(complete)
+}
+
+enum TaskStatus {
+  complete
+  incomplete
 }
