@@ -41,7 +41,7 @@ enum ContractStatus {
 model Task {
   id     Int        @id @default(autoincrement())
   title  String
-  time   DateTime   @default(now())
+  time   DateTime
   status TaskStatus @default(complete)
 }
 

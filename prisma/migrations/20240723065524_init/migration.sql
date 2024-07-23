@@ -1,6 +1,9 @@
 -- CreateEnum
 CREATE TYPE "ContractStatus" AS ENUM ('active', 'renewal', 'modifed', 'viewed', 'signed', 'notSigned');
 
+-- CreateEnum
+CREATE TYPE "TaskStatus" AS ENUM ('complete', 'incomplete');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
@@ -23,6 +26,16 @@ CREATE TABLE "Contract" (
     "status" "ContractStatus" NOT NULL DEFAULT 'active',
 
     CONSTRAINT "Contract_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Task" (
+    "id" SERIAL NOT NULL,
+    "title" TEXT NOT NULL,
+    "time" TIMESTAMP(3) NOT NULL,
+    "status" "TaskStatus" NOT NULL DEFAULT 'complete',
+
+    CONSTRAINT "Task_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex

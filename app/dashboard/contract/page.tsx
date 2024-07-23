@@ -5,6 +5,8 @@ import Task, { Task as TaskInterface } from "../components/contract/task";
 import ContractCard, { ContractInterface } from "../components/contract/contractcard";
 import Link from "next/link"
 import StateChart, { DataPoint } from "../components/contract/areaChart";
+import { useState } from "react";
+import NewTaskPopUp from "../components/contract/newTaskPopup";
 
 export const contracts: ContractInterface[] = [
   {
@@ -109,7 +111,7 @@ export const contracts: ContractInterface[] = [
   }
 ];
 export default function Contract() {
-
+  const [openTaskPopUp, setOpenTaskPopUp] = useState(false);
 
 
   const tasks: Array<TaskInterface> = [
@@ -160,8 +162,6 @@ export default function Contract() {
       time: "10:00 AM"
     }
   ]
-
-
 
 
   const stateChartData: DataPoint[] = [
@@ -254,6 +254,11 @@ export default function Contract() {
       </div>
 
 
+      {
+        openTaskPopUp ? <NewTaskPopUp setOpenTaskPopUp={setOpenTaskPopUp} /> : null
+      }
+
+
       <div className="w-full flex justify-between gap-x-14 mt-10">
         {/* task list , right side */}
         <div className=" p-4 w-7/12 rounded-2xl border-[0.48px] border-gray-500">
@@ -268,7 +273,7 @@ export default function Contract() {
 
               <h2 className="text-xl font-outfit capitalize">Task list for today <span className="text-[#6BA10F]">(13 Dec)</span></h2>
             </div>
-            <h2 className="text-xl font-outfit text-[#6BA10F]">+Add new task</h2>
+            <button onClick={() => setOpenTaskPopUp(true)} className="text-xl font-outfit text-[#6BA10F]">+Add new task</button>
           </div>
 
           {/* incomplete tasks */}

@@ -1,31 +1,19 @@
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-export const GET = async () => {
+export const GET = async (): Promise<NextResponse> => {
 	try {
-		const task = await prisma.task
-			.findMany()
-			.catch(() => {
-				return NextResponse.json(
-					{
-						success: false,
-						massage: "something went wrong while getting tasks",
-					},
-					{ status: 401 }
-				);
-			})
-			.finally(() => {
-				prisma.$disconnect();
-			});
+		const tasks = await prisma.task.findMany();
+		if (!tasks) {
+			throw new Error("Failed to fetch tasks");
+		}
 
-		console.log("task added ==> ", task);
 		return NextResponse.json(
 			{
 				success: true,
 				massage: "Tasks fetched successful",
-				task,
+				tasks,
 			},
-
 			{ status: 200 }
 		);
 	} catch (error) {
@@ -33,9 +21,11 @@ export const GET = async () => {
 		return NextResponse.json(
 			{
 				success: false,
-				massage: "something went wrong while getting tasks",
+				massage: "Failed to fetch tasks",
 			},
-			{ status: 402 }
+			{ status: 500 }
 		);
+	} finally {
+		await prisma.$disconnect();
 	}
 };

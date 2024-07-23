@@ -3,37 +3,29 @@ import { NextResponse } from "next/server";
 
 export const GET = async () => {
 	try {
-		const contracts = await prisma.contract
-			.findMany()
-			.catch(() => {
-				return NextResponse.json(
-					{
-						success: false,
-						massage: "something went wrong while getting contracts",
-					},
-					{ status: 401 }
-				);
-			})
-			.finally(() => {
-				prisma.$disconnect();
-			});
+		const contracts = await prisma.contract.findMany();
+		if (!contracts) {
+			throw new Error("Failed to fetch contracts");
+		}
 
 		return NextResponse.json(
 			{
 				success: true,
-				massage: "contracts fetched successful",
+				massage: "Contracts fetched successfully",
 				contracts,
 			},
-
-			{ status: 401 }
+			{ status: 200 }
 		);
 	} catch (error) {
+		console.error(error);
 		return NextResponse.json(
 			{
 				success: false,
-				massage: "something went wrong while getting contracts",
+				massage: "Failed to fetch contracts",
 			},
-			{ status: 401 }
+			{ status: 500 }
 		);
+	} finally {
+		await prisma.$disconnect();
 	}
 };
