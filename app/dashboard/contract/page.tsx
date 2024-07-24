@@ -7,7 +7,8 @@ import Link from "next/link"
 import StateChart, { DataPoint } from "../components/contract/areaChart";
 import { useState } from "react";
 import NewTaskPopUp from "../components/contract/newTaskPopup";
-
+import { useSelector } from "react-redux";
+import { Store } from "@/store/store";
 export const contracts: ContractInterface[] = [
   {
     id: 1234567,
@@ -113,55 +114,7 @@ export const contracts: ContractInterface[] = [
 export default function Contract() {
   const [openTaskPopUp, setOpenTaskPopUp] = useState(false);
 
-
-  const tasks: Array<TaskInterface> = [
-    {
-      content: "this is a random task description",
-      completed: true,
-      time: "10:00 AM"
-    },
-    {
-      content: "this is a random task description",
-      completed: true,
-      time: "10:00 AM"
-    },
-    {
-      content: "this is a random task description",
-      completed: true,
-      time: "10:00 AM"
-    }, {
-      content: "this is a random task description",
-      completed: false,
-      time: "10:00 AM"
-    }, {
-      content: "this is a random task description",
-      completed: false,
-      time: "10:00 AM"
-    }, {
-      content: "this is a random task description",
-      completed: false,
-      time: "10:00 AM"
-    },
-    {
-      content: "this is a random task description",
-      completed: true,
-      time: "10:00 AM"
-    },
-    {
-      content: "this is a random task description",
-      completed: false,
-      time: "10:00 AM"
-    },
-    {
-      content: "this is a random task description",
-      completed: true,
-      time: "10:00 AM"
-    }, {
-      content: "this is a random task description",
-      completed: false,
-      time: "10:00 AM"
-    }
-  ]
+  const tasks = useSelector((state: Store) => { return state.tasks.allTasks })
 
 
   const stateChartData: DataPoint[] = [
@@ -280,7 +233,7 @@ export default function Contract() {
           <div className="flex flex-col mt-6 gap-y-6 max-h-56 overflow-y-scroll">
             {
               tasks.map((task, index) => {
-                return !task.completed ? <Task key={index} completed={task.completed} content={task.content} time={task.time} /> : null
+                return task.status == "incomplete" ? <Task key={index} task={task} /> : null
               })
             }
           </div>
@@ -303,7 +256,7 @@ export default function Contract() {
           <div className="flex flex-col mt-6 gap-y-6 overflow-y-scroll max-h-56">
             {
               tasks.map((task, index) => {
-                return task.completed ? <Task key={index} completed={task.completed} content={task.content} time={task.time} /> : null
+                return task.status == "complete" ? <Task key={index} task={task} /> : null
               })
             }
           </div>

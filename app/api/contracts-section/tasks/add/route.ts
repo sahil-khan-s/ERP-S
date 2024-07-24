@@ -1,42 +1,37 @@
 import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export const POST = async (req: NextRequest) => {
+export const addTask = async (request: NextRequest): Promise<NextResponse> => {
 	try {
-		const { title, time, status } = await req.json();
+		const { title, time, status } = await request.json();
+
 		if (!title || !time || !status) {
 			return NextResponse.json(
 				{
 					success: false,
-					massage: "You must send complete data to add task",
+					message: "Missing required fields to add task",
 				},
-				{ status: 403, statusText: "missing arguments" }
+				{ status: 400, statusText: "Bad Request" }
 			);
 		}
-		const task = await prisma.task.create({
-			data: {
-				title,
-				time: new Date(time * 1000).toISOString(),
-				status,
-			},
+
+		const newTask = await prisma.task.create({
+			data: { title, time: new Date(time * 1000).toISOString(), status },
 		});
 
 		return NextResponse.json(
 			{
 				success: true,
-				massage: "Tasks added successful",
-				task,
+				message: "Task added successfully",
+				task: newTask,
 			},
-			{ status: 200 }
+			{ status: 201, statusText: "Created" }
 		);
 	} catch (error) {
 		console.error(error);
 		return NextResponse.json(
-			{
-				success: false,
-				massage: "Failed to create new task",
-			},
-			{ status: 402 }
+			{ success: false, message: "Failed to create new task" },
+			{ status: 500, statusText: "Internal Server Error" }
 		);
 	} finally {
 		await prisma.$disconnect();

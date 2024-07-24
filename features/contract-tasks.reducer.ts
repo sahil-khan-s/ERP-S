@@ -25,7 +25,10 @@ const taskReducer = createSlice({
 		resetTasks: (state: TaskInitialStatus, action) => {
 			state.allTasks = [];
 		},
+		updateStatus: (state: TaskInitialStatus, action) => {
+			state.allTasks[action.payload.index].status = action.payload.status;
+		},
 	},
 });
-export const { addTasks, resetTasks } = taskReducer.actions;
+export const { addTasks, resetTasks, updateStatus } = taskReducer.actions;
 export default taskReducer.reducer;

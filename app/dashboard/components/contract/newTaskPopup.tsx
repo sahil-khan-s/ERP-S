@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Calendar } from "@/components/ui/calendar"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
@@ -10,20 +10,64 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
+
+
+// function which makes a unixTimestamp from 24H format time "00:00" and  ISO date in a format of "Sat Jul 13 2024 00:00:00 GMT+0500 (Pakistan Standard Time)". 
+function makeUnixTimestamp(time: string, date: Date | undefined) {
+    if (!date) {
+        return undefined;
+    }
+    const [hours, minutes] = time.split(':');
+    const dateObj = new Date(date);
+    dateObj.setHours(Number(hours));
+    dateObj.setMinutes(Number(minutes));
+    return dateObj.getTime() / 1000;
+}
+
+
 const NewTaskPopUp = ({ setOpenTaskPopUp }: { setOpenTaskPopUp: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const [date, setDate] = React.useState<Date>()
+    const [time, setTime] = useState("00:00");
+    const [title, setTitle] = useState("");
 
 
 
-    // TODO: update the prisma task schema and separate the time and date. also make their types as string.
-    // TODO: make a route which returns only today's tasks.
+    const handleForm = async () => {
+        if (!title || !makeUnixTimestamp(time, date)) {
+            return;
+        }
 
+        const data = {
+            title,
+            time: makeUnixTimestamp(time, date),
+            status: "incomplete"
+        };
 
+        try {
+            const response = await fetch("/api/contracts-section/tasks/add", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
 
-    //! fix this.
-    // const [time, setTime] = useState();  
-    const setTime = (time: number | null) => {
-        console.log(time);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            if (!(await response.json()).success) {
+                throw new Error("Failed to create new task");
+            }
+
+            alert("New task added successfully");
+        } catch (error) {
+            console.error("Failed to create new task:", error);
+            alert("Failed to create new task. See console for details");
+        } finally {
+
+            setOpenTaskPopUp(false);
+        }
     }
 
 
@@ -40,44 +84,65 @@ const NewTaskPopUp = ({ setOpenTaskPopUp }: { setOpenTaskPopUp: React.Dispatch<R
 
 
                 <div className="flex justify-between gap-x-3 min-w-[359px] my-5 items-center p-4 border-gray-400 h-14 rounded-2xl border-[0.48px]">
-                    <input className="w-full placeholder:text-[#16151C33] placeholder:font-light placeholder:font-outfit font-outfit placeholder:text-sm text-black font-light text-sm outline-none" type="text" placeholder="Task title" />
+                    <input value={title} onChange={(e) => setTitle(e.target.value)} className="w-full placeholder:text-[#16151C33] placeholder:font-light placeholder:font-outfit font-outfit placeholder:text-sm text-black font-light text-sm outline-none" type="text" placeholder="Task title" />
                 </div>
 
 
                 <div className='flex justify-between items-center mt-5 gap-x-2'>
-                    <div className="relative">
-                        <input onTimeUpdate={(e) => setTime(e.timeStamp)} type="time" id="time" className="mx-2 leading-none border-gray-200 border-[1px] text-gray-900 text-sm rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 outline-none dark:placeholder-gray-400 dark:text-white " min="09:00" max="18:00" value="00:00" required />
+
+                    <div>
+                        <input
+                            className="w-full placeholder:text-[#16151C33] placeholder:font-light placeholder:font-outfit font-outfit placeholder:text-sm text-black font-light text-sm outline-none"
+                            type="text"
+                            placeholder="Task title"
+                        />
                     </div>
 
-                    <Popover>
-                        <PopoverTrigger asChild>
-                            <Button
-                                variant={"outline"}
-                                className={cn(
-                                    "w-[250px] justify-start text-left font-normal",
-                                    !date && "text-muted-foreground"
-                                )}
-                            >
-                                <CalendarIcon className="mr-2 h-4 w-4" />
-                                {date ? format(date, "PPP") : <span>Pick a date</span>}
-                            </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0">
-                            <Calendar
-                                mode="single"
-                                selected={date}
-                                onSelect={setDate}
-                                initialFocus
+                    {/* // Time and date picker */}
+                    <div className="flex justify-between items-center mt-5 gap-x-2">
+                        <div className="relative">
+                            <input
+                                type="time"
+                                id="time"
+                                className="mx-2 leading-none border-gray-200 border-[1px] text-gray-900 text-sm rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 outline-none dark:placeholder-gray-400 dark:text-white"
+                                min="09:00"
+                                max="18:00"
+                                value={time}
+                                required
+                                onChange={(e) => setTime(e.target.value)}
                             />
-                        </PopoverContent>
-                    </Popover>
+                        </div>
+
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    className={cn(
+                                        "w-[280px] justify-start text-left font-normal",
+                                        !date && "text-muted-foreground"
+                                    )}
+                                >
+                                    <CalendarIcon className="mr-2 h-4 w-4" />
+                                    {date ? format(date, "PPP") : <span>Pick a date</span>}
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                                <Calendar
+                                    mode="single"
+                                    selected={date}
+                                    onSelect={setDate}
+                                    initialFocus
+                                />
+                            </PopoverContent>
+                        </Popover>
+                    </div>
                 </div>
 
 
 
                 <div className='mx-auto flex items-center gap-x-2 my-6 justify-center'>
                     <button onClick={() => setOpenTaskPopUp(false)} className='border-[1px] w-40 border-[#A2A1A833] rounded-lg py-2'>cancel</button>
-                    <button className="bg-[#DDFF8F] rounded-lg py-2 w-40">Save</button>
+                    <button onClick={handleForm} className="bg-[#DDFF8F] rounded-lg py-2 w-40">Save</button>
                 </div>
             </div>
         </div>

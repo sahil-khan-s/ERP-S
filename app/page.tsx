@@ -51,7 +51,6 @@ import DropBox_logo from "@/public/dropbox_logo.png";
 
 import Image from "next/image";
 import Link from "next/link";
-
 export default function Home() {
   return (
     <>

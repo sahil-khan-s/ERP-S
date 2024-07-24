@@ -1,11 +1,35 @@
 "use client";
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Contract from './page'
 import Nav from '../components/common/nav'
 import NewContract from '../components/contract/newContract';
+import { store } from '@/store/store';
+import { addTasks } from "@/features/contract-tasks.reducer";
 
+export const getTodayTasks = async () => {
+    try {
+        const res = await fetch("/api/contracts-section/tasks/today-tasks");
+        const data = await res.json();
+        console.log(data.tasks);
+        if (data.success) {
+            store.dispatch(addTasks({ tasks: data.tasks }))
+        } else {
+            throw new Error("Something went wrong while getting tasks");
+        }
+    } catch (error) {
+        throw new Error("Error while getting the tasks");
+    }
+}
 const layout = ({ children }: { children: React.ReactNode }) => {
     const [openContractPopUp, setOpenContractPopUp] = useState(false);
+
+
+
+    useEffect(() => {
+        getTodayTasks();
+    }, []);
+
+
 
     return (
         <div className='bg-white p-5 min-h-screen'>
