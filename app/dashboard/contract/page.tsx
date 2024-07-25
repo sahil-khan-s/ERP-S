@@ -232,9 +232,15 @@ export default function Contract() {
           {/* incomplete tasks */}
           <div className="flex flex-col mt-6 gap-y-6 max-h-56 overflow-y-scroll">
             {
-              tasks.map((task, index) => {
-                return task.status == "incomplete" ? <Task key={index} task={task} /> : null
-              })
+              !tasks
+                ?
+
+                <h2 className="text-xl text-black font-outfit capitalize text-center">loading...</h2>
+
+                :
+                tasks.map((task, index) => {
+                  return task.status == "incomplete" ? <Task key={index} task={task} /> : null
+                })
             }
           </div>
 
@@ -255,9 +261,14 @@ export default function Contract() {
 
           <div className="flex flex-col mt-6 gap-y-6 overflow-y-scroll max-h-56">
             {
-              tasks.map((task, index) => {
-                return task.status == "complete" ? <Task key={index} task={task} /> : null
-              })
+              !tasks ?
+
+                <h2 className="text-xl text-black font-outfit capitalize text-center">loading...</h2>
+
+                :
+                tasks.map((task, index) => {
+                  return task.status == "complete" ? <Task key={index} task={task} /> : null
+                })
             }
           </div>
 
