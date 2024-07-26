@@ -2,119 +2,18 @@
 import Image from "next/image";
 import StatsCard from "../components/contract/statsCard";
 import Task, { Task as TaskInterface } from "../components/contract/task";
-import ContractCard, { ContractInterface } from "../components/contract/contractcard";
+import ContractCard from "../components/contract/contractcard";
 import Link from "next/link"
 import StateChart, { DataPoint } from "../components/contract/areaChart";
 import { useState } from "react";
 import NewTaskPopUp from "../components/contract/newTaskPopup";
 import { useSelector } from "react-redux";
 import { Store } from "@/store/store";
-export const contracts: ContractInterface[] = [
-  {
-    id: 1234567,
-    title: 'Service Agreement',
-    location: 'New York, US',
-    from: 'John Doe',
-    to: 'Jane Smith',
-    dateFrom: "15 JAN '23",
-    dateTo: "15 DEC '23",
-    content: 'This service agreement is made between John Doe and Jane Smith. The purpose of this agreement is to set forth the terms and conditions under which John Doe will provide services to Jane Smith. Services to be rendered include, but are not limited to, consulting, advising, and support services as described in the attached Schedule A. John Doe agrees to provide these services in a professional and timely manner, in accordance with industry standards and practices. Jane Smith agrees to compensate John Doe for services rendered at the rate specified in Schedule B. Payment terms are net 30 days from the date of invoice. This agreement is effective from January 15, 2023, and will terminate on December 15, 2023, unless extended by mutual written agreement of both parties. Either party may terminate this agreement upon 30 days written notice to the other party. Upon termination, Jane Smith will pay John Doe for all services rendered and expenses incurred up to the date of termination.'
-  },
-  {
-    id: 2345678,
-    title: 'Lease Agreement',
-    location: 'San Francisco, US',
-    from: 'Alice Johnson',
-    to: 'Bob Brown',
-    dateFrom: "01 FEB '23",
-    dateTo: "31 JAN '24",
-    content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularized in the 1960s with the release of Letterset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humor, or randomized words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. ll the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary."
-  },
-  {
-    id: 3456789,
-    title: 'Employment Contract',
-    location: 'London, UK',
-    from: 'David Wilson',
-    to: 'Emma Davis',
-    dateFrom: "01 MAR '23",
-    dateTo: "28 FEB '24",
-    content: 'This contract describes the employment terms between David Wilson and Emma Davis.'
-  },
-  {
-    id: 4567890,
-    title: 'Consulting Agreement',
-    location: 'Toronto, Canada',
-    from: 'Michael Miller',
-    to: 'Olivia Taylor',
-    dateFrom: "01 APR '23",
-    dateTo: "01 OCT '23",
-    content: 'This contract specifies the consulting services provided by Michael Miller to Olivia Taylor.'
-  },
-  {
-    id: 5678901,
-    title: 'Sales Contract',
-    location: 'Berlin, Germany',
-    from: 'William Moore',
-    to: 'Sophia Martinez',
-    dateFrom: "01 MAY '23",
-    dateTo: "01 NOV '23",
-    content: 'This contract defines the sales agreement between William Moore and Sophia Martinez.'
-  },
-  {
-    id: 6789012,
-    title: 'Non-Disclosure Agreement',
-    location: 'Sydney, Australia',
-    from: 'James Anderson',
-    to: 'Isabella Thomas',
-    dateFrom: "01 JUN '23",
-    dateTo: "01 JUN '24",
-    content: 'This contract ensures the confidentiality of information shared between James Anderson and Isabella Thomas.'
-  },
-  {
-    id: 7890123,
-    title: 'Partnership Agreement',
-    location: 'Paris, France',
-    from: 'Daniel Jackson',
-    to: 'Mia Harris',
-    dateFrom: "01 JUL '23",
-    dateTo: "01 JUL '24",
-    content: 'This contract outlines the partnership terms between Daniel Jackson and Mia Harris.'
-  },
-  {
-    id: 8901234,
-    title: 'Freelance Contract',
-    location: 'Tokyo, Japan',
-    from: 'Matthew White',
-    to: 'Amelia Martin',
-    dateFrom: "01 AUG '23",
-    dateTo: "01 AUG '24",
-    content: 'This contract describes the freelance work to be done by Matthew White for Amelia Martin.'
-  },
-  {
-    id: 9012345,
-    title: 'Maintenance Agreement',
-    location: 'Dubai, UAE',
-    from: 'Joseph Lee',
-    to: 'Harper Thompson',
-    dateFrom: "01 SEP '23",
-    dateTo: "01 SEP '24",
-    content: 'This contract details the maintenance services provided by Joseph Lee to Harper Thompson.'
-  },
-  {
-    id: 1123456,
-    title: 'Investment Contract',
-    location: 'Singapore',
-    from: 'Christopher Walker',
-    to: 'Evelyn Robinson',
-    dateFrom: "01 OCT '23",
-    dateTo: "01 OCT '24",
-    content: 'This contract outlines the investment terms between Christopher Walker and Evelyn Robinson.'
-  }
-];
+import { Contract as ContractInterface } from "@prisma/client";
 export default function Contract() {
   const [openTaskPopUp, setOpenTaskPopUp] = useState(false);
 
-  const tasks = useSelector((state: Store) => { return state.tasks.allTasks })
+  const { contracts: { allContracts }, tasks: { allTasks } } = useSelector((state: Store) => { return state })
 
 
   const stateChartData: DataPoint[] = [
@@ -232,13 +131,13 @@ export default function Contract() {
           {/* incomplete tasks */}
           <div className="flex flex-col mt-6 gap-y-6 max-h-56 overflow-y-scroll">
             {
-              !tasks
+              !allTasks
                 ?
 
                 <h2 className="text-xl text-black font-outfit capitalize text-center">loading...</h2>
 
                 :
-                tasks.map((task, index) => {
+                allTasks.map((task, index) => {
                   return task.status == "incomplete" ? <Task key={index} task={task} /> : null
                 })
             }
@@ -261,12 +160,12 @@ export default function Contract() {
 
           <div className="flex flex-col mt-6 gap-y-6 overflow-y-scroll max-h-56">
             {
-              !tasks ?
+              !allTasks ?
 
                 <h2 className="text-xl text-black font-outfit capitalize text-center">loading...</h2>
 
                 :
-                tasks.map((task, index) => {
+                allTasks.map((task, index) => {
                   return task.status == "complete" ? <Task key={index} task={task} /> : null
                 })
             }
@@ -318,12 +217,17 @@ export default function Contract() {
 
             <div className="flex max-h-48 overflow-y-scroll flex-col gap-y-2 mt-10">
               {
-                contracts.map((contract, index) => {
-                  return <ContractCard
-                    contract={contract}
-                  />
-                })
+                allContracts == undefined
+                  ?
+                  <h2>loading...</h2>
+                  :
+                  allContracts.map((contract, index) => {
+                    return <ContractCard
+                      contract={contract}
+                    />
+                  })
               }
+
             </div>
 
 

@@ -1,12 +1,12 @@
 import React from 'react'
-import { ContractInterface } from '../contractcard'
-
+import { Contract as ContractInterface } from "@prisma/client"
+import { dateOnly } from '../contractcard'
 const ContractTaskTab = ({ contract }: { contract: ContractInterface }) => {
     return (
         <div className='min-h-[660px]'>
             <div className='flex justify-between'>
                 <h2 className='font-outfit text-xl text-[#16151C]'>{contract.title}</h2>
-                <h2 className='font-outfit font-light text-[17px] text-[#A2A1A8]'>{contract.dateFrom} to {contract.dateTo}</h2>
+                <h2 className='font-outfit font-light text-[17px] text-[#A2A1A8]'>{dateOnly(contract.dateFrom)} to {dateOnly(contract.dateTo)}</h2>
             </div>
 
             <div className='flex justify-between items-center mt-2'>
@@ -15,7 +15,7 @@ const ContractTaskTab = ({ contract }: { contract: ContractInterface }) => {
                     <p className='font-outfit text-[#16151C] font-light'>by <span className='font-normal'>{contract.from}</span></p>
                 </div>
                 <div>
-                    <p className='font-outfit font-light text-[#A2A1A8]'>{contract.location}</p>
+                    <p className='font-outfit font-light text-right text-[#A2A1A8]'>{contract.location}</p>
                     <p className='text-right font-outfit font-light text-[#A2A1A8]'>#{contract.id}</p>
                 </div>
             </div>

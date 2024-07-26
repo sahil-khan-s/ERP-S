@@ -1,14 +1,17 @@
 "use client";
 import React, { useState } from 'react'
-import ContractCard, { ContractInterface } from '../../components/contract/contractcard'
+import ContractCard from '../../components/contract/contractcard'
 import ContractTaskTab from '../../components/contract/details/contractTaskTab';
 import ContractNotesTab from '../../components/contract/details/contractNotesTab';
 import ContractPrintTab from '../../components/contract/details/contractPrintTab';
-import { contracts } from '../page';
+import { Contract as ContractInterface } from '@prisma/client';
+import { useSelector } from 'react-redux';
+import { Store } from '@/store/store';
 const page = () => {
+    const contracts = useSelector((state: Store) => { return state.contracts.allContracts })
 
     const [activeTab, setActiveTab] = useState("task");
-    const [showDetails, setShowDetails] = useState<ContractInterface | undefined>(contracts[0])
+    const [showDetails, setShowDetails] = useState<ContractInterface | undefined>(contracts == undefined ? undefined : contracts[0])
 
     return (
         <div className='w-full h-full bg-white flex mt-10 justify-between gap-x-10'>
@@ -29,15 +32,17 @@ const page = () => {
                 </div>
 
 
-                <div className="flex overflow-y-scroll max-h-[650px] flex-col gap-y-2 mt-10">
+                <div className="flex overflow-y-scroll max-h-[650px] flex-col gap-y-2 mt-10 min-h-[660px]">
                     {
-                        contracts.map((contract, index) => {
-                            return <div className='cursor-pointer' key={index} onClick={() => setShowDetails(contract)}>
-                                <ContractCard
-                                    contract={contract}
-                                />
-                            </div>
-                        })
+                        !contracts ?
+                            <h2>Loading...</h2> :
+                            contracts.map((contract, index) => {
+                                return <div className='cursor-pointer' key={index} onClick={() => setShowDetails(contract)}>
+                                    <ContractCard
+                                        contract={contract}
+                                    />
+                                </div>
+                            })
                     }
                 </div>
             </div>
@@ -96,13 +101,13 @@ const page = () => {
 
                 <div className='w-full mt-4'>
                     {
-                        activeTab === "task"
-                            ? <ContractTaskTab contract={showDetails ? showDetails : contracts[0]} />
-                            : activeTab === "notes"
-                                ? <ContractNotesTab /> :
-                                activeTab === "print" ?
-                                    <ContractPrintTab /> : null
-
+                        contracts === undefined ? null :
+                            activeTab === "task"
+                                ? <ContractTaskTab contract={showDetails ?? contracts[0]} />
+                                : activeTab === "notes"
+                                    ? <ContractNotesTab /> :
+                                    activeTab === "print" ?
+                                        <ContractPrintTab /> : null
                     }
                 </div>
 

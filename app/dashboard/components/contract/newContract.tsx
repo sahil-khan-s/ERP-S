@@ -56,13 +56,13 @@ const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: React.Dis
         try {
             console.log({ ...contractData, dateFrom, dateTo, from: "John Doe" });
 
-            // const response = await fetch("/api/contracts-section/contracts/add", {
-            //     method: "POST",
-            //     headers: {
-            //         "Content-Type": "application/json"
-            //     },
-            //     body: JSON.stringify({ ...contractData, dateFrom, dateTo, from: "John Doe" })  //TODO: replace the from's hard coated value to a real signed in user name
-            // })
+            const response = await fetch("/api/contracts-section/contracts/add", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ ...contractData, dateFrom, dateTo, from: "John Doe" })  //TODO: replace the from's hard coated value to a real signed in user name
+            })
 
         } catch (error) {
             console.log("Error while uploading contract ==>", error);

@@ -5,6 +5,7 @@ import Nav from '../components/common/nav'
 import NewContract from '../components/contract/newContract';
 import { store } from '@/store/store';
 import { addTasks } from "@/features/contract-tasks.reducer";
+import { addContracts } from '@/features/contracts.reducer';
 
 export const getTodayTasks = async () => {
     try {
@@ -20,13 +21,36 @@ export const getTodayTasks = async () => {
         throw new Error("Error while getting the tasks");
     }
 }
+
+
+export const getAllContracts = async () => {
+
+    try {
+        const res = await fetch("/api/contracts-section/contracts");
+        if (!res.ok) {
+            throw new Error("Something went wrong while getting contracts");
+        }
+        const data = await res.json();
+        if (data.success) {
+            store.dispatch(addContracts({ contracts: data.contracts }))
+        } else {
+            throw new Error("Something went wrong while getting contracts");
+        }
+    } catch (error) {
+        throw new Error("Error while getting the contracts");
+    }
+}
+
+
 const layout = ({ children }: { children: React.ReactNode }) => {
     const [openContractPopUp, setOpenContractPopUp] = useState(false);
 
 
 
     useEffect(() => {
-        getTodayTasks();
+        getTodayTasks().then(() => {
+            getAllContracts();
+        })
     }, []);
 
 
@@ -46,7 +70,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
                     {/* input filed */}
                     <div className="flex justify-between min-w-[359px] items-center p-4 border-gray-500 h-14 rounded-2xl border-[0.48px]">
                         <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_1_471)">
+                            <g clipPath="url(#clip0_1_471)">
                                 <path d="M12.0181 11.2302L14.8752 14.0874" stroke="black" stroke-opacity="0.6" stroke-width="1.42857" stroke-linecap="round" stroke-linejoin="round" />
                                 <path d="M13.6053 7.1032C13.6053 3.94729 11.047 1.38892 7.89104 1.38892C4.73513 1.38892 2.17676 3.94729 2.17676 7.1032C2.17676 10.2591 4.73513 12.8175 7.89104 12.8175C11.047 12.8175 13.6053 10.2591 13.6053 7.1032Z" stroke="black" stroke-opacity="0.6" stroke-width="1.42857" stroke-linejoin="round" />
                             </g>
