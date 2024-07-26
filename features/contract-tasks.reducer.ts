@@ -8,11 +8,11 @@ export interface Task {
 }
 
 export interface TaskInitialStatus {
-	allTasks: Array<Task>;
+	allTasks: Array<Task> | undefined;
 }
 
 const initialState: TaskInitialStatus = {
-	allTasks: [],
+	allTasks: undefined,
 };
 
 const taskReducer = createSlice({
@@ -25,7 +25,13 @@ const taskReducer = createSlice({
 		resetTasks: (state: TaskInitialStatus, action) => {
 			state.allTasks = [];
 		},
+		updateStatus: (state: TaskInitialStatus, action) => {
+			if (state.allTasks) {
+				state.allTasks[action.payload.index].status =
+					action.payload.status;
+			}
+		},
 	},
 });
-export const { addTasks, resetTasks } = taskReducer.actions;
+export const { addTasks, resetTasks, updateStatus } = taskReducer.actions;
 export default taskReducer.reducer;
