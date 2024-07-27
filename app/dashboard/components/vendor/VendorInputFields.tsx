@@ -8,11 +8,17 @@ import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
 import { HiOutlineCamera } from "react-icons/hi2";
 import Image from 'next/image'
+// FIREBASE
+import {ref, uploadBytes, getDownloadURL} from "firebase/storage"
+import { storage } from '@/lib/firebaseConfig'
+
 
 
 const VendorInputFields = () => {
 
+
   const [selectedImage, setSelectedImage] = React.useState()
+  const [image,setImage] = React.useState<any>()
   const [vendorName, setVendorName] = React.useState<string>("")
   const [contractName, setContractName] = React.useState<string>("")
   const [number, setNumber] = React.useState<string>("")
@@ -21,17 +27,40 @@ const VendorInputFields = () => {
   const [type, setType] = React.useState<string>("")
   const [adress, setAdress] = React.useState<string>("")
   const [note, setNote] = React.useState<string>("")
+  
+  let imageUrl:string;
 
-  const handleForm = ()=>{
-    console.log(vendorName,contractName,number,email,date,type,adress,note)
+
+  const handleImageUpload = async () => {
+    const storageRef = ref(storage,`images/${image.name}`)
+    try {
+    
+      const uploaded = await uploadBytes(storageRef,image)
+       imageUrl = await getDownloadURL(storageRef)
+       setSelectedImage(undefined)
+    
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const handleForm = async ()=>{
+      await handleImageUpload();
+
+      console.log(imageUrl)
+
+
+
   }
 
   const fileChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]!;
+    const file = e.target.files?.[0];
     if (file) {
         const dataUrl = await readFileAsDataUrl(file);
         setSelectedImage(dataUrl)
+        setImage(e.target.files?.[0]!)
     }
+
   }
 
 
@@ -41,7 +70,7 @@ const VendorInputFields = () => {
                 <div className="flex items-start mb-4 justify-start w-full">
           {
             selectedImage ?
-           <Image className='max-h-64 max-w-64' src={selectedImage} alt='' height={300} width={300}/>
+           <Image className='min-h-52 max-h-64 w-auto' src={selectedImage} alt='' height={300} width={300}/>
            : <label
            htmlFor="image-upload"
            className="shadow appearance-none border rounded-xl p-4 -gray-700 focus:ring-1 leading-tight outline-none text-[16px] flex flex-col items-center justify-center w-32 h-32 "
@@ -117,12 +146,12 @@ const VendorInputFields = () => {
       <div className="mb-4">
         <textarea value={note} onChange={(e)=>setNote(e.target.value)} className="shadow appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="notes" placeholder="Notes"></textarea>
       </div>
-      <div className='flex justify-end'>
+      <div className='flex justify-end'> 
         <button
-          type="submit"
-          className="absolute bg-[#DDFF8F] hover:bg-[#C8F064] text-gray-700 font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline">
+        type="submit"
+        className="absolute w-20 bg-[#DDFF8F] hover:bg-[#C8F064] text-gray-700 font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline">
           Save
-        </button>
+      </button> 
             </div>
           </form>
   )
