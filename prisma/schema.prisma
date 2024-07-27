@@ -49,3 +49,16 @@ enum TaskStatus {
   complete
   incomplete
 }
+
+model Vendor {
+  id           Int      @id @default(autoincrement())
+  image        String
+  vendorName   String
+  contractName String
+  contractNumber String
+  email        String
+  date         DateTime
+  type         String
+  address      String
+  note         String
+}

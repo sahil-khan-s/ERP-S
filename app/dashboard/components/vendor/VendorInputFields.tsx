@@ -46,11 +46,16 @@ const VendorInputFields = () => {
 
   const handleForm = async ()=>{
       await handleImageUpload();
+     
+      try {
+        const response = await fetch("/api/vendor", {
+          method:"POST",
+          body:JSON.stringify({imageUrl,vendorName,contractName,number,email,date,type,adress,note})
+        })
 
-      console.log(imageUrl)
-
-
-
+      } catch (error) {
+        console.log(error)
+      }
   }
 
   const fileChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,13 +78,14 @@ const VendorInputFields = () => {
            <Image className='min-h-52 max-h-64 w-auto' src={selectedImage} alt='' height={300} width={300}/>
            : <label
            htmlFor="image-upload"
-           className="shadow appearance-none border rounded-xl p-4 -gray-700 focus:ring-1 leading-tight outline-none text-[16px] flex flex-col items-center justify-center w-32 h-32 "
+           className="border border-slate-300 appearance-none rounded-xl p-4 -gray-700 focus:ring-1 leading-tight outline-none text-[16px] flex flex-col items-center justify-center w-32 h-32 "
            >
               <div className="flex flex-col items-center justify-center">
                 <HiOutlineCamera className="text-slate-500 text-xl" />
               </div>
 
               <input
+                required
                 onChange={fileChangeHandler}
                 id="image-upload"
                 type="file"
@@ -91,18 +97,18 @@ const VendorInputFields = () => {
           </div>
       <div className="mb-4 flex gap-4">
         <div className="w-full">
-          <input value={vendorName} onChange={(e)=>setVendorName(e.target.value)} className="shadow appearance-none border rounded-xl w-full p-4 focus:outline-none focus:ring-1 focus:ring-black" id="vendorName" type="text" placeholder="Vendor Name" />
+          <input required value={vendorName} onChange={(e)=>setVendorName(e.target.value)} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 focus:outline-none focus:ring-1 focus:ring-black" id="vendorName" type="text" placeholder="Vendor Name" />
         </div>
         <div className="w-full">
-          <input value={contractName} onChange={(e)=>setContractName(e.target.value)} className="shadow appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="contractName" type="text" placeholder="Contract Name" />
+          <input required value={contractName} onChange={(e)=>setContractName(e.target.value)} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="contractName" type="text" placeholder="Contract Name" />
         </div>
       </div>
       <div className=" mb-4 flex gap-4">
         <div className="w-full">
-          <input value={number} onChange={(e)=>setNumber(e.target.value)} className="shadow appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="contractNumber" type="text" placeholder="Contract Number" />
+          <input required value={number} onChange={(e)=>setNumber(e.target.value)} className="bg-white  border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="contractNumber" type="text" placeholder="Contract Number" />
         </div>
         <div className="w-full">
-          <input value={email} onChange={(e)=>setEmail(e.target.value)} className="shadow appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="contractEmail" type="email" placeholder="Contract Email" />
+          <input required value={email} onChange={(e)=>setEmail(e.target.value)} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="contractEmail" type="email" placeholder="Contract Email" />
         </div>
       </div>
       <div className="mb-4 flex gap-4">
@@ -112,7 +118,7 @@ const VendorInputFields = () => {
               <Button
                 variant={"outline"}
                 className={cn(
-                  " shadow h-12 appearance-none border rounded-xl w-full p-4 text-gray-700 focus:ring-1 leading-tight outline-none text-[16px] ",
+                  " border border-slate-300 h-12 appearance-none  rounded-xl w-full p-4 text-gray-700 focus:ring-1 leading-tight outline-none text-[16px] ",
                   !date && "text-muted-foreground item-start justify-start"
                   )}
               >
@@ -130,7 +136,7 @@ const VendorInputFields = () => {
           </Popover>            </div>
         <div className="w-full">
           <Select onValueChange={(value: string)=>{setType(value)}}>
-            <SelectTrigger className=" shadow h-12 appearance-none border rounded-xl w-full p-4 -gray-700 focus:ring-1 leading-tight outline-none text-[16px] text-gray-400 focus:text-black">
+            <SelectTrigger className=" border border-slate-300 h-12 appearance-none  rounded-xl w-full p-4 -gray-700 focus:ring-1 leading-tight outline-none text-[16px] text-gray-400 focus:text-black">
               <SelectValue  placeholder="Type" />
             </SelectTrigger>
             <SelectContent>
@@ -141,15 +147,15 @@ const VendorInputFields = () => {
         </div>
       </div>
       <div className="mb-4">
-        <input value={adress} onChange={(e)=>setAdress(e.target.value)} className="shadow appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="address" type="text" placeholder="Address" />
+        <input required value={adress} onChange={(e)=>setAdress(e.target.value)} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="address" type="text" placeholder="Address" />
       </div>
       <div className="mb-4">
-        <textarea value={note} onChange={(e)=>setNote(e.target.value)} className="shadow appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="notes" placeholder="Notes"></textarea>
+        <textarea required value={note} onChange={(e)=>setNote(e.target.value)} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="notes" placeholder="Notes"></textarea>
       </div>
       <div className='flex justify-end'> 
         <button
         type="submit"
-        className="absolute w-20 bg-[#DDFF8F] hover:bg-[#C8F064] text-gray-700 font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline">
+        className="absolute w-20 bg-[#DDFF8F] hover:bg-[#C8F064] text-gray-700 font-bold py-2 px-4 rounded-lg focus:outline-none focus:border border-slate-300-outline">
           Save
       </button> 
             </div>
