@@ -21,11 +21,11 @@ const VendorInputFields = () => {
   const [image,setImage] = React.useState<any>()
   const [vendorName, setVendorName] = React.useState<string>("")
   const [contractName, setContractName] = React.useState<string>("")
-  const [number, setNumber] = React.useState<string>("")
+  const [contractNumber, setNumber] = React.useState<string>("")
   const [email, setEmail] = React.useState<string>("")
   const [date, setDate] = React.useState<Date>()
   const [type, setType] = React.useState<string>("")
-  const [adress, setAdress] = React.useState<string>("")
+  const [address, setAdress] = React.useState<string>("")
   const [note, setNote] = React.useState<string>("")
   
   let imageUrl:string;
@@ -37,7 +37,6 @@ const VendorInputFields = () => {
     
       const uploaded = await uploadBytes(storageRef,image)
        imageUrl = await getDownloadURL(storageRef)
-       setSelectedImage(undefined)
     
     } catch (error) {
       console.error(error)
@@ -50,8 +49,10 @@ const VendorInputFields = () => {
       try {
         const response = await fetch("/api/vendor", {
           method:"POST",
-          body:JSON.stringify({imageUrl,vendorName,contractName,number,email,type,adress,note})
+          body:JSON.stringify({imageUrl,vendorName,contractName,contractNumber,date,email,type,address,note})
         })
+        
+        resetData();
 
       } catch (error) {
         console.log("SERVER ERROR--------------")
@@ -65,6 +66,20 @@ const VendorInputFields = () => {
         setSelectedImage(dataUrl)
         setImage(e.target.files?.[0]!)
     }
+
+  }
+
+  const resetData = ()=>{
+    setAdress('');
+    setContractName("");
+    setDate(undefined);
+    setEmail("");
+    setVendorName("");
+    setType("");
+    setNumber("");
+    imageUrl=""
+    setSelectedImage(undefined)
+    setNote("")
 
   }
 
@@ -105,7 +120,7 @@ const VendorInputFields = () => {
       </div>
       <div className=" mb-4 flex gap-4">
         <div className="w-full">
-          <input required value={number} onChange={(e)=>setNumber(e.target.value)} className="bg-white  border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="contractNumber" type="text" placeholder="Contract Number" />
+          <input required value={contractNumber} onChange={(e)=>setNumber(e.target.value)} className="bg-white  border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="contractNumber" type="text" placeholder="Contract Number" />
         </div>
         <div className="w-full">
           <input required value={email} onChange={(e)=>setEmail(e.target.value)} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="contractEmail" type="email" placeholder="Contract Email" />
@@ -147,7 +162,7 @@ const VendorInputFields = () => {
         </div>
       </div>
       <div className="mb-4">
-        <input required value={adress} onChange={(e)=>setAdress(e.target.value)} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="address" type="text" placeholder="Address" />
+        <input required value={address} onChange={(e)=>setAdress(e.target.value)} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="address" type="text" placeholder="Address" />
       </div>
       <div className="mb-4">
         <textarea required value={note} onChange={(e)=>setNote(e.target.value)} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="notes" placeholder="Notes"></textarea>

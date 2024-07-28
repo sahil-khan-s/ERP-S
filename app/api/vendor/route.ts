@@ -5,21 +5,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
 	try {
-		const { imageUrl, vendorName, contractName, number, email, date, type, adress, note } = await request.json();
+		const { imageUrl, vendorName, contractName, contractNumber, email, date, type, address, note } = await request.json();
 
-		if (imageUrl || vendorName || contractName || number || email || date || type || adress || note) {
-			console.log("Field missing --------- ERROR 1")
-			return NextResponse.json(
-				{
-					success: false,
-					message: "Missing required fields to add vendor",
-				},
-				{ status: 400, statusText: "Bad Request" }
-			);
-		}
+		const image = imageUrl;
 
 		const newVendor = await prisma.vendor.create({
-			data: { imageUrl, vendorName ,contractName , number, email, date , type, adress,note },
+			data: { image, vendorName, contractName, contractNumber, email, date, type, address, note },
 		});
 		console.log("Vendors uploaded to DB --------- DONE 2")
 
@@ -36,7 +27,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
 		console.log("SERVER ERROR--------- ERROR 3")
 
 		return NextResponse.json(
-			{ success: false, message: "Failed to create new vendor" },
+			{ success: false, message: "Failed to create new vendor-----------ERROR 00" },
 			{ status: 500, statusText: "Internal Server Error" }
 		);
 	} finally {
