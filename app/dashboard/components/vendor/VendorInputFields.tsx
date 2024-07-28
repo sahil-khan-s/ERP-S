@@ -50,11 +50,11 @@ const VendorInputFields = () => {
       try {
         const response = await fetch("/api/vendor", {
           method:"POST",
-          body:JSON.stringify({imageUrl,vendorName,contractName,number,email,date,type,adress,note})
+          body:JSON.stringify({imageUrl,vendorName,contractName,number,email,type,adress,note})
         })
 
       } catch (error) {
-        console.log(error)
+        console.log("SERVER ERROR--------------")
       }
   }
 

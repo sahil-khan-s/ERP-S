@@ -54,7 +54,7 @@ export const GET = async (): Promise<NextResponse> => {
 		if (!vendors) {
 			console.log("Faill to fetch --------- ERROR 4")
 
-			throw new Error("Failed to fetch vendor");
+			throw new Error("Failed to fetch vendor------------------------------------------");
 		}
 
 		return NextResponse.json(
