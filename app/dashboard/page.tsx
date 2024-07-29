@@ -5,8 +5,79 @@ import DashboardDoughnutChart from "./components/dashboard/DashboardDoughnutChar
 import RiskSummaryCard from "./components/dashboard/RiskSummaryCard";
 import DashboardTransactionCard from "./components/dashboard/DashboardTransactionCard";
 import DashboardContractCard from "./components/dashboard/DashboardContractCard";
+// import prisma from "@/lib/prisma";
 
-export default function Home() {
+export default async function Home() {
+  // const hello = async () => {
+  //   try {
+  //     const user = await prisma.transactionDetails.createMany({
+  //       data: [
+  //         {
+  //           title: "Spotify App",
+  //           amount: 12.7,
+  //         },
+  //         {
+  //           title: "Adobe XD 2023",
+  //           amount: 20.74,
+  //         },
+  //         {
+  //           title: "Upwork",
+  //           amount: 10.812,
+  //         },
+  //         {
+  //           title: "Google Cloud",
+  //           amount: 124.32,
+  //         },
+  //       ],
+  //     });
+  //     console.log(user);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // const hello = async () => {
+  //   try {
+  //     const user = await prisma.transactionList.createMany({
+  //       data: [
+  //         {
+  //           name: "Headsets",
+  //           shopName: "Simba",
+  //           paymentMethod: "CreditCard",
+  //           approved: "Declined",
+  //           amount: 123.46,
+  //         },
+  //         {
+  //           name: "Internet",
+  //           shopName: "Electro",
+  //           paymentMethod: "Invoice",
+  //           approved: "Declined",
+  //           amount: 123.46,
+  //         },
+  //         {
+  //           name: "Launch items",
+  //           shopName: "Foody",
+  //           paymentMethod: "Cash",
+  //           approved: "Accepted",
+  //           amount: 123.46,
+  //         },
+  //         {
+  //           name: "Travelling",
+  //           shopName: "PIA",
+  //           paymentMethod: "Cash",
+  //           approved: "Declined",
+  //           amount: 123.46,
+  //         },
+  //       ],
+  //     });
+  //     console.log(user);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // // hello();
+
   return (
     <>
       <section className="bg-white px-4 py-1">
