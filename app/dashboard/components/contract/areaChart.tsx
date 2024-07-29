@@ -28,11 +28,13 @@ const StateChart = ({ data }: { data: DataPoint[] }) => {
         }}
       >
         <CartesianGrid strokeDasharray="0" vertical={false} />
-        <XAxis dataKey="month" />
+        <XAxis dataKey="month" tickLine={false} axisLine={false} />
         <YAxis
           tickFormatter={toPercent}
           domain={[0, 100]}
           type={"number"}
+          tickLine={false}
+          axisLine={false}
           interval={""}
         />
         <Area
