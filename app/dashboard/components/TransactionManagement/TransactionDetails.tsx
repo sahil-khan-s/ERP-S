@@ -1,12 +1,19 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import TransactionCard from "./TransactionCard";
 import SpotifyLogo from "@/public/Transaction_Management_Assets/SpotifyLogo.png";
-import AdobeXdLogo from "@/public/Transaction_Management_Assets/AbobeXD.png";
-import UpworkLogo from "@/public/Transaction_Management_Assets/UpworkLogo.png";
-import GoogleCloudLogo from "@/public/Transaction_Management_Assets/GoogleCloud.png";
 import Image, { StaticImageData } from "next/image";
 import visaImage from "@/public/Transaction_Management_Assets/Visa.png";
 import MasterCard from "@/public/Transaction_Management_Assets/MasterCard.png";
+
+interface transactionDetailsprops {
+  id: string;
+  image: string | null;
+  title: string;
+  transactionDate: string;
+  amount: number;
+}
 
 const TransactionDetails = ({
   mainTitle,
@@ -17,6 +24,37 @@ const TransactionDetails = ({
   logo: StaticImageData;
   ShowTransactionDetails: boolean;
 }) => {
+
+  
+  const [detailsOfTransaction, setDetailsOfTransaction] = useState<
+    transactionDetailsprops[]
+  >([]);
+
+  const GetTransactionDetails = async () => {
+    try {
+      const res = await fetch("/api/transaction-screen/transaction-details");
+      if (!res.ok) {
+        throw new Error(
+          "Something went wrong while getting transaction-details"
+        );
+      }
+      const data = await res.json();
+      if (data.success) {
+        setDetailsOfTransaction(data.transactionDetails);
+      } else {
+        throw new Error(
+          "Something went wrong while getting transaction-details"
+        );
+      }
+    } catch (error) {
+      throw new Error("Error while getting the transaction-details");
+    }
+  };
+
+  useEffect(() => {
+    GetTransactionDetails();
+  }, []);
+
   return (
     <div className="border-[1px] border-black border-opacity-[0.28] rounded-xl p-4 min-w-[220px]">
       <div className="flex text-[#121212] my-2 items-center gap-2">
@@ -26,34 +64,16 @@ const TransactionDetails = ({
       <hr className="my-3" />
       {ShowTransactionDetails ? (
         <>
-          <TransactionCard
-            title={"Spotify App"}
-            time="June 19 2023 at 16.42"
-            amount="-$12.7"
-            amountColor="#D62C2C"
-            image={SpotifyLogo}
-          />
-          <TransactionCard
-            title={"Adobe XD 2023"}
-            time="June 12 2023 at 10.18"
-            amount="-$20.74"
-            amountColor="#D62C2C"
-            image={AdobeXdLogo}
-          />
-          <TransactionCard
-            title={"Upwork"}
-            time="June 08 2023 at 23.05"
-            amount="+$10.812.7"
-            amountColor="#4EEA7A"
-            image={UpworkLogo}
-          />
-          <TransactionCard
-            title={"Google Cloud"}
-            time="June 02 2023 at 09.15"
-            amount="-$124.32"
-            amountColor="#D62C2C"
-            image={GoogleCloudLogo}
-          />
+          {detailsOfTransaction &&
+            detailsOfTransaction.map((transaction) => (
+              <TransactionCard
+                title={transaction.title}
+                time={transaction.transactionDate}
+                amount={transaction.amount}
+                amountColor="#D62C2C"
+                image={SpotifyLogo}
+              />
+            ))}
         </>
       ) : (
         <div className="flex overflow-hidden gap-2">

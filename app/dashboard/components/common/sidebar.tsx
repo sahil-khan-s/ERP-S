@@ -3,13 +3,20 @@
 import React, { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-//MATERIAL UI 
+//MATERIAL UI
 import { useMediaQuery } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu"
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 //ICONS
 import { TbAnalyze } from "react-icons/tb";
 import { PiArrowSquareIn } from "react-icons/pi";
@@ -18,10 +25,6 @@ import { BsGraphUpArrow } from "react-icons/bs";
 import { FaRegChartBar } from "react-icons/fa";
 import { FaListUl } from "react-icons/fa6";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
-
-
-
-
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
@@ -36,6 +39,7 @@ const Sidebar = () => {
   };
 
   const currentPath = usePathname();
+  console.log(currentPath);
 
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const matches = useMediaQuery("(max-width:1100px)");
@@ -134,16 +138,23 @@ const Sidebar = () => {
             <div
               onClick={() => router.push("/dashboard")}
               className={
-                currentPath === "/dashboard" ? "active bg-[#DDFF8F] rounded-lg transition-all duration-300  text-black ease-in " : "rounded-xl group text-white hover:bg-[#DDFF8F] hover:text-black"}
+                currentPath === "/dashboard"
+                  ? "active bg-[#DDFF8F] rounded-lg transition-all duration-300  text-black ease-in "
+                  : "rounded-xl group text-white hover:bg-[#DDFF8F] hover:text-black"
+              }
             >
               {open ? (
                 <>
                   <div className="flex active:text-black space-x-3 px-5 hover:bg-[#DDFF8F]  cursor-pointer hover:rounded-[10px] mt-12  py-2 items-center">
                     <div>
-                    <HiOutlineSquares2X2 className="text-2xl" />
+                      <HiOutlineSquares2X2 className="text-2xl" />
                     </div>
                     <Typography
-                      className={currentPath === "/dashboard"?"text-black group-hover:text-black":"text-white group-hover:text-black"}
+                      className={
+                        currentPath === "/dashboard"
+                          ? "text-black group-hover:text-black"
+                          : "text-white group-hover:text-black"
+                      }
                       variant="body1"
                     >
                       Dashboard
@@ -160,7 +171,13 @@ const Sidebar = () => {
 
             {/* -------Vendor-------- */}
             <Link href="/dashboard/vendor">
-              <div className={currentPath === "/dashboard/vendor" ? "active bg-[#DDFF8F] rounded-lg  hover:bg-[#DDFF8F]" : "text-white"}>
+              <div
+                className={
+                  currentPath === "/dashboard/vendor"
+                    ? "active bg-[#DDFF8F] rounded-lg  hover:bg-[#DDFF8F]"
+                    : "text-white"
+                }
+              >
                 {open ? (
                   <>
                     <div className="flex space-x-4  pl-5 hover:bg-[#DDFF8F] hover:text-black cursor-pointer hover:rounded-[10px] mt-2  py-2 items-center">
@@ -182,7 +199,13 @@ const Sidebar = () => {
 
             {/* -------Contract------ */}
             <Link href="/dashboard/contract">
-              <div className={currentPath === "/dashboard/contract" ? "active bg-[#DDFF8F] rounded-lg  hover:bg-[#DDFF8F]" : "text-white"}>
+              <div
+                className={
+                  currentPath === "/dashboard/contract"
+                    ? "active bg-[#DDFF8F] rounded-lg  hover:bg-[#DDFF8F]"
+                    : "text-white"
+                }
+              >
                 {open ? (
                   <>
                     <div className="flex space-x-4 pl-5 hover:bg-[#DDFF8F] hover:text-black cursor-pointer hover:rounded-[10px] mt-2  py-2 items-center">
@@ -204,7 +227,13 @@ const Sidebar = () => {
 
             {/* -------Transaction-------- */}
             <Link href="/dashboard/transactionManagment">
-              <div className={currentPath === "/dashboard/transactionManagment" ? "active bg-[#DDFF8F] rounded-lg  hover:bg-[#DDFF8F]" : "text-white"}>
+              <div
+                className={
+                  currentPath === "/dashboard/transactionManagment"
+                    ? "active bg-[#DDFF8F] rounded-lg  hover:bg-[#DDFF8F]"
+                    : "text-white"
+                }
+              >
                 {open ? (
                   <>
                     <div className="flex space-x-4  pl-5 hover:bg-[#DDFF8F] hover:text-black cursor-pointer hover:rounded-[10px] mt-2  py-2 items-center">
@@ -212,7 +241,7 @@ const Sidebar = () => {
                         <TbAnalyze className="text-xl" />
                       </div>
                       <Typography className="" variant="body1">
-                        Transcation Managment
+                        Transaction Management
                       </Typography>
                     </div>
                   </>
@@ -225,7 +254,13 @@ const Sidebar = () => {
             </Link>
             {/* -------Performance Evulution------- */}
             <Link href="/dashboard/performanceEvaluation">
-              <div className={currentPath === "/dashboard/performanceEvaluation" ? "active bg-[#DDFF8F] rounded-lg  hover:bg-[#DDFF8F]" : "text-white"}>
+              <div
+                className={
+                  currentPath === "/dashboard/performanceEvaluation"
+                    ? "active bg-[#DDFF8F] rounded-lg  hover:bg-[#DDFF8F]"
+                    : "text-white"
+                }
+              >
                 {open ? (
                   <>
                     <div className="flex space-x-4 pl-5 hover:bg-[#DDFF8F] hover:text-black cursor-pointer hover:rounded-[10px] mt-2  py-2 items-center">
@@ -248,25 +283,41 @@ const Sidebar = () => {
 
             {/* -------Report & Analytics-------- */}
             <Link href="/dashboard/compliance&risk">
-              <div className={currentPath === "/dashboard/compliance&risk" ? "active my-2 bg-[#DDFF8F] rounded-xl  hover:bg-[#DDFF8F] text-black" : "my-2 rounded-lg hover:bg-[#DDFF8F] group hover:text-black text-white"}>
+              <div
+                className={
+                  currentPath === "/dashboard/compliance&risk"
+                    ? "active my-2 bg-[#DDFF8F] rounded-xl  hover:bg-[#DDFF8F] text-black"
+                    : "my-2 rounded-lg hover:bg-[#DDFF8F] group hover:text-black text-white"
+                }
+              >
                 {open ? (
-                  <NavigationMenu >
+                  <NavigationMenu>
                     <NavigationMenuList className="hover:bg-[#DDFF8F]">
                       <NavigationMenuItem>
-                        <NavigationMenuTrigger className={currentPath !== "/dashboard/compliance&risk" ? " text-white text-md bg-transparent w-full group-hover:text-black font-normal rounded-lg" : "rounded-lg hover:bg-[#DDFF8F] group-hover:text-black w-full text-black font-normal text-md bg-transparent"}><FaRegChartBar className="text-xl ml-2 mr-3" />Compliance & Risk</NavigationMenuTrigger>
+                        <NavigationMenuTrigger
+                          className={
+                            currentPath !== "/dashboard/compliance&risk"
+                              ? " text-white text-md bg-transparent w-full group-hover:text-black font-normal rounded-lg"
+                              : "rounded-lg hover:bg-[#DDFF8F] group-hover:text-black w-full text-black font-normal text-md bg-transparent"
+                          }
+                        >
+                          <FaRegChartBar className="text-xl ml-2 mr-3" />
+                          Compliance & Risk
+                        </NavigationMenuTrigger>
                         <NavigationMenuContent className="flex justify-start border-0 outline-none ring-0 hover:text-black rounded-xl bg-black text-white hover:bg-[#ddff8f]">
-                          <NavigationMenuLink >
-                            <Link href="/dashboard/compliance&risk/list" className="hover:bg-slate-600">
+                          <NavigationMenuLink>
+                            <Link
+                              href="/dashboard/compliance&risk/list"
+                              className="hover:bg-slate-600"
+                            >
                               <div className="flex px-4 w-64 p-1.5 space-x-4 cursor-pointer items-center">
-                            <div>
-                              <FaListUl className=" text-xl" />
-                            </div>
-                            <Typography variant="body1">
-                              List
-                            </Typography>
-                          </div>
-                          </Link>
-                          </NavigationMenuLink>                         
+                                <div>
+                                  <FaListUl className=" text-xl" />
+                                </div>
+                                <Typography variant="body1">List</Typography>
+                              </div>
+                            </Link>
+                          </NavigationMenuLink>
                         </NavigationMenuContent>
                       </NavigationMenuItem>
                     </NavigationMenuList>
@@ -278,7 +329,6 @@ const Sidebar = () => {
                 )}
               </div>
             </Link>
-
           </div>
 
           <div className="absolute bottom-20">
