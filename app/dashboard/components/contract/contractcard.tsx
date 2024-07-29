@@ -40,7 +40,6 @@ const ContractCard = ({ contract }: { contract: Contract }) => {
     return (
         <div className='' onClick={handleEditSelection}>
             <div className={`flex justify-between  ${isEditingEnabled ? "items-center" : ""}`}>
-
                 <div className='flex items-center gap-x-4'>
                     <input checked={isSelected ? true : false} type="checkbox" className={`size-5 border-gray-100 ${isEditingEnabled ? "" : "hidden"}`} />
                     <div className='flex items-center gap-x-4'>
