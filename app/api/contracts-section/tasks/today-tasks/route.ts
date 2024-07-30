@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async () => {
 	try {
+		console.log("Fetching today's tasks...");
+
 		const startOfToday = new Date();
 		startOfToday.setHours(0, 0, 0, 0);
 		const endOfToday = new Date(startOfToday);
@@ -17,6 +19,8 @@ export const GET = async () => {
 			},
 		});
 
+		console.log("Tasks fetched:", tasksToday);
+
 		return NextResponse.json(
 			{
 				success: true,
@@ -26,7 +30,7 @@ export const GET = async () => {
 			{ status: 200 }
 		);
 	} catch (error) {
-		console.error(error);
+		console.error("Error fetching today's tasks:", error);
 		return NextResponse.json(
 			{
 				success: false,
@@ -35,6 +39,7 @@ export const GET = async () => {
 			{ status: 400 }
 		);
 	} finally {
+		console.log("Closing database connection...");
 		await prisma.$disconnect();
 	}
 };

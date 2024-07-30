@@ -1,18 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export interface Task {
-	id: number;
-	title: string;
-	time: string;
-	status: string;
-}
+import { Task } from "@prisma/client";
+// export interface Task {
+// 	id: number;
+// 	title: string;
+// 	time: string;
+// 	status: string;
+// }
 
 export interface TaskInitialStatus {
 	allTasks: Array<Task> | undefined;
+	taskToEdit: Task | undefined;
+	isEditingEnabled: boolean;
 }
 
 const initialState: TaskInitialStatus = {
 	allTasks: undefined,
+	isEditingEnabled: false,
+	taskToEdit: undefined,
 };
 
 const taskReducer = createSlice({
@@ -31,7 +36,42 @@ const taskReducer = createSlice({
 					action.payload.status;
 			}
 		},
+		setTaskToEdit: (
+			state: TaskInitialStatus,
+			action: { payload: { taskToEdit: Task | undefined } }
+		) => {
+			state.taskToEdit = action.payload.taskToEdit;
+
+			console.log(action.payload.taskToEdit);
+		},
+
+		toggleTaskEditing: (state: TaskInitialStatus) => {
+			if (state.isEditingEnabled) {
+				state.taskToEdit = undefined;
+			}
+
+			state.isEditingEnabled = !state.isEditingEnabled;
+		},
+
+		// delete Task
+		deleteTask: (
+			state: TaskInitialStatus,
+			action: { payload: { taskId: number } }
+		) => {
+			if (state.allTasks) {
+				state.allTasks = state.allTasks.filter(
+					(task) => task.id !== action.payload.taskId
+				);
+			}
+		},
 	},
 });
-export const { addTasks, resetTasks, updateStatus } = taskReducer.actions;
+export const {
+	addTasks,
+	resetTasks,
+	updateStatus,
+	setTaskToEdit,
+	toggleTaskEditing,
+	deleteTask,
+} = taskReducer.actions;
 export default taskReducer.reducer;
