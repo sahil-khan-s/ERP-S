@@ -4,17 +4,16 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { RiDeleteBin6Line, RiEyeLine, RiEdit2Line } from "react-icons/ri";
 
 
-
-//STATIC DATA
-const vendors = [
-  { name: "Darlene Robertson", id: "345321231", contractValue: "$100,000", category: "UI/UX Designer", type: "Office", status: "Permanent" },
-  { name: "Floyd Miles", id: "987890345", contractValue: "$142,559", category: "PHP Developer", type: "Office", status: "Permanent" },
-  { name: "Cody Fisher", id: "453367122", contractValue: "$89,07", category: "Sales Manager", type: "Office", status: "Permanent" },
-  { name: "Dianne Russell", id: "345321231", contractValue: "$215,798", category: "BDM", type: "Remote", status: "Permanent" },
-  { name: "Savannah Nguyen", id: "453677881", contractValue: "$83,093", category: "Design Lead", type: "Office", status: "Permanent" },
-  { name: "Jacob Jones", id: "009918765", contractValue: "$79,4233", category: "Python Developer", type: "Remote", status: "Permanent" },
-  { name: "Marvin McKinney", id: "238870122", contractValue: "$723,323", category: "Sr. UI Developer", type: "Remote", status: "Permanent" },
-];
+// //STATIC DATA
+// const vendors = [
+//   { name: "Darlene Robertson", id: "345321231", contractValue: "$100,000", category: "UI/UX Designer", type: "Office", status: "Permanent" },
+//   { name: "Floyd Miles", id: "987890345", contractValue: "$142,559", category: "PHP Developer", type: "Office", status: "Permanent" },
+//   { name: "Cody Fisher", id: "453367122", contractValue: "$89,07", category: "Sales Manager", type: "Office", status: "Permanent" },
+//   { name: "Dianne Russell", id: "345321231", contractValue: "$215,798", category: "BDM", type: "Remote", status: "Permanent" },
+//   { name: "Savannah Nguyen", id: "453677881", contractValue: "$83,093", category: "Design Lead", type: "Office", status: "Permanent" },
+//   { name: "Jacob Jones", id: "009918765", contractValue: "$79,4233", category: "Python Developer", type: "Remote", status: "Permanent" },
+//   { name: "Marvin McKinney", id: "238870122", contractValue: "$723,323", category: "Sr. UI Developer", type: "Remote", status: "Permanent" },
+// ];
 
 
 const VendorsList = () => {
@@ -25,11 +24,9 @@ useEffect( () => {
   const fetchVendors = async ()=>{
     const response = await fetch("/api/vendor")
     const data = await response.json()
-     const vendo  = await  data.vendors;
-     //      ------------------
-      console.log(vendo[0])
-  }
+     const vendors  = await  data.vendors;
 
+  }
   try {  
 
     fetchVendors();
