@@ -10,6 +10,10 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
+import { Task } from '@prisma/client';
+import { timeOnly } from './task';
+import { store } from '@/store/store';
+import { toggleTaskEditing } from '@/features/contract-tasks.reducer';
 import { getTodayTasks } from '../../contract/layout';
 
 
@@ -26,10 +30,21 @@ function makeUnixTimestamp(time: string, date: Date | undefined) {
 }
 
 
-const NewTaskPopUp = ({ setOpenTaskPopUp }: { setOpenTaskPopUp: React.Dispatch<React.SetStateAction<boolean>> }) => {
-    const [date, setDate] = React.useState<Date>()
-    const [time, setTime] = useState("00:00");
-    const [title, setTitle] = useState("");
+
+// function which make a 24H time from  12:00 AM time formate.
+export function time24H(time: string) {
+    const [hours, minutes] = time.split(':');
+    const date = new Date();
+    date.setHours(Number(hours));
+    date.setMinutes(Number(minutes));
+    return date.toString();
+}
+
+
+const EditTaskPopup = ({ task }: { task: Task }) => {
+    const [date, setDate] = React.useState<Date | undefined>(new Date(task.time))
+    const [time, setTime] = useState(time24H(timeOnly(task.time)));
+    const [title, setTitle] = useState(task.title);
 
 
 
@@ -41,12 +56,13 @@ const NewTaskPopUp = ({ setOpenTaskPopUp }: { setOpenTaskPopUp: React.Dispatch<R
         const data = {
             title,
             time: makeUnixTimestamp(time, date),
-            status: "incomplete"
+            status: task.status,
+            id: task.id
         };
 
         try {
-            const response = await fetch("/api/contracts-section/tasks/add", {
-                method: "POST",
+            const response = await fetch("/api/contracts-section/tasks/edit", {
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -58,21 +74,27 @@ const NewTaskPopUp = ({ setOpenTaskPopUp }: { setOpenTaskPopUp: React.Dispatch<R
             }
 
             if (!(await response.json()).success) {
-                throw new Error("Failed to create new task");
+                throw new Error("Failed to edit task");
             }
+            alert("Task edited successfully");
 
-            alert("New task added successfully");
+            cancelEdit();
+
             getTodayTasks();
         } catch (error) {
-            console.error("Failed to create new task:", error);
-            alert("Failed to create new task. See console for details");
+            console.error("Failed to edit task", error);
+            alert("Failed to edit task. See console for details");
         } finally {
-
-            setOpenTaskPopUp(false);
         }
     }
 
 
+    const cancelEdit = () => {
+        store.dispatch(toggleTaskEditing());
+    }
+
+
+    console.log(date, time, title);
 
 
     return (
@@ -80,7 +102,7 @@ const NewTaskPopUp = ({ setOpenTaskPopUp }: { setOpenTaskPopUp: React.Dispatch<R
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-30 backdrop-blur-md">
             <div className="bg-white p-4 max-w-[450px] w-full rounded-2xl shadow-md">
 
-                <h2 className="text-[20px] font-semibold font-lexend">Add new Task</h2>
+                <h2 className="text-[20px] font-semibold font-lexend">Edit the Task</h2>
 
                 <hr className='h-[1px] border-[#A2A1A81A] mr-40 mt-2' />
 
@@ -140,15 +162,13 @@ const NewTaskPopUp = ({ setOpenTaskPopUp }: { setOpenTaskPopUp: React.Dispatch<R
                     </div>
                 </div>
 
-
-
                 <div className='mx-auto flex items-center gap-x-2 my-6 justify-center'>
-                    <button onClick={() => setOpenTaskPopUp(false)} className='border-[1px] w-40 border-[#A2A1A833] rounded-lg py-2'>cancel</button>
-                    <button onClick={handleForm} className="bg-[#DDFF8F] rounded-lg py-2 w-40">Save</button>
+                    <button onClick={cancelEdit} className='border-[1px] w-40 border-[#A2A1A833] rounded-lg py-2'>cancel</button>
+                    <button onClick={handleForm} className="bg-[#DDFF8F] rounded-lg py-2 w-40">Confirm</button>
                 </div>
             </div>
         </div>
     );
 };
 
-export default NewTaskPopUp;
+export default EditTaskPopup;

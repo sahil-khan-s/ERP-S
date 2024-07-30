@@ -5,7 +5,7 @@ import { store } from '@/store/store'
 import { setContractToEdit, toggleContractEditing } from '@/features/contracts.reducer'
 import { getAllContracts } from '@/app/dashboard/contract/layout'
 
-const ContractTaskTab = ({ contract }: { contract: ContractInterface }) => {
+const ContractTaskTab = ({ contract, setShowDetails }: { contract: ContractInterface, setShowDetails: React.Dispatch<React.SetStateAction<ContractInterface | undefined>> }) => {
     function editContract() {
         store.dispatch(toggleContractEditing())
         store.dispatch(setContractToEdit({ id: contract.id }));
@@ -38,8 +38,9 @@ const ContractTaskTab = ({ contract }: { contract: ContractInterface }) => {
             }
 
             alert("Contract Deleted successful");
+
+            setShowDetails(undefined);
             // TODO: remove the contract from available contract
-            // TODO: remove the contract from preview.
 
 
 
