@@ -3,7 +3,6 @@ import React, { useEffect } from 'react'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { RiDeleteBin6Line, RiEyeLine, RiEdit2Line } from "react-icons/ri";
 
-
 // //STATIC DATA
 // const vendors = [
 //   { name: "Darlene Robertson", id: "345321231", contractValue: "$100,000", category: "UI/UX Designer", type: "Office", status: "Permanent" },
