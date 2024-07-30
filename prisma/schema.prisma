@@ -52,16 +52,16 @@ enum TaskStatus {
  
  // Vendors schema
 model Vendor {
-  id           Int      @id @default(autoincrement())
-  image        String
-  vendorName   String
-  contractName String
-  contractNumber String
-  email        String
-  date         DateTime
-  type         String
-  address      String
-  note         String
+  id             Int  @id @default(autoincrement())
+  imageUrl       String
+  name           String
+  contractvalue  String
+  vendorCategory String
+  email          String
+  date           DateTime
+  type           String
+  address        String
+  note           String
 }
 // transaction management screen schema
 

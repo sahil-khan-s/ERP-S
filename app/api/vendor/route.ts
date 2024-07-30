@@ -5,12 +5,20 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
 	try {
-		const { imageUrl, vendorName, contractName, contractNumber, email, date, type, address, note } = await request.json();
+		const { imageUrl, vendorName, category, contractValue, email, date, type, address, note } = await request.json();
 
-		const image = imageUrl;
+		// if( imageUrl || vendorName || category || contractValue || email || date || type || address || note ){
+		// 	return NextResponse.json(
+		// 		{
+		// 			success: false,
+		// 			message: "vendor field missing",
+		// 		},
+		// 		{ status: 500, statusText: "Bad request" }
+		// 	)
+		// }
 
 		const newVendor = await prisma.vendor.create({
-			data: { image, vendorName, contractName, contractNumber, email, date, type, address, note },
+			data: { imageUrl, name:vendorName, contractvalue:contractValue, vendorCategory:category, email, date, type, address, note },
 		});
 		console.log("Vendors uploaded to DB --------- DONE 2")
 
@@ -35,9 +43,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
 	}
 };
 
-
-
-//                       GET REQUEST
+//                        GET REQUEST
 
 export const GET = async (): Promise<NextResponse> => {
 	try {
@@ -45,7 +51,7 @@ export const GET = async (): Promise<NextResponse> => {
 		if (!vendors) {
 			console.log("Faill to fetch --------- ERROR 4")
 
-			throw new Error("Failed to fetch vendor------------------------------------------");
+			throw new Error("Failed to fetch vendor");
 		}
 
 		return NextResponse.json(

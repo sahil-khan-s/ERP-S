@@ -20,9 +20,9 @@ const VendorInputFields = () => {
   const [selectedImage, setSelectedImage] = React.useState()
   const [image,setImage] = React.useState<any>()
   const [vendorName, setVendorName] = React.useState<string>("")
-  const [contractName, setContractName] = React.useState<string>("")
-  const [contractNumber, setNumber] = React.useState<string>("")
   const [email, setEmail] = React.useState<string>("")
+  const [contractValue, setContractValue] = React.useState("")
+  const [category, setCategory] = React.useState<string>("")
   const [date, setDate] = React.useState<Date>()
   const [type, setType] = React.useState<string>("")
   const [address, setAdress] = React.useState<string>("")
@@ -35,7 +35,7 @@ const VendorInputFields = () => {
     const storageRef = ref(storage,`images/${image.name}`)
     try {
     
-      const uploaded = await uploadBytes(storageRef,image)
+       await uploadBytes(storageRef,image)
        imageUrl = await getDownloadURL(storageRef)
     
     } catch (error) {
@@ -45,11 +45,11 @@ const VendorInputFields = () => {
 
   const handleForm = async ()=>{
       await handleImageUpload();
-     
+
       try {
         const response = await fetch("/api/vendor", {
           method:"POST",
-          body:JSON.stringify({imageUrl,vendorName,contractName,contractNumber,date,email,type,address,note})
+          body:JSON.stringify({imageUrl, vendorName, category, contractValue, date, email, type, address, note})
         })
         
         resetData();
@@ -70,16 +70,17 @@ const VendorInputFields = () => {
   }
 
   const resetData = ()=>{
-    setAdress('');
-    setContractName("");
-    setDate(undefined);
-    setEmail("");
-    setVendorName("");
-    setType("");
-    setNumber("");
-    imageUrl=""
-    setSelectedImage(undefined)
+
     setNote("")
+    setType("");
+    imageUrl=""
+    setEmail("");
+    setAdress('');
+    setCategory("")
+    setVendorName("");
+    setDate(undefined);
+    setContractValue("")
+    setSelectedImage(undefined)
 
   }
 
@@ -115,29 +116,31 @@ const VendorInputFields = () => {
           <input required value={vendorName} onChange={(e)=>setVendorName(e.target.value)} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 focus:outline-none focus:ring-1 focus:ring-black" id="vendorName" type="text" placeholder="Vendor Name" />
         </div>
         <div className="w-full">
-          <input required value={contractName} onChange={(e)=>setContractName(e.target.value)} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="contractName" type="text" placeholder="Contract Name" />
+          <input required value={email} onChange={(e)=>setEmail(e.target.value)} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="contractEmail" type="email" placeholder="Contract Email" />
         </div>
       </div>
       <div className=" mb-4 flex gap-4">
         <div className="w-full">
-          <input required value={contractNumber} onChange={(e)=>setNumber(e.target.value)} className="bg-white  border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="contractNumber" type="text" placeholder="Contract Number" />
+          <input required value={contractValue} onChange={(e)=>setContractValue(e.target.value)} className="bg-white  border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="contractNumber" type="text" placeholder="Contract Value" />
         </div>
+       
+        {/* ------------------------------------- */}
         <div className="w-full">
-          <input required value={email} onChange={(e)=>setEmail(e.target.value)} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="contractEmail" type="email" placeholder="Contract Email" />
+          <input required value={category} onChange={(e)=>setCategory(e.target.value)} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="contractName" type="text" placeholder="Category" />
         </div>
       </div>
+        
       <div className="mb-4 flex gap-4">
         <div className="w-full">
           <Popover>
             <PopoverTrigger asChild>
               <Button
-                variant={"outline"}
                 className={cn(
-                  " border border-slate-300 h-12 appearance-none  rounded-xl w-full p-4 text-gray-700 focus:ring-1 leading-tight outline-none text-[16px] ",
+                  "bg-whitee  ring-0 border border-slate-300 h-12 appearance-none  rounded-xl w-full p-4  hover:bg-white text-gray-700 focus:ring-1 leading-tight outline-none text-[16px] ",
                   !date && "text-muted-foreground item-start justify-start"
                   )}
               >
-                {date ? format(date, "PPP") : <div className='text-gray-400 font-normal'>Date of birth</div>}
+                {date ? format(date, "PPP") : <div className='text-gray-400 font-normal '>Date of birth</div>}
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">
@@ -148,7 +151,8 @@ const VendorInputFields = () => {
                 initialFocus
               />
             </PopoverContent>
-          </Popover>            </div>
+          </Popover>
+           </div>
         <div className="w-full">
           <Select onValueChange={(value: string)=>{setType(value)}}>
             <SelectTrigger className=" border border-slate-300 h-12 appearance-none  rounded-xl w-full p-4 -gray-700 focus:ring-1 leading-tight outline-none text-[16px] text-gray-400 focus:text-black">

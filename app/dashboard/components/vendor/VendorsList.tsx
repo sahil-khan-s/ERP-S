@@ -65,7 +65,10 @@ useEffect( () => {
               <td className="p-4">{vendor.category}</td>
               <td className="p-4">{vendor.type}</td>
               <td className="p-4">
-                <span className="bg-[#f1f6e7] text-[#6BA10F] px-2 py-1 rounded">{vendor.status}</span>
+                {vendor.status === "Permanent" ? 
+                                <span className="bg-[#f1f6e7] text-[#6BA10F] px-2 py-1 rounded">{vendor.status}</span>:
+                                <span className="bg-[#f1f6e7] text-[#f92020] px-2 py-1 rounded">{vendor.status}</span>
+                              }
               </td>
               <td className="px-4 py-2">
                 <button className="p-1"><RiEyeLine /></button>
