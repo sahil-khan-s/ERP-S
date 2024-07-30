@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 //ICONS
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { RiDeleteBin6Line, RiEyeLine, RiEdit2Line } from "react-icons/ri";
@@ -15,69 +15,55 @@ import { RiDeleteBin6Line, RiEyeLine, RiEdit2Line } from "react-icons/ri";
 //   { name: "Marvin McKinney", id: "238870122", contractValue: "$723,323", category: "Sr. UI Developer", type: "Remote", status: "Permanent" },
 // ];
 
-
 const VendorsList = () => {
+  const [vendors,setVendor] = useState([])
 
-  
-useEffect( () => {
-
-  const fetchVendors = async ()=>{
+  const fetchVendors = async () => {
     const response = await fetch("/api/vendor")
     const data = await response.json()
-     const vendors  = await  data.vendors;
-
-  }
-  try {  
+    setVendor(await data.vendors)
+    }
 
     fetchVendors();
 
-  } catch (error) {
-    console.error(error)
+    return (
+      <div className="overflow-x-auto">
+        {vendors ?
+          <table className="rounded overflow-hidden w-full table-auto">
+            <thead className="  bg-[#F5F5F5]">
+              <tr >
+                <th className="p-4 py-5 text-left font-semibold">Vendor Name</th>
+                <th className="p-4 py-5 text-left font-semibold">ID</th>
+                <th className="p-4 py-5 text-left font-semibold">Contract Value</th>
+                <th className="p-4 py-5 text-left font-semibold">Category</th>
+                <th className="p-4 py-5 text-left font-semibold">Type</th>
+                <th className="p-4 py-5 text-left font-semibold">Status</th>
+                <th className="p-4 py-5 text-left font-semibold">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {vendors.map((item, index) => (
+                <tr key={index}>
+                  <td className="p-4"><AccountCircleIcon className=" text-3xl mx-2" />{item.name}</td>
+                  {/* vendor image here */}
+                  <td className="p-4">{item.id}</td>
+                  <td className="p-4">{item.contractvalue}</td>
+                  <td className="p-4">{item.vendorCategory}</td>
+                  <td className="p-4">{item.type}</td>
+                  <td className="p-4">
+                    <span className="bg-[#f1f6e7] text-[#6BA10F] px-2 py-1 rounded">{item.status}</span>
+                  </td>
+                  <td className="px-4 py-2">
+                    <button className="p-1"><RiEyeLine /></button>
+                    <button className="p-1"><RiEdit2Line /></button>
+                    <button className="p-1"><RiDeleteBin6Line /></button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table> : "loading"}
+      </div>
+    )
   }
-}
-  , [])
 
-
-  return (
-    <div className="overflow-x-auto">
-      <table className="rounded overflow-hidden w-full table-auto">
-        <thead className="  bg-[#F5F5F5]">
-          <tr >
-            <th className="p-4 py-5 text-left font-semibold">Vendor Name</th>
-            <th className="p-4 py-5 text-left font-semibold">ID</th>
-            <th className="p-4 py-5 text-left font-semibold">Contract Value</th>
-            <th className="p-4 py-5 text-left font-semibold">Category</th>
-            <th className="p-4 py-5 text-left font-semibold">Type</th>
-            <th className="p-4 py-5 text-left font-semibold">Status</th>
-            <th className="p-4 py-5 text-left font-semibold">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {vendors.map((vendor, index) => (
-            <tr key={index}>
-              <td className="p-4"><AccountCircleIcon className=" text-3xl mx-2" />{vendor.name}</td>
-              {/* vendor image here */}
-              <td className="p-4">{vendor.id}</td>
-              <td className="p-4">{vendor.contractValue}</td>
-              <td className="p-4">{vendor.category}</td>
-              <td className="p-4">{vendor.type}</td>
-              <td className="p-4">
-                {vendor.status === "Permanent" ? 
-                                <span className="bg-[#f1f6e7] text-[#6BA10F] px-2 py-1 rounded">{vendor.status}</span>:
-                                <span className="bg-[#f1f6e7] text-[#f92020] px-2 py-1 rounded">{vendor.status}</span>
-                              }
-              </td>
-              <td className="px-4 py-2">
-                <button className="p-1"><RiEyeLine /></button>
-                <button className="p-1"><RiEdit2Line /></button>
-                <button className="p-1"><RiDeleteBin6Line /></button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  )
-}
-
-export default VendorsList
+  export default VendorsList
