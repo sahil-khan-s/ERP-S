@@ -1,4 +1,5 @@
 "use client";
+
 import Nav from "../components/common/nav";
 import TransactionScreenCard from "../components/transactionManagement/TransactionScreenCard";
 import UserSvg from "@/public/Svgs/Users.svg";
@@ -15,8 +16,10 @@ import transactionListSvg from "@/public/Transaction_Management_Assets/Svgs/Tran
 import Image from "next/image";
 import ActivityCharts from "../components/transactionManagement/ActivityCharts";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useEffect, useState } from "react";
 
-export default function Transcation() {
+export default function Transaction() {
+
   return (
     <>
       <section className="bg-white px-4 py-1">
