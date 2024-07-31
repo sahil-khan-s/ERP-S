@@ -1,9 +1,68 @@
 import React from 'react'
 import { Contract as ContractInterface } from "@prisma/client"
 import { dateOnly } from '../contractcard'
-const ContractTaskTab = ({ contract }: { contract: ContractInterface }) => {
+import { store } from '@/store/store'
+import { setContractToEdit, toggleContractEditing } from '@/features/contracts.reducer'
+import { getAllContracts } from '@/app/dashboard/contract/layout'
+
+const ContractTaskTab = ({ contract, setShowDetails }: { contract: ContractInterface, setShowDetails: React.Dispatch<React.SetStateAction<ContractInterface | undefined>> }) => {
+    function editContract() {
+        store.dispatch(toggleContractEditing())
+        store.dispatch(setContractToEdit({ id: contract.id }));
+    }
+
+
+    const deleteContract = async () => {
+        const res = confirm("are you sure to delete this contract");
+
+        if (!res) {
+            return;
+        }
+        try {
+
+            const response = await fetch("/api/contracts-section/contracts/delete", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ id: contract.id })
+            })
+
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            if (!(await response.json()).success) {
+                throw new Error("Failed to delete contract");
+            }
+
+            alert("Contract Deleted successful");
+
+            setShowDetails(undefined);
+            // TODO: remove the contract from available contract
+
+
+
+            getAllContracts();
+
+        } catch (error) {
+            console.log("Error while deleting contract ==>", error);
+            alert("Error occurred, check console for details.")
+        }
+    }
+
+
     return (
         <div className='min-h-[660px]'>
+            <div className='flex justify-end items-center mb-4'>
+                <button className='px-2' onClick={editContract} >
+                    <img className='size-6' src='https://cdn-icons-png.freepik.com/512/8747/8747675.png' />
+                </button>
+                <button className='px-2' onClick={deleteContract} >
+                    <img className='size-6' src='https://cdn-icons-png.flaticon.com/512/6861/6861362.png' />
+                </button>
+            </div>
             <div className='flex justify-between'>
                 <h2 className='font-outfit text-xl text-[#16151C]'>{contract.title}</h2>
                 <h2 className='font-outfit font-light text-[17px] text-[#A2A1A8]'>{dateOnly(contract.dateFrom)} to {dateOnly(contract.dateTo)}</h2>

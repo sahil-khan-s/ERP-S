@@ -109,7 +109,7 @@ const page = () => {
                     {
                         contracts === undefined ? null :
                             activeTab === "task"
-                                ? <ContractTaskTab contract={showDetails ?? contracts[0]} />
+                                ? <ContractTaskTab contract={showDetails ?? contracts[0]} setShowDetails={setShowDetails} />
                                 : activeTab === "notes"
                                     ? <ContractNotesTab /> :
                                     activeTab === "print" ?
