@@ -6,21 +6,9 @@ import { NextRequest, NextResponse } from "next/server";
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
 	try {
 		const { imageUrl, vendorName, category, contractValue, email, date, type, address, note } = await request.json();
-
-		// if( imageUrl || vendorName || category || contractValue || email || date || type || address || note ){
-		// 	return NextResponse.json(
-		// 		{
-		// 			success: false,
-		// 			message: "vendor field missing",
-		// 		},
-		// 		{ status: 500, statusText: "Bad request" }
-		// 	)
-		// }
-
 		const newVendor = await prisma.vendor.create({
 			data: { imageUrl, name:vendorName, contractvalue:contractValue, vendorCategory:category, email, date, type, address, note },
 		});
-		console.log("Vendors uploaded to DB --------- DONE 2")
 
 		return NextResponse.json(
 			{
@@ -32,10 +20,10 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
 		);
 	} catch (error) {
 		console.error(error);
-		console.log("SERVER ERROR--------- ERROR 3")
+		console.log("SERVER ERROR")
 
 		return NextResponse.json(
-			{ success: false, message: "Failed to create new vendor-----------ERROR 00" },
+			{ success: false, message: "Failed to create new vendor" },
 			{ status: 500, statusText: "Internal Server Error" }
 		);
 	} finally {
@@ -47,9 +35,13 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
 
 export const GET = async (): Promise<NextResponse> => {
 	try {
-		const vendors = await prisma.vendor.findMany();
+		const vendors = await prisma.vendor.findMany({
+			orderBy: {
+			  id: 'desc',
+			},
+		  });
 		if (!vendors) {
-			console.log("Faill to fetch --------- ERROR 4")
+			console.log("Faill to fetch")
 
 			throw new Error("Failed to fetch vendor");
 		}
@@ -64,7 +56,7 @@ export const GET = async (): Promise<NextResponse> => {
 		);
 	} catch (error) {
 		console.log(error);
-		console.log("SERVER ERROR --------- ERROR 5")
+		console.log("SERVER ERROR")
 
 		return NextResponse.json(
 			{
