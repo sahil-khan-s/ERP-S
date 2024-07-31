@@ -169,3 +169,30 @@ body {
 	border-radius: 10px;
 	color: black;
 }
+.loader {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: block;
+  margin:15px auto;
+  position: relative;
+  background: #FFF;
+  box-shadow: -24px 0 #FFF, 24px 0 #FFF;
+  box-sizing: border-box;
+  animation: shadowPulse 2s linear infinite;
+}
+
+@keyframes shadowPulse {
+  33% {
+    background: #fff;
+    box-shadow: -24px 0 #cdff5a, 24px 0 #dbdbdb;
+  }
+  66% {
+    background: #cdff5a;
+    box-shadow: -24px 0 #dbdbdb, 24px 0 #dbdbdb;
+  }
+  100% {
+    background: #dbdbdb;
+    box-shadow: -24px 0 #dbdbdb, 24px 0 #cdff5a;
+  }
+}

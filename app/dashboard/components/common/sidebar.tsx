@@ -39,7 +39,6 @@ const Sidebar = () => {
   };
 
   const currentPath = usePathname();
-  console.log(currentPath);
 
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const matches = useMediaQuery("(max-width:1100px)");
