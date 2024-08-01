@@ -69,3 +69,39 @@ export const GET = async (): Promise<NextResponse> => {
 		await prisma.$disconnect();
 	}
 };
+
+
+
+//         DELETE REQUEST
+export const DELETE = async (request: Request): Promise<NextResponse> => {
+	try {
+		const { id } = await request.json();
+		const vendor = await prisma.vendor.delete({  
+			where:{id:id} 
+		});
+		if (!vendor) {
+			console.log("vendor not found ---------------1");
+			throw new Error("Failed to delete vendor");
+		}
+		return NextResponse.json(
+			{
+				success: true,
+				message: "Vendor deleted successfully",
+			},
+			{ status: 200 }
+		);
+	} catch (error) {
+		console.log("Catch error -------------- 3");
+		console.log("SERVER ERROR");
+
+		return NextResponse.json(
+			{
+				success: false,
+				message: "Failed to delete vendor",
+			},
+			{ status: 500 }
+		);
+	} finally {
+		await prisma.$disconnect();
+	}
+};

@@ -91,7 +91,7 @@ const VendorInputFields = () => {
       <div className="flex items-start mb-4 justify-start w-full">
         {
           selectedImage ?
-            <Image className='min-h-52 max-h-64 w-auto' src={selectedImage} alt='' height={300} width={300} />
+            <Image className='min-h-52 rounded-xl h-64  w-52 object-cover' src={selectedImage} alt='' height={300} width={300} />
             : <label
               htmlFor="image-upload"
               className="border border-slate-300 appearance-none rounded-xl p-4 -gray-700 focus:ring-1 leading-tight outline-none text-[16px] flex flex-col items-center justify-center w-32 h-32 "

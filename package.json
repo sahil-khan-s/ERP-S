@@ -43,6 +43,7 @@
 		"googleapis": "^140.0.0",
 		"jsonwebtoken": "^9.0.2",
 		"lucide-react": "^0.408.0",
+		"moment": "^2.30.1",
 		"next": "^14.2.5",
 		"next-auth": "^4.24.7",
 		"next-iron-session": "^4.2.0",
