@@ -243,7 +243,7 @@ const page = () => {
                     >
                         <XAxis axisLine={false} dataKey="name" tickLine={false} />
                         <YAxis axisLine={false} tickFormatter={toPercent} domain={[1, 5]} tickLine={false} type={"number"} interval={"preserveEnd"} />
-                        <Tooltip content={<CustomTooltip />} />
+                        <Tooltip content={<CustomTooltip active={false} payload={undefined} label={''} />} />
                         <Line type="linear" dot={false} dataKey="uv" isAnimationActive={false} stroke="#6BA10F" strokeWidth={3} />
                     </LineChart>
                 </ResponsiveContainer>
