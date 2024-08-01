@@ -11,7 +11,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { getAllContracts } from '../../contract/layout';
+import { Contract } from '@prisma/client';
 
 interface ContractData {
     title: string
@@ -22,25 +22,20 @@ interface ContractData {
 
 }
 
+import { unixTimestamp } from './newContract';
+import { getAllContracts } from '../../contract/layout';
 
-// function which make a unixTimestamp from a time of formate "Thu Jan 20 2022 00:00:00 GMT+0500 (Pakistan Standard Time)".
-export function unixTimestamp(time: string) {
-    const date = new Date(time)
-    return date.getTime() / 1000
-}
-
-
-const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: any }) => {
+const EditContract = ({ cancelEdit, contract }: { cancelEdit: any, contract: Contract }) => {
     const [date, setDate] = useState<DateRange | undefined>({
         from: new Date(2022, 0, 20),
         to: addDays(new Date(2022, 0, 20), 20),
     });
     const [contractData, setContractData] = useState<ContractData>({
-        title: "",
-        to: "",
-        location: "",
-        status: "active",
-        content: "",
+        title: contract.title,
+        to: contract.to,
+        location: contract.location,
+        status: contract.status,
+        content: contract.content,
     })
 
 
@@ -57,12 +52,12 @@ const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: any }) =>
         try {
             console.log({ ...contractData, dateFrom, dateTo, from: "John Doe" });
 
-            const response = await fetch("/api/contracts-section/contracts/add", {
-                method: "POST",
+            const response = await fetch("/api/contracts-section/contracts/edit", {
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ ...contractData, dateFrom, dateTo, from: "John Doe" })  //TODO: replace the from's hard coated value to a real signed in user name
+                body: JSON.stringify({ ...contractData, dateFrom, dateTo, from: "John Doe", id: contract.id })  //TODO: replace the from's hard coated value to a real signed in user name
             })
 
 
@@ -71,17 +66,18 @@ const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: any }) =>
             }
 
             if (!(await response.json()).success) {
-                throw new Error("Failed to create new contract");
+                throw new Error("Failed to edit contract");
             }
-            setOpenContractPopUp(false);
+            cancelEdit(false);
 
-            alert("Contract added successful");
+            alert("Contract updated successful");
 
             getAllContracts();
 
+
         } catch (error) {
-            console.log("Error while uploading contract ==>", error);
-            alert("Error occurred, check console for details.")
+            console.log("Error while editing contract ==>", error);
+            alert("Error occurred, check console for details.");
         }
     }
 
@@ -91,7 +87,7 @@ const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: any }) =>
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-30 backdrop-blur-md">
             <div className="bg-white p-4 max-w-[450px] w-full rounded-2xl shadow-md">
 
-                <h2 className="text-[20px] font-semibold font-lexend">Add new Contract</h2>
+                <h2 className="text-[20px] font-semibold font-lexend">Edit Contract</h2>
 
                 <hr className='h-[1px] border-[#A2A1A81A] mr-40 mt-2' />
 
@@ -180,11 +176,11 @@ const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: any }) =>
 
 
                 <h2 className='font-lexend mt-6 mb-2 font-semibold text-[#16151C]'>Content</h2>
-                <textarea onChange={(e) => setContractData((prev) => { return { ...prev, content: e.target.value } })} rows={3} className='w-full outline-none h-20 font-lexend font-light text-[#16151C] p-1 border-[0.48px] rounded-xl border-gray-400' placeholder='content of the contract'></textarea>
+                <textarea value={contractData.content} onChange={(e) => setContractData((prev) => { return { ...prev, content: e.target.value } })} rows={3} className='w-full outline-none h-20 font-lexend font-light text-[#16151C] p-1 border-[0.48px] rounded-xl border-gray-400' placeholder='content of the contract'></textarea>
 
 
                 <div className='mx-auto flex items-center gap-x-2 my-6 justify-center'>
-                    <button onClick={() => setOpenContractPopUp()} className='border-[1px] w-40 border-[#A2A1A833] rounded-lg py-2'>cancel</button>
+                    <button onClick={() => cancelEdit()} className='border-[1px] w-40 border-[#A2A1A833] rounded-lg py-2'>cancel</button>
                     <button onClick={handleSubmit} className="bg-[#DDFF8F] rounded-lg py-2 w-40">Save</button>
                 </div>
             </div>
@@ -192,4 +188,4 @@ const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: any }) =>
     );
 };
 
-export default NewContract;
+export default EditContract;

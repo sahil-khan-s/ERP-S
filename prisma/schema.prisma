@@ -31,7 +31,7 @@ model Contract {
 enum ContractStatus {
   active
   renewal
-  modifed
+  modified
   viewed
   signed
   notSigned
@@ -48,4 +48,35 @@ model Task {
 enum TaskStatus {
   complete
   incomplete
+}
+
+// transaction management screen schema
+
+model TransactionDetails {
+  id              String   @id @default(uuid())
+  image           String?
+  title           String
+  amount          Float
+  transactionDate DateTime @default(now())
+}
+
+model TransactionList {
+  id            String        @id @default(uuid())
+  name          String
+  shopName      String
+  paymentMethod PaymentMethod
+  approved      Status
+  amount        Int
+  createdAt     DateTime      @default(now())
+}
+
+enum Status {
+  Accepted
+  Declined
+}
+
+enum PaymentMethod {
+  Cash
+  Invoice
+  CreditCard
 }

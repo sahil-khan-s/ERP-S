@@ -6,7 +6,7 @@ import RiskSummaryCard from "./components/dashboard/RiskSummaryCard";
 import DashboardTransactionCard from "./components/dashboard/DashboardTransactionCard";
 import DashboardContractCard from "./components/dashboard/DashboardContractCard";
 
-export default function Home() {
+export default async function Home() {
   return (
     <>
       <section className="bg-white px-4 py-1">

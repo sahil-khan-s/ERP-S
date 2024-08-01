@@ -3,35 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Contract } from "@prisma/client";
 export interface ContractsInitialState {
 	allContracts: Array<Contract> | undefined;
+	isEditingEnabled: boolean;
+	contractToEdit: Contract | undefined;
 }
 const initialState: ContractsInitialState = {
-	// allContracts: [
-	// 	{
-	// 		id: "9012345",
-	// 		title: "Maintenance Agreement",
-	// 		location: "Dubai, UAE",
-	// 		from: "Joseph Lee",
-	// 		to: "Harper Thompson",
-	// 		dateFrom: new Date(),
-	// 		dateTo: new Date(),
-	// 		content:
-	// 			"This contract details the maintenance services provided by Joseph Lee to Harper Thompson.",
-	// 		status: "active",
-	// 	},
-	// 	{
-	// 		id: "1123456",
-	// 		title: "Investment Contract",
-	// 		location: "Singapore",
-	// 		from: "Christopher Walker",
-	// 		to: "Evelyn Robinson",
-	// 		dateFrom: new Date(),
-	// 		dateTo: new Date(),
-	// 		content:
-	// 			"This contract outlines the investment terms between Christopher Walker and Evelyn Robinson.",
-	// 		status: "modifed",
-	// 	},
-	// ],
 	allContracts: undefined,
+	isEditingEnabled: false,
+	contractToEdit: undefined,
 };
 
 const allContractsReducer = createSlice({
@@ -44,7 +22,26 @@ const allContractsReducer = createSlice({
 		resetContracts: (state: ContractsInitialState, action) => {
 			state.allContracts = [];
 		},
+		toggleContractEditing: (state: ContractsInitialState) => {
+			if (state.contractToEdit !== undefined) {
+				state.contractToEdit = undefined;
+			}
+			state.isEditingEnabled = !state.isEditingEnabled;
+		},
+		setContractToEdit: (state, action) => {
+			if (!state.allContracts) {
+				return;
+			}
+			state.contractToEdit = state.allContracts.find(
+				(item) => item.id === action.payload.id
+			);
+		},
 	},
 });
-export const { addContracts, resetContracts } = allContractsReducer.actions;
+export const {
+	addContracts,
+	resetContracts,
+	toggleContractEditing,
+	setContractToEdit,
+} = allContractsReducer.actions;
 export default allContractsReducer.reducer;
