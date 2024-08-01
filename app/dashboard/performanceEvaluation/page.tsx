@@ -1,12 +1,32 @@
 "use client";
-import React from 'react'
-import { ResponsiveContainer, LineChart, Line, Legend, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
-
-
+import { changeRandomFeedback } from '@/features/feedback.reducer.ts';
+import { store, Store } from '@/store/store';
+import { Feedback } from '@prisma/client';
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip } from "recharts";
 export interface VendorScore {
     name: string
     evaluationScore: number
     ratingAndReviews: number
+}
+
+
+const getRandomFeedback = async (): Promise<any> => {
+    try {
+        const res = await fetch('/api/performanceEvaluation/feedback/random');
+        if (!res.ok) {
+            throw new Error('Failed to fetch random feedback');
+        }
+        const data = await res.json();
+        if (!data.success) {
+            throw new Error('No data received');
+        }
+        return data;
+    } catch (error) {
+        console.error('Error fetching random feedback:', error);
+        throw error;
+    }
 }
 
 const CustomTooltip = ({ active, payload, label }: { active: boolean, payload: any, label: string }) => {
@@ -17,15 +37,13 @@ const CustomTooltip = ({ active, payload, label }: { active: boolean, payload: a
             </div>
         );
     }
-
     return null;
 };
 
 
-
 const page = () => {
 
-
+    const { randomFeedback } = useSelector((state: Store) => state.feedbacks);
 
     const vendorScores: VendorScore[] = [
         {
@@ -95,6 +113,11 @@ const page = () => {
     ];
 
 
+    // setInterval(async () => {
+    //     const res = await getRandomFeedback();
+    //     store.dispatch(changeRandomFeedback({ randomFeedback: res }));
+    // }, 10000);
+
     const toPercent = (decimal: number) => `${decimal}.0`;
 
 
@@ -153,41 +176,47 @@ const page = () => {
                 {/* feedback */}
                 <div className='w-5/12'>
                     <h2 className='font-lexend tracking-wide text-[22px] font-semibold'>Feedback</h2>
-                    <div className='border-[#6BA10F] border-[1px] shadowLg rounded-lg mt-1 p-4'>
-                        <div className='flex justify-start items-center gap-x-2'>
-                            <img className='size-8 rounded-full' src="https://i2.pickpik.com/photos/128/450/351/women-face-portrait-emotions-preview.jpg" alt="a portrait of vendor who give a feedback" />
-                            <p className='fontLexend font-semibold text-sm capitalize'>marry doe</p>
-                        </div>
-                        <p className='text-[13.1px] mt-4 text-black/60'>I really appreciate the insights and perspective shared in this article. </p>
+                    {
+                        randomFeedback ?
+                            <div className='border-[#6BA10F] border-[1px] shadowLg rounded-lg mt-1 p-4'>
+                                <div className='flex justify-start items-center gap-x-2'>
+                                    <img className='size-8 rounded-full' src={randomFeedback.vendorImage} alt="a portrait of vendor who give a feedback" />
+                                    <p className='fontLexend font-semibold text-sm capitalize'>{randomFeedback.vendorName}</p>
+                                </div>
+                                <p className='text-[13.1px] mt-4 text-black/60'>{randomFeedback.content}</p>
 
-                        <hr className='mt-3' />
-                        <div className='flex justify-between mt-2 items-center'>
-                            <div className='flex items-center justify-start gap-x-2'>
-                                <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5.02393 2.74231H10.4816C11.2054 2.74231 11.8995 3.02981 12.4112 3.54157C12.923 4.05333 13.2105 4.74743 13.2105 5.47117C13.2105 6.19491 12.923 6.88901 12.4112 7.40077C11.8995 7.91253 11.2054 8.20003 10.4816 8.20003H5.02393V2.74231Z" stroke="black" strokeOpacity="0.4" strokeWidth="2.45597" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M5.02393 8.20007H11.1639C11.8876 8.20007 12.5817 8.48758 13.0935 8.99934C13.6052 9.5111 13.8927 10.2052 13.8927 10.9289C13.8927 11.6527 13.6052 12.3468 13.0935 12.8585C12.5817 13.3703 11.8876 13.6578 11.1639 13.6578H5.02393V8.20007Z" stroke="black" strokeOpacity="0.4" strokeWidth="2.45597" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M13.0906 2.74231H6.95068" stroke="black" strokeOpacity="0.4" strokeWidth="2.45597" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M9.68046 13.6578H3.54053" stroke="black" strokeOpacity="0.4" strokeWidth="2.45597" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M10.3626 2.74231L6.26929 13.6578" stroke="black" strokeOpacity="0.4" strokeWidth="2.45597" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <g clipPath="url(#clip0_1_1696)">
-                                        <path d="M6.46789 11.6112H5.10346C4.19879 11.6112 3.33116 11.2518 2.69146 10.6121C2.05176 9.97243 1.69238 9.10481 1.69238 8.20014C1.69238 7.29547 2.05176 6.42784 2.69146 5.78814C3.33116 5.14844 4.19879 4.78906 5.10346 4.78906H6.46789" stroke="black" strokeOpacity="0.4" strokeWidth="2.45597" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M10.5596 4.78906H11.924C12.8287 4.78906 13.6963 5.14844 14.336 5.78814C14.9757 6.42784 15.3351 7.29547 15.3351 8.20014C15.3351 9.10481 14.9757 9.97243 14.336 10.6121C13.6963 11.2518 12.8287 11.6112 11.924 11.6112H10.5596" stroke="black" strokeOpacity="0.4" strokeWidth="2.45597" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M5.78589 8.20007H11.2436" stroke="black" strokeOpacity="0.4" strokeWidth="2.45597" strokeLinecap="round" strokeLinejoin="round" />
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_1_1696">
-                                            <rect width="16.3732" height="16.3732" fill="white" transform="translate(0.327148 0.0136719)" />
-                                        </clipPath>
-                                    </defs>
-                                </svg>
+                                <hr className='mt-3' />
+                                <div className='flex justify-between mt-2 items-center'>
+                                    <div className='flex items-center justify-start gap-x-2'>
+                                        <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5.02393 2.74231H10.4816C11.2054 2.74231 11.8995 3.02981 12.4112 3.54157C12.923 4.05333 13.2105 4.74743 13.2105 5.47117C13.2105 6.19491 12.923 6.88901 12.4112 7.40077C11.8995 7.91253 11.2054 8.20003 10.4816 8.20003H5.02393V2.74231Z" stroke="black" strokeOpacity="0.4" strokeWidth="2.45597" strokeLinecap="round" strokeLinejoin="round" />
+                                            <path d="M5.02393 8.20007H11.1639C11.8876 8.20007 12.5817 8.48758 13.0935 8.99934C13.6052 9.5111 13.8927 10.2052 13.8927 10.9289C13.8927 11.6527 13.6052 12.3468 13.0935 12.8585C12.5817 13.3703 11.8876 13.6578 11.1639 13.6578H5.02393V8.20007Z" stroke="black" strokeOpacity="0.4" strokeWidth="2.45597" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                        <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13.0906 2.74231H6.95068" stroke="black" strokeOpacity="0.4" strokeWidth="2.45597" strokeLinecap="round" strokeLinejoin="round" />
+                                            <path d="M9.68046 13.6578H3.54053" stroke="black" strokeOpacity="0.4" strokeWidth="2.45597" strokeLinecap="round" strokeLinejoin="round" />
+                                            <path d="M10.3626 2.74231L6.26929 13.6578" stroke="black" strokeOpacity="0.4" strokeWidth="2.45597" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                        <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g clipPath="url(#clip0_1_1696)">
+                                                <path d="M6.46789 11.6112H5.10346C4.19879 11.6112 3.33116 11.2518 2.69146 10.6121C2.05176 9.97243 1.69238 9.10481 1.69238 8.20014C1.69238 7.29547 2.05176 6.42784 2.69146 5.78814C3.33116 5.14844 4.19879 4.78906 5.10346 4.78906H6.46789" stroke="black" strokeOpacity="0.4" strokeWidth="2.45597" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path d="M10.5596 4.78906H11.924C12.8287 4.78906 13.6963 5.14844 14.336 5.78814C14.9757 6.42784 15.3351 7.29547 15.3351 8.20014C15.3351 9.10481 14.9757 9.97243 14.336 10.6121C13.6963 11.2518 12.8287 11.6112 11.924 11.6112H10.5596" stroke="black" strokeOpacity="0.4" strokeWidth="2.45597" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path d="M5.78589 8.20007H11.2436" stroke="black" strokeOpacity="0.4" strokeWidth="2.45597" strokeLinecap="round" strokeLinejoin="round" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_1_1696">
+                                                    <rect width="16.3732" height="16.3732" fill="white" transform="translate(0.327148 0.0136719)" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <button className='bg-[#6BA10F] px-3 py-2 rounded-md font-semibold font-lexend text-white text-[13px]'>Comment</button>
+                                </div>
+                            </div> :
+                            <div className='border-[#6BA10F] flex items-center justify-center w-full min-h-20 border-[1px] shadowLg rounded-lg mt-1 p-4'>
+                                <h2 className='font-medium text-[22px] text-[#1A1B2F] font-outfit'>Loading ....</h2>
                             </div>
-                            <button className='bg-[#6BA10F] px-3 py-2 rounded-md font-semibold font-lexend text-white text-[13px]'>Comment</button>
-                        </div>
-                    </div>
+                    }
 
                     <button className='font-lexend font-semibold text-[11.46px] capitalize mt-3'>load more</button>
                 </div>

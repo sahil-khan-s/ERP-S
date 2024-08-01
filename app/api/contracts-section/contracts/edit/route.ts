@@ -28,18 +28,6 @@ export const PATCH = async (req: NextRequest) => {
 			!content ||
 			!status
 		) {
-			console.log(
-				id,
-				title,
-				location,
-				from,
-				to,
-				dateFrom,
-				dateTo,
-				content,
-				status
-			);
-
 			return NextResponse.json(
 				{
 					success: false,

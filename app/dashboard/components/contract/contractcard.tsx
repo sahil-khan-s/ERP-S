@@ -4,7 +4,6 @@ import { Contract } from '@prisma/client';
 import { useSelector } from 'react-redux';
 import { store, Store } from '@/store/store';
 import { setContractToEdit } from '@/features/contracts.reducer';
-
 export function dateOnly(time: Date) {
     const date = new Date(time);
     const day = date.getDate();
