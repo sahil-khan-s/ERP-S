@@ -35,7 +35,7 @@ const StateChart = ({ data }: { data: DataPoint[] }) => {
           type={"number"}
           tickLine={false}
           axisLine={false}
-          interval={""}
+          interval={undefined}
         />
         <Area
           type="linear"

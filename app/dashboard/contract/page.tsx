@@ -5,7 +5,7 @@ import Task from "../components/contract/task";
 import ContractCard from "../components/contract/contractcard";
 import Link from "next/link";
 import StateChart, { DataPoint } from "../components/contract/areaChart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NewTaskPopUp from "../components/contract/newTaskPopup";
 import { useSelector } from "react-redux";
 import { store, Store } from "@/store/store";
@@ -13,6 +13,7 @@ import { toggleContractEditing } from "@/features/contracts.reducer";
 import { Contract as ContractInterface, Task as TaskInterface } from "@prisma/client";
 import { toggleTaskEditing } from "@/features/contract-tasks.reducer";
 import EditTaskPopup from "../components/contract/editTaskPopup";
+import { getTodayTasks } from "./layout";
 export default function Contract() {
   const [openTaskPopUp, setOpenTaskPopUp] = useState(false);
 
@@ -20,9 +21,6 @@ export default function Contract() {
   const { allContracts } = useSelector((state: Store) => { return state.contracts });
 
 
-
-
-  console.log(isEditingEnabled, taskToEdit);
   const stateChartData: DataPoint[] = [
     {
       month: "Jan",
@@ -110,6 +108,12 @@ export default function Contract() {
       value: allContracts?.reduce((count, contract) => contract.status === "notSigned" ? count + 1 : count, 0) ?? 0
     }
   ]
+
+
+
+  useEffect(() => {
+    getTodayTasks();
+  }, []);
 
 
 

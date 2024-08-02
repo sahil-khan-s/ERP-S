@@ -7,7 +7,6 @@ export const DELETE = async (req: NextRequest) => {
 	try {
 		const { id } = await req.json();
 
-		console.log(id);
 		if (!id) {
 			return NextResponse.json(
 				{
