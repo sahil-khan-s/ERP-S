@@ -24,18 +24,6 @@ export default class VendorPageChart extends PureComponent<ExampleProps, Example
     };
   }
 
-  // onPieEnter = (_: any, index: number) => {
-  //   this.setState({
-  //     activeIndex: index,
-  //   });
-  // };
-
-  // onPieLeave = () => {
-  //   this.setState({
-  //     activeIndex: null,
-  //   });
-  // };
-
   render() {
     const { activeIndex } = this.state;
     const total = 121;
@@ -65,8 +53,6 @@ export default class VendorPageChart extends PureComponent<ExampleProps, Example
                   key={`cell-${index}`}
                   fill={COLORS[index % COLORS.length]}
                   style={cellStyle(index)}
-                  // onMouseEnter={() => this.onPieEnter({}, index)}
-                  // onMouseLeave={this.onPieLeave}
                 />
               ))}
             </Pie>

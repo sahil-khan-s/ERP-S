@@ -3,8 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async () => {
 	try {
-		console.log("Fetching today's tasks...");
-
 		const startOfToday = new Date();
 		startOfToday.setHours(0, 0, 0, 0);
 		const endOfToday = new Date(startOfToday);
@@ -18,8 +16,6 @@ export const GET = async () => {
 				},
 			},
 		});
-
-		console.log("Tasks fetched:", tasksToday);
 
 		return NextResponse.json(
 			{
@@ -39,7 +35,6 @@ export const GET = async () => {
 			{ status: 400 }
 		);
 	} finally {
-		console.log("Closing database connection...");
 		await prisma.$disconnect();
 	}
 };

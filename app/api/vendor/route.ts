@@ -20,7 +20,6 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
 		);
 	} catch (error) {
 		console.error(error);
-		console.log("SERVER ERROR")
 
 		return NextResponse.json(
 			{ success: false, message: "Failed to create new vendor" },
@@ -41,7 +40,6 @@ export const GET = async (): Promise<NextResponse> => {
 			},
 		  });
 		if (!vendors) {
-			console.log("Faill to fetch")
 
 			throw new Error("Failed to fetch vendor");
 		}
@@ -55,13 +53,46 @@ export const GET = async (): Promise<NextResponse> => {
 			{ status: 200 }
 		);
 	} catch (error) {
-		console.log(error);
-		console.log("SERVER ERROR")
+		console.error(error);
 
 		return NextResponse.json(
 			{
 				success: false,
 				massage: "Failed to fetch vendor",
+			},
+			{ status: 500 }
+		);
+	} finally {
+		await prisma.$disconnect();
+	}
+};
+
+
+
+//         DELETE REQUEST
+export const DELETE = async (request: Request): Promise<NextResponse> => {
+	try {
+		const { id } = await request.json();
+		const vendor = await prisma.vendor.delete({  
+			where:{id:id} 
+		});
+		if (!vendor) {
+			throw new Error("Failed to delete vendor");
+		}
+		return NextResponse.json(
+			{
+				success: true,
+				message: "Vendor deleted successfully",
+			},
+			{ status: 200 }
+		);
+	} catch (error) {
+		console.error(error)
+
+		return NextResponse.json(
+			{
+				success: false,
+				message: "Failed to delete vendor",
 			},
 			{ status: 500 }
 		);

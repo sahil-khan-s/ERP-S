@@ -4,7 +4,9 @@ import { dateOnly } from '../contractcard'
 import { store } from '@/store/store'
 import { setContractToEdit, toggleContractEditing } from '@/features/contracts.reducer'
 import { getAllContracts } from '@/app/dashboard/contract/layout'
-
+import Image from 'next/image'
+import editIcon from "@/public/edit.png";
+import deleteIcon from "@/public/delete.png";
 const ContractTaskTab = ({ contract, setShowDetails }: { contract: ContractInterface, setShowDetails: React.Dispatch<React.SetStateAction<ContractInterface | undefined>> }) => {
     function editContract() {
         store.dispatch(toggleContractEditing())
@@ -53,14 +55,15 @@ const ContractTaskTab = ({ contract, setShowDetails }: { contract: ContractInter
     }
 
 
+
     return (
         <div className='min-h-[660px]'>
-            <div className='flex justify-end items-center mb-4'>
+            <div className='flex justify-end mb-4 items-center'>
                 <button className='px-2' onClick={editContract} >
-                    <img className='size-6' src='https://cdn-icons-png.freepik.com/512/8747/8747675.png' />
+                    <Image height={24} width={24} src={editIcon} alt='edit icon' />
                 </button>
                 <button className='px-2' onClick={deleteContract} >
-                    <img className='size-6' src='https://cdn-icons-png.flaticon.com/512/6861/6861362.png' />
+                    <Image height={24} width={24} src={deleteIcon} alt='delete icon' />
                 </button>
             </div>
             <div className='flex justify-between'>
