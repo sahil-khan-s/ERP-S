@@ -18,7 +18,7 @@ const VendorInputFields = ({page,setPage}:{page:any, setPage:any}) => {
 
 
 
-  const [selectedImage, setSelectedImage] = React.useState()
+  const [selectedImage, setSelectedImage] = React.useState<any>()
   const [image, setImage] = React.useState<any>()
   const [vendorName, setVendorName] = React.useState<string>("")
   const [email, setEmail] = React.useState<string>("")
