@@ -41,7 +41,7 @@ export default function Vendor() {
         </div>
         :
         <div className="bg-white p-8 shadow-lg w-full">
-          <VendorInputFields />
+          <VendorInputFields page={page} setPage={setPage} />
           <div className="flex justify-end gap-4">
             <button
               onClick={handlePage}
