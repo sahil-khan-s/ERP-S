@@ -94,8 +94,6 @@ const EditTaskPopup = ({ task }: { task: Task }) => {
     }
 
 
-    console.log(date, time, title);
-
 
     return (
 

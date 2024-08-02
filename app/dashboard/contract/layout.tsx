@@ -13,7 +13,6 @@ export const getTodayTasks = async () => {
   try {
     const res = await fetch("/api/contracts-section/tasks/today-tasks");
     const data = await res.json();
-    console.log(data.tasks);
     if (data.success) {
       store.dispatch(addTasks({ tasks: data.tasks }))
     } else {
@@ -53,8 +52,8 @@ const layout = ({ children }: { children: React.ReactNode }) => {
 
 
   useEffect(() => {
-    getTodayTasks()
-    getAllContracts();
+
+    getAllContracts()
   }, []);
 
 

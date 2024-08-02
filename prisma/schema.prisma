@@ -49,10 +49,10 @@ enum TaskStatus {
   complete
   incomplete
 }
- 
- // Vendors schema
+
+// Vendors schema
 model Vendor {
-  id             Int  @id @default(autoincrement())
+  id             Int      @id @default(autoincrement())
   imageUrl       String
   name           String
   contractvalue  String
@@ -62,7 +62,12 @@ model Vendor {
   type           String
   address        String
   note           String
+
+  // below field are for performance and evaluation screen.
+  feedbacks   Feedback[]
+  Performance Performance?
 }
+
 // transaction management screen schema
 
 model TransactionDetails {
@@ -92,4 +97,22 @@ enum PaymentMethod {
   Cash
   Invoice
   CreditCard
+}
+
+// performance And evaluation.
+
+model Feedback {
+  id       Int    @id @default(autoincrement())
+  content  String
+  comment  String
+  venodrId Int
+  vendor   Vendor @relation(fields: [venodrId], references: [id])
+}
+
+model Performance {
+  id              Int    @id @default(autoincrement())
+  evaluationScore Float
+  rating          Json
+  vendorId        Int    @unique
+  vendor          Vendor @relation(fields: [vendorId], references: [id])
 }

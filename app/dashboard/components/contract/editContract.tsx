@@ -50,7 +50,6 @@ const EditContract = ({ cancelEdit, contract }: { cancelEdit: any, contract: Con
         }
 
         try {
-            console.log({ ...contractData, dateFrom, dateTo, from: "John Doe" });
 
             const response = await fetch("/api/contracts-section/contracts/edit", {
                 method: "PATCH",

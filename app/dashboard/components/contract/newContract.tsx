@@ -55,7 +55,6 @@ const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: any }) =>
         }
 
         try {
-            console.log({ ...contractData, dateFrom, dateTo, from: "John Doe" });
 
             const response = await fetch("/api/contracts-section/contracts/add", {
                 method: "POST",
