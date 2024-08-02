@@ -147,9 +147,9 @@ const VendorInputFields = ({page,setPage}:{page:any, setPage:any}) => {
           </Popover>
         </div>
         <div className="w-full">
-          <Select onValueChange={(value: string) => { setType(value) }}>
-            <SelectTrigger className=" border border-slate-300 h-12 appearance-none  rounded-xl w-full p-4 -gray-700 focus:ring-1 leading-tight outline-none text-[16px] text-gray-400 focus:text-black">
-              <SelectValue placeholder="Type" />
+          <Select defaultValue="office" onValueChange={(value: string) => { setType(value) }}>
+            <SelectTrigger className=" border border-slate-300 h-12 appearance-none  rounded-xl w-full p-4 focus:ring-1 leading-tight outline-none text-[16px] text-gray-400 focus:text-black">
+              <SelectValue />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="office">Office</SelectItem>

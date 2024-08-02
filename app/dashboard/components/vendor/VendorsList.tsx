@@ -3,10 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { RiDeleteBin6Line, RiEyeLine, RiEdit2Line } from "react-icons/ri";
 import Image from 'next/image';
 // SHADCN.UI
-import {Popover,PopoverContent,PopoverTrigger} from "@/components/ui/popover"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import moment from 'moment';
 import { TiBriefcase } from 'react-icons/ti';
-import {AlertDialog,AlertDialogAction,AlertDialogCancel,AlertDialogContent,AlertDialogDescription,AlertDialogFooter,AlertDialogHeader,AlertDialogTitle,AlertDialogTrigger} from "@/components/ui/alert-dialog"
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const VendorsList = () => {
   type Vendor = {
@@ -19,16 +20,68 @@ const VendorsList = () => {
     date: string;
     type: string;
     address: string;
-    note: string; 
+    note: string;
   };
 
-  const [vendors, setVendor] = useState<Vendor[] | null >()
-  const [reload,setReload] = useState(false)
-  
-  //     DELETE FUNCTION
-  const deleteVendor = async (id:number) => {
+  const [vendors, setVendor] = useState<Vendor[] | null>()
+  const [reload, setReload] = useState(false)
+
+  //     EDIT VENDOR useStates
+  const [editName, setEditName] = React.useState<string>("")
+  const [editEmail, setEditEmail] = React.useState<string>("")
+  const [editValue, setEditValue] = React.useState<string>("")
+  const [editCategory, setEditCategory] = React.useState<string>("")
+  const [editType, setEditType] = React.useState<string>("")
+  const [editAddress, setEditAddress] = React.useState<string>("")
+  const [editNote, setEditNote] = React.useState<string>("")
+
+  //  EDIT FUNCTION
+  const editData = async (editId: number) => {
+
     try {
-      console.log("trying to delete..")
+
+      const response = await fetch("/api/vendor", {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: editId,
+          name: editName,
+          email: editEmail,
+          contractvalue: editValue,
+          vendorCategory: editCategory,
+          type: editType,
+          address: editAddress,
+          note: editNote
+        })
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to update vendor: ${response.statusText}`);
+      } else {
+        setVendor(null)
+        setReload(!reload);
+      }
+
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  // FILL EDIT INPUT FIELDS
+  const fillData = (user: any) => {
+    setEditName(user.name);
+    setEditEmail(user.email);
+    setEditValue(user.contractvalue);
+    setEditCategory(user.vendorCategory);
+    setEditType(user.type);
+    setEditAddress(user.address);
+    setEditNote(user.note)
+  }
+
+  //     DELETE FUNCTION
+  const deleteVendor = async (id: number) => {
+    try {
       const response = await fetch('/api/vendor', {
         method: 'DELETE',
         headers: {
@@ -36,11 +89,11 @@ const VendorsList = () => {
         },
         body: JSON.stringify({ id }),
       });
-  
+
       const data = await response.json();
-  
+
       if (data.success) {
-      setReload(!reload)
+        setReload(!reload)
       }
     } catch (error) {
       console.error('An error occurred while deleting the vendor:', error);
@@ -85,6 +138,8 @@ const VendorsList = () => {
                 </td>
                 <td className="flex flex-row justify-center items-center gap-3">
 
+                  {/* VIEW */}
+
                   <Popover>
                     <PopoverTrigger><button className='text-slate-600 hover:text-black text-lg'><RiEyeLine /></button></PopoverTrigger>
                     <PopoverContent className='bg-slate-50 relative top-[25%] right-[25%] w-max'>
@@ -124,27 +179,80 @@ const VendorsList = () => {
                           <div className="text-md text-black font-semibold ">{item.note}</div>
                         </div>
                       </div>
-
-
                     </PopoverContent>
                   </Popover>
 
-                  <button className='text-slate-600 hover:text-black text-lg'><RiEdit2Line /></button>
+                  {/* EDIT */}
+
                   <AlertDialog>
-  <AlertDialogTrigger><button className='text-slate-600 hover:text-black text-lg'><RiDeleteBin6Line /></button></AlertDialogTrigger>
-  <AlertDialogContent>
-    <AlertDialogHeader>
-      <AlertDialogTitle>You want to delete {item.name} vendor?</AlertDialogTitle>
-      <AlertDialogDescription>
-        This action will permanently delete {item.name} vendor data.
-      </AlertDialogDescription>
-    </AlertDialogHeader>
-    <AlertDialogFooter>
-      <AlertDialogCancel>Cancel</AlertDialogCancel>
-      <AlertDialogAction onClick={()=>{deleteVendor(item.id);}} className='bg-red-600 hover:bg-red-500'>Delete</AlertDialogAction>
-    </AlertDialogFooter>
-  </AlertDialogContent>
-</AlertDialog>
+                    <AlertDialogTrigger>
+                      <button onClick={() => { fillData(item) }} className='text-slate-600 hover:text-black text-lg mb-1'>
+                        <RiEdit2Line />
+                      </button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Edit vendor</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          <div className="mb-4 flex gap-4">
+                            <div className="w-full">
+                              <input value={editName} onChange={(e) => { setEditName(e.target.value) }} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 focus:outline-none focus:ring-1 focus:ring-black text-gray-900" id="vendorName" type="text" placeholder="Vendor Name" />
+                            </div>
+                            <div className="w-full">
+                              <input value={editEmail} onChange={(e) => { setEditEmail(e.target.value) }} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-900 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="contractEmail" type="email" placeholder="Contract Email" />
+                            </div>
+                          </div>
+                          <div className=" mb-4 flex gap-4">
+                            <div className="w-full">
+                              <input value={editValue} onChange={(e) => { setEditValue(e.target.value) }} className="bg-white  border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-900 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="contractNumber" type="text" placeholder="Contract Value" />
+                            </div>
+                            <div className="w-full">
+                              <input value={editCategory} onChange={(e) => { setEditCategory(e.target.value) }} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-900 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="contractName" type="text" placeholder="Category" />
+                            </div>
+                            <div className="w-full">
+                              <Select defaultValue={item.type} onValueChange={(value: string) => { setEditType(value) }}>
+                                <SelectTrigger className=" border border-slate-300 h-12 appearance-none  rounded-xl w-full p-4 focus:ring-1 leading-tight outline-none text-[16px] text-gray-900 focus:text-black">
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="office">Office</SelectItem>
+                                  <SelectItem value="remote">Remote</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </div>
+                          </div>
+                          <div className="mb-4">
+                            <input value={editAddress} onChange={(e) => { setEditAddress(e.target.value) }} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-900 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="address" type="text" placeholder="Address" />
+                          </div>
+                          <div className="mb-4">
+                            <textarea value={editNote} onChange={(e) => { setEditNote(e.target.value) }} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-900 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="notes" placeholder="Notes"></textarea>
+                          </div>
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel className='text-gray-900 font-semibold py-2 rounded-lg focus:outline-none focus:border border-slate-300-outline'>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={() => { editData(item.id) }} className=" bg-[#DDFF8F] hover:bg-[#C8F064] text-gray-900 font-semibold py-2 rounded-lg focus:outline-none focus:border border-slate-300-outline">Save</AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+
+                  {/*  DELETE */}
+
+                  <AlertDialog>
+                    <AlertDialogTrigger><button className='text-slate-600 hover:text-black text-lg'><RiDeleteBin6Line /></button></AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>You want to delete {item.name} vendor?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          This action will permanently delete {item.name} vendor data.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={() => { deleteVendor(item.id); }} className='bg-red-600 hover:bg-red-500'>Delete</AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
 
                 </td>
               </tr>
