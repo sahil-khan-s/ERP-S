@@ -1,3 +1,5 @@
+'use client'
+
 import Nav from "./components/common/nav";
 import DashboardLineChart from "./components/dashboard/DashboardLineChart";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -6,7 +8,7 @@ import RiskSummaryCard from "./components/dashboard/RiskSummaryCard";
 import DashboardTransactionCard from "./components/dashboard/DashboardTransactionCard";
 import DashboardContractCard from "./components/dashboard/DashboardContractCard";
 
-export default async function Home() {
+export default async function Dashboard() {
   return (
     <>
       <section className="bg-white px-4 py-1">
