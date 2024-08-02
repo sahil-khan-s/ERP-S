@@ -22,7 +22,7 @@ const VendorsList = () => {
     note: string; 
   };
 
-  const [vendors, setVendor] = useState<Vendor[]>([])
+  const [vendors, setVendor] = useState<Vendor[] | null >()
   const [reload,setReload] = useState(false)
   
   //     DELETE FUNCTION
