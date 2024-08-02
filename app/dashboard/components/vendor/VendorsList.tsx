@@ -19,7 +19,7 @@ const VendorsList = () => {
     date: string;
     type: string;
     address: string;
-    note: string;
+    note: string; 
   };
 
   const [vendors, setVendor] = useState<Vendor[]>([])
