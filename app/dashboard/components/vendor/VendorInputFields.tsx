@@ -152,8 +152,8 @@ const VendorInputFields = ({page,setPage}:{page:any, setPage:any}) => {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="office">Office</SelectItem>
-              <SelectItem value="remote">Remote</SelectItem>
+              <SelectItem value="Office">Office</SelectItem>
+              <SelectItem value="Remote">Remote</SelectItem>
             </SelectContent>
           </Select>
         </div>
