@@ -16,7 +16,8 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu"
 //ICONS
 import { TbAnalyze } from "react-icons/tb";
 import { PiArrowSquareIn } from "react-icons/pi";
@@ -24,6 +25,7 @@ import { HiOutlineUserGroup } from "react-icons/hi2";
 import { BsGraphUpArrow } from "react-icons/bs";
 import { FaRegChartBar } from "react-icons/fa";
 import { FaListUl } from "react-icons/fa6";
+import { MdManageSearch } from "react-icons/md";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
 
 const Sidebar = () => {
@@ -46,6 +48,17 @@ const Sidebar = () => {
     setIsSmallScreen(matches);
     setOpen(!matches);
   }, [matches]);
+
+  const components: { title: string; href: string;}[] = [
+    {
+      title: "Management",
+      href: "/compliance&risk/managment",
+      },
+    {
+      title: "List",
+      href: "/dashboard/compliance&risk/list",
+      }
+  ]
 
   return (
     <>
@@ -161,7 +174,7 @@ const Sidebar = () => {
                   </div>
                 </>
               ) : (
-                <div className="px-4 mt-12 hover:bg[#ddff8f] hover:rounded-full   py-2">
+                <div className="px-4 mt-12 hover:bg[#ddff8f] hover:rounded-full py-2">
                   <HiOutlineSquares2X2 className="text-2xl" />
                 </div>
               )}
@@ -282,51 +295,28 @@ const Sidebar = () => {
 
             {/* -------Report & Analytics-------- */}
             <Link href="/dashboard/compliance&risk">
-              <div
-                className={
-                  currentPath === "/dashboard/compliance&risk"
-                    ? "active my-2 bg-[#DDFF8F] rounded-xl  hover:bg-[#DDFF8F] text-black"
-                    : "my-2 rounded-lg hover:bg-[#DDFF8F] group hover:text-black text-white"
-                }
-              >
                 {open ? (
                   <NavigationMenu>
-                    <NavigationMenuList className="hover:bg-[#DDFF8F]">
-                      <NavigationMenuItem>
-                        <NavigationMenuTrigger
-                          className={
-                            currentPath !== "/dashboard/compliance&risk"
-                              ? " text-white text-md bg-transparent w-full group-hover:text-black font-normal rounded-lg"
-                              : "rounded-lg hover:bg-[#DDFF8F] group-hover:text-black w-full text-black font-normal text-md bg-transparent"
-                          }
-                        >
-                          <FaRegChartBar className="text-xl ml-2 mr-3" />
-                          Compliance & Risk
-                        </NavigationMenuTrigger>
-                        <NavigationMenuContent className="flex justify-start border-0 outline-none ring-0 hover:text-black rounded-xl bg-black text-white hover:bg-[#ddff8f]">
-                          <NavigationMenuLink>
-                            <Link
-                              href="/dashboard/compliance&risk/list"
-                              className="hover:bg-slate-600"
-                            >
-                              <div className="flex px-4 w-64 p-1.5 space-x-4 cursor-pointer items-center">
-                                <div>
-                                  <FaListUl className=" text-xl" />
-                                </div>
-                                <Typography variant="body1">List</Typography>
-                              </div>
-                            </Link>
-                          </NavigationMenuLink>
-                        </NavigationMenuContent>
-                      </NavigationMenuItem>
-                    </NavigationMenuList>
-                  </NavigationMenu>
+                  <NavigationMenuList>
+                    <NavigationMenuItem>
+                      <NavigationMenuTrigger className={
+                  currentPath === "/dashboard/compliance&risk"
+                    ? "active font-normal my-2 bg-[#DDFF8F] rounded-xl pl-3 hover:bg-[#DDFF8F] text-black"
+                    : "my-2 rounded-lg font-light hover:bg-[#DDFF8F] group hover:text-black pl-3 hover:font-normal text-white"
+                }> <FaRegChartBar className="text-xl ml-2 mr-3"/>Compliance & Risk</NavigationMenuTrigger>
+                      <NavigationMenuContent className="flex flex-col">
+                      <Link href={"/dashboard/compliance&risk/managment"}> <NavigationMenuLink className="w-full mb-3 font-light hover:font-normal hover:bg-[#DDFF8F] overflow-hidden py-1.5 rounded-lg hover:text-black px-3 flex flex-row items-center"> <MdManageSearch className="text-2xl ml-2 mr-3"/><p >Managent</p></NavigationMenuLink></Link>
+                        <Link href={"/dashboard/compliance&risk/list"}> <NavigationMenuLink className="w-full mb-3 font-light hover:font-normal hover:bg-[#DDFF8F] overflow-hidden py-1.5 rounded-lg hover:text-black px-3 flex flex-row items-center"> <FaListUl className="text-md ml-2 mr-3"/><p >List</p></NavigationMenuLink></Link>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                  </NavigationMenuList>
+                </NavigationMenu>
+                
                 ) : (
                   <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-xl py-1">
-                    <FaRegChartBar className="group-hover:text-black text-xl" />
+                    <FaRegChartBar className="group-hover:text-black text-white text-xl" />
                   </div>
                 )}
-              </div>
             </Link>
           </div>
 
