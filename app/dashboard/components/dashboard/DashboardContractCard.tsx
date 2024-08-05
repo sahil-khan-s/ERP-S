@@ -1,3 +1,5 @@
+'use client'
+
 import React from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
