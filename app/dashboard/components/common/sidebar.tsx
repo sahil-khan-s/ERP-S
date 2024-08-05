@@ -174,7 +174,7 @@ const Sidebar = () => {
                   </div>
                 </>
               ) : (
-                <div className="px-4 mt-12 hover:bg[#ddff8f] hover:rounded-full py-2">
+                <div className="px-4 mt-12 hover:bg[#ddff8f] hover:rounded-full py-1.5">
                   <HiOutlineSquares2X2 className="text-2xl" />
                 </div>
               )}
@@ -202,7 +202,7 @@ const Sidebar = () => {
                     </div>
                   </>
                 ) : (
-                  <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-lg py-1">
+                  <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-lg py-1.5">
                     <HiOutlineUserGroup className="group-hover:text-black  text-xl" />
                   </div>
                 )}
@@ -230,7 +230,7 @@ const Sidebar = () => {
                     </div>
                   </>
                 ) : (
-                  <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-lg py-1">
+                  <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-lg py-1.5">
                     <PiArrowSquareIn className="group-hover:text-black  text-xl" />
                   </div>
                 )}
@@ -258,7 +258,7 @@ const Sidebar = () => {
                     </div>
                   </>
                 ) : (
-                  <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-lg py-1">
+                  <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-lg py-1.5">
                     <TbAnalyze className=" group-hover:text-black  text-xl" />
                   </div>
                 )}
@@ -285,7 +285,7 @@ const Sidebar = () => {
                     </div>
                   </>
                 ) : (
-                  <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-xl py-1">
+                  <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-xl py-1.5">
                     <BsGraphUpArrow className="group-hover:text-black text-xl" />
                   </div>
                 )}
@@ -313,7 +313,7 @@ const Sidebar = () => {
                 </NavigationMenu>
                 
                 ) : (
-                  <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-xl py-1">
+                  <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-xl py-1.5">
                     <FaRegChartBar className="group-hover:text-black text-white text-xl" />
                   </div>
                 )}
