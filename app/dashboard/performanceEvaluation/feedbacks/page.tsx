@@ -1,17 +1,10 @@
 "use client";
 import React, { useEffect, useState } from 'react'
-import moment from 'moment';
-//ICONS
-import { RiDeleteBin6Line, RiEyeLine, RiEdit2Line } from "react-icons/ri";
 import Image from 'next/image';
-// SHADCN.UI
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { TiBriefcase } from 'react-icons/ti';
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useSelector } from 'react-redux';
 import { store, Store } from '@/store/store';
-import { addFeedbacks } from '@/features/feedback.reducer.ts';
+import { addFeedbacks, ModifiedFeedback } from '@/features/feedback.reducer.ts';
+import AddCommentPopUp from '../../components/performanceEvaluation/addCommentPopup';
 
 
 export const getAllFeedbacks = async () => {
@@ -35,16 +28,33 @@ export const getAllFeedbacks = async () => {
 
 export default function Feedbacks() {
     const { allFeedbacks } = useSelector((state: Store) => state.feedbacks);
-
+    // const 
+    const [openCommentPopUp, setOpenCommentPopUp] = useState(false);
+    const [selectedFeedback, setSelectedFeedback] = useState<ModifiedFeedback | undefined>(undefined);
     useEffect(() => {
         if (!allFeedbacks) {
             getAllFeedbacks()
         }
     }, [allFeedbacks]);
 
+
+    const toggleCommentPopUp = (feedback: ModifiedFeedback | boolean | undefined = undefined) => {
+
+        if (feedback && typeof feedback == "object") {
+            setSelectedFeedback(feedback);
+            setOpenCommentPopUp(true);
+        } else {
+            setOpenCommentPopUp(false);
+            setSelectedFeedback(undefined);
+        }
+    }
+
+
     return (
         <div className="overflow-x-auto mt-8">
-
+            {
+                (selectedFeedback && openCommentPopUp) && <AddCommentPopUp feedback={selectedFeedback} setOpenCommentPopUp={toggleCommentPopUp} />
+            }
             <h2 className='font-lexend tracking-wide text-[28px] font-semibold'>Vendor Feedbacks</h2>
             <table className="w-full table-auto rounded overflow-hidden mt-6">
                 <thead className="bg-[#F5F5F5]">
@@ -81,7 +91,12 @@ export default function Feedbacks() {
                                     <td className="p-4 font-outfit text-left whitespace-nowrap">{feedback?.id}</td>
                                     <td className="p-4 font-outfit text-left flex-1">{feedback?.content}</td>
                                     <td className="p-4 text-center whitespace-nowrap">
-                                        <button className={`bg-[#6BA10F] px-3 py-2 rounded-md font-semibold font-lexend text-white text-[13px] disabled:bg-[#4a6d0f]`}>Comment</button>
+                                        <button
+                                            onClick={() => toggleCommentPopUp(feedback)}
+                                            className={` ${feedback.comment.length == 0 ? "bg-[#6BA10F] text-white" : "bg-transparent text-black border-[1px] border-black rounded-md"} px-3 py-2 rounded-md font-semibold font-lexend text-[13px] disabled:bg-[#4a6d0f]`}
+                                        >
+                                            {feedback.comment.length == 0 ? "Comment" : "Edit comment"}
+                                        </button>
                                     </td>
                                 </tr>
                             ))

@@ -1,7 +1,6 @@
 "use client";
 import { changeRandomFeedback } from '@/features/feedback.reducer.ts';
 import { store, Store } from '@/store/store';
-import { Feedback } from '@prisma/client';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip } from "recharts";
@@ -248,7 +247,7 @@ const page = () => {
                                         </defs>
                                     </svg>
                                 </div>
-                                <button onClick={() => setOpenCommentPopUp(true)} disabled={randomFeedback === undefined} className={`bg-[#6BA10F] px-3 py-2 rounded-md font-semibold font-lexend ${randomFeedback ? "" : "hidden"} text-white text-[13px] disabled:bg-[#4a6d0f]`}>Comment</button>
+                                <button onClick={() => setOpenCommentPopUp(true)} disabled={randomFeedback === undefined} className={` ${randomFeedback?.comment.length == 0 ? "bg-[#6BA10F] text-white" : "bg-transparent text-black border-[1px] border-black rounded-md"} px-3 py-2 rounded-md font-semibold font-lexend text-[13px] disabled:hidden`}>{randomFeedback?.comment.length == 0 ? "Comment" : "Edit comment"}</button>
                             </div>
                         </div>
                     }

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { ModifiedFeedback } from '@/features/feedback.reducer.ts';
 import { getRandomFeedback } from '../../performanceEvaluation/page';
-export default function AddCommentPopUp({ setOpenCommentPopUp, feedback }: { setOpenCommentPopUp: React.Dispatch<React.SetStateAction<boolean>>, feedback: ModifiedFeedback }) {
+export default function AddCommentPopUp({ setOpenCommentPopUp, feedback }: { setOpenCommentPopUp: React.Dispatch<React.SetStateAction<boolean>> | ((feedback?: ModifiedFeedback | boolean | undefined) => void), feedback: ModifiedFeedback }) {
     const [comment, setComment] = useState(feedback.comment);
 
     const handleForm = async () => {
@@ -67,7 +67,7 @@ export default function AddCommentPopUp({ setOpenCommentPopUp, feedback }: { set
 
 
                 <div className='mx-auto flex items-center gap-x-2 my-6 justify-center'>
-                    <button onClick={() => setOpenCommentPopUp(prev => !prev)} className='border-[1px] w-40 border-[#A2A1A833] rounded-lg py-2'>cancel</button>
+                    <button onClick={() => setOpenCommentPopUp(false)} className='border-[1px] w-40 border-[#A2A1A833] rounded-lg py-2'>cancel</button>
                     <button onClick={handleForm} className="bg-[#DDFF8F] rounded-lg py-2 w-40">Add</button>
                 </div>
             </div>
