@@ -234,9 +234,7 @@ const VendorsList = () => {
 
                                     {/*   DELETE   */}
                                     <AlertDialog>
-                                        <AlertDialogTrigger>
-                                            <button className='text-slate-600 hover:text-black text-lg'><RiDeleteBin6Line className='text-xl' /></button>
-                                        </AlertDialogTrigger>
+                                        <AlertDialogTrigger><button className='text-slate-600 hover:text-black text-lg'><RiDeleteBin6Line className='text-xl' /></button></AlertDialogTrigger>
                                         <AlertDialogContent>
                                             <AlertDialogHeader>
                                                 <AlertDialogTitle>You want to delete {item.name} vendor?</AlertDialogTitle>
