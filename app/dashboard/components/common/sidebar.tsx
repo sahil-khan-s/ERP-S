@@ -49,17 +49,6 @@ const Sidebar = () => {
     setOpen(!matches);
   }, [matches]);
 
-  const components: { title: string; href: string;}[] = [
-    {
-      title: "Management",
-      href: "/compliance&risk/managment",
-      },
-    {
-      title: "List",
-      href: "/dashboard/compliance&risk/list",
-      }
-  ]
-
   return (
     <>
       <div className="relative bg-gray-500">
@@ -68,7 +57,7 @@ const Sidebar = () => {
           anchor="left"
           open={open}
           classes={{
-            paper: "custom-drawer-paper", // Add your custom class name here
+            paper: "custom-drawer-paper bg-black", // Add your custom class name here
           }}
           sx={{
             width: open ? "270px" : "72px", // Adjust the width as needed
@@ -88,7 +77,7 @@ const Sidebar = () => {
                   onClick={() => router.push("/")}
                   className="cursor-pointer"
                 >
-                  <div className="flex space-x-2 items-center justify-between ">
+                  <div className="flex space-x-2 ml-3 items-center justify-between ">
                     <div>
                       <svg
                         width="32"
@@ -111,7 +100,7 @@ const Sidebar = () => {
                 open && (
                   <div
                     onClick={() => router.push("/")}
-                    className="hidden md:flex  space-x-2 items-center cursor-pointer"
+                    className="hidden md:flex space-x-2 items-center cursor-pointer"
                   >
                     <svg
                       width="32"
@@ -157,7 +146,7 @@ const Sidebar = () => {
             >
               {open ? (
                 <>
-                  <div className="flex active:text-black space-x-3 px-5 hover:bg-[#DDFF8F]  cursor-pointer hover:rounded-[10px] mt-12  py-2 items-center">
+                  <div className="flex active:text-black space-x-3 px-5 hover:bg-[#DDFF8F] cursor-pointer hover:rounded-[10px] mt-12 py-2 items-center">
                     <div>
                       <HiOutlineSquares2X2 className="text-2xl" />
                     </div>
@@ -174,7 +163,7 @@ const Sidebar = () => {
                   </div>
                 </>
               ) : (
-                <div className="px-4 mt-12 hover:bg[#ddff8f] hover:rounded-full py-1.5">
+                <div className="mt-12 hover:bg-[#DDFF8F] group rounded-xl py-1.5 flex justify-center pr-1">
                   <HiOutlineSquares2X2 className="text-2xl" />
                 </div>
               )}
@@ -192,7 +181,7 @@ const Sidebar = () => {
               >
                 {open ? (
                   <>
-                    <div className="flex space-x-4  pl-5 hover:bg-[#DDFF8F] hover:text-black cursor-pointer hover:rounded-[10px] mt-2  py-2 items-center">
+                    <div className="flex space-x-4 pl-5 hover:bg-[#DDFF8F] hover:text-black cursor-pointer hover:rounded-[10px] mt-2 py-2 items-center">
                       <div>
                         <HiOutlineUserGroup className="text-xl" />
                       </div>
@@ -202,7 +191,7 @@ const Sidebar = () => {
                     </div>
                   </>
                 ) : (
-                  <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-lg py-1.5">
+                  <div className="mt-2 hover:bg-[#DDFF8F] group rounded-xl py-1.5 flex justify-center pr-1">
                     <HiOutlineUserGroup className="group-hover:text-black  text-xl" />
                   </div>
                 )}
@@ -230,7 +219,7 @@ const Sidebar = () => {
                     </div>
                   </>
                 ) : (
-                  <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-lg py-1.5">
+                  <div className="mt-2 hover:bg-[#DDFF8F] group rounded-xl py-1.5 flex justify-center pr-1">
                     <PiArrowSquareIn className="group-hover:text-black  text-xl" />
                   </div>
                 )}
@@ -258,7 +247,7 @@ const Sidebar = () => {
                     </div>
                   </>
                 ) : (
-                  <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-lg py-1.5">
+                  <div className="mt-2 hover:bg-[#DDFF8F] group rounded-xl py-1.5 flex justify-center pr-1">
                     <TbAnalyze className=" group-hover:text-black  text-xl" />
                   </div>
                 )}
@@ -285,7 +274,7 @@ const Sidebar = () => {
                     </div>
                   </>
                 ) : (
-                  <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-xl py-1.5">
+                  <div className="mt-2 hover:bg-[#DDFF8F] group rounded-xl py-1.5 flex justify-center pr-1">
                     <BsGraphUpArrow className="group-hover:text-black text-xl" />
                   </div>
                 )}
@@ -313,7 +302,7 @@ const Sidebar = () => {
                 </NavigationMenu>
                 
                 ) : (
-                  <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-xl py-1.5">
+                  <div className="mt-2 hover:bg-[#DDFF8F] group rounded-xl py-1.5 flex justify-center pr-1">
                     <FaRegChartBar className="group-hover:text-black text-white text-xl" />
                   </div>
                 )}
