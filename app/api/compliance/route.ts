@@ -7,7 +7,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
     try {
         const { description, assignTo, title, type } = await request.json();
         const newComplianceIssue = await prisma.complianceIssue.create({
-            data: { description, assignTo, title, type, status:"Open"},
+            data: { description, assignTo, title, type, status: "Open" },
         });
 
         return NextResponse.json(
@@ -70,61 +70,61 @@ export const GET = async (): Promise<NextResponse> => {
 //         DELETE REQUEST
 
 export const DELETE = async (request: Request): Promise<NextResponse> => {
-	try {
-		const { id } = await request.json();
-		const complianceissue = await prisma.complianceIssue.delete({
-			where: { id: id }
-		});
-		if (!complianceissue) {
-			throw new Error("Failed to delete compliance issue");
-		}
-		return NextResponse.json(
-			{
-				success: true,
-				message: "compliance issue deleted successfully",
-			},
-			{ status: 200 }
-		);
-	} catch (error) {
-		console.error(error)
+    try {
+        const { id } = await request.json();
+        const complianceissue = await prisma.complianceIssue.delete({
+            where: { id: id }
+        });
+        if (!complianceissue) {
+            throw new Error("Failed to delete compliance issue");
+        }
+        return NextResponse.json(
+            {
+                success: true,
+                message: "compliance issue deleted successfully",
+            },
+            { status: 200 }
+        );
+    } catch (error) {
+        console.error(error)
 
-		return NextResponse.json(
-			{
-				success: false,
-				message: "Failed to delete compliance issue",
-			},
-			{ status: 500 }
-		);
-	} finally {
-		await prisma.$disconnect();
-	}
+        return NextResponse.json(
+            {
+                success: false,
+                message: "Failed to delete compliance issue",
+            },
+            { status: 500 }
+        );
+    } finally {
+        await prisma.$disconnect();
+    }
 };
 
 //       PATCH REQUEST
 
 export const PATCH = async (request: NextRequest): Promise<NextResponse> => {
-	try {
-		const { description, assignTo, title, type, status , id } = await request.json();
-		const newComplianceIssue = await prisma.complianceIssue.update({
-			where: { id: parseInt(id) },
-			data: { description, assignTo, title, type, status },
-		});
-		return NextResponse.json(
-			{
-				success: true,
-				message: "compliance issue updated successfully",
-				compliance: newComplianceIssue,
-			},
-			{ status: 200 }
-		);
-	} catch (error) {
-		console.error(error);
+    try {
+        const { description, assignTo, title, type, status, id } = await request.json();
+        const newComplianceIssue = await prisma.complianceIssue.update({
+            where: { id: parseInt(id) },
+            data: { description, assignTo, title, type, status },
+        });
+        return NextResponse.json(
+            {
+                success: true,
+                message: "compliance issue updated successfully",
+                compliance: newComplianceIssue,
+            },
+            { status: 200 }
+        );
+    } catch (error) {
+        console.error(error);
 
-		return NextResponse.json(
-			{ success: false, message: "Failed to update compliance issue" },
-			{ status: 500 }
-		);
-	} finally {
-		await prisma.$disconnect();
-	}
+        return NextResponse.json(
+            { success: false, message: "Failed to update compliance issue" },
+            { status: 500 }
+        );
+    } finally {
+        await prisma.$disconnect();
+    }
 };
