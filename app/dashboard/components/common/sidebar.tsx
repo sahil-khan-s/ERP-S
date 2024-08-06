@@ -16,7 +16,6 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 //ICONS
 import { TbAnalyze } from "react-icons/tb";
@@ -34,10 +33,6 @@ const Sidebar = () => {
   const router = useRouter();
   const toggleSidebar = () => {
     setOpen(!open);
-  };
-
-  const handleDropdown = () => {
-    setIsOpen((prevOpen) => !prevOpen);
   };
 
   const currentPath = usePathname();
@@ -163,7 +158,7 @@ const Sidebar = () => {
                   </div>
                 </>
               ) : (
-                <div className="mt-12 hover:bg-[#DDFF8F] group rounded-xl py-1.5 flex justify-center pr-1">
+                <div className="mt-12 hover:bg-[#DDFF8F] group h-[35px] rounded-xl py-1.5 flex justify-center items-center pr-1">
                   <HiOutlineSquares2X2 className="text-2xl" />
                 </div>
               )}
@@ -191,7 +186,7 @@ const Sidebar = () => {
                     </div>
                   </>
                 ) : (
-                  <div className="mt-2 hover:bg-[#DDFF8F] group rounded-xl py-1.5 flex justify-center pr-1">
+                  <div className="mt-2 hover:bg-[#DDFF8F] group rounded-xl h-[35px] py-1.5 flex justify-center pr-1 items-center">
                     <HiOutlineUserGroup className="group-hover:text-black  text-xl" />
                   </div>
                 )}
@@ -219,7 +214,7 @@ const Sidebar = () => {
                     </div>
                   </>
                 ) : (
-                  <div className="mt-2 hover:bg-[#DDFF8F] group rounded-xl py-1.5 flex justify-center pr-1">
+                  <div className="mt-2 hover:bg-[#DDFF8F] group rounded-xl h-[35px] py-1.5 flex justify-center pr-1 items-center">
                     <PiArrowSquareIn className="group-hover:text-black  text-xl" />
                   </div>
                 )}
@@ -247,7 +242,7 @@ const Sidebar = () => {
                     </div>
                   </>
                 ) : (
-                  <div className="mt-2 hover:bg-[#DDFF8F] group rounded-xl py-1.5 flex justify-center pr-1">
+                  <div className="mt-2 hover:bg-[#DDFF8F] group rounded-xl h-[35px] py-1.5 flex justify-center pr-1 items-center">
                     <TbAnalyze className=" group-hover:text-black  text-xl" />
                   </div>
                 )}
@@ -274,15 +269,14 @@ const Sidebar = () => {
                     </div>
                   </>
                 ) : (
-                  <div className="mt-2 hover:bg-[#DDFF8F] group rounded-xl py-1.5 flex justify-center pr-1">
+                  <div className="mt-2 hover:bg-[#DDFF8F] group rounded-xl h-[35px] py-1.5 flex justify-center pr-1 items-center">
                     <BsGraphUpArrow className="group-hover:text-black text-xl" />
                   </div>
                 )}
               </div>
             </Link>
-            {/* -------Compliance and Risk-------- */}
 
-            {/* -------Report & Analytics-------- */}
+            {/* -------Compliance and Risk-------- */}
             <Link href="/dashboard/compliance&risk">
                 {open ? (
                   <NavigationMenu>
@@ -302,7 +296,7 @@ const Sidebar = () => {
                 </NavigationMenu>
                 
                 ) : (
-                  <div className="mt-2 hover:bg-[#DDFF8F] group rounded-xl py-1.5 flex justify-center pr-1">
+                  <div className="mt-2 hover:bg-[#DDFF8F] group rounded-xl h-[35px] py-1.5 flex justify-center pr-1">
                     <FaRegChartBar className="group-hover:text-black text-white text-xl" />
                   </div>
                 )}
@@ -312,7 +306,7 @@ const Sidebar = () => {
           <div className="absolute bottom-20">
             {open ? (
               <>
-                <div className="cursor-pointer px-10 gap-4 flex items-center ">
+                <div className="cursor-pointer px-10 gap-4 flex items-center">
                   <div>
                     <svg
                       width="20"
