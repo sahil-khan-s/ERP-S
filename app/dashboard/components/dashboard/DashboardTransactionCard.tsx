@@ -1,3 +1,5 @@
+'use client'
+
 import React from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Upperarrow_svg from "@/public/dashboard/Svgs/upperarrow.svg";

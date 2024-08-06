@@ -8,11 +8,29 @@ export const GET = async (): Promise<NextResponse> => {
 			throw new Error("Failed to fetch feedbacks");
 		}
 
+		let modifiedFeedbacks = [];
+
+		// fetch the vendor details with each feedback
+		for (const feedback of feedbacks) {
+			const vendor = await prisma.vendor.findUnique({
+				where: {
+					id: feedback.venodrId,
+				},
+			});
+			if (vendor) {
+				modifiedFeedbacks.push({
+					...feedback,
+					vendorName: vendor.name,
+					vendorImage: vendor.imageUrl,
+				});
+			}
+		}
+
 		return NextResponse.json(
 			{
 				success: true,
 				massage: "feedbacks fetched successful",
-				feedbacks,
+				feedbacks: modifiedFeedbacks,
 			},
 			{ status: 200 }
 		);
