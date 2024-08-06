@@ -17,31 +17,40 @@ import {
 export default function Vendor() {
 
   const [open,setOpen] = React.useState<boolean>(false)
+  const [reload, setReload] = React.useState<boolean>(false);
 
   // FORM USESTATES
   const [assignTo, setAssignTo] = React.useState<string>("")
-  const [category, setCategory] = React.useState<string>("")
+  const [title, setTitle] = React.useState<string>("")
   const [type, setType] = React.useState<string>("")
   const [description, setDescription] = React.useState<string>("")
 
   // RESET INPUT FIELDS
   const resetInputFields = ()=>{
     setAssignTo("");
-    setCategory("");
+    setTitle("");
     setType("");
     setDescription("");
+    setReload(!reload)
     setOpen(false);
   }
 
   //  POST API
   const handleForm = async () => {
-    
+    try {
+      const response = await fetch("/api/compliance", {
+        method: "POST",
+        body: JSON.stringify({ assignTo, title, type, description})
+      })
+    } catch (error) {
+      console.error(error)
+    }
     resetInputFields();
   }
 
   return (
 
-    <div className="bg-white">
+    <div className="bg-white min-h-screen">
       <div className="px-6"><Nav /></div>
       <div className=" bg-gray-100 ">
         <main>
@@ -53,20 +62,20 @@ export default function Vendor() {
               <SearchBar />
 
               <Dialog open={open}>
-                <DialogTrigger>
+                <DialogTrigger asChild>
                   <button onClick={()=>setOpen(true)} className="text-sm bg-[#DDFF8F] text-black p-[15.24px] rounded-[11.43px]">Add Compliance Issue</button>
                 </DialogTrigger>
                 <DialogContent className="bg-white text-white cursor-default">
                   <DialogHeader>
                     <DialogTitle className="mb-3 font-semibold text-xl">Add Compliance issue</DialogTitle>
                     <DialogDescription>
-                      <div className='h-full w-full'>
+                      <form action={handleForm} className='h-full w-full'>
                         <div className=" mb-4 flex gap-4">
                           <div className="w-full">
-                            <input value={assignTo} onChange={(e) => { setAssignTo(e.target.value) }} className={`bg-white  border-slate-300 appearance-none border rounded-xl w-full p-4 leading-tight focus:outline-none focus:ring-1 focus:ring-black ${assignTo ?"text-gray-800":"text-gray-400"}`} id="contractNumber" type="text" placeholder="Assign to" />
+                            <input required value={assignTo} onChange={(e) => { setAssignTo(e.target.value) }} className={`bg-white  border-slate-300 appearance-none border rounded-xl w-full p-4 leading-tight focus:outline-none focus:ring-1 focus:ring-black ${assignTo ?"text-gray-800":"text-gray-400"}`} id="contractNumber" type="text" placeholder="Assign to" />
                           </div>
                           <div className="w-full">
-                            <input value={category} onChange={(e) => { setCategory(e.target.value) }} className={`border-slate-300 appearance-none border rounded-xl w-full p-4 leading-tight  focus:outline-none focus:ring-1 focus:ring-black ${category?"text-gray-800":"text-gray-400"} `} id="contractName" type="text" placeholder="Category" />
+                            <input required value={title} onChange={(e) => { setTitle(e.target.value) }} className={`border-slate-300 appearance-none border rounded-xl w-full p-4 leading-tight  focus:outline-none focus:ring-1 focus:ring-black ${title?"text-gray-800":"text-gray-400"} `} id="contractName" type="text" placeholder="Title" />
                           </div>
                           <div className="w-full">
                             <Select onValueChange={(value: string) => { setType(value) }}>
@@ -74,29 +83,28 @@ export default function Vendor() {
                                 <SelectValue placeholder="Select type" />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="Office">Office</SelectItem>
-                                <SelectItem value="Remote">Remote</SelectItem>
+                                <SelectItem value="Build-in">Build-in</SelectItem>
+                                <SelectItem value="Custom">Custom</SelectItem>
                               </SelectContent>
                             </Select>
                           </div>
                         </div>
                         <div className="mb-2">
-                          <textarea value={description} onChange={(e) => setDescription(e.target.value)} className= {`border-slate-300 appearance-none border rounded-xl w-full p-4 leading-tight focus:outline-none focus:ring-1 focus:ring-black ${description ?"text-gray-800":"text-gray-400"}`} id="Description" placeholder="Notes"></textarea>
+                          <textarea required value={description} onChange={(e) => setDescription(e.target.value)} className= {`border-slate-300 appearance-none border rounded-xl w-full p-4 leading-tight focus:outline-none focus:ring-1 focus:ring-black ${description ?"text-gray-800":"text-gray-400"}`} id="Description" placeholder="Notes"></textarea>
                         </div>
                         <div className="flex mt-4 flex-row gap-3">
-                        <button onClick={()=>setOpen(false)} className="bg-white border border-gray-300 text-gray-800 font-medium py-2 px-4 hover:bg-slate-50 rounded-lg focus:outline-none focus:shadow-outline">cancel</button>
-                          <button onClick={handleForm} className="w-20 bg-[#DDFF8F] hover:bg-[#C8F064] text-gray-800 font-semibold py-2 rounded-lg focus:outline-none focus:border border-slate-300-outline">Submit</button>
+                        <button type={"button"} onClick={()=>resetInputFields()} className="bg-white border border-gray-300 text-gray-800 font-medium py-2 px-4 hover:bg-slate-50 rounded-lg focus:outline-none focus:shadow-outline">cancel</button>
+                          <button type={"submit"} className="w-20 bg-[#DDFF8F] hover:bg-[#C8F064] text-gray-800 font-semibold py-2 rounded-lg focus:outline-none focus:border border-slate-300-outline">Submit</button>
                         </div>
-                      </div>
+                      </form>
                     </DialogDescription>
                   </DialogHeader>
                 </DialogContent>
               </Dialog>
-
-
             </div>
 
-            <ComplainceList />
+  {/*     compliance list     */}
+            <ComplainceList reload={reload} />
           </div>
         </main>
       </div>

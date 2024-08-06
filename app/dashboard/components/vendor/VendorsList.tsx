@@ -90,7 +90,7 @@ const VendorsList = () => {
             const data = await response.json();
             if (data.success) {
                 setVendor(null)
-                setReload(!reload);
+                fetchVendors()
             }
         } catch (error) {
             console.error("An error occurred while deleting the vendor:", error);
@@ -137,7 +137,9 @@ const VendorsList = () => {
 
                                     {/*   VIEW   */}
                                     <Popover>
-                                        <PopoverTrigger><button className='text-slate-600 hover:text-black text-lg'><RiEyeLine /></button></PopoverTrigger>
+                                        <PopoverTrigger>
+                                            <button className='text-slate-600 hover:text-black text-lg h-10'><RiEyeLine className='text-xl' /></button>
+                                        </PopoverTrigger>
                                         <PopoverContent className='bg-slate-50 relative top-[25%] right-[25%] w-max'>
                                             <div className='font-bold text-left items-center'>Vendor Detail</div>
                                             <div>
@@ -180,8 +182,8 @@ const VendorsList = () => {
                                     {/*   EDIT   */}
                                     <AlertDialog>
                                         <AlertDialogTrigger>
-                                            <button onClick={() => { fillData(item) }} className='text-slate-600 hover:text-black text-lg mb-1'>
-                                                <RiEdit2Line />
+                                            <button onClick={() => { fillData(item) }} className='text-slate-600 hover:text-black text-lg'>
+                                                <RiEdit2Line className='text-xl' />
                                             </button>
                                         </AlertDialogTrigger>
                                         <AlertDialogContent>
@@ -190,18 +192,18 @@ const VendorsList = () => {
                                                 <AlertDialogDescription>
                                                     <div className="mb-4 flex gap-4">
                                                         <div className="w-full">
-                                                            <input value={editName} onChange={(e) => { setEditName(e.target.value) }} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 focus:outline-none focus:ring-1 focus:ring-black text-gray-900" id="vendorName" type="text" placeholder="Vendor Name" />
+                                                            <input value={editName} onChange={(e) => { setEditName(e.target.value) }} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 focus:outline-none focus:ring-1 focus:ring-black text-gray-900" type="text" placeholder="Vendor Name" />
                                                         </div>
                                                         <div className="w-full">
-                                                            <input value={editEmail} onChange={(e) => { setEditEmail(e.target.value) }} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-900 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="contractEmail" type="email" placeholder="Contract Email" />
+                                                            <input value={editEmail} onChange={(e) => { setEditEmail(e.target.value) }} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-900 leading-tight focus:outline-none focus:ring-1 focus:ring-black" type="email" placeholder="Contract Email" />
                                                         </div>
                                                     </div>
                                                     <div className=" mb-4 flex gap-4">
                                                         <div className="w-full">
-                                                            <input value={editValue} onChange={(e) => { setEditValue(e.target.value) }} className="bg-white  border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-900 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="contractNumber" type="text" placeholder="Contract Value" />
+                                                            <input value={editValue} onChange={(e) => { setEditValue(e.target.value) }} className="bg-white  border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-900 leading-tight focus:outline-none focus:ring-1 focus:ring-black" type="text" placeholder="Contract Value" />
                                                         </div>
                                                         <div className="w-full">
-                                                            <input value={editCategory} onChange={(e) => { setEditCategory(e.target.value) }} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-900 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="contractName" type="text" placeholder="Category" />
+                                                            <input value={editCategory} onChange={(e) => { setEditCategory(e.target.value) }} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-900 leading-tight focus:outline-none focus:ring-1 focus:ring-black" type="text" placeholder="Category" />
                                                         </div>
                                                         <div className="w-full">
                                                             <Select defaultValue={item.type} onValueChange={(value: string) => { setEditType(value) }}>
@@ -216,10 +218,10 @@ const VendorsList = () => {
                                                         </div>
                                                     </div>
                                                     <div className="mb-4">
-                                                        <input value={editAddress} onChange={(e) => { setEditAddress(e.target.value) }} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-900 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="address" type="text" placeholder="Address" />
+                                                        <input value={editAddress} onChange={(e) => { setEditAddress(e.target.value) }} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-900 leading-tight focus:outline-none focus:ring-1 focus:ring-black" type="text" placeholder="Address" />
                                                     </div>
                                                     <div className="mb-4">
-                                                        <textarea value={editNote} onChange={(e) => { setEditNote(e.target.value) }} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-900 leading-tight focus:outline-none focus:ring-1 focus:ring-black" id="notes" placeholder="Notes"></textarea>
+                                                        <textarea value={editNote} onChange={(e) => { setEditNote(e.target.value) }} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-900 leading-tight focus:outline-none focus:ring-1 focus:ring-black" placeholder="Notes"></textarea>
                                                     </div>
                                                 </AlertDialogDescription>
                                             </AlertDialogHeader>
@@ -232,7 +234,9 @@ const VendorsList = () => {
 
                                     {/*   DELETE   */}
                                     <AlertDialog>
-                                        <AlertDialogTrigger><button className='text-slate-600 hover:text-black text-lg'><RiDeleteBin6Line /></button></AlertDialogTrigger>
+                                        <AlertDialogTrigger>
+                                            <button className='text-slate-600 hover:text-black text-lg'><RiDeleteBin6Line className='text-xl' /></button>
+                                        </AlertDialogTrigger>
                                         <AlertDialogContent>
                                             <AlertDialogHeader>
                                                 <AlertDialogTitle>You want to delete {item.name} vendor?</AlertDialogTitle>
@@ -242,7 +246,7 @@ const VendorsList = () => {
                                             </AlertDialogHeader>
                                             <AlertDialogFooter>
                                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                <AlertDialogAction onClick={() => { deleteVendor(item.id); }} className='bg-red-600 hover:bg-red-500'>Delete</AlertDialogAction>
+                                                <AlertDialogAction onClick={() => { deleteVendor(item.id); }} className='bg-[#ff3b3b] hover:bg-[#ff4d4d]'>Delete</AlertDialogAction>
                                             </AlertDialogFooter>
                                         </AlertDialogContent>
                                     </AlertDialog>

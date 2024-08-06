@@ -39,9 +39,6 @@ export default function Vendor() {
   let imageUrl: string;
 
 
-  const handlePage = () => {
-    setOpen(!open)
-  }
 
   // PREVIEW IMAGE
   const fileChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,7 +87,7 @@ export default function Vendor() {
     } catch (error) {
       console.error(error)
     }
-    handlePage();
+    setOpen(true);
   }
 
 
@@ -108,7 +105,7 @@ export default function Vendor() {
               <div className="bg-white p-4 rounded shadow">
                 <div className="flex justify-between items-center mb-4">
                   <SearchBar />
-                  <button onClick={handlePage} className="text-sm bg-[#DDFF8F] text-black px-[15.24px] py-3 rounded-[11.43px] w-42">Add New Vendor<AddCircleOutlineIcon className="mx-1" /></button>
+                  <button onClick={()=>{setOpen(false)}} className="text-sm bg-[#DDFF8F] text-black px-[15.24px] py-3 rounded-[11.43px] w-42">Add New Vendor<AddCircleOutlineIcon className="mx-1" /></button>
                 </div>
                 <VendorsList />
               </div>
@@ -176,7 +173,7 @@ export default function Vendor() {
               </div>
               <div className="w-full">
                 <Select onValueChange={(value: string) => { setType(value) }}>
-                  <SelectTrigger className={`border border-slate-300 h-[54px] appearance-none  rounded-xl w-full p-4 focus:ring-1 leading-tight outline-none text-[16px]  ${type?"text-gray-700":"text-gray-400"}`}>
+                  <SelectTrigger className={`border border-slate-300 h-[48px] appearance-none  rounded-xl w-full p-4 focus:ring-1 leading-tight outline-none text-[16px]  ${type?"text-gray-700":"text-gray-400"}`}>
                     <SelectValue placeholder="Type" />
                   </SelectTrigger>
                   <SelectContent>
@@ -204,7 +201,7 @@ export default function Vendor() {
 
           <div className="flex justify-end gap-4">
             <button
-              onClick={handlePage}
+              onClick={()=>{setOpen(true)}}
               className="bg-white border border-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline">
               Cancel
             </button>
