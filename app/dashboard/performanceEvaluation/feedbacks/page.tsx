@@ -33,16 +33,15 @@ export const getAllFeedbacks = async () => {
 }
 
 
-const VendorsList = () => {
+export default function Feedbacks() {
     const { allFeedbacks } = useSelector((state: Store) => state.feedbacks);
 
     useEffect(() => {
-        getAllFeedbacks()
-    }, []);
+        if (!allFeedbacks) {
+            getAllFeedbacks()
+        }
+    }, [allFeedbacks]);
 
-
-    // TODO: add vendor image and name with each feedback in api.
-    // TODO: update the above details in UI.
     return (
         <div className="overflow-x-auto mt-8">
 
@@ -57,49 +56,41 @@ const VendorsList = () => {
                     </tr>
                 </thead>
 
-                {
-                    allFeedbacks === undefined && (
-                        <div className="h-52 w-[70vh] absolute left-[40%] items-center">
-                            <p className="text-center m-24 text-xl font-semibold">
-                                Loading ...
-                            </p>
-                        </div>
-                    )
-                }
-                {(allFeedbacks !== undefined && allFeedbacks?.length !== 0) ? (
-                    allFeedbacks.map((feedback, index) => (
-                        <tbody key={index} className="border-b border-slate-100">
-                            <tr className="">
-                                <td className="p-4 text-left flex items-center gap-2 whitespace-nowrap">
-                                    <Image
-                                        src={""}
-                                        width={45}
-                                        height={45}
-                                        alt=""
-                                        className="rounded-full text-3xl mx-2"
-                                    />
-                                    <p className='font-outfit'>{"John Doe"}</p>
-                                </td>
-                                <td className="p-4 font-outfit text-left whitespace-nowrap">{feedback.id}</td>
-                                <td className="p-4 font-outfit text-left flex-1">{feedback.content}</td>
-                                <td className="p-4 text-center whitespace-nowrap">
-                                    <button className={`bg-[#6BA10F] px-3 py-2 rounded-md font-semibold font-lexend text-white text-[13px] disabled:bg-[#4a6d0f]`}>Comment</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    ))
-                ) : (
-                    <div className="h-52 w-[70vh] absolute left-[40%] items-center">
-                        <p className="text-center m-24 text-xl font-semibold">
-                            The vendor list is currently empty.
-                        </p>
-                    </div>
-                )}
+                <tbody className="border-b border-slate-100">
+                    {
+                        allFeedbacks?.length === 0 ? (
+                            <div className="h-52 w-[70vh] absolute left-[40%] items-center">
+                                <p className="text-center m-24 text-xl font-semibold">
+                                    The vendor list is currently empty.
+                                </p>
+                            </div>
+                        ) : (
+                            allFeedbacks?.map((feedback, index) => (
+
+                                <tr className="" key={index}>
+                                    <td className="p-4 text-left flex items-center gap-2 whitespace-nowrap">
+                                        <Image
+                                            src={feedback.vendorImage}
+                                            width={45}
+                                            height={45}
+                                            alt=""
+                                            className="rounded-full text-3xl mx-2"
+                                        />
+                                        <p className='font-outfit'>{feedback.vendorName}</p>
+                                    </td>
+                                    <td className="p-4 font-outfit text-left whitespace-nowrap">{feedback?.id}</td>
+                                    <td className="p-4 font-outfit text-left flex-1">{feedback?.content}</td>
+                                    <td className="p-4 text-center whitespace-nowrap">
+                                        <button className={`bg-[#6BA10F] px-3 py-2 rounded-md font-semibold font-lexend text-white text-[13px] disabled:bg-[#4a6d0f]`}>Comment</button>
+                                    </td>
+                                </tr>
+                            ))
+                        )
+                    }
+                </tbody>
             </table>
 
         </div>
     )
 }
-
-export default VendorsList
 

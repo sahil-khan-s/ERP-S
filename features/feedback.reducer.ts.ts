@@ -6,7 +6,7 @@ export interface ModifiedFeedback extends Feedback {
 	vendorImage: string;
 }
 export interface FeedbacksInitialState {
-	allFeedbacks: Feedback[] | undefined;
+	allFeedbacks: ModifiedFeedback[] | undefined;
 	randomFeedback: ModifiedFeedback | undefined;
 }
 
@@ -21,7 +21,7 @@ const allFeedbacksReducer = createSlice({
 	reducers: {
 		addFeedbacks: (
 			state: FeedbacksInitialState,
-			action: { payload: { feedbacks: Feedback[] } }
+			action: { payload: { feedbacks: ModifiedFeedback[] } }
 		) => {
 			state.allFeedbacks = action.payload.feedbacks;
 		},

@@ -214,10 +214,13 @@ const page = () => {
                     {/* random feedback */}
                     {
                         <div className='border-[#6BA10F] border-[1px] shadowLg rounded-lg mt-1 p-4'>
-                            <div className='flex justify-start items-center gap-x-2'>
-                                <img className='size-8 rounded-full' src={randomFeedback?.vendorImage} alt="a portrait of vendor who give a feedback" />
-                                <p className='fontLexend font-semibold text-sm capitalize'>{randomFeedback?.vendorName || "Loading ..."}</p>
-                            </div>
+                            {
+                                randomFeedback !== undefined ? <div className='flex justify-start items-center gap-x-2'>
+                                    <img className='size-8 rounded-full' src={randomFeedback?.vendorImage} alt="a portrait of vendor who give a feedback" />
+                                    <p className='fontLexend font-semibold text-sm capitalize'>{randomFeedback?.vendorName}</p>
+                                </div> :
+                                    <h2 className='fontLexend font-semibold text-sm capitalize'>loading....</h2>
+                            }
                             <p className='text-[13.1px] mt-4 text-black/60'>{randomFeedback?.content || "Loading ..."}</p>
 
                             <hr className='mt-3' />
