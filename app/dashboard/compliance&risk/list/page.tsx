@@ -90,7 +90,7 @@ export default function Vendor() {
                           </div>
                         </div>
                         <div className="mb-2">
-                          <textarea required value={description} onChange={(e) => setDescription(e.target.value)} className={`border-slate-300 appearance-none border rounded-xl w-full p-4 leading-tight focus:outline-none focus:ring-1 focus:ring-black ${description ? "text-gray-800" : "text-gray-400"}`} id="Description" placeholder="Notes"></textarea>
+                          <textarea required value={description} onChange={(e) => setDescription(e.target.value)} className={`border-slate-300 appearance-none border rounded-xl w-full p-4 leading-tight focus:outline-none focus:ring-1 focus:ring-black ${description ? "text-gray-800" : "text-gray-400"}`} id="Description" placeholder="Descrpition"></textarea>
                         </div>
                         <div className="flex mt-4 flex-row gap-3">
                           <button type={"button"} onClick={() => resetInputFields()} className="bg-white border border-gray-300 text-gray-800 font-medium py-2 px-4 hover:bg-slate-50 rounded-lg focus:outline-none focus:shadow-outline">cancel</button>
