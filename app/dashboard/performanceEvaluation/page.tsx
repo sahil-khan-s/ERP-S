@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip } from "recharts";
 import AddCommentPopUp from '../components/performanceEvaluation/addCommentPopup';
 import Link from 'next/link';
+import { addPerformances, ModifiedPerformance } from '@/features/performance.reducer';
 export interface VendorScore {
     name: string
     evaluationScore: number
@@ -23,7 +24,6 @@ export const getRandomFeedback = async (): Promise<any> => {
         if (!data.success) {
             throw new Error('No data received');
         }
-        console.log(data.feedback);
 
         store.dispatch(changeRandomFeedback({ randomFeedback: data.feedback }))
         return data;
@@ -57,6 +57,26 @@ const registerFeedback = async ({ vendorId, feedbackContent }: { vendorId: numbe
     }
 }
 
+
+
+const getAllPerformances = async (): Promise<void> => {
+    try {
+        const res = await fetch('/api/performanceEvaluation/performance/rating/get');
+        if (!res.ok) {
+            throw new Error('Failed to fetch Data from database');
+        }
+        const data = await res.json();
+        if (!data.success) {
+            throw new Error('No data received');
+        }
+
+        store.dispatch(addPerformances({ performances: data.performances }))
+    } catch (error) {
+        console.error('Error fetching random feedback:', error);
+        throw error;
+    }
+}
+
 const CustomTooltip = ({ active, payload, label }: { active: boolean, payload: any, label: string }) => {
     if (active && payload && payload.length) {
         return (
@@ -69,78 +89,36 @@ const CustomTooltip = ({ active, payload, label }: { active: boolean, payload: a
 };
 
 
+const getAvgRating = (rating: Array<{ name: string, value: number }> | any) => {
+    let total = 0;
+    let count = 0;
+
+    if (!rating) {
+        return 0;
+    }
+
+    rating.forEach((rating: { name: string, value: number }) => {
+        if (rating.value !== -1) {
+            total += rating.value
+            count += 1
+        }
+    })
+    if (count === 0) {
+        return 0
+    }
+
+    return (total / count).toFixed(1)
+
+}
+
+
 const page = () => {
     const [openCommentPopUp, setOpenCommentPopUp] = useState(false);
 
     const { randomFeedback } = useSelector((state: Store) => state.feedbacks);
+    const { allPerformances } = useSelector((state: Store) => state.performances);
 
-    const vendorScores: VendorScore[] = [
-        {
-            name: 'John Doe',
-            evaluationScore: 4.3,
-            ratingAndReviews: 3.3
-        },
-        {
-            name: "Flody",
-            evaluationScore: 4.3,
-            ratingAndReviews: 4.9
-        }, {
-            name: "Marry Doe",
-            evaluationScore: 4.6,
-            ratingAndReviews: 4.1
-        }
-    ]
-
-    const data = [
-        {
-            name: 'Jan',
-            uv: 3.2,
-        },
-        {
-            name: 'Feb',
-            uv: 4.1,
-        },
-        {
-            name: 'Mar',
-            uv: 2.4,
-        },
-        {
-            name: 'Apr',
-            uv: 3.9,
-        },
-        {
-            name: 'May',
-            uv: 3.0,
-        },
-        {
-            name: 'Jun',
-            uv: 4.9,
-        },
-        {
-            name: 'Jul',
-            uv: 4.2,
-        },
-        {
-            name: 'Aug',
-            uv: 2.8,
-        }, {
-            name: 'Sep',
-            uv: 4.0,
-        },
-        {
-            name: 'Oct',
-            uv: 2.4,
-        },
-        {
-            name: 'Nov',
-            uv: 3.8,
-        },
-        {
-            name: 'Dec',
-            uv: 3.9,
-        },
-    ];
-
+    const [selectedPerformance, setSelectedPerformance] = useState<ModifiedPerformance | undefined>(undefined);
 
 
     const toPercent = (decimal: number) => `${decimal}.0`;
@@ -148,7 +126,15 @@ const page = () => {
 
     useEffect(() => {
         getRandomFeedback();
+        getAllPerformances();
     }, []);
+
+
+    useEffect(() => {
+        if (allPerformances) {
+            setSelectedPerformance(allPerformances[0])
+        }
+    }, [allPerformances])
 
 
     return (
@@ -172,13 +158,13 @@ const page = () => {
 
                         <tbody className="divide-y divide-[#A2A1A81A]/10">
                             {
-                                vendorScores.map((vendor, index) => {
+                                allPerformances?.map((performance, index) => {
 
                                     return (
                                         <tr key={index}>
-                                            <td className="whitespace-nowrap px-4 py-2 font-light text-xs font-lexend text-[#A8A8A8]">{vendor.name}</td>
-                                            <td className="whitespace-nowrap px-4 py-2 font-light text-xs font-lexend text-[#A8A8A8]">{vendor.evaluationScore}</td>
-                                            <td className="whitespace-nowrap px-4 py-2 font-light text-xs font-lexend text-[#A8A8A8]">{vendor.ratingAndReviews}</td>
+                                            <td className="whitespace-nowrap px-4 py-2 font-light text-xs font-lexend text-[#A8A8A8]">{performance.vendorName}</td>
+                                            <td className="whitespace-nowrap px-4 py-2 font-light text-xs font-lexend text-[#A8A8A8]">{performance.evaluationScore}</td>
+                                            <td className="whitespace-nowrap px-4 py-2 font-light text-xs font-lexend text-[#A8A8A8]">{getAvgRating(performance.rating)}</td>
                                             <td className='flex gap-x-2 items-center'>
 
                                                 <button>
@@ -261,11 +247,14 @@ const page = () => {
 
                 <div className="flex  items-center gap-x-5 mb-5">
                     <h2 className='font-medium text-[22px] text-[#1A1B2F] font-outfit'>Rating</h2>
-                    <select name="vender" id="vender" className='text-[#C9C9C9] text-[22px] capitalize'>
-                        <option defaultChecked value="vender1">vender 1</option>
-                        <option value="vender2">vender 2</option>
-                        <option value="vender3">vender 3</option>
-                        <option value="vender4">vender 4</option>
+                    <select onChange={(e) => setSelectedPerformance(allPerformances && allPerformances[+e.target.value])} name="vender" id="vender" className='text-[#C9C9C9] text-[22px] capitalize'>
+                        {
+                            allPerformances?.map((performance, index) => {
+                                return (
+                                    <option value={index} key={index}>{performance.vendorName}</option>
+                                )
+                            })
+                        }
                     </select>
                 </div>
 
@@ -273,12 +262,12 @@ const page = () => {
                     <LineChart
                         width={500}
                         height={300}
-                        data={data}
+                        data={selectedPerformance?.rating}
                     >
                         <XAxis axisLine={false} dataKey="name" tickLine={false} />
-                        <YAxis axisLine={false} tickFormatter={toPercent} domain={[1, 5]} tickLine={false} type={"number"} interval={"preserveEnd"} />
+                        <YAxis axisLine={false} tickFormatter={toPercent} domain={[0, 5]} tickLine={false} type={"number"} interval={"preserveEnd"} />
                         <Tooltip content={<CustomTooltip active={false} payload={undefined} label={''} />} />
-                        <Line type="linear" dot={false} dataKey="uv" isAnimationActive={false} stroke="#6BA10F" strokeWidth={3} />
+                        <Line type="linear" dot={false} dataKey="value" isAnimationActive={false} stroke="#6BA10F" strokeWidth={3} />
                     </LineChart>
                 </ResponsiveContainer>
 
