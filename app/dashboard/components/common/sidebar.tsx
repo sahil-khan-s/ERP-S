@@ -296,8 +296,8 @@ const Sidebar = () => {
                 </NavigationMenu>
                 
                 ) : (
-                  <div className="mt-2 hover:bg-[#DDFF8F] group rounded-xl h-[35px] py-1.5 flex justify-center pr-1">
-                    <FaRegChartBar className="group-hover:text-black text-white text-xl" />
+                  <div className={currentPath == "/dashboard/compliance&risk"? "mt-2 bg-[#DDFF8F] group rounded-xl h-[35px] py-1.5 flex justify-center pr-1":"mt-2 hover:bg-[#DDFF8F] group rounded-xl h-[35px] py-1.5 flex justify-center pr-1"}>
+                    <FaRegChartBar className={currentPath == "/dashboard/compliance&risk" ? "text-black text-xl":"group-hover:text-black text-white text-xl"} />
                   </div>
                 )}
             </Link>
