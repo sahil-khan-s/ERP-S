@@ -38,7 +38,7 @@ export default function Nav() {
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
       setUser(parsedUser);
-    } 
+    }
     else {
       router.push("/"); // Redirect to login if user is not found
     }
@@ -196,7 +196,7 @@ export default function Nav() {
             </div>
             <div className="flex flex-col">
               <div className="flex gap-2 justify-between">
-                <div className="flex items-center hidden md:flex">
+                <div className="items-center hidden md:flex">
                   <ExpandMoreIcon
                     className="cursor-pointer"
                     // onClick={handleChangePassword}

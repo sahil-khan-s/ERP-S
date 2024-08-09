@@ -7,12 +7,6 @@ import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip } from "rec
 import AddCommentPopUp from '../components/performanceEvaluation/addCommentPopup';
 import Link from 'next/link';
 import { addPerformances, ModifiedPerformance } from '@/features/performance.reducer';
-export interface VendorScore {
-    name: string
-    evaluationScore: number
-    ratingAndReviews: number
-}
-
 
 export const getRandomFeedback = async (): Promise<any> => {
     try {
@@ -167,12 +161,12 @@ const page = () => {
                                             <td className="whitespace-nowrap px-4 py-2 font-light text-xs font-lexend text-[#A8A8A8]">{getAvgRating(performance.rating)}</td>
                                             <td className='flex gap-x-2 items-center'>
 
-                                                <button>
+                                                <Link href={"/dashboard/vendor"}>
                                                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M19.3306 9.33423C20.3452 10.4018 20.3452 12.0237 19.3306 13.0913C17.6192 14.8919 14.6801 17.3378 11.3416 17.3378C8.00298 17.3378 5.06386 14.8919 3.35255 13.0913C2.33789 12.0237 2.33789 10.4018 3.35255 9.33423C5.06386 7.53368 8.00298 5.08777 11.3416 5.08777C14.6801 5.08777 17.6192 7.53368 19.3306 9.33423Z" stroke="#16151C" />
                                                         <circle cx="11.3416" cy="11.2128" r="2.625" stroke="#16151C" />
                                                     </svg>
-                                                </button>
+                                                </Link>
                                                 <button>
                                                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M3.60107 19.0878H19.3511M13.0374 5.36052C13.0374 5.36052 13.0374 6.79081 14.4677 8.22111C15.898 9.65141 17.3283 9.65141 17.3283 9.65141M7.38075 16.4523L10.3844 16.0232C10.8176 15.9613 11.2191 15.7606 11.5286 15.4511L18.7586 8.22111C19.5486 7.43118 19.5486 6.15045 18.7586 5.36051L17.3283 3.93022C16.5384 3.14029 15.2577 3.14029 14.4677 3.93022L7.23772 11.1602C6.92824 11.4697 6.72749 11.8712 6.6656 12.3045L6.23651 15.3081C6.14116 15.9756 6.71328 16.5477 7.38075 16.4523Z" stroke="#16151C" strokeLinecap="round" />
