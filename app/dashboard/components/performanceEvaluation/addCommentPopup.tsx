@@ -52,14 +52,14 @@ export default function AddCommentPopUp({ setOpenCommentPopUp, feedback }: { set
     return (
 
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-30 backdrop-blur-md">
-            <div className="bg-white p-4 max-w-[450px] w-full rounded-2xl shadow-md">
+            <div className="bg-white p-4 w-8/12 ml-20 md:ml-0 max-w-[450px] rounded-2xl shadow-md">
 
                 <h2 className="text-[20px] font-semibold font-lexend">Add Comment</h2>
 
                 <hr className='h-[1px] border-[#A2A1A81A] mr-40 mt-2' />
 
 
-                <div className="flex justify-between gap-x-3 min-w-[359px] my-5 items-center p-4 border-gray-400 h-14 rounded-2xl border-[0.48px]">
+                <div className="flex justify-between gap-x-3 w-full my-5 items-center p-4 border-gray-400 h-14 rounded-2xl border-[0.48px]">
                     <input value={comment} onChange={(e) => setComment(e.target.value)} className="w-full placeholder:text-[#16151C33] placeholder:font-light placeholder:font-outfit font-outfit placeholder:text-sm text-black font-light text-sm outline-none" type="text" placeholder="Task title" />
                 </div>
 
