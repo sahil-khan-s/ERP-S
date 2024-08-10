@@ -75,7 +75,7 @@ const CustomTooltip = ({ active, payload, label }: { active: boolean, payload: a
     if (active && payload && payload.length) {
         return (
             <div className="bg-black px-4 py-3 rounded-lg">
-                <p className="text-white font-medium text-lg font-outfit">{`${label}. ${payload[0].value}`}</p>
+                <p className="text-white font-medium text-lg font-outfit">{`${label}. ${payload[0].value == -1 ? "Not Available" : payload[0].value}`}</p>
             </div>
         );
     }
@@ -132,34 +132,37 @@ const page = () => {
 
 
     return (
-        <div className='mt-4 w-full'>
+        <div className='mt-4 md:w-full'>
             {/* comment popup */}
             {
                 (randomFeedback && openCommentPopUp) && <AddCommentPopUp feedback={randomFeedback} setOpenCommentPopUp={setOpenCommentPopUp} />
             }
-            <div className='flex justify-between pr-10 gap-x-5'>
+            <div className='w-full flex flex-col lg:flex-row justify-between lg:pr-1 lg:gap-x-5'>
                 {/* venders */}
-                <div className='w-7/12 max-h-52 overflow-scroll'>
-                    <table className="min-w-full my-5 rounded-xl">
-                        <thead className="text-left bg-[#F5F5F5]">
+                <div className='w-full lg:w-7/12'>
+                    <table className="w-full my-5 rounded-xl">
+                        <thead className="text-left max-w-full bg-[#F5F5F5]">
                             <tr>
-                                <th className="whitespace-nowrap px-4 py-2 font-normal font-outfit text-xs">Vender Name</th>
-                                <th className="whitespace-nowrap px-4 py-2 font-normal font-outfit text-xs">Evaluation Score</th>
-                                <th className="whitespace-nowrap px-4 py-2 font-normal font-outfit text-xs">Rating and Reviews</th>
-                                <th className="whitespace-nowrap px-4 py-2 font-normal font-outfit text-xs">Action</th>
+                                <th className="whitespace-nowrap px-2 md:px-4 py-2 font-normal font-outfit text-xs">Vender Name</th>
+                                <th className="whitespace-nowrap px-2 md:px-4 py-2 font-normal font-outfit text-xs">Evaluation Score</th>
+                                <th className="whitespace-nowrap px-2 md:px-4 py-2 font-normal text-left font-outfit text-xs">
+                                    <span className='md:hidden'>Rating</span>
+                                    <span className='hidden md:block'>Rating and Reviews</span>
+                                </th>
+                                <th className="whitespace-nowrap py-2 font-normal font-outfit text-xs">Action</th>
                             </tr>
                         </thead>
 
-                        <tbody className="divide-y divide-[#A2A1A81A]/10">
+                        <tbody className="divide-y divide-[#A2A1A81A]/10 max-h-40 lg:max-h-52 overflow-y-scroll">
                             {
                                 allPerformances?.map((performance, index) => {
 
                                     return (
                                         <tr key={index}>
-                                            <td className="whitespace-nowrap px-4 py-2 font-light text-xs font-lexend text-[#A8A8A8]">{performance.vendorName}</td>
-                                            <td className="whitespace-nowrap px-4 py-2 font-light text-xs font-lexend text-[#A8A8A8]">{performance.evaluationScore}</td>
-                                            <td className="whitespace-nowrap px-4 py-2 font-light text-xs font-lexend text-[#A8A8A8]">{getAvgRating(performance.rating)}</td>
-                                            <td className='flex gap-x-2 items-center'>
+                                            <td className="px-2 md:px-4 py-2 font-light text-xs font-lexend text-[#A8A8A8]">{performance.vendorName}</td>
+                                            <td className="whitespace-nowrap px-2 md:px-4 py-2 font-light text-xs font-lexend text-[#A8A8A8]">{performance.evaluationScore}</td>
+                                            <td className="whitespace-nowrap px-2 md:px-4 py-2 font-light text-xs font-lexend text-[#A8A8A8]">{getAvgRating(performance.rating)}</td>
+                                            <td className='flex gap-x-1 md:gap-x-2 items-center'>
 
                                                 <Link href={"/dashboard/vendor"}>
                                                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -188,7 +191,7 @@ const page = () => {
                     </table>
                 </div>
                 {/* feedback */}
-                <div className='w-5/12'>
+                <div className='w-full lg:w-5/12'>
                     <h2 className='font-lexend tracking-wide text-[22px] font-semibold'>Feedback</h2>
                     {/* random feedback */}
                     {
@@ -237,11 +240,11 @@ const page = () => {
             </div>
 
 
-            <div className='w-full mt-10 h-[500px] border-[0.48px] border-[#000]/50 p-6 rounded-2xl'>
+            <div className='w-full mt-10 h-[300px] md:h-[500px] border-[0.48px] border-[#000]/50 p-2 md:p-6 rounded-2xl'>
 
-                <div className="flex  items-center gap-x-5 mb-5">
+                <div className="flex items-center justify-start gap-x-2 md:gap-x-5 mb-3 md:mb-5">
                     <h2 className='font-medium text-[22px] text-[#1A1B2F] font-outfit'>Rating</h2>
-                    <select onChange={(e) => setSelectedPerformance(allPerformances && allPerformances[+e.target.value])} name="vender" id="vender" className='text-[#C9C9C9] text-[22px] capitalize'>
+                    <select onChange={(e) => setSelectedPerformance(allPerformances && allPerformances[+e.target.value])} name="vender" id="vender" className='text-[#C9C9C9] text-[16px] capitalize'>
                         {
                             allPerformances?.map((performance, index) => {
                                 return (
@@ -254,8 +257,6 @@ const page = () => {
 
                 <ResponsiveContainer width="100%" height="90%">
                     <LineChart
-                        width={500}
-                        height={300}
                         data={selectedPerformance?.rating}
                     >
                         <XAxis axisLine={false} dataKey="name" tickLine={false} />

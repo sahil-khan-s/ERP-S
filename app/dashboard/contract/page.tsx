@@ -159,8 +159,8 @@ export default function Contract() {
               </svg>
 
               <h2 className="text-xl  font-outfit capitalize">
-                <span className="hidden md:inline">Task list for today</span>
-                <span className="">Tasks</span>
+                <span className="hidden lg:inline">Task list for today</span>
+                <span className="lg:hidden">Tasks</span>
                 {" "}
                 <span className="text-[#6BA10F]">(13 Dec)</span>
               </h2>
@@ -218,8 +218,8 @@ export default function Contract() {
               </svg>
 
               <h2 className="text-xl text-[#A2A1A8] font-outfit capitalize">
-                <span className="hidden md:inline">Task list for today</span>
-                <span className="">Tasks</span>
+                <span className="hidden lg:inline">Task list for today</span>
+                <span className="lg:hidden">Tasks</span>
                 {" "}
                 <span className="">(13 Dec)</span>
               </h2>
