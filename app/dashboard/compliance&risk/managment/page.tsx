@@ -9,7 +9,7 @@ const RiskDashboard = () => {
   return (
     <div className='bg-white'>
       <div className="px-6"><Nav/></div>
-    <div className="flex flex-col md:flex-row gap-4 p-4">
+    <div className="flex flex-col md:flex-row gap-2 lg:gap-4 p-4">
     <RiskTabs/>
 
       <div className="w-full">

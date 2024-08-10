@@ -5,7 +5,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import React, { useEffect, useState } from 'react'
 //ICONS
 import { RiDeleteBin6Line, RiEyeLine, RiEdit2Line } from "react-icons/ri";
-// SHADCN.UI
 
 
 const ComplainceList = ({ reload }: { reload: boolean }) => {

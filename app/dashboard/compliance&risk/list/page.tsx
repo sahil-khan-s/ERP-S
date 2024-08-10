@@ -54,7 +54,7 @@ export default function Vendor() {
       <div className="px-6"><Nav /></div>
       <div className=" bg-gray-100 ">
         <main>
-          <div className="bg-white p-4 rounded shadow">
+          <div className="bg-white p-2 lg:p-4 rounded shadow">
 
             {/* compliance form */}
 
@@ -63,7 +63,7 @@ export default function Vendor() {
 
               <Dialog open={open}>
                 <DialogTrigger asChild>
-                  <button onClick={() => setOpen(true)} className="text-sm bg-[#DDFF8F] text-black p-[15.24px] rounded-[11.43px]">Add Compliance Issue</button>
+                  <button onClick={() => setOpen(true)} className="text-xs lg:text-sm bg-[#DDFF8F] text-black p-3 lg:p-[15.24px] rounded-[11.43px]">Add Compliance Issue</button>
                 </DialogTrigger>
                 <DialogContent className="bg-white text-white cursor-default">
                   <DialogHeader>

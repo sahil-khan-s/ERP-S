@@ -1,5 +1,4 @@
 import React from 'react'
-//COMPONENTS
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 //ICONS
 import { FaUser } from "react-icons/fa6";
@@ -9,12 +8,13 @@ import { LuClipboardList } from "react-icons/lu";
 const riskInformation = [
   {
     no:"Risk 1",
-    image:"https://s3-alpha-sig.figma.com/img/c71e/c81e/48ad1573452bb5d1a7700cbc11a41c69?Expires=1722211200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=K4Ido4g2lZzjYaw0FjH8iOCzpvEucanIhig75034oFMBK3cDr9MrVyp3VOzUMzt-l26bHXhz20JNLuhRj0kl9T3biGgBqo4x-8FnrxiYAuBL7px58vtBMTgULPB6M5uh7577jheR03n7716keEsGDqfsf~iTZktvf5MTLlkTAgzIaVPhikf15h04oNClpb2AEVB6IH5t9mO-uD9d2WhSwoLZD54Ds7uirH63vzNOI1yey-YcR405HNLTeNeDONzk-wclfKC1-aEiBTQPBisEQdmN0SP1oiQZ5ddsHzGJjrtOxZK-jRegr3wUxzaDA4oEzJ-TrYWB37LIyMIa8mrUhw__",
+    image:"https://firebasestorage.googleapis.com/v0/b/epr-s-52978.appspot.com/o/images%2F5.jpg?alt=media&token=bf4d88a9-04ef-473d-b982-829e550cd357",
     riskOwner:"John Doe",
     description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
     level:"High"
   }, {
-    image:"https://s3-alpha-sig.figma.com/img/b19c/18b7/276c5a98f2d4726285cc1051f6e46cf1?Expires=1722211200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=QICOCxJ7AHoQw7ULqK8uHaQq4jzhjp3wXEx1ko3dRsVcn-NhVWg-tIDAodCo1k4CsUuvcO9emNkYLZfcA~jDoX9~ySFobi6yUxAGNasWaQljTR9J4KpQly2tWzzUsduc1M1MPHiw-gGtY2RugIphO6CZxZFSPIGKKqxlBLaaP2ku8kX6JGULFYVg62FHDOeZY7VtrG4bs7r8yJQZ86jkbesqNB6YZU-6H-k-pNbMfMCY6GXNqRD~1vHvKFkof4AFT2EI1t61rUt79SeaOhBfqAdUWfWNmFEbqX1Yq2kZ~ivssuAMsDEncyx8MaMNNev8ngmvWS-FJrTIQeOsINvXew__",
+    no:"Risk 2",
+    image:"https://firebasestorage.googleapis.com/v0/b/epr-s-52978.appspot.com/o/images%2F7.jpg?alt=media&token=a5fdab38-b45e-438a-860d-2ca5500e9276",
     riskOwner:"John Doe",
     description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
     level:"High"
@@ -26,32 +26,33 @@ const riskInformation = [
 const RiskTabs = () => {
     return (
 <Tabs defaultValue="information" className="w-full md:w-2/3">
-  <TabsList>
+  <TabsList className='md:block hidden'>
     <TabsTrigger value="information"><FaUser className='mr-1' />General Information</TabsTrigger>
     <TabsTrigger value="assessment"><GoBriefcase className='mr-1' />Risk Assessment</TabsTrigger>
     <TabsTrigger value="mitigation"><LuClipboardList className='mr-1' />Risk Mitigation</TabsTrigger>
   </TabsList>
   <TabsContent value="information">
+    <h4 className='lg:hidden text-gray-600 m-1 m-t0 text-lg font-semibold'>General Information</h4>
     {riskInformation.map((item,index)=>(
-         <div className=" border w-[600px] rounded-xl p-4 flex items-start mb-3">
+         <div className=" border lg:w-[600px] rounded-xl p-2 lg:p-4 flex items-start mb-2 lg:mb-3">
                <div className=' flex-shrink-0'> 
                 <img src={item.image} alt="Risk 1" className=" w-[151.2px] h-[221.13px] object-cover rounded-lg mr-2" />
                </div>
-               <div className='flex w-full flex-col m-4 gap-3'>
+               <div className='flex w-full flex-col m-4 gap-0.5 lg:gap-3'>
                   <div className='flex flex-row justify-between items-center'>
-                    <h3 className="text-red-500 text-xl">Risk 1</h3>
-                    <button className="bg-slate-100 text-sm text-[#6BA10F] rounded-full  px-4 py-1 ">Open</button>
+                    <h3 className="text-red-500 text-sm lg:text-xl">{item.no}</h3>
+                    <button className="bg-slate-100 text-xs lg:text-sm text-[#6BA10F] rounded-full px-2 lg:px-4 py-1 ">Open</button>
                   </div>
-                   <div className='flex flex-row'><p className='text-gray-400'><strong className='text-black font-medium'> Risk Owner: </strong>{item.riskOwner}</p></div>
-                   <div className='flex flex-row'><p className='text-gray-400'><strong className='text-black font-medium'> Descripition: </strong>{item.description}</p></div>
-                   <div className='flex flex-row'><p className='text-gray-400'><strong className='text-black font-medium'> Level: </strong> {item.level}</p></div>
+                   <div className='flex flex-row text-sm lg:text-[16px]'><p className='text-gray-400'><strong className='text-black font-medium text-sm lg:text-[16px]'> Risk Owner: </strong>{item.riskOwner}</p></div>
+                   <div className='flex flex-row text-sm lg:text-[16px]'><p className='text-gray-400'><strong className='text-black font-medium'> Descripition: </strong>{item.description}</p></div>
+                   <div className='flex flex-row  text-sm lg:text-[16px]'><p className='text-gray-400'><strong className='text-black font-medium'> Level: </strong> {item.level}</p></div>
               
                </div>
               </div>
     ))}
   </TabsContent>
-  <TabsContent className='min-h-screen bg-white mt-8 text-center' value="assessment"> Risk Assessment tab</TabsContent>
-  <TabsContent className='min-h-screen bg-white mt-8 text-center' value="mitigation"> Risk Mitigation tab</TabsContent>
+  <TabsContent className='min-h-screen w-[600px] bg-white mt-8 text-center' value="assessment"> Risk Assessment tab</TabsContent>
+  <TabsContent className='min-h-screen w-[600px] bg-white mt-8 text-center' value="mitigation"> Risk Mitigation tab</TabsContent>
 </Tabs>
     )
 }

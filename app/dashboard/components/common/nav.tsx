@@ -38,7 +38,7 @@ export default function Nav() {
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
       setUser(parsedUser);
-    } 
+    }
     else {
       router.push("/"); // Redirect to login if user is not found
     }
@@ -91,12 +91,12 @@ export default function Nav() {
   return (
     <div className="flex justify-between pt-5">
       <div>
-        <h1 className="text-[19px]">
+        <h1 className="text-md lg:text-[19px]">
           Welcome back , <span className="font-medium">{user?.name}</span>
         </h1>
       </div>
 
-      <div className="flex items-center gap-8 px-4">
+      <div className="flex items-center gap-3 lg:gap-8 lg:px-4">
         <Link href="/dashboard/setting">
           <div className="">
             <svg
@@ -173,7 +173,7 @@ export default function Nav() {
           </div>
         </Link>
         <div>
-          <div className="flex items-center pl-4 space-x-2">
+          <div className="flex items-center lg:pl-4 space-x-2">
             <div>
               {/* <h1 className="font-semibold">{user?.name}</h1> */}
               <h1 className="font-semibold">{user?.email}</h1>
@@ -196,7 +196,7 @@ export default function Nav() {
             </div>
             <div className="flex flex-col">
               <div className="flex gap-2 justify-between">
-                <div className="flex items-center hidden md:flex">
+                <div className="items-center hidden md:flex">
                   <ExpandMoreIcon
                     className="cursor-pointer"
                     // onClick={handleChangePassword}
