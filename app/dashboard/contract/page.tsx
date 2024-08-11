@@ -118,9 +118,9 @@ export default function Contract() {
 
 
   return (
-    <main className="max-h-screen bg-white mt-10">
+    <main className="max-h-screen w-screen md:w-full bg-white mt-10">
       {/* Stats Cards */}
-      <div className="h-[154px] justify-between items-center mt-10 flex gap-x-5">
+      <div className="min-h-[154px] w-full gap-y-4 gap-x-2 mt-10 flex flex-wrap justify-between md:justify-start lg:justify-between items-center">
         {stats.map((state, index) => (
           <StatsCard key={index} data={state} />
         ))}
@@ -139,11 +139,11 @@ export default function Contract() {
           null
       }
 
-      <div className="w-full flex justify-between gap-x-14 mt-10">
+      <div className="w-full flex flex-col md:flex-row gap-y-6 justify-between gap-x-14 my-10">
         {/* task list , right side */}
-        <div className=" p-4 w-7/12 rounded-2xl border-[0.48px] border-gray-500">
+        <div className=" p-4 w-full md:w-7/12 rounded-2xl border-[0.48px] border-gray-500">
           <div className="flex justify-between items-center">
-            <div className="flex justify-center items-center gap-x-2">
+            <div className="flex justify-center items-center gap-x-1 md:gap-x-2">
               <svg
                 width="32"
                 height="32"
@@ -158,18 +158,20 @@ export default function Contract() {
                 />
               </svg>
 
-              <h2 className="text-xl font-outfit capitalize">
-                Task list for today{" "}
+              <h2 className="text-xl  font-outfit capitalize">
+                <span className="hidden lg:inline">Task list for today</span>
+                <span className="lg:hidden">Tasks</span>
+                {" "}
                 <span className="text-[#6BA10F]">(13 Dec)</span>
               </h2>
             </div>
             <div className="flex items-center gap-x-2">
-              <button onClick={enableTaskEditing} className="flex items-center gap-x-1 p-[6px] rounded-xl border-[0.48px] border-[#6BA10F]">
+              <button onClick={enableTaskEditing} className="flex items-center gap-x-1 p-[6px] rounded-lg md:rounded-xl border-[0.48px] border-[#6BA10F]">
                 <svg width="14" height="14" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M9.54659 0.948852C8.94747 0.349732 7.97614 0.349732 7.37702 0.948852L1.295 7.03088C1.25332 7.07256 1.22322 7.12423 1.20751 7.18096L0.407704 10.0684C0.374811 10.1868 0.408236 10.3136 0.495062 10.4005C0.58202 10.4874 0.708795 10.5208 0.827181 10.488L3.71465 9.6881C3.77138 9.67239 3.82305 9.64229 3.86473 9.60061L9.94662 3.51845C10.5448 2.91893 10.5448 1.94841 9.94662 1.34889L9.54659 0.948852ZM2.03781 7.25247L7.01547 2.27467L8.62081 3.88L3.64301 8.8578L2.03781 7.25247ZM1.71714 7.89593L2.99968 9.1786L1.22562 9.67012L1.71714 7.89593ZM9.46456 3.03639L9.10301 3.39793L7.49754 1.79247L7.85922 1.43092C8.19201 1.09813 8.7316 1.09813 9.06439 1.43092L9.46456 1.83095C9.79681 2.16414 9.79681 2.70333 9.46456 3.03639Z" fill="#6BA10F" fill-opacity="0.6" />
                 </svg>
 
-                <p className="font-outfit capitalize font-light text-[#6BA10F] text-xs">
+                <p className="font-outfit capitalize hidden md:block font-light text-[#6BA10F] text-xs">
                   edit
                 </p>
               </button>
@@ -177,7 +179,8 @@ export default function Contract() {
                 onClick={() => setOpenTaskPopUp(true)}
                 className="text-xl font-outfit text-[#6BA10F]"
               >
-                Add new task
+                <span className="hidden md:inline">Add new task</span>
+                <span className="md:hidden">Add task</span>
               </button>
             </div>
           </div>
@@ -215,7 +218,10 @@ export default function Contract() {
               </svg>
 
               <h2 className="text-xl text-[#A2A1A8] font-outfit capitalize">
-                Task list for today <span className="">(13 Dec)</span>
+                <span className="hidden lg:inline">Task list for today</span>
+                <span className="lg:hidden">Tasks</span>
+                {" "}
+                <span className="">(13 Dec)</span>
               </h2>
             </div>
           </div>
@@ -236,7 +242,7 @@ export default function Contract() {
         </div>
 
         {/* left side */}
-        <div className="w-5/12 flex flex-col gap-y-3">
+        <div className=" w-full md:w-5/12 flex flex-col gap-y-3">
           {/* stats */}
           <div className="min-h-64 w-full p-4 rounded-2xl border-[0.48px] border-gray-500">
             <div className="flex justify-between items-center">
@@ -257,7 +263,7 @@ export default function Contract() {
           </div>
 
           {/* contracts */}
-          <div className="w-full rounded-2xl p-4 border-[0.48px] border-gray-500">
+          <div className="w-full mb-20 md:mb-0 rounded-2xl p-4 border-[0.48px] border-gray-500">
             <div className="flex justify-between items-center">
               <h2 className="text-[20px] font-outfit">Contracts</h2>
               <div className="flex gap-x-2">

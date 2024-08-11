@@ -6,12 +6,7 @@ import { useSelector } from 'react-redux';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip } from "recharts";
 import AddCommentPopUp from '../components/performanceEvaluation/addCommentPopup';
 import Link from 'next/link';
-export interface VendorScore {
-    name: string
-    evaluationScore: number
-    ratingAndReviews: number
-}
-
+import { addPerformances, ModifiedPerformance } from '@/features/performance.reducer';
 
 export const getRandomFeedback = async (): Promise<any> => {
     try {
@@ -23,7 +18,6 @@ export const getRandomFeedback = async (): Promise<any> => {
         if (!data.success) {
             throw new Error('No data received');
         }
-        console.log(data.feedback);
 
         store.dispatch(changeRandomFeedback({ randomFeedback: data.feedback }))
         return data;
@@ -57,11 +51,31 @@ const registerFeedback = async ({ vendorId, feedbackContent }: { vendorId: numbe
     }
 }
 
+
+
+const getAllPerformances = async (): Promise<void> => {
+    try {
+        const res = await fetch('/api/performanceEvaluation/performance/rating/get');
+        if (!res.ok) {
+            throw new Error('Failed to fetch Data from database');
+        }
+        const data = await res.json();
+        if (!data.success) {
+            throw new Error('No data received');
+        }
+
+        store.dispatch(addPerformances({ performances: data.performances }))
+    } catch (error) {
+        console.error('Error fetching random feedback:', error);
+        throw error;
+    }
+}
+
 const CustomTooltip = ({ active, payload, label }: { active: boolean, payload: any, label: string }) => {
     if (active && payload && payload.length) {
         return (
             <div className="bg-black px-4 py-3 rounded-lg">
-                <p className="text-white font-medium text-lg font-outfit">{`${label}. ${payload[0].value}`}</p>
+                <p className="text-white font-medium text-lg font-outfit">{`${label}. ${payload[0].value == -1 ? "Not Available" : payload[0].value}`}</p>
             </div>
         );
     }
@@ -69,78 +83,36 @@ const CustomTooltip = ({ active, payload, label }: { active: boolean, payload: a
 };
 
 
+const getAvgRating = (rating: Array<{ name: string, value: number }> | any) => {
+    let total = 0;
+    let count = 0;
+
+    if (!rating) {
+        return 0;
+    }
+
+    rating.forEach((rating: { name: string, value: number }) => {
+        if (rating.value !== -1) {
+            total += rating.value
+            count += 1
+        }
+    })
+    if (count === 0) {
+        return 0
+    }
+
+    return (total / count).toFixed(1)
+
+}
+
+
 const page = () => {
     const [openCommentPopUp, setOpenCommentPopUp] = useState(false);
 
     const { randomFeedback } = useSelector((state: Store) => state.feedbacks);
+    const { allPerformances } = useSelector((state: Store) => state.performances);
 
-    const vendorScores: VendorScore[] = [
-        {
-            name: 'John Doe',
-            evaluationScore: 4.3,
-            ratingAndReviews: 3.3
-        },
-        {
-            name: "Flody",
-            evaluationScore: 4.3,
-            ratingAndReviews: 4.9
-        }, {
-            name: "Marry Doe",
-            evaluationScore: 4.6,
-            ratingAndReviews: 4.1
-        }
-    ]
-
-    const data = [
-        {
-            name: 'Jan',
-            uv: 3.2,
-        },
-        {
-            name: 'Feb',
-            uv: 4.1,
-        },
-        {
-            name: 'Mar',
-            uv: 2.4,
-        },
-        {
-            name: 'Apr',
-            uv: 3.9,
-        },
-        {
-            name: 'May',
-            uv: 3.0,
-        },
-        {
-            name: 'Jun',
-            uv: 4.9,
-        },
-        {
-            name: 'Jul',
-            uv: 4.2,
-        },
-        {
-            name: 'Aug',
-            uv: 2.8,
-        }, {
-            name: 'Sep',
-            uv: 4.0,
-        },
-        {
-            name: 'Oct',
-            uv: 2.4,
-        },
-        {
-            name: 'Nov',
-            uv: 3.8,
-        },
-        {
-            name: 'Dec',
-            uv: 3.9,
-        },
-    ];
-
+    const [selectedPerformance, setSelectedPerformance] = useState<ModifiedPerformance | undefined>(undefined);
 
 
     const toPercent = (decimal: number) => `${decimal}.0`;
@@ -148,45 +120,56 @@ const page = () => {
 
     useEffect(() => {
         getRandomFeedback();
+        getAllPerformances();
     }, []);
 
 
+    useEffect(() => {
+        if (allPerformances) {
+            setSelectedPerformance(allPerformances[0])
+        }
+    }, [allPerformances])
+
+
     return (
-        <div className='mt-4 w-full'>
+        <div className='mt-4 md:w-full'>
             {/* comment popup */}
             {
                 (randomFeedback && openCommentPopUp) && <AddCommentPopUp feedback={randomFeedback} setOpenCommentPopUp={setOpenCommentPopUp} />
             }
-            <div className='flex justify-between pr-10 gap-x-5'>
+            <div className='w-full flex flex-col lg:flex-row justify-between lg:pr-1 lg:gap-x-5'>
                 {/* venders */}
-                <div className='w-7/12 max-h-52 overflow-scroll'>
-                    <table className="min-w-full my-5 rounded-xl">
-                        <thead className="text-left bg-[#F5F5F5]">
+                <div className='w-full lg:w-7/12'>
+                    <table className="w-full my-5 rounded-xl">
+                        <thead className="text-left max-w-full bg-[#F5F5F5]">
                             <tr>
-                                <th className="whitespace-nowrap px-4 py-2 font-normal font-outfit text-xs">Vender Name</th>
-                                <th className="whitespace-nowrap px-4 py-2 font-normal font-outfit text-xs">Evaluation Score</th>
-                                <th className="whitespace-nowrap px-4 py-2 font-normal font-outfit text-xs">Rating and Reviews</th>
-                                <th className="whitespace-nowrap px-4 py-2 font-normal font-outfit text-xs">Action</th>
+                                <th className="whitespace-nowrap px-2 md:px-4 py-2 font-normal font-outfit text-xs">Vender Name</th>
+                                <th className="whitespace-nowrap px-2 md:px-4 py-2 font-normal font-outfit text-xs">Evaluation Score</th>
+                                <th className="whitespace-nowrap px-2 md:px-4 py-2 font-normal text-left font-outfit text-xs">
+                                    <span className='md:hidden'>Rating</span>
+                                    <span className='hidden md:block'>Rating and Reviews</span>
+                                </th>
+                                <th className="whitespace-nowrap py-2 font-normal font-outfit text-xs">Action</th>
                             </tr>
                         </thead>
 
-                        <tbody className="divide-y divide-[#A2A1A81A]/10">
+                        <tbody className="divide-y divide-[#A2A1A81A]/10 max-h-40 lg:max-h-52 overflow-y-scroll">
                             {
-                                vendorScores.map((vendor, index) => {
+                                allPerformances?.map((performance, index) => {
 
                                     return (
                                         <tr key={index}>
-                                            <td className="whitespace-nowrap px-4 py-2 font-light text-xs font-lexend text-[#A8A8A8]">{vendor.name}</td>
-                                            <td className="whitespace-nowrap px-4 py-2 font-light text-xs font-lexend text-[#A8A8A8]">{vendor.evaluationScore}</td>
-                                            <td className="whitespace-nowrap px-4 py-2 font-light text-xs font-lexend text-[#A8A8A8]">{vendor.ratingAndReviews}</td>
-                                            <td className='flex gap-x-2 items-center'>
+                                            <td className="px-2 md:px-4 py-2 font-light text-xs font-lexend text-[#A8A8A8]">{performance.vendorName}</td>
+                                            <td className="whitespace-nowrap px-2 md:px-4 py-2 font-light text-xs font-lexend text-[#A8A8A8]">{performance.evaluationScore}</td>
+                                            <td className="whitespace-nowrap px-2 md:px-4 py-2 font-light text-xs font-lexend text-[#A8A8A8]">{getAvgRating(performance.rating)}</td>
+                                            <td className='flex gap-x-1 md:gap-x-2 items-center'>
 
-                                                <button>
+                                                <Link href={"/dashboard/vendor"}>
                                                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M19.3306 9.33423C20.3452 10.4018 20.3452 12.0237 19.3306 13.0913C17.6192 14.8919 14.6801 17.3378 11.3416 17.3378C8.00298 17.3378 5.06386 14.8919 3.35255 13.0913C2.33789 12.0237 2.33789 10.4018 3.35255 9.33423C5.06386 7.53368 8.00298 5.08777 11.3416 5.08777C14.6801 5.08777 17.6192 7.53368 19.3306 9.33423Z" stroke="#16151C" />
                                                         <circle cx="11.3416" cy="11.2128" r="2.625" stroke="#16151C" />
                                                     </svg>
-                                                </button>
+                                                </Link>
                                                 <button>
                                                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M3.60107 19.0878H19.3511M13.0374 5.36052C13.0374 5.36052 13.0374 6.79081 14.4677 8.22111C15.898 9.65141 17.3283 9.65141 17.3283 9.65141M7.38075 16.4523L10.3844 16.0232C10.8176 15.9613 11.2191 15.7606 11.5286 15.4511L18.7586 8.22111C19.5486 7.43118 19.5486 6.15045 18.7586 5.36051L17.3283 3.93022C16.5384 3.14029 15.2577 3.14029 14.4677 3.93022L7.23772 11.1602C6.92824 11.4697 6.72749 11.8712 6.6656 12.3045L6.23651 15.3081C6.14116 15.9756 6.71328 16.5477 7.38075 16.4523Z" stroke="#16151C" strokeLinecap="round" />
@@ -208,7 +191,7 @@ const page = () => {
                     </table>
                 </div>
                 {/* feedback */}
-                <div className='w-5/12'>
+                <div className='w-full lg:w-5/12'>
                     <h2 className='font-lexend tracking-wide text-[22px] font-semibold'>Feedback</h2>
                     {/* random feedback */}
                     {
@@ -257,28 +240,29 @@ const page = () => {
             </div>
 
 
-            <div className='w-full mt-10 h-[500px] border-[0.48px] border-[#000]/50 p-6 rounded-2xl'>
+            <div className='w-full mt-10 h-[300px] md:h-[500px] border-[0.48px] border-[#000]/50 p-2 md:p-6 rounded-2xl'>
 
-                <div className="flex  items-center gap-x-5 mb-5">
+                <div className="flex items-center justify-start gap-x-2 md:gap-x-5 mb-3 md:mb-5">
                     <h2 className='font-medium text-[22px] text-[#1A1B2F] font-outfit'>Rating</h2>
-                    <select name="vender" id="vender" className='text-[#C9C9C9] text-[22px] capitalize'>
-                        <option defaultChecked value="vender1">vender 1</option>
-                        <option value="vender2">vender 2</option>
-                        <option value="vender3">vender 3</option>
-                        <option value="vender4">vender 4</option>
+                    <select onChange={(e) => setSelectedPerformance(allPerformances && allPerformances[+e.target.value])} name="vender" id="vender" className='text-[#C9C9C9] text-[16px] capitalize'>
+                        {
+                            allPerformances?.map((performance, index) => {
+                                return (
+                                    <option value={index} key={index}>{performance.vendorName}</option>
+                                )
+                            })
+                        }
                     </select>
                 </div>
 
                 <ResponsiveContainer width="100%" height="90%">
                     <LineChart
-                        width={500}
-                        height={300}
-                        data={data}
+                        data={selectedPerformance?.rating}
                     >
                         <XAxis axisLine={false} dataKey="name" tickLine={false} />
-                        <YAxis axisLine={false} tickFormatter={toPercent} domain={[1, 5]} tickLine={false} type={"number"} interval={"preserveEnd"} />
+                        <YAxis axisLine={false} tickFormatter={toPercent} domain={[0, 5]} tickLine={false} type={"number"} interval={"preserveEnd"} />
                         <Tooltip content={<CustomTooltip active={false} payload={undefined} label={''} />} />
-                        <Line type="linear" dot={false} dataKey="uv" isAnimationActive={false} stroke="#6BA10F" strokeWidth={3} />
+                        <Line type="linear" dot={false} dataKey="value" isAnimationActive={false} stroke="#6BA10F" strokeWidth={3} />
                     </LineChart>
                 </ResponsiveContainer>
 

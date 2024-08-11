@@ -88,7 +88,7 @@ const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: any }) =>
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-30 backdrop-blur-md">
-            <div className="bg-white p-4 max-w-[450px] w-full rounded-2xl shadow-md">
+            <div className="bg-white p-4 ml-20 md:ml-0 w-full max-w-[450px] rounded-2xl shadow-md">
 
                 <h2 className="text-[20px] font-semibold font-lexend">Add new Contract</h2>
 
