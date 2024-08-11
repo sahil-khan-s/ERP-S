@@ -296,10 +296,15 @@ const Sidebar = () => {
                 </NavigationMenu>
                 
                 ) : (
+                  <div>
                   <div className={currentPath == "/dashboard/compliance&risk"? "mt-2 bg-[#DDFF8F] group rounded-xl h-[35px] py-1.5 flex justify-center pr-1":"mt-2 hover:bg-[#DDFF8F] group rounded-xl h-[35px] py-1.5 flex justify-center pr-1"}>
                     <FaRegChartBar className={currentPath == "/dashboard/compliance&risk" ? "text-black text-xl":"group-hover:text-black text-white text-xl"} />
                   </div>
-                )}
+                  { (currentPath == "/dashboard/compliance&risk" || currentPath == "/dashboard/compliance&risk/managment" || currentPath == "/dashboard/compliance&risk/list") && <>
+                  <Link href={"/dashboard/compliance&risk/managment"}> <div className={currentPath !== "/dashboard/compliance&risk/managment" ? "w-full mb-3  text-white hover:bg-[#DDFF8F]  py-1.5 rounded-xl mt-2 hover:text-black px-3 items-center":"w-full mb-3 text-black py-1.5 rounded-xl mt-2 px-3 items-center bg-[#DDFF8F]"}> <MdManageSearch className="text-2xl ml-2"/></div></Link>
+                  <Link href={"/dashboard/compliance&risk/list"}> <div className={currentPath !== "/dashboard/compliance&risk/list" ? "w-full mb-3  text-white hover:bg-[#DDFF8F]  py-2.5 rounded-xl mt-2 hover:text-black px-3 items-center":"w-full mb-3 text-black py-2.5 rounded-xl mt-2 px-3 items-center bg-[#DDFF8F]"}> <FaListUl className="text-md ml-2 mr-3"/></div></Link>
+                  </>}
+                </div>)}
             </Link>
           </div>
 

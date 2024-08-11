@@ -10,14 +10,14 @@ const RiskSummary = () => {
 
       <div className="flex flex-row items-center justify-between">
         <span className="block text-gray-700 font-medium">Total Risk</span>
-        <span className="text-4xl font-semibold">54</span>
+        <span className="text-xl lg:text-4xl font-semibold">54</span>
       </div>
 
       <div className="flex flex-col gap-2 ">
-        <div className="h-4 flex flex-row gap-1 rounded-full">
-          <div className=" h-4 rounded-sm bg-[#D5F68A]" style={{ width: '33%' }}></div>
-          <div className=" h-4 rounded-sm bg-[#A9E338]" style={{ width: '33%' }}></div>
-          <div className=" h-4 rounded-sm bg-[#6BA10F]" style={{ width: '34%' }}></div>
+        <div className="h-3 md:h-4 flex flex-row gap-1 rounded-full">
+          <div className=" h-3 md:h-4 rounded-sm bg-[#D5F68A]" style={{ width: '33%' }}></div>
+          <div className=" h-3 md:h-4 rounded-sm bg-[#A9E338]" style={{ width: '33%' }}></div>
+          <div className=" h-3 md:h-4 rounded-sm bg-[#6BA10F]" style={{ width: '34%' }}></div>
         </div>
         <div className="flex justify-between text-gray-500 text-xs mt-1">
           <span className=' font-semibold'>0%</span>

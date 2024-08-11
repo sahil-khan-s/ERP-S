@@ -50,8 +50,8 @@ export default function Vendor() {
 
   return (
 
-    <div className="bg-white min-h-screen">
-      <div className="px-6"><Nav /></div>
+    <div className="bg-white h-[100vh]">
+      <div className="px-2 lg:px-6"><Nav /></div>
       <div className=" bg-gray-100 ">
         <main>
           <div className="bg-white p-2 lg:p-4 rounded shadow">
@@ -63,7 +63,10 @@ export default function Vendor() {
 
               <Dialog open={open}>
                 <DialogTrigger asChild>
-                  <button onClick={() => setOpen(true)} className="text-xs lg:text-sm bg-[#DDFF8F] text-black p-3 lg:p-[15.24px] rounded-[11.43px]">Add Compliance Issue</button>
+                  <div>
+                  <button onClick={() => setOpen(true)} className="md:block hidden text-sm bg-[#DDFF8F] text-black p-[15.24px] rounded-[11.43px]">Add Compliance Issue</button>
+                  <button onClick={() => setOpen(true)} className=" md:hidden block text-[10px] bg-[#DDFF8F] text-black px-3 ml-2 py-2 rounded-lg ">Add</button>
+                  </div>
                 </DialogTrigger>
                 <DialogContent className="bg-white text-white cursor-default">
                   <DialogHeader>
@@ -111,4 +114,3 @@ export default function Vendor() {
     </div>
   );
 };
-
