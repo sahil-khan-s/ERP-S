@@ -103,26 +103,26 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
                     <thead className="  bg-[#F5F5F5]">
                         <tr >
                             <div>
-                            <th className="md:block hidden p-4 text-left font-semibold text-[16px]">Description</th>
+                            <th className="md:block hidden p-4 text-left font-semibold text-base">Description</th>
                             <th className="block md:hidden px-0 py-4 text-center font-medium text-xs">Desc</th>
                             </div>
-                            <th className="px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-xs md:text-sm lg:text-[16px]">ID</th>
-                            <th className="px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-xs md:text-sm lg:text-[16px]">Assign To</th>
-                            <th className="px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-xs md:text-sm lg:text-[16px]">Title</th>
-                            <th className="px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-xs md:text-sm lg:text-[16px]">Type</th>
-                            <th className="px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-xs md:text-sm lg:text-[16px]">Status</th>
-                            <th className="px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-xs md:text-sm lg:text-[16px]">Action</th>
+                            <th className="px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm md:text-sm lg:text-base">ID</th>
+                            <th className="px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm md:text-sm lg:text-base">Assign To</th>
+                            <th className="md:block hidden px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm lg:text-base">Title</th>
+                            <th className="px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm md:text-sm lg:text-base">Type</th>
+                            <th className="px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm md:text-sm lg:text-base">Status</th>
+                            <th className="px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm md:text-sm lg:text-base">Action</th>
                         </tr>
                     </thead>
                     {complainces.length !== 0 ? complainces.map((item, index) => (
                         <tbody className=' bg-white border-b border-slate-100'>
                             <tr key={index}>
-                                <td className="px-0.5 py-3 text-center lg:text-left lg:p-4"><p className='max-w-20 md:max-w-40 lg:max-w-44 truncate text-[10px] md:text-sm lg:text-[16px]'>{item.description}</p></td>
-                                <td className="px-0.5 py-3 text-center md:text-sm lg:text-left lg:p-4 text-[10px] lg:text-[16px]">{item.id}</td>
-                                <td className="px-0.5 py-3 text-center md:text-sm lg:text-left lg:p-4 text-[10px] max-w-12 truncate lg:max-w-full lg:text-[16px]">{item.assignTo}</td>
-                                <td className="px-0.5 py-3 text-center md:text-sm lg:text-left lg:p-4 text-[10px] max-w-8 truncate lg:max-w-full lg:text-[16px]">{item.title}</td>
-                                <td className="px-0.5 py-3 text-center md:text-sm lg:text-left lg:p-4 text-[10px] lg:text-[16px]">{item.type}</td>
-                                <td className="px-0.5 py-3 text-center md:text-sm lg:text-left lg:p-4 text-[10px] lg:text-[16px]">
+                                <td className="pl-0.5 py-3 text-left lg:p-4"><p className='max-w-20 md:max-w-40 lg:max-w-44 truncate text-[10px] md:text-sm lg:text-base'>{item.description}</p></td>
+                                <td className="pr-0.5 py-3 text-left md:text-sm lg:p-4 text-[10px] lg:text-base">{item.id}</td>
+                                <td className="px-0.5 py-3 text-left md:text-sm lg:p-4 text-[10px] max-w-12 truncate lg:max-w-full lg:text-base">{item.assignTo}</td>
+                                <td className="md:block hidden px-0.5 py-3 text-left md:text-sm lg:p-4 text-[10px] max-w-20 truncate lg:max-w-full lg:text-base">{item.title}</td>
+                                <td className="px-0.5 py-3 text-left md:text-sm lg:p-4 text-[10px] lg:text-base">{item.type}</td>
+                                <td className="px-0.5 py-3 text-left md:text-sm lg:p-4 text-[10px] lg:text-base">
                                     <span className="bg-[#f1f6e7] text-[#6BA10F] px-0.5 lg:px-2 lg:py-1 text-xs md:text-sm lg:text-sm rounded-lg">{item.status}</span>
                                 </td>
                                 <td className="flex flex-row justify-center items-center gap-1 lg:gap-3">
@@ -131,23 +131,23 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
                                     <Popover>
                                         <PopoverTrigger >
                                             <button className='text-slate-600 hover:text-black flex items-center my-5'><RiEyeLine className='text-sm lg:text-xl' /></button>                                        </PopoverTrigger>
-                                        <PopoverContent className='bg-[#f8f8f8] relative right-16 top-[-45] md:top-[-30] md:right-[45%] w-max-42'>
-                                            <div className='font-bold items-center mb-3 lg:mb-4 text-center  md:text-[16px]'>Compliance Detail</div>
+                                        <PopoverContent className='w-52 md:w-96 bg-[#f8f8f8] relative right-16 top-[-45] md:top-auto md:right-[30%] w-max-42'>
+                                            <div className='font-bold items-center mb-3 lg:mb-4 text-center  md:text-base'>Compliance Detail</div>
                                             <div className='flex flex-col gap-3 md:gap-4'>
                                                 <div className='inline-flex border-b border-slate-200 items-center'>
-                                                    <span className='text-sm lg:text-[16px] font-medium text-gray-500'>Title:</span><p className='text-sm lg:text-[16px] text-slate-900 font-medium px-1 lg:px-2'>{item.title}</p>
+                                                <p className='text-sm lg:text-base text-slate-900 font-medium px-1 lg:px-2'><span className='text-sm lg:text-base font-medium text-gray-500 mr-1'>Title:</span>{item.title}</p>
                                                 </div>
                                                 <div className='inline-flex border-b border-slate-200 items-center'>
-                                                    <span className='text-sm lg:text-[16px] font-medium text-gray-500'>Assign to:</span><p className='text-sm lg:text-[16px] text-slate-900 font-medium px-1 lg:px-2'>{item.assignTo}</p>
+                                                    <span className='text-sm lg:text-base font-medium text-gray-500'>Assign to:</span><p className='text-sm lg:text-base text-slate-900 font-medium px-1 lg:px-2'>{item.assignTo}</p>
                                                 </div>
                                                 <div className='inline-flex border-b border-slate-200 items-center'>
-                                                    <span className='text-sm lg:text-[16px] font-medium text-gray-500'>Type:</span><p className='text-sm lg:text-[16px] text-slate-900 font-medium px-1 lg:px-2'>{item.type}</p>
+                                                    <span className='text-sm lg:text-base font-medium text-gray-500'>Type:</span><p className='text-sm lg:text-base text-slate-900 font-medium px-1 lg:px-2'>{item.type}</p>
                                                 </div>
                                                 <div className='inline-flex border-b border-slate-200 items-center'>
-                                                    <span className='text-sm lg:text-[16px] font-medium text-gray-500'>Status:</span><p className='text-sm lg:text-[16px] text-slate-900 font-medium px-1 lg:px-2'>{item.status}</p>
+                                                    <span className='text-sm lg:text-base font-medium text-gray-500'>Status:</span><p className='text-sm lg:text-base text-slate-900 font-medium px-1 lg:px-2'>{item.status}</p>
                                                 </div>
                                                 <div className='inline-flex text-wrap'>
-                                                    <p className='text-sm lg:text-[16px] text-slate-900 font-medium '><span className='text-sm lg:text-[16px] font-medium text-gray-500 mr-1 lg:mr-2'>Description:</span>{item.description}</p>
+                                                    <p className='text-sm lg:text-base text-slate-900 font-medium leading-snug'><span className='text-sm lg:text-base font-medium text-gray-500 mr-1 lg:mr-2'>Description:</span>{item.description}</p>
                                                 </div>
                                             </div>
                                         </PopoverContent>
@@ -171,7 +171,7 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
                                                     <div className="mb-2 md:mb-4 flex gap-2 md:gap-4">
                                                         <div className="w-full">
                                                             <Select defaultValue={item.status} onValueChange={(value: string) => { setStatus(value) }}>
-                                                                <SelectTrigger className=" border border-slate-300 h-8 md:h-12 appearance-none  rounded-xl w-full p-4 focus:ring-1 leading-tight outline-none text-[16px] text-gray-900 text-sm  focus:text-black">
+                                                                <SelectTrigger className="border border-slate-300 h-8 md:h-12 appearance-none  rounded-xl w-full p-4 focus:ring-1 leading-tight outline-none text-gray-900 text-sm  focus:text-black">
                                                                     <SelectValue />
                                                                 </SelectTrigger>
                                                                 <SelectContent>
@@ -182,7 +182,7 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
                                                         </div>
                                                         <div className="w-full">
                                                             <Select defaultValue={item.type} onValueChange={(value: string) => { setType(value) }}>
-                                                                <SelectTrigger className=" border border-slate-300 h-8 md:h-12 appearance-none  rounded-xl w-full p-4 focus:ring-1 leading-tight outline-none text-sm  text-gray-900 focus:text-black">
+                                                                <SelectTrigger className="border border-slate-300 h-8 md:h-12 appearance-none  rounded-xl w-full p-4 focus:ring-1 leading-tight outline-none text-sm  text-gray-900 focus:text-black">
                                                                     <SelectValue />
                                                                 </SelectTrigger>
                                                                 <SelectContent>
