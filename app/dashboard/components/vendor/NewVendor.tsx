@@ -9,7 +9,7 @@ const newVendorUser = {
     VendorType: "Remote",
     Email: "Jhonsmith90@gmail.com",
     Phone: "034709897668",
-    img:"https://s3-alpha-sig.figma.com/img/c71e/c81e/48ad1573452bb5d1a7700cbc11a41c69?Expires=1722211200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=K4Ido4g2lZzjYaw0FjH8iOCzpvEucanIhig75034oFMBK3cDr9MrVyp3VOzUMzt-l26bHXhz20JNLuhRj0kl9T3biGgBqo4x-8FnrxiYAuBL7px58vtBMTgULPB6M5uh7577jheR03n7716keEsGDqfsf~iTZktvf5MTLlkTAgzIaVPhikf15h04oNClpb2AEVB6IH5t9mO-uD9d2WhSwoLZD54Ds7uirH63vzNOI1yey-YcR405HNLTeNeDONzk-wclfKC1-aEiBTQPBisEQdmN0SP1oiQZ5ddsHzGJjrtOxZK-jRegr3wUxzaDA4oEzJ-TrYWB37LIyMIa8mrUhw__"
+    img:"https://firebasestorage.googleapis.com/v0/b/epr-s-52978.appspot.com/o/images%2F5.jpg?alt=media&token=bf4d88a9-04ef-473d-b982-829e550cd357"
 }
 
 const NewVendor = () => {

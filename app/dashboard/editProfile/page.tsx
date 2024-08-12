@@ -18,16 +18,16 @@ const userData = {
 const ProfileSettings = () => {
   return (
     <div className="bg-white h-screen">
-      <div className="px-6"><Nav/></div>
-      <div className='w-[550px] flex flex-col gap-5 p-7'>
-        <div className='flex flex-row items-center gap-10'>
-          <Avatar>
+      <div className="px-4 lg:px-6"><Nav/></div>
+      <div className='lg:w-[550px] w-[340px] flex flex-col gap-5 p-7'>
+        <div className='flex flex-row items-center gap-12 lg:gap-10'>
+          <Avatar className='h-12 w-12 lg:h-16 lg:w-16'>
             <AvatarImage src={userData.image} />
             <AvatarFallback>OM</AvatarFallback>
           </Avatar>
-          <div className='flex flex-row gap-2'>
-          <button className='border rounded-full h-8 p-1 px-3 text-sm text-gray-500 border-slate-300'>Update</button>
-          <button className='bg-gray-50 flex-row items-center rounded-full flex gap-1 h-8 p-1 px-3 text-slate-600'><HiOutlineTrash/><p>Remove</p></button>
+          <div className='flex flex-row gap-1 lg:gap-2'>
+          <button className='border rounded-full h-8 p-1 px-3 text-xs lg:text-sm text-gray-500 border-slate-300'>Update</button>
+          <button className='bg-gray-50 flex-row items-center rounded-full flex text-xs lg:text-sm gap-1 h-8 p-1 px-3 text-slate-600'><HiOutlineTrash/><p>Remove</p></button>
           </div>
         </div>
         <div>
@@ -95,10 +95,10 @@ const ProfileSettings = () => {
 </Select>
 <div className='flex flex-row items-center justify-between'>
 <div className='flex flex-row justify-start items-center gap-3'>
-  <Button className='bg-[#d4fd75] text-black hover:bg-[#e1ff9b]'>Save Changed</Button>
-  <Button className='border-slate-300' variant={"outline"}>Cancel</Button>
+  <Button className='text-xs lg:text-sm px-2 bg-[#d4fd75] text-black hover:bg-[#e1ff9b]'>Save Changed</Button>
+  <Button className='text-xs lg:text-sm px-2 border-slate-300' variant={"outline"}>Cancel</Button>
 </div>
-<Button variant={"destructive"}>Delete Account</Button>
+<Button className='text-xs lg:text-sm px-2' variant={"destructive"}>Delete Account</Button>
 </div>
       </div>
     </div>
