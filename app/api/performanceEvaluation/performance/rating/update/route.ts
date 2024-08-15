@@ -2,11 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 export const PATCH = async (req: NextRequest): Promise<NextResponse> => {
 	try {
-		const { vendorId, yearlyRating, performanceId } = await req.json();
+		const { vendorId, yearlyRating, performanceId, evaluationScore } =
+			await req.json();
 
 		// check that the params are valid and not undefined. only one is required between vendorId and performanceId
 		if (
-			!(vendorId || yearlyRating) ||
+			!(vendorId || yearlyRating || evaluationScore) ||
 			(!performanceId && typeof performanceId === "object")
 		) {
 			throw new Error("Missing arguments");
@@ -26,22 +27,6 @@ export const PATCH = async (req: NextRequest): Promise<NextResponse> => {
 				vendorId,
 			},
 		});
-
-		const rating = {
-			jan: -1,
-			feb: -1,
-			mar: -1,
-			apr: -1,
-			may: -1,
-			jun: -1,
-			jul: -1,
-			aug: -1,
-			sep: -1,
-			oct: -1,
-			nov: -1,
-			dec: -1,
-		};
-
 		if (!oldRecord) {
 			return NextResponse.json(
 				{ success: false, message: "Performance not found" },
@@ -51,13 +36,14 @@ export const PATCH = async (req: NextRequest): Promise<NextResponse> => {
 		// add the vendor performance
 
 		const oldRating = JSON.parse(JSON.stringify(oldRecord.rating));
+
 		await prisma.performance.update({
 			where: {
 				vendorId,
-				// id: performanceId,
 			},
 			data: {
 				rating: { ...oldRating, ...yearlyRating },
+				evaluationScore,
 			},
 		});
 

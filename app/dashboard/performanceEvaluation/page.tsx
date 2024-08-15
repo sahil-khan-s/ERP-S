@@ -51,7 +51,7 @@ const registerFeedback = async ({ vendorId, feedbackContent }: { vendorId: numbe
     }
 }
 
-const getAllPerformances = async (): Promise<void> => {
+export const getAllPerformances = async (): Promise<void> => {
     try {
         const res = await fetch('/api/performanceEvaluation/performance/rating/get');
         if (!res.ok) {
@@ -110,6 +110,7 @@ const page = () => {
     const { randomFeedback } = useSelector((state: Store) => state.feedbacks);
     const { allPerformances } = useSelector((state: Store) => state.performances);
     const [selectedPerformance, setSelectedPerformance] = useState<ModifiedPerformance | undefined>(undefined);
+    const [selectedPerformanceForEdit, setSelectedPerformanceForEdit] = useState<ModifiedPerformance | undefined>(undefined);
 
 
     const toPercent = (decimal: number) => `${decimal}.0`;
@@ -138,8 +139,10 @@ const page = () => {
                 {/* venders */}
 
 
-                {/* app performance popup */}
-                <EditPerformancePopUp open={openPerformancePopUp} onClose={setOpenPerformancePopUp} />
+                {/* edit performance popup */}
+                {
+                    openPerformancePopUp && <EditPerformancePopUp performance={selectedPerformanceForEdit} onClose={setOpenPerformancePopUp} />
+                }
 
 
                 <div className='w-full lg:w-7/12'>
@@ -173,7 +176,10 @@ const page = () => {
                                                         <circle cx="11.3416" cy="11.2128" r="2.625" stroke="#16151C" />
                                                     </svg>
                                                 </Link>
-                                                <button onClick={() => setOpenPerformancePopUp(true)}>
+                                                <button onClick={() => {
+                                                    setSelectedPerformanceForEdit(performance);
+                                                    setOpenPerformancePopUp(true)
+                                                }}>
                                                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M3.60107 19.0878H19.3511M13.0374 5.36052C13.0374 5.36052 13.0374 6.79081 14.4677 8.22111C15.898 9.65141 17.3283 9.65141 17.3283 9.65141M7.38075 16.4523L10.3844 16.0232C10.8176 15.9613 11.2191 15.7606 11.5286 15.4511L18.7586 8.22111C19.5486 7.43118 19.5486 6.15045 18.7586 5.36051L17.3283 3.93022C16.5384 3.14029 15.2577 3.14029 14.4677 3.93022L7.23772 11.1602C6.92824 11.4697 6.72749 11.8712 6.6656 12.3045L6.23651 15.3081C6.14116 15.9756 6.71328 16.5477 7.38075 16.4523Z" stroke="#16151C" strokeLinecap="round" />
                                                     </svg>

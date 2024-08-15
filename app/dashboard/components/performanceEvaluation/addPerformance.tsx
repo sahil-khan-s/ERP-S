@@ -9,8 +9,12 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { assert } from 'console';
+import { Alert } from '@mui/material';
+import { getAllPerformances } from '../../performanceEvaluation/page';
+import { Store, store } from '@/store/store';
 
-
+import { Performance } from '@prisma/client';
 
 const fetchVendors = async () => {
     try {
@@ -25,7 +29,6 @@ const fetchVendors = async () => {
 
 
 
-
 const AppPerformancePopup = ({
     open,
     onClose,
@@ -33,7 +36,7 @@ const AppPerformancePopup = ({
     open: boolean;
     onClose: React.Dispatch<React.SetStateAction<boolean>>;
 }): JSX.Element | null => {
-    const [vendors, setVendors] = useState<{ id: string; name: string }[]>([]);
+    const [vendors, setVendors] = useState<{ id: number; name: string }[]>([]);
 
     const [selectedVendor, setSelectedVendor] = useState<string | undefined>(undefined);
     const [evaluationScore, setEvaluationScore] = useState<string>("");
@@ -56,10 +59,33 @@ const AppPerformancePopup = ({
 
     // Fetch vendors
     useEffect(() => {
-        (async () => {
-            const vendors = await fetchVendors();
-            setVendors(vendors);
+
+
+        (async (): Promise<void> => {
+            try {
+                const vendors: { id: number; name: string }[] = await fetchVendors();
+
+                const allPerformances = store.getState().performances.allPerformances ?? [];
+
+                const filteredVendors = vendors.filter(vendor => {
+                    let isPerformanceAvailable: boolean = false;
+
+                    for (let item of allPerformances) {
+                        console.log(item.vendorId, vendor.id);
+                        if (item.vendorId == vendor.id) {
+                            isPerformanceAvailable = true;
+                            break;
+                        }
+                    }
+                    return !isPerformanceAvailable;
+                })
+
+                setVendors(filteredVendors);
+            } catch (error) {
+                console.error("Error fetching vendors:", error);
+            }
         })()
+
     }, []);
 
 
@@ -86,9 +112,7 @@ const AppPerformancePopup = ({
     };
 
 
-    const handleSubmit = (
-        e: React.FormEvent<HTMLFormElement>
-    ): void => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (!selectedVendor) {
@@ -106,9 +130,31 @@ const AppPerformancePopup = ({
             }, {});
 
 
-        // call the api to save the record.
-        console.log(filteredRatings, vendorId, evaluationScore);
+        const res = await fetch("/api/performanceEvaluation/performance/add", {
+            method: "POST",
+            body: JSON.stringify({
+                evaluationScore: Number(evaluationScore),
+                vendorId: Number(vendorId),
+                yearlyRating: filteredRatings
+            })
+        });
 
+
+        if (!res.ok) {
+            alert("Something went wrong while adding performance. Please try again later.")
+            onClose(false);
+            return;
+        }
+
+        if (!(await res.json()).success) {
+
+            alert("Something went wrong while adding performance. Please try again later.")
+            onClose(false);
+            return;
+        }
+
+        getAllPerformances();
+        alert("Performance added successfully");
         onClose(false); // Close the popup after submission
     };
 
