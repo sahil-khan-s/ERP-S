@@ -39,7 +39,6 @@ const Sidebar = () => {
   };
 
   const currentPath = usePathname();
-  console.log(currentPath);
 
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const matches = useMediaQuery("(max-width:1100px)");
@@ -70,7 +69,7 @@ const Sidebar = () => {
           }}
         >
           <div className="px-1 h-screen bg-black">
-            <div className="flex  px-1 items-center justify-evenly gap-7  mt-5 ">
+            <div className="flex  px-1 items-center justify-evenly   mt-5 ">
               {isSmallScreen ? (
                 <div
                   onClick={() => router.push("/")}
@@ -246,9 +245,10 @@ const Sidebar = () => {
                     </div>
                   </>
                 ) : (
+                  
                   <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-lg py-1">
-                    <TbAnalyze className=" group-hover:text-black  text-xl" />
-                  </div>
+                  <TbAnalyze className="text-white group-hover:text-black  text-xl" />
+                </div>
                 )}
               </div>
             </Link>
@@ -276,6 +276,7 @@ const Sidebar = () => {
                   <div className="px-4 mt-2 hover:bg-[#DDFF8F] group rounded-xl py-1">
                     <BsGraphUpArrow className="group-hover:text-black text-xl" />
                   </div>
+                  
                 )}
               </div>
             </Link>

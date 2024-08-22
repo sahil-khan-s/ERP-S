@@ -19,7 +19,7 @@ export default function Vendor() {
   }
 
   return (
-    <div className="bg-white">
+    <div className="bg-white h-screen">
       <div className="px-6"><Nav/></div>
 
       {/* Rendor Conditionally */}
@@ -27,12 +27,12 @@ export default function Vendor() {
 
       {page ?
         <div>
-          <div className="min-h-screen bg-gray-100 ">
+          <div className="bg-gray-100 ">
             <main>
               <div className="bg-white p-4 rounded shadow">
                 <div className="flex justify-between items-center mb-4">
                   <SearchBar />
-                  <button onClick={handlePage} className="text-sm bg-[#DDFF8F] text-black p-[15.24px] rounded-[11.43px]">Add New Vendor<AddCircleOutlineIcon className="mx-1" /></button>
+                  <button onClick={handlePage} className="text-sm bg-[#DDFF8F] text-black px-[15.24px] py-3 rounded-[11.43px] w-42">Add New Vendor<AddCircleOutlineIcon className="mx-1" /></button>
                 </div>
                 <VendorsList />
               </div>
