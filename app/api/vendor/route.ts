@@ -7,7 +7,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
 	try {
 		const { imageUrl, vendorName, category, contractValue, email, date, type, address, note } = await request.json();
 		const newVendor = await prisma.vendor.create({
-			data: { imageUrl, name:vendorName, contractvalue:contractValue, vendorCategory:category, email, date, type, address, note },
+			data: { imageUrl, name: vendorName, contractvalue: contractValue, vendorCategory: category, email, date, type, address, note },
 		});
 
 		return NextResponse.json(
@@ -20,7 +20,6 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
 		);
 	} catch (error) {
 		console.error(error);
-		console.log("SERVER ERROR")
 
 		return NextResponse.json(
 			{ success: false, message: "Failed to create new vendor" },
@@ -37,11 +36,10 @@ export const GET = async (): Promise<NextResponse> => {
 	try {
 		const vendors = await prisma.vendor.findMany({
 			orderBy: {
-			  id: 'desc',
+				id: 'desc',
 			},
-		  });
+		});
 		if (!vendors) {
-			console.log("Faill to fetch")
 
 			throw new Error("Failed to fetch vendor");
 		}
@@ -55,8 +53,7 @@ export const GET = async (): Promise<NextResponse> => {
 			{ status: 200 }
 		);
 	} catch (error) {
-		console.log(error);
-		console.log("SERVER ERROR")
+		console.error(error);
 
 		return NextResponse.json(
 			{
@@ -69,3 +66,66 @@ export const GET = async (): Promise<NextResponse> => {
 		await prisma.$disconnect();
 	}
 };
+
+
+
+//         DELETE REQUEST
+export const DELETE = async (request: Request): Promise<NextResponse> => {
+	try {
+		const { id } = await request.json();
+		const vendor = await prisma.vendor.delete({
+			where: { id: id }
+		});
+		if (!vendor) {
+			throw new Error("Failed to delete vendor");
+		}
+		return NextResponse.json(
+			{
+				success: true,
+				message: "Vendor deleted successfully",
+			},
+			{ status: 200 }
+		);
+	} catch (error) {
+		console.error(error)
+
+		return NextResponse.json(
+			{
+				success: false,
+				message: "Failed to delete vendor",
+			},
+			{ status: 500 }
+		);
+	} finally {
+		await prisma.$disconnect();
+	}
+};
+
+//       PATCH REQUEST
+export const PATCH = async (request: NextRequest): Promise<NextResponse> => {
+	try {
+		const { id, name, vendorCategory, contractvalue, email, type, address, note } = await request.json();
+		const updatedVendor = await prisma.vendor.update({
+			where: { id: parseInt(id) },
+			data: { name, contractvalue, vendorCategory, email, type, address, note },
+		});
+		return NextResponse.json(
+			{
+				success: true,
+				message: "Vendor updated successfully",
+				vendor: updatedVendor,
+			},
+			{ status: 200 }
+		);
+	} catch (error) {
+		console.error(error);
+
+		return NextResponse.json(
+			{ success: false, message: "Failed to update vendor" },
+			{ status: 500 }
+		);
+	} finally {
+		await prisma.$disconnect();
+	}
+};
+
