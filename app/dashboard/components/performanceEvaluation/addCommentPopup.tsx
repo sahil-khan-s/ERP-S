@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { ModifiedFeedback } from '@/features/feedback.reducer.ts';
-import { getRandomFeedback } from '../../performanceEvaluation/page';
+import { getRandomFeedback } from '../../performanceEvaluation/helpers';
 export default function AddCommentPopUp({ setOpenCommentPopUp, feedback }: { setOpenCommentPopUp: React.Dispatch<React.SetStateAction<boolean>> | ((feedback?: ModifiedFeedback | boolean | undefined) => void), feedback: ModifiedFeedback }) {
     const [comment, setComment] = useState(feedback.comment);
 
