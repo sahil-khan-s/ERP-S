@@ -117,3 +117,13 @@ model Performance {
   vendorId        Int    @unique
   vendor          Vendor @relation(fields: [vendorId], references: [id])
 }
+
+// Compliance issue schema
+model complianceIssue {
+  id           Int      @id @default(autoincrement())
+  description  String
+  assignTo     String
+  title        String
+  type         String
+  status       String
+}
