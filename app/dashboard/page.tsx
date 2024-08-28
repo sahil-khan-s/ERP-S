@@ -1,5 +1,3 @@
-"use client";
-
 import Nav from "./components/common/nav";
 import DashboardLineChart from "./components/dashboard/DashboardLineChart";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";

@@ -16,8 +16,12 @@ const Navbar = () => {
         <Link href={"/templates"}>Templates</Link>
       </div>
       <div className="flex gap-2 items-center justify-center">
-        <Link href={"/signin"} className="px-4 py-2">Sign In</Link>
-        <Link href={"/signup"} className="active px-4 py-2">Sign Up</Link>
+        <Link href={"/login"} className="px-4 py-2">
+          Sign In
+        </Link>
+        <Link href={"/signup"} className="active px-4 py-2">
+          Sign Up
+        </Link>
       </div>
     </nav>
   );
