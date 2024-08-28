@@ -5,7 +5,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import React, { useEffect, useState } from 'react'
 //ICONS
 import { RiDeleteBin6Line, RiEyeLine, RiEdit2Line } from "react-icons/ri";
-// SHADCN.UI
 
 
 const ComplainceList = ({ reload }: { reload: boolean }) => {
@@ -15,7 +14,6 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
         description: string;
         assignTo: string;
         title: string;
-        vendorCategory: string;
         type: string;
         status: string;
     }
@@ -63,7 +61,7 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
                 })
             });
             if (!response.ok) {
-                throw new Error(`Failed to update vendor: ${response.statusText}`);
+                throw new Error(`Failed to update compliance: ${response.statusText}`);
             } else {
                 fetchCompliance()
             }
@@ -74,7 +72,7 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
     }
 
     //     DELETE FUNCTION
-    const deleteVendor = async (id: number) => {
+    const deleteCompliance = async (id: number) => {
         try {
             const response = await fetch('/api/compliance', {
                 method: 'DELETE',
@@ -93,6 +91,7 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
         }
     };
 
+    //      UseEffect
     useEffect(() => {
         fetchCompliance();
     }, [reload]);
@@ -103,49 +102,52 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
                 <table className=" rounded overflow-hidden w-full table-auto">
                     <thead className="  bg-[#F5F5F5]">
                         <tr >
-                            <th className="p-4 text-left font-semibold">Description</th>
-                            <th className="p-4 text-left font-semibold">ID</th>
-                            <th className="p-4 text-left font-semibold">Assign To</th>
-                            <th className="p-4 text-left font-semibold">Title</th>
-                            <th className="p-4 text-left font-semibold">Type</th>
-                            <th className="p-4 text-left font-semibold">Status</th>
-                            <th className="p-4 text-left font-semibold">Action</th>
+                            <div>
+                            <th className="md:block hidden p-4 text-left font-semibold text-base">Description</th>
+                            <th className="block md:hidden px-0 py-4 text-center font-medium text-xs">Desc</th>
+                            </div>
+                            <th className="px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm md:text-sm lg:text-base">ID</th>
+                            <th className="px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm md:text-sm lg:text-base">Assign To</th>
+                            <th className="md:block hidden px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm lg:text-base">Title</th>
+                            <th className="px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm md:text-sm lg:text-base">Type</th>
+                            <th className="px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm md:text-sm lg:text-base">Status</th>
+                            <th className="px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm md:text-sm lg:text-base">Action</th>
                         </tr>
                     </thead>
                     {complainces.length !== 0 ? complainces.map((item, index) => (
                         <tbody className=' bg-white border-b border-slate-100'>
                             <tr key={index}>
-                                <td className="p-4"><p className='max-w-44 truncate'>{item.description}</p></td>
-                                <td className="p-4">{item.id}</td>
-                                <td className="p-4">{item.assignTo}</td>
-                                <td className="p-4">{item.title}</td>
-                                <td className="p-4">{item.type}</td>
-                                <td className="p-4">
-                                    <span className="bg-[#f1f6e7] text-[#6BA10F] px-2 py-1 text-sm rounded-lg">{item.status}</span>
+                                <td className="pl-0.5 py-3 text-left lg:p-4"><p className='max-w-20 md:max-w-40 lg:max-w-44 truncate text-[10px] md:text-sm lg:text-base'>{item.description}</p></td>
+                                <td className="pr-0.5 py-3 text-left md:text-sm lg:p-4 text-[10px] lg:text-base">{item.id}</td>
+                                <td className="px-0.5 py-3 text-left md:text-sm lg:p-4 text-[10px] max-w-12 truncate lg:max-w-full lg:text-base">{item.assignTo}</td>
+                                <td className="md:block hidden px-0.5 py-3 text-left md:text-sm lg:p-4 text-[10px] max-w-20 truncate lg:max-w-full lg:text-base">{item.title}</td>
+                                <td className="px-0.5 py-3 text-left md:text-sm lg:p-4 text-[10px] lg:text-base">{item.type}</td>
+                                <td className="px-0.5 py-3 text-left md:text-sm lg:p-4 text-[10px] lg:text-base">
+                                    <span className="bg-[#f1f6e7] text-[#6BA10F] px-0.5 lg:px-2 lg:py-1 text-xs md:text-sm lg:text-sm rounded-lg">{item.status}</span>
                                 </td>
-                                <td className="flex flex-row justify-center items-center gap-3">
+                                <td className="flex flex-row justify-center items-center gap-1 lg:gap-3">
 
                                     {/*   VIEW   */}
                                     <Popover>
                                         <PopoverTrigger >
-                                            <button className='text-slate-600 hover:text-black text-lg flex items-center my-5'><RiEyeLine className='text-xl' /></button>                                        </PopoverTrigger>
-                                        <PopoverContent className='bg-[#f8f8f8] relative top-[-30] right-[45%] w-max-42'>
-                                            <div className='font-bold items-center mb-4 text-center'>Compliance Detail</div>
-                                            <div className='flex flex-col gap-4'>
-                                                <div className='inline-flex border-b border-slate-200'>
-                                                    <span className='text-md font-medium text-gray-500'>Title:</span><p className='text-md text-slate-900 font-medium px-2'>{item.title}</p>
+                                            <button className='text-slate-600 hover:text-black flex items-center my-5'><RiEyeLine className='text-sm lg:text-xl' /></button>                                        </PopoverTrigger>
+                                        <PopoverContent className='w-52 md:w-96 bg-[#f8f8f8] relative right-16 top-[-45] md:top-auto md:right-[30%] w-max-42'>
+                                            <div className='font-bold items-center mb-3 lg:mb-4 text-center  md:text-base'>Compliance Detail</div>
+                                            <div className='flex flex-col gap-3 md:gap-4'>
+                                                <div className='inline-flex border-b border-slate-200 items-center'>
+                                                <p className='text-sm lg:text-base text-slate-900 font-medium px-1 lg:px-2'><span className='text-sm lg:text-base font-medium text-gray-500 mr-1'>Title:</span>{item.title}</p>
                                                 </div>
-                                                <div className='inline-flex border-b border-slate-200'>
-                                                    <span className='text-md font-medium text-gray-500'>Assign to:</span><p className='text-md text-slate-900 font-medium px-2'>{item.assignTo}</p>
+                                                <div className='inline-flex border-b border-slate-200 items-center'>
+                                                    <span className='text-sm lg:text-base font-medium text-gray-500'>Assign to:</span><p className='text-sm lg:text-base text-slate-900 font-medium px-1 lg:px-2'>{item.assignTo}</p>
                                                 </div>
-                                                <div className='inline-flex border-b border-slate-200'>
-                                                    <span className='text-md font-medium text-gray-500'>Type:</span><p className='text-md text-slate-900 font-medium px-2'>{item.type}</p>
+                                                <div className='inline-flex border-b border-slate-200 items-center'>
+                                                    <span className='text-sm lg:text-base font-medium text-gray-500'>Type:</span><p className='text-sm lg:text-base text-slate-900 font-medium px-1 lg:px-2'>{item.type}</p>
                                                 </div>
-                                                <div className='inline-flex border-b border-slate-200'>
-                                                    <span className='text-md font-medium text-gray-500'>Status:</span><p className='text-md text-slate-900 font-medium px-2'>{item.status}</p>
+                                                <div className='inline-flex border-b border-slate-200 items-center'>
+                                                    <span className='text-sm lg:text-base font-medium text-gray-500'>Status:</span><p className='text-sm lg:text-base text-slate-900 font-medium px-1 lg:px-2'>{item.status}</p>
                                                 </div>
                                                 <div className='inline-flex text-wrap'>
-                                                    <p className='text-md text-slate-900 font-medium '><span className='text-md font-medium text-gray-500 mr-2'>Description:</span>{item.description}</p>
+                                                    <p className='text-sm lg:text-base text-slate-900 font-medium leading-snug'><span className='text-sm lg:text-base font-medium text-gray-500 mr-1 lg:mr-2'>Description:</span>{item.description}</p>
                                                 </div>
                                             </div>
                                         </PopoverContent>
@@ -155,22 +157,21 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
 
                                     <AlertDialog>
                                         <AlertDialogTrigger>
-                                            <button onClick={() => { fillInputFields(item) }} className='text-slate-600 hover:text-black text-lg flex items-center my-5'>
-                                                <RiEdit2Line className='text-xl' />
+                                            <button onClick={() => { fillInputFields(item) }} className='text-slate-600 hover:text-black flex items-center my-5'>
+                                                <RiEdit2Line className='text-sm lg:text-xl' />
                                             </button>
                                         </AlertDialogTrigger>
                                         <AlertDialogContent>
                                             <AlertDialogHeader>
-                                                <AlertDialogTitle>Edit vendor</AlertDialogTitle>
+                                                <AlertDialogTitle className=' text-sm md:text-lg'>Edit Compliance</AlertDialogTitle>
                                                 <AlertDialogDescription>
-                                                    <div className="mb-4 flex gap-4 w-full">
-                                                        <input value={assignTo} onChange={(e) => { setAssignTo(e.target.value) }} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 focus:outline-none focus:ring-1 focus:ring-black text-gray-900" type="text" placeholder="Assign to" />
+                                                    <div className="mb-2 md:mb-4 w-full">
+                                                        <input value={assignTo} onChange={(e) => { setAssignTo(e.target.value) }} className=" border-slate-300 appearance-none border rounded-xl w-full p-2 px-3 md:p-4 focus:outline-none focus:ring-1 focus:ring-black text-gray-900" type="text" placeholder="Assign to" />
                                                     </div>
-                                                    <div className=" mb-4 flex gap-4">
-
+                                                    <div className="mb-2 md:mb-4 flex gap-2 md:gap-4">
                                                         <div className="w-full">
                                                             <Select defaultValue={item.status} onValueChange={(value: string) => { setStatus(value) }}>
-                                                                <SelectTrigger className=" border border-slate-300 h-12 appearance-none  rounded-xl w-full p-4 focus:ring-1 leading-tight outline-none text-[16px] text-gray-900 focus:text-black">
+                                                                <SelectTrigger className="border border-slate-300 h-8 md:h-12 appearance-none  rounded-xl w-full p-4 focus:ring-1 leading-tight outline-none text-gray-900 text-sm  focus:text-black">
                                                                     <SelectValue />
                                                                 </SelectTrigger>
                                                                 <SelectContent>
@@ -181,7 +182,7 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
                                                         </div>
                                                         <div className="w-full">
                                                             <Select defaultValue={item.type} onValueChange={(value: string) => { setType(value) }}>
-                                                                <SelectTrigger className=" border border-slate-300 h-12 appearance-none  rounded-xl w-full p-4 focus:ring-1 leading-tight outline-none text-[16px] text-gray-900 focus:text-black">
+                                                                <SelectTrigger className="border border-slate-300 h-8 md:h-12 appearance-none  rounded-xl w-full p-4 focus:ring-1 leading-tight outline-none text-sm  text-gray-900 focus:text-black">
                                                                     <SelectValue />
                                                                 </SelectTrigger>
                                                                 <SelectContent>
@@ -191,17 +192,17 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
                                                             </Select>
                                                         </div>
                                                     </div>
-                                                    <div className="mb-4">
-                                                        <input value={title} onChange={(e) => { setTitle(e.target.value) }} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-900 leading-tight focus:outline-none focus:ring-1 focus:ring-black" type="text" placeholder="Title" />
+                                                    <div className="mb-2 md:mb-4">
+                                                        <input value={title} onChange={(e) => { setTitle(e.target.value) }} className=" border-slate-300 appearance-none border rounded-xl w-full  p-2 px-3 md:p-4 text-gray-900 leading-tight focus:outline-none focus:ring-1 focus:ring-black text-sm " type="text" placeholder="Title" />
                                                     </div>
-                                                    <div className="mb-4">
-                                                        <textarea value={description} onChange={(e) => { setDescription(e.target.value) }} className=" border-slate-300 appearance-none border rounded-xl w-full p-4 text-gray-900 leading-tight focus:outline-none focus:ring-1 focus:ring-black" placeholder="Description"></textarea>
+                                                    <div className="mb-2 md:mb-4">
+                                                        <textarea value={description} onChange={(e) => { setDescription(e.target.value) }} className=" border-slate-300 appearance-none border rounded-xl w-full  p-2 px-3 md:p-4 text-gray-900 leading-tight focus:outline-none focus:ring-1 focus:ring-black text-sm " placeholder="Description"></textarea>
                                                     </div>
                                                 </AlertDialogDescription>
                                             </AlertDialogHeader>
-                                            <AlertDialogFooter>
-                                                <AlertDialogCancel className='text-gray-900 font-semibold py-2 rounded-lg focus:outline-none focus:border border-slate-300-outline'>Cancel</AlertDialogCancel>
-                                                <AlertDialogAction onClick={() => { editData(item.id) }} className=" bg-[#DDFF8F] hover:bg-[#C8F064] text-gray-900 font-semibold py-2 rounded-lg focus:outline-none focus:border border-slate-300-outline">Save</AlertDialogAction>
+                                            <AlertDialogFooter >
+                                                <AlertDialogCancel className='text-gray-900 font-semibold py-2 rounded-lg focus:outline-none focus:border border-slate-300-outline text-xs md:text-sm'>Cancel</AlertDialogCancel>
+                                                <AlertDialogAction onClick={() => { editData(item.id) }} className=" bg-[#DDFF8F] hover:bg-[#C8F064] text-gray-900 font-semibold py-2 rounded-lg focus:outline-none focus:border border-slate-300-outline text-xs md:text-sm">Save</AlertDialogAction>
                                             </AlertDialogFooter>
                                         </AlertDialogContent>
                                     </AlertDialog>
@@ -209,15 +210,15 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
                                     {/*   DELETE   */}
                                     <AlertDialog>
                                         <AlertDialogTrigger>
-                                            <button className='text-slate-600 hover:text-black text-lg flex items-center my-5'><RiDeleteBin6Line className='text-xl' /></button>
+                                            <button className='text-slate-600 hover:text-black flex items-center my-5'><RiDeleteBin6Line className='text-sm lg:text-xl' /></button>
                                         </AlertDialogTrigger>
                                         <AlertDialogContent>
                                             <AlertDialogHeader>
-                                                <AlertDialogTitle>You want to delete this compliance issue?</AlertDialogTitle>
+                                                <AlertDialogTitle className='text-sm md:text-base'>You want to delete this compliance issue?</AlertDialogTitle>
                                             </AlertDialogHeader>
                                             <AlertDialogFooter>
-                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                <AlertDialogAction onClick={() => { deleteVendor(item.id); }} className='bg-[#ff3b3b] hover:bg-[#ff4d4d]'>Delete</AlertDialogAction>
+                                                <AlertDialogCancel className='text-xs md:text-sm'>Cancel</AlertDialogCancel>
+                                                <AlertDialogAction onClick={() => { deleteCompliance(item.id); }} className='text-xs md:text-sm bg-[#ff3b3b] hover:bg-[#ff4d4d]'>Delete</AlertDialogAction>
                                             </AlertDialogFooter>
                                         </AlertDialogContent>
                                     </AlertDialog>
@@ -226,7 +227,7 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
                         </tbody>
                     )) :
                         <div className='h-52 w-[70vh] absolute left-[40%] items-center'>
-                            <p className='text-center text-nowrap m-24 font-xl font-semibold'>The vendor list is currently empty.</p>
+                            <p className='text-center text-nowrap m-24 font-xl font-semibold'>The Compliance list is currently empty.</p>
                         </div>
                     }
                 </table>

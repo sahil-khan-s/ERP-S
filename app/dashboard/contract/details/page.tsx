@@ -20,9 +20,9 @@ const page = () => {
 
 
     return (
-        <div className='w-full h-full bg-white flex mt-10 justify-between gap-x-10'>
+        <div className='w-screen md:w-full h-full bg-white block md:flex mt-10 justify-between gap-x-10'>
 
-            <div className={`${showDetails ? "w-5/12" : "w-full"} p-4 border-[0.48px] border-gray-500 rounded-2xl`}>
+            <div className={`${showDetails ? "w-full md:w-5/12" : "w-full"} h-64 md:h-auto p-4 border-[0.48px] border-gray-500 rounded-2xl`}>
                 <div className="flex justify-between items-center">
                     <h2 className="text-[20px] font-outfit">Contracts</h2>
                     <div className="flex gap-x-2">
@@ -38,7 +38,7 @@ const page = () => {
                 </div>
 
 
-                <div className="flex overflow-y-scroll max-h-[650px] flex-col gap-y-2 mt-10 min-h-[660px]">
+                <div className="flex overflow-y-scroll flex-col gap-y-2 mt-10 h-36 md:min-h-[660px] md:max-h-[650px]">
                     {
                         !contracts ?
                             <h2>Loading...</h2> :
@@ -53,7 +53,7 @@ const page = () => {
                 </div>
             </div>
 
-            <div className={`${showDetails ? "" : "hidden"} w-7/12  p-4 border-[0.48px] border-gray-500 rounded-2xl`}>
+            <div className={`${showDetails ? "" : "hidden"} w-full md:w-7/12  p-4 border-[0.48px] border-gray-500 rounded-2xl`}>
                 <div className='flex items-center justify-between'>
                     <div className='flex gap-x-6'>
                         <button onClick={() => setActiveTab("task")} className={`${activeTab === "task" ? "border-b-[3px] border-[#6BA10F] text-[#6BA10F] font-semibold" : "text-[#16151C] font-light"} flex gap-x-2 items-center pb-3`}>
