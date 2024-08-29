@@ -1,0 +1,27 @@
+import { signIn } from "@/auth";
+import { NextResponse } from "next/server";
+
+export const POST = async (req: any) => {
+  const data = await req.json();
+  try {
+    await signIn("credentials", {
+      ...data,
+      redirect: false,
+    });
+    return NextResponse.json(
+      {
+        success: true,
+        massage: "Action Successful",
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      {
+        success: false,
+        massage: "Failed to register",
+      },
+      { status: 500 }
+    );
+  }
+};

@@ -38,8 +38,12 @@ export default function Nav() {
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
       setUser(parsedUser);
+<<<<<<< HEAD
+    } else {
+=======
     }
     else {
+>>>>>>> 2d801f0db394dea4f3049af09a28f51348f7541c
       router.push("/"); // Redirect to login if user is not found
     }
   };
