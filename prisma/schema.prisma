@@ -118,7 +118,7 @@ model Performance {
 }
 
 // Compliance issue schema
-model complianceIssue {
+model complianceIssues {
   id           Int      @id @default(autoincrement())
   description  String
   assignTo     String

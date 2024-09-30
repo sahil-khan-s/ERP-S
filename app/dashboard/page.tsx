@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import Nav from "./components/common/nav";
 import DashboardLineChart from "./components/dashboard/DashboardLineChart";
