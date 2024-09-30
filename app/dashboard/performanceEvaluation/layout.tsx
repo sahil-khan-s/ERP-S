@@ -1,14 +1,20 @@
-import React from 'react'
+"use client";
+import React, { useState } from 'react'
 import Nav from '../components/common/nav'
-
+import AddPerformancePopUp from "../components/performanceEvaluation/addPerformance";
 const layout = ({ children }: { children: React.ReactNode }) => {
+    const [newPerformancePopUp, setNewPerformancePopUp] = useState(false);
+
     return (
         <div className='bg-white p-5 min-h-screen w-screen md:w-full'>
             <Nav />
 
+
+
+            <AddPerformancePopUp open={newPerformancePopUp} onClose={setNewPerformancePopUp} />
+
             {/* search, filter and add new contract button */}
             <div className="flex justify-between gap-x-2 md:gap-x-4 items-center mt-10">
-
                 <div className="flex gap-x-2 md:gap-x-5 justify-between">
                     {/* input filed */}
                     <div className="flex justify-start gap-x-3 md:gap-x-0 md:justify-between w-[250px] md:w-[359px] items-center  p-2 md:p-4 border-gray-500 h-10 md:h-14 rounded-2xl border-[0.48px]">
@@ -45,9 +51,9 @@ const layout = ({ children }: { children: React.ReactNode }) => {
                 </div>
 
 
-                <button className="flex justify-center bg-[#DDFF8F] items-center  px-4 md:px-6 py-2 md:py-4  h-10 md:h-14 rounded-2xl">
+                <button onClick={() => { setNewPerformancePopUp(true) }} className="flex justify-center bg-[#DDFF8F] items-center  px-4 md:px-6 py-2 md:py-4  h-10 md:h-14 rounded-2xl">
                     <p className="text-black whitespace-nowrap hidden md:block font-outfit font-light text-sm capitalize">
-                        Date Range
+                        Add Performance
                     </p>
                     <svg width="24px" height="24px" className='md:hidden' viewBox="-3.12 -3.12 30.24 30.24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0)matrix(1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect x="3" y="6" width="18" height="15" rx="2" stroke="#333" strokeWidth="1.056"></rect> <path d="M3 10C3 8.11438 3 7.17157 3.58579 6.58579C4.17157 6 5.11438 6 7 6H17C18.8856 6 19.8284 6 20.4142 6.58579C21 7.17157 21 8.11438 21 10H3Z" fill="#333"></path> <path d="M7 3L7 6" stroke="#333" strokeWidth="1.056" strokeLinecap="round"></path> <path d="M17 3L17 6" stroke="#333" strokeWidth="1.056" strokeLinecap="round"></path> <rect x="7" y="12" width="4" height="2" rx="0.5" fill="#333"></rect> <rect x="7" y="16" width="4" height="2" rx="0.5" fill="#333"></rect> <rect x="13" y="12" width="4" height="2" rx="0.5" fill="#333"></rect> <rect x="13" y="16" width="4" height="2" rx="0.5" fill="#333"></rect> </g></svg>
                 </button>

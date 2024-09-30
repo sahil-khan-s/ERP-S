@@ -42,10 +42,10 @@ import { useState } from "react";
             </Link>
             {dropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg">
-                <Link href="/signin" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                <Link href="/dashboard" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                   LogIn as Employee
                 </Link>
-                <Link href="/signin" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                <Link href="/dashboard" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                   LogIn as Admin
                 </Link>
               </div>
@@ -56,7 +56,7 @@ import { useState } from "react";
   
         {/* Hamburger Button for Mobile */}
         <div className="md:hidden">
-          <Link href={"/signin"}
+          <Link href={"/dashboard"}
             className="active px-4 py-2 font-medium"
           >
            Sign-In

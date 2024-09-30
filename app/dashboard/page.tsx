@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 "use client"
 
+=======
+>>>>>>> 9f81ea858eaffa4146f207e19bb9164f1181af6d
 import Nav from "./components/common/nav";
 import DashboardLineChart from "./components/dashboard/DashboardLineChart";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";

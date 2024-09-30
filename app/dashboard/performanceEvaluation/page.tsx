@@ -7,7 +7,7 @@ import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip } from "rec
 import AddCommentPopUp from '../components/performanceEvaluation/addCommentPopup';
 import Link from 'next/link';
 import { addPerformances, ModifiedPerformance } from '@/features/performance.reducer';
-
+import EditPerformancePopUp from "../components/performanceEvaluation/editPerformance"
 export const getRandomFeedback = async (): Promise<any> => {
     try {
         const res = await fetch('/api/performanceEvaluation/feedback/random');
@@ -51,9 +51,7 @@ const registerFeedback = async ({ vendorId, feedbackContent }: { vendorId: numbe
     }
 }
 
-
-
-const getAllPerformances = async (): Promise<void> => {
+export const getAllPerformances = async (): Promise<void> => {
     try {
         const res = await fetch('/api/performanceEvaluation/performance/rating/get');
         if (!res.ok) {
@@ -108,11 +106,11 @@ const getAvgRating = (rating: Array<{ name: string, value: number }> | any) => {
 
 const page = () => {
     const [openCommentPopUp, setOpenCommentPopUp] = useState(false);
-
+    const [openPerformancePopUp, setOpenPerformancePopUp] = useState(false);
     const { randomFeedback } = useSelector((state: Store) => state.feedbacks);
     const { allPerformances } = useSelector((state: Store) => state.performances);
-
     const [selectedPerformance, setSelectedPerformance] = useState<ModifiedPerformance | undefined>(undefined);
+    const [selectedPerformanceForEdit, setSelectedPerformanceForEdit] = useState<ModifiedPerformance | undefined>(undefined);
 
 
     const toPercent = (decimal: number) => `${decimal}.0`;
@@ -139,6 +137,14 @@ const page = () => {
             }
             <div className='w-full flex flex-col lg:flex-row justify-between lg:pr-1 lg:gap-x-5'>
                 {/* venders */}
+
+
+                {/* edit performance popup */}
+                {
+                    openPerformancePopUp && <EditPerformancePopUp performance={selectedPerformanceForEdit} onClose={setOpenPerformancePopUp} />
+                }
+
+
                 <div className='w-full lg:w-7/12'>
                     <table className="w-full my-5 rounded-xl">
                         <thead className="text-left max-w-full bg-[#F5F5F5]">
@@ -170,16 +176,19 @@ const page = () => {
                                                         <circle cx="11.3416" cy="11.2128" r="2.625" stroke="#16151C" />
                                                     </svg>
                                                 </Link>
-                                                <button>
+                                                <button onClick={() => {
+                                                    setSelectedPerformanceForEdit(performance);
+                                                    setOpenPerformancePopUp(true)
+                                                }}>
                                                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M3.60107 19.0878H19.3511M13.0374 5.36052C13.0374 5.36052 13.0374 6.79081 14.4677 8.22111C15.898 9.65141 17.3283 9.65141 17.3283 9.65141M7.38075 16.4523L10.3844 16.0232C10.8176 15.9613 11.2191 15.7606 11.5286 15.4511L18.7586 8.22111C19.5486 7.43118 19.5486 6.15045 18.7586 5.36051L17.3283 3.93022C16.5384 3.14029 15.2577 3.14029 14.4677 3.93022L7.23772 11.1602C6.92824 11.4697 6.72749 11.8712 6.6656 12.3045L6.23651 15.3081C6.14116 15.9756 6.71328 16.5477 7.38075 16.4523Z" stroke="#16151C" strokeLinecap="round" />
                                                     </svg>
                                                 </button>
-                                                <button>
+                                                <Link href={"/dashboard/vendor"}>
                                                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M16.7358 8.58777L16.1094 16.7312C15.9692 18.5547 14.4486 19.9628 12.6197 19.9628H8.60195C6.77307 19.9628 5.25253 18.5547 5.11226 16.7312L4.48584 8.58777M18.4858 6.83777C16.2127 5.73 13.5103 5.08777 10.6108 5.08777C7.71139 5.08777 5.00902 5.73 2.73584 6.83777M8.86084 5.08777V4.21277C8.86084 3.24627 9.64434 2.46277 10.6108 2.46277C11.5773 2.46277 12.3608 3.24627 12.3608 4.21277V5.08777M8.86084 10.3378V15.5878M12.3608 10.3378V15.5878" stroke="#16151C" strokeLinecap="round" />
                                                     </svg>
-                                                </button>
+                                                </Link>
                                             </td>
                                         </tr>
 
