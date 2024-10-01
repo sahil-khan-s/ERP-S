@@ -1,24 +1,27 @@
 "use client" 
-import { useState, Fragment, useContext } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { useState, Fragment, useContext } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-// import Context from "context/context";
-import { HiOutlineSquares2X2, HiOutlineUserGroup, HiOutlineUserCircle } from "react-icons/hi2";
-import { PiListChecks } from "react-icons/pi";
-import { HiOutlineHome } from "react-icons/hi";
-import { HiArrowPath } from "react-icons/hi2";
-import { GrSchedule } from "react-icons/gr";
-import { HiUsers } from "react-icons/hi2";
-import { GrDocumentPerformance } from "react-icons/gr";
-import { MdPersonAddAlt } from "react-icons/md";
-import AddCardIcon from '@mui/icons-material/AddCard';
+import { useRouter } from 'next/navigation';
+//ICONS
+import { CiCamera } from "react-icons/ci";
+import { TbAnalyze } from "react-icons/tb";
+import { FaListUl } from "react-icons/fa6";
 import { IoIosLogOut } from "react-icons/io";
-import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
+import { FaRegChartBar } from "react-icons/fa";
+import { BsGraphUpArrow } from "react-icons/bs";
+import { MdManageSearch } from "react-icons/md";
+import { PiArrowSquareIn } from "react-icons/pi";
+import { HiOutlineSquares2X2, HiOutlineUserGroup, HiOutlineUserCircle } from "react-icons/hi2";
+//COMPONENTS
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import CloseIcon from '@mui/icons-material/Close';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { CiCamera } from "react-icons/ci";
+import AddCardIcon from '@mui/icons-material/AddCard';
+// import Context from "context/context";
+// import { HiOutlineHome } from "react-icons/hi";
+// import { HiUsers } from "react-icons/hi2";
+// import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
 // import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 // import { storage } from '@/lib/firebaseConfig'
 
@@ -89,7 +92,6 @@ export default function NavSmallScreen() {
         // fillProfileData()
         setDrawerOpen(true);
         setIsNavOpen(false);
-        console.log(editProfilePicture)
     }
 
     const closeProfileModel = () => {
@@ -221,7 +223,7 @@ export default function NavSmallScreen() {
                                         {/*-------------- add dynamic username and picture -------- */}
                                             <HiOutlineUserCircle className=" w-16 h-16 rounded-full" />
                                         
-                                        <p className="mt-3 text-sm font-semibold" onClick={() => console.log(userData.profilePicture)}>Admin</p>
+                                        <p className="mt-3 text-sm font-semibold">Admin</p>
                                     </div>
 
                                     {/* Close Button */}
@@ -247,7 +249,7 @@ export default function NavSmallScreen() {
 
                                         <Link className="flex items-center mx-4 rounded-md hover:bg-[#DDFF8F] hover:text-black text-gray-50 font-medium py-1 pl-3 sm:pl-7" href="/dashboard">
                                             <HiOutlineSquares2X2 className='text-2xl mr-4' />
-                                            <button onClick={() => setIsNavOpen(false)}>
+                                            <button>
 
                                                 Dashboard
                                             </button>
@@ -255,15 +257,15 @@ export default function NavSmallScreen() {
 
                                         <Link className="flex items-center mx-4 rounded-md hover:bg-[#DDFF8F] hover:text-black text-gray-50 font-medium py-1 pl-3 sm:pl-7" href="/dashboard/vendor">
                                             <HiOutlineUserGroup className="text-[22px] mr-4" />
-                                            <button onClick={() => setIsNavOpen(false)}>
+                                            <button>
 
                                                 Vendor
                                             </button>
                                         </Link>
                                         {/* ADD SUB LINKS */}
                                         <Link className="flex items-center mx-4 rounded-md hover:bg-[#DDFF8F] hover:text-black text-gray-50 font-medium py-1 pl-3 sm:pl-7" href="/dashboard/contract">
-                                            <PiListChecks className="text-2xl mr-4" />
-                                            <button onClick={() => setIsNavOpen(false)}>
+                                            <PiArrowSquareIn className="text-2xl mr-4" />
+                                            <button>
 
                                                 Contract
                                             </button>
@@ -271,50 +273,42 @@ export default function NavSmallScreen() {
                                         </Link>
 
                                         <Link className="flex items-center mx-4 rounded-md hover:bg-[#DDFF8F] hover:text-black text-gray-50 font-medium py-1 pl-3 sm:pl-7" href="/dashboard/transactionManagment">
-                                            <MdPersonAddAlt className="text-2xl mr-4 " />
+                                            <TbAnalyze className="text-2xl mr-4 " />
 
-                                            <button onClick={() => setIsNavOpen(false)}>
+                                            <button>
 
                                             Transaction Managment
                                             </button>
                                         </Link>
-                                        <Link className="flex items-center mx-4 rounded-md hover:bg-[#DDFF8F] hover:text-black text-gray-50 font-medium py-1 pl-3 sm:pl-7" href="/dashboard/employeePerformance">
-                                            <GrDocumentPerformance className="text-2xl mr-4 " />
-                                            <button onClick={() => setIsNavOpen(false)}>
-
-                                                Employee Performance
-
-                                            </button>
-                                        </Link>
                                         <Link className="flex items-center mx-4 rounded-md hover:bg-[#DDFF8F] hover:text-black text-gray-50 font-medium py-1 pl-3 sm:pl-7" href="/dashboard/performanceEvaluation">
-                                            <AddCardIcon className="text-2xl mr-4 " />
+                                            <BsGraphUpArrow className="text-2xl mr-4 " />
 
-                                            <button onClick={() => setIsNavOpen(false)}>
+                                            <button>
 
                                             Performance Evaluation
                                             </button>
                                         </Link>
                                         <Link className="flex items-center mx-4 rounded-md hover:bg-[#DDFF8F] hover:text-black text-gray-50 font-medium py-1 pl-3 sm:pl-7" href="/dashboard/compliance&risk">
-                                            <HiArrowPath className="text-2xl mr-4" />
+                                            <FaRegChartBar className="text-2xl mr-4" />
 
-                                            <button onClick={() => setIsNavOpen(false)}>
+                                            <button>
 
                                                 Compliance & Risk
                                             </button>
                                         </Link>
                                         <Link className="flex items-center mx-4 rounded-md hover:bg-[#DDFF8F] hover:text-black text-gray-50 font-medium py-1 pl-3 sm:pl-7" href="/dashboard/compliance&risk/managment">
-                                            <GrSchedule className="text-2xl mr-4 " />
+                                            <MdManageSearch className="text-2xl mr-4 " />
 
-                                            <button onClick={() => setIsNavOpen(false)}>
+                                            <button>
 
-                                            Compliance Management
+                                           Management
                                             </button>
                                         </Link>
                                         <Link className="flex items-center mx-4 rounded-md hover:bg-[#DDFF8F] hover:text-black text-gray-50 font-medium py-1 pl-3 sm:pl-7" href="/dashboard/compliance&risk/list">
-                                        <PiListChecks className="text-2xl mr-4" />
-                                            <button onClick={() => setIsNavOpen(false)}>
+                                        <FaListUl className="text-2xl mr-4" />
+                                            <button>
 
-                                                Compliance List
+                                             List
                                             </button>
                                         </Link>
 

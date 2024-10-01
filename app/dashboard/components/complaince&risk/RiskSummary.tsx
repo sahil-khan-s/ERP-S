@@ -2,10 +2,10 @@ import React from 'react';
 
 const RiskSummary = () => {
   return (
-    <div className="flex flex-col gap-2.5 border rounded-2xl p-4 lg:p-7  max-w-sm">
+    <div className="flex flex-col gap-2.5 md:gap-8 border rounded-2xl p-4 lg:p-7 w-full md:max-w-72">
       <div className="flex justify-between items-center">
-        <h4 className="text-gray-700 text-xl font-semibold">Risk Summary</h4>
-        <button className="text-gray-400 cursor-pointer">•••</button>
+        <h4 className="text-xl font-semibold">Risk Summary</h4>
+        <button className="text-gray-600 cursor-pointer">•••</button>
       </div>
 
       <div className="flex flex-row items-center justify-between">

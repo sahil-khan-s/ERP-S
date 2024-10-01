@@ -65,23 +65,23 @@ export default function Vendor() {
   }
 
   // IMAGE TO STRING
-  const handleImageUpload = async () => {
-    const storageRef = ref(storage, `images/${image.name}`)
-    try {
-      await uploadBytes(storageRef, image)
-      imageUrl = await getDownloadURL(storageRef)
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  // const handleImageUpload = async () => {
+  //   const storageRef = ref(storage, `images/${image.name}`)
+  //   try {
+  //     await uploadBytes(storageRef, image)
+  //     imageUrl = await getDownloadURL(storageRef)
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
 
   // POST API
   const handleForm = async () => {
-    await handleImageUpload();
+    // await handleImageUpload();
     try {
       const response = await fetch("/api/vendor", {
         method: "POST",
-        body: JSON.stringify({ imageUrl, vendorName, category, contractValue, date, email, type, address, note })
+        body: JSON.stringify({ selectedImage, vendorName, category, contractValue, date, email, type, address, note })
       })
       resetData();
     } catch (error) {
@@ -92,17 +92,17 @@ export default function Vendor() {
 
 
   return (
-    <div className="bg-white h-screen">
-      <div className="px-3 md:px-6"><Nav /></div>
+    <div className="bg-white px-4 md:px-8">
+      <div className=""><Nav /></div>
       {open ?
         <div>
           <div className="bg-gray-100 ">
             <main>
               <div className="bg-white py-2  rounded">
-                <div className="flex justify-between items-center px-2 mb-2 md:mb-4">
+                <div className="flex justify-between items-center px-2 mb-2 md:mt-2 md:mb-4">
                   <SearchBar />
                   <button onClick={()=>{setOpen(false)}} className="md:block hidden text-sm bg-[#DDFF8F] text-black px-[15.24px] py-3 rounded-[11.43px] w-42">Add New Vendor<AddCircleOutlineIcon className="mx-1" /></button>
-                  <button onClick={()=>{setOpen(false)}} className="md:hidden block text-xs bg-[#DDFF8F] text-black px-2 md:px-[15.24px] py-2 rounded-[11.43px]">Add<AddCircleOutlineIcon className="text-base ml-1" /></button>
+                  <button onClick={()=>{setOpen(false)}} className="md:hidden block text-sm bg-[#DDFF8F] text-black px-2 md:px-[20.24px] py-2 rounded-[11.43px]">Add<AddCircleOutlineIcon className="text-base ml-1" /></button>
                 </div>
                 <div className="px-1">
           {/* Rendor Conditionally */}
@@ -114,13 +114,13 @@ export default function Vendor() {
           </div>
         </div>
         :
-        <div className="bg-white py-8 px-4 md:p-8 shadow-lg w-full">
+        <div className="bg-white py-8 md:p-8 shadow-lg w-full">
           {/*  Input form   */}
           <form className="h-[100vh]" action={handleForm}>
             <div className="flex items-start mb-4 justify-start w-full">
               {
                 selectedImage ?
-                  <Image className='min-h-52 rounded-xl h-64  w-52 object-cover' src={selectedImage} alt='' height={300} width={300} />
+                  <Image className='rounded-xl h-48 w-48 object-cover' src={selectedImage} alt='' height={300} width={300} />
                   : <label
                     htmlFor="image-upload"
                     className="border border-slate-300 appearance-none rounded-xl p-4 -gray-700 focus:ring-1 leading-tight outline-none text-[16px] flex flex-col items-center justify-center w-28 h-28 md:w-32 md:h-32 "
