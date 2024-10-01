@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
     try {
         const { description, assignTo, title, type } = await request.json();
-        const newComplianceIssue = await prisma.complianceIssue.create({
+        const newComplianceIssue = await prisma.complianceIssues.create({
             data: { description, assignTo, title, type, status: "Open" },
         });
 
@@ -33,38 +33,43 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
 //                        GET REQUEST
 
 export const GET = async (): Promise<NextResponse> => {
-    try {
-        const complianceIssue = await prisma.complianceIssue.findMany({
+    // try {
+        const complianceIssue = await prisma.complianceIssues.findMany({
             orderBy: {
                 id: 'desc',
             },
         });
-        if (!complianceIssue) {
-
-            throw new Error("Failed to fetch compliance Issue");
-        }
-
+        
+        //         throw new Error("Failed to fetch compliance Issue");
+        //     }
+        
+            if (!complianceIssue) {
         return NextResponse.json(
             {
                 success: true,
-                massage: "compliance Issue fetched successful",
+                massage: "compliance Issue is empty",
                 complianceIssue,
             },
             { status: 200 }
-        );
-    } catch (error) {
-        console.error(error);
+        )}
+    // } catch (error) {
+    //     console.error(error);
 
-        return NextResponse.json(
-            {
-                success: false,
-                massage: "Failed to fetch compliance Issue",
-            },
-            { status: 500 }
-        );
-    } finally {
-        await prisma.$disconnect();
-    }
+    //     return NextResponse.json(
+    //         {
+    //             success: false,
+    //             massage: "Failed to fetch compliance Issue",
+    //         },
+    //         { status: 500 }
+    //     );
+    // } finally {
+    //     await prisma.$disconnect();
+    // }
+    return NextResponse.json({
+        success:true,
+        message:"api work properly",
+        complianceIssue
+    })
 };
 
 //         DELETE REQUEST
@@ -72,7 +77,7 @@ export const GET = async (): Promise<NextResponse> => {
 export const DELETE = async (request: Request): Promise<NextResponse> => {
     try {
         const { id } = await request.json();
-        const complianceissue = await prisma.complianceIssue.delete({
+        const complianceissue = await prisma.complianceIssues.delete({
             where: { id: id }
         });
         if (!complianceissue) {
@@ -105,7 +110,7 @@ export const DELETE = async (request: Request): Promise<NextResponse> => {
 export const PATCH = async (request: NextRequest): Promise<NextResponse> => {
     try {
         const { description, assignTo, title, type, status, id } = await request.json();
-        const newComplianceIssue = await prisma.complianceIssue.update({
+        const newComplianceIssue = await prisma.complianceIssues.update({
             where: { id: parseInt(id) },
             data: { description, assignTo, title, type, status },
         });

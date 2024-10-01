@@ -5,17 +5,17 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 const RiskSummaryCard = () => {
   return (
-    <div className="border-[1px] border-black border-opacity-[0.28] rounded-xl p-4 font-normal">
+    <div className="border-[1px] border-slate-300 rounded-xl p-4 font-normal">
       <div className="box my-4 flex w-full justify-between">
-        <h3 className="font-normal text-2xl">Risk Summary</h3>
+        <h3 className="font-normal text-xl">Risk Summary</h3>
         <MoreHorizIcon
           className="text-[#686464] cursor-pointer"
-          fontSize="large"
+          fontSize="medium"
         />
       </div>
       <div className="box my-4 flex w-full justify-between">
-        <h3 className="font-light text-xl">Total Risk</h3>
-        <h2 className="font-bold text-xl">54</h2>
+        <h3 className="font-light text-base md:text-lg">Total Risk</h3>
+        <h2 className="font-bold text-base md:text-lg">54</h2>
       </div>
       <div className="flex justify-between items-center w-full gap-2">
         <div className="py-3 bg-[#D5F68A] rounded-sm w-full"></div>
