@@ -1,6 +1,7 @@
 "use client"
-import React, { useState } from "react";
 import Image from "next/image";
+import React, { useState } from "react";
+import { cn, readFileAsDataUrl } from "@/lib/utils";
 //COMPONENTS
 import Nav from "../components/common/nav";
 import SearchBar from "../components/common/SearchBar";
@@ -15,9 +16,9 @@ import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popove
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { HiOutlineCamera } from "react-icons/hi2";
 // FIREBASE
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
-import { storage } from '@/lib/firebaseConfig'
-import { cn, readFileAsDataUrl } from "@/lib/utils";
+// import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
+// import { storage } from '@/lib/firebaseConfig'
+
 
 
 export default function Vendor() {

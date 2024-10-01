@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
 	try {
+		prisma.$connect()
 		const { selectedImage, vendorName, category, contractValue, email, date, type, address, note } = await request.json();
 		const newVendor = await prisma.vendor.create({
 			data: { imageUrl: selectedImage, name: vendorName, contractvalue: contractValue, vendorCategory: category, email, date, type, address, note },
