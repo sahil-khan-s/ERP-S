@@ -132,11 +132,11 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
                         <tbody className=' bg-white border-b border-slate-100'>
                             <tr key={index}>
                                 <td className="pl-0.5 py-3 text-left lg:p-4"><p className='max-w-20 md:max-w-40 lg:max-w-44 truncate text-sm md:text-sm lg:text-base'>{item.description}</p></td>
-                                <td className="pr-0.5 py-3 text-left md:text-sm lg:p-4 text-sm lg:text-base">{item.id}</td>
-                                <td className="px-0.5 py-3 text-left md:text-sm lg:p-4 text-sm max-w-12 truncate lg:max-w-full lg:text-base">{item.assignTo}</td>
-                                <td className="px-0.5 py-3 text-left md:text-sm lg:p-4 text-sm max-w-20 truncate lg:max-w-full lg:text-base">{item.title}</td>
-                                <td className="px-0.5 py-3 text-left md:text-sm lg:p-4 text-sm lg:text-base">{item.type}</td>
-                                <td className="px-0.5 py-3 text-left md:text-sm lg:p-4 text-sm lg:text-base">
+                                <td className="pr-0.5 py-3 text-center md:text-left md:text-sm lg:p-4 text-sm lg:text-base">{item.id}</td>
+                                <td className="px-0.5 py-3 text-center md:text-left md:text-sm lg:p-4 text-sm max-w-12 truncate lg:max-w-full lg:text-base">{item.assignTo}</td>
+                                <td className="px-0.5 py-3 text-center md:text-left md:text-sm lg:p-4 text-sm max-w-20 truncate lg:max-w-full lg:text-base">{item.title}</td>
+                                <td className="px-0.5 py-3 text-center md:text-left md:text-sm lg:p-4 text-sm lg:text-base">{item.type}</td>
+                                <td className="px-0.5 py-3 text-center md:text-left md:text-sm lg:p-4 text-sm lg:text-base">
                                     <span className="bg-[#f1f6e7] text-[#6BA10F] px-0.5 lg:px-2 lg:py-1 text-xs md:text-sm lg:text-sm rounded-lg">{item.status}</span>
                                 </td>
                                 <td className="flex flex-row justify-center items-center gap-3">
