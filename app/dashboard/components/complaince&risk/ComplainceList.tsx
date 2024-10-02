@@ -2,7 +2,9 @@
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import React, { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import React from 'react'
 //ICONS
 import { RiDeleteBin6Line, RiEyeLine, RiEdit2Line } from "react-icons/ri";
 
@@ -18,7 +20,7 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
         status: string;
     }
 
-    const [complainces, setCompliances] = useState<complianceType[] | null>();
+    // const [complainces, setCompliances] = useState<complianceType[] | null>();
 
     //EDIT FORM USESTATE
     const [assignTo, setAssignTo] = React.useState<string>("");
@@ -36,12 +38,6 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
         setStatus(data.status)
     }
 
-    // FETCH COMPLIANCE FUNCTION
-    const fetchCompliance = async () => {
-        const response = await fetch("/api/compliance");
-        const data = await response.json();
-        setCompliances(await data.complianceIssue);
-    };
 
     //  EDIT FUNCTION
     const editData = async (editId: number) => {
@@ -62,12 +58,12 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
             });
             if (!response.ok) {
                 throw new Error(`Failed to update compliance: ${response.statusText}`);
-            } else {
-                fetchCompliance()
             }
-
         } catch (error) {
             console.error(error)
+        }
+        finally {
+            fetchCompliance()
         }
     }
 
@@ -83,7 +79,6 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
             });
             const data = await response.json();
             if (data.success) {
-                setCompliances(null)
                 fetchCompliance();
             }
         } catch (error) {
@@ -91,41 +86,60 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
         }
     };
 
+    const fetchCompliance = async (): Promise<complianceType[]> => {
+        try {
+            const response = await axios.get('/api/compliance');
+            return response.data.complianceIssue; // Assuming 'complianceIssue' is the key in the response
+        } catch (error) {
+            throw new Error('Error fetching complianceIssue'); // Throw error to be handled by React Query
+        }
+    };
+
+    const { data: complainces, error, isLoading } = useQuery<complianceType[], Error>({
+        queryKey: ['complianceIssue'], // Array format for queryKey
+        queryFn: fetchCompliance,  // The function to fetch data
+    });
+    if (isLoading) return <div className='flex items-center justify-center h-[500px]'><span className="loader"></span></div>;
+    if (error) return <div>{error.message}</div>;
+
+    // FETCH COMPLIANCE FUNCTION
+    // const fetchCompliance = async () => {
+    //     const response = await fetch("/api/compliance");
+    //     const data = await response.json();
+    //     setCompliances(await data.complianceIssue);
+    // };
     //      UseEffect
-    useEffect(() => {
-        fetchCompliance();
-    }, [reload]);
+    // useEffect(() => {
+    //   fetchCompliance();
+    // }, [reload]);
 
     return (
-        <div className="overflow-x-auto h-92">
-            {complainces ?
-                <table className=" rounded overflow-hidden w-full table-auto">
+        <div className=" h-92 overflow-x-auto">
+            {complainces &&
+                <table className=" rounded w-full">
                     <thead className="  bg-[#F5F5F5]">
                         <tr >
-                            <div>
-                            <th className="md:block hidden p-4 text-left font-semibold text-base">Description</th>
-                            <th className="block md:hidden px-0 py-4 text-center font-medium text-xs">Desc</th>
-                            </div>
-                            <th className="px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm md:text-sm lg:text-base">ID</th>
-                            <th className="px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm md:text-sm lg:text-base">Assign To</th>
-                            <th className="md:block hidden px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm lg:text-base">Title</th>
-                            <th className="px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm md:text-sm lg:text-base">Type</th>
-                            <th className="px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm md:text-sm lg:text-base">Status</th>
-                            <th className="px-0 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm md:text-sm lg:text-base">Action</th>
+                            <th className="px-2 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm lg:text-base text-nowrap">Description</th>
+                            <th className="px-2 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm lg:text-base text-nowrap">ID</th>
+                            <th className="px-2 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm lg:text-base text-nowrap">Assign To</th>
+                            <th className="px-2 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm lg:text-base text-nowrap">Title</th>
+                            <th className="px-2 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm lg:text-base text-nowrap">Type</th>
+                            <th className="px-2 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm lg:text-base text-nowrap">Status</th>
+                            <th className="px-2 py-4 lg:p-4 text-center lg:text-left font-medium lg:font-semibold text-sm lg:text-base text-nowrap">Action</th>
                         </tr>
                     </thead>
-                    {complainces.length !== 0 ? complainces.map((item, index) => (
+                    {complainces.length !== 0 && complainces.map((item, index) => (
                         <tbody className=' bg-white border-b border-slate-100'>
                             <tr key={index}>
-                                <td className="pl-0.5 py-3 text-left lg:p-4"><p className='max-w-20 md:max-w-40 lg:max-w-44 truncate text-[10px] md:text-sm lg:text-base'>{item.description}</p></td>
-                                <td className="pr-0.5 py-3 text-left md:text-sm lg:p-4 text-[10px] lg:text-base">{item.id}</td>
-                                <td className="px-0.5 py-3 text-left md:text-sm lg:p-4 text-[10px] max-w-12 truncate lg:max-w-full lg:text-base">{item.assignTo}</td>
-                                <td className="md:block hidden px-0.5 py-3 text-left md:text-sm lg:p-4 text-[10px] max-w-20 truncate lg:max-w-full lg:text-base">{item.title}</td>
-                                <td className="px-0.5 py-3 text-left md:text-sm lg:p-4 text-[10px] lg:text-base">{item.type}</td>
-                                <td className="px-0.5 py-3 text-left md:text-sm lg:p-4 text-[10px] lg:text-base">
+                                <td className="pl-0.5 py-3 text-left lg:p-4"><p className='max-w-20 md:max-w-40 lg:max-w-44 truncate text-sm md:text-sm lg:text-base'>{item.description}</p></td>
+                                <td className="pr-0.5 py-3 text-left md:text-sm lg:p-4 text-sm lg:text-base">{item.id}</td>
+                                <td className="px-0.5 py-3 text-left md:text-sm lg:p-4 text-sm max-w-12 truncate lg:max-w-full lg:text-base">{item.assignTo}</td>
+                                <td className="px-0.5 py-3 text-left md:text-sm lg:p-4 text-sm max-w-20 truncate lg:max-w-full lg:text-base">{item.title}</td>
+                                <td className="px-0.5 py-3 text-left md:text-sm lg:p-4 text-sm lg:text-base">{item.type}</td>
+                                <td className="px-0.5 py-3 text-left md:text-sm lg:p-4 text-sm lg:text-base">
                                     <span className="bg-[#f1f6e7] text-[#6BA10F] px-0.5 lg:px-2 lg:py-1 text-xs md:text-sm lg:text-sm rounded-lg">{item.status}</span>
                                 </td>
-                                <td className="flex flex-row justify-center items-center gap-1 lg:gap-3">
+                                <td className="flex flex-row justify-center items-center gap-3">
 
                                     {/*   VIEW   */}
                                     <Popover>
@@ -135,7 +149,7 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
                                             <div className='font-bold items-center mb-3 lg:mb-4 text-center  md:text-base'>Compliance Detail</div>
                                             <div className='flex flex-col gap-3 md:gap-4'>
                                                 <div className='inline-flex border-b border-slate-200 items-center'>
-                                                <p className='text-sm lg:text-base text-slate-900 font-medium px-1 lg:px-2'><span className='text-sm lg:text-base font-medium text-gray-500 mr-1'>Title:</span>{item.title}</p>
+                                                    <p className='text-sm lg:text-base text-slate-900 font-medium px-1 lg:px-2'><span className='text-sm lg:text-base font-medium text-gray-500 mr-1'>Title:</span>{item.title}</p>
                                                 </div>
                                                 <div className='inline-flex border-b border-slate-200 items-center'>
                                                     <span className='text-sm lg:text-base font-medium text-gray-500'>Assign to:</span><p className='text-sm lg:text-base text-slate-900 font-medium px-1 lg:px-2'>{item.assignTo}</p>
@@ -225,16 +239,17 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
                                 </td>
                             </tr>
                         </tbody>
-                    )) :
-                        <div className='h-52 w-[70vh] absolute left-[40%] items-center'>
-                            <p className='text-center text-nowrap m-24 font-xl font-semibold'>The Compliance list is currently empty.</p>
-                        </div>
+                    ))
+                        //:
+                        //     <div className='h-52 w-[70vh] absolute left-[40%] items-center'>
+                        //         <p className='text-center text-nowrap m-24 font-xl font-semibold'>The Compliance list is currently empty.</p>
+                        //     </div>
                     }
                 </table>
-                :
-                <div className='flex items-center justify-center h-[500px]'>
-                    <span className="loader"></span>
-                </div>
+                // :
+                // <div className='flex items-center justify-center h-[500px]'>
+                //     <span className="loader"></span>
+                // </div>
             }
         </div>
     )

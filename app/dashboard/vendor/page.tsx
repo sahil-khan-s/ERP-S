@@ -19,7 +19,20 @@ import { HiOutlineCamera } from "react-icons/hi2";
 // import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 // import { storage } from '@/lib/firebaseConfig'
 
+import { UseMutationResult, useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
+interface VendorFormData {
+  selectedImage: string;
+  vendorName: string;
+  category: string;
+  contractValue: string;
+  date: Date | undefined;
+  email: string;
+  type: string;
+  address: string;
+  note: string;
+}
 
 export default function Vendor() {
 
@@ -91,7 +104,6 @@ export default function Vendor() {
     setOpen(true);
   }
 
-
   return (
     <div className="bg-white px-4 md:px-8">
       <div className=""><Nav /></div>
@@ -117,7 +129,7 @@ export default function Vendor() {
         :
         <div className="bg-white py-8 md:p-8 shadow-lg w-full">
           {/*  Input form   */}
-          <form className="h-[100vh]" action={handleForm}>
+          <form className="h-[100vh]" onSubmit={handleForm}>
             <div className="flex items-start mb-4 justify-start w-full">
               {
                 selectedImage ?
