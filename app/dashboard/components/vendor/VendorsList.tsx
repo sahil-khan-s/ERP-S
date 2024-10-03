@@ -59,9 +59,6 @@ const VendorsList = () => {
             });
             if (!response.ok) {
                 throw new Error(`Failed to update vendor: ${response.statusText}`);
-            } else {
-                setVendorsData(null)
-                setReload(!reload);
             }
 
         } catch (error) {
