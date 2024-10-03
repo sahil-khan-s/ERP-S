@@ -9,8 +9,11 @@ import { TiBriefcase } from 'react-icons/ti';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+
 const VendorsList = () => {
-    type Vendor = {
+    interface Vendor {
         id: number;
         imageUrl: string;
         name: string;
@@ -23,7 +26,7 @@ const VendorsList = () => {
         note: string;
     };
 
-    const [vendors, setVendor] = useState<Vendor[] | null>()
+    const [vendorsData, setVendorsData] = useState<Vendor[] | null>()
     const [reload, setReload] = useState(false)
 
     //     EDIT VENDOR useStates
@@ -57,7 +60,7 @@ const VendorsList = () => {
             if (!response.ok) {
                 throw new Error(`Failed to update vendor: ${response.statusText}`);
             } else {
-                setVendor(null)
+                setVendorsData(null)
                 setReload(!reload);
             }
 
@@ -89,7 +92,7 @@ const VendorsList = () => {
             });
             const data = await response.json();
             if (data.success) {
-                setVendor(null)
+                setVendorsData(null)
                 fetchVendors()
             }
         } catch (error) {
@@ -98,18 +101,30 @@ const VendorsList = () => {
     };
 
     // FETCH VENDORS FUNCTION
-    const fetchVendors = async () => {
-        const response = await fetch("/api/vendor");
-        const data = await response.json();
-        setVendor(await data.vendors);
+    const fetchVendors = async () : Promise<Vendor[]> => {
+        try {
+            const response = await axios.get('/api/vendor');
+            return response.data.vendors; // Assuming 'vendors' is the key in the response
+        } catch (error) {
+            throw new Error('Error fetching vendors'); // Throw error to be handled by React Query
+        }
     };
-    useEffect(() => {
-        fetchVendors();
-    }, [reload]);
+
+    const { data: vendors, error, isLoading } = useQuery<Vendor[], Error>({
+        queryKey: ['vendors'], // Array format for queryKey
+        queryFn: fetchVendors,  // The function to fetch data
+    });
+    if (isLoading) return <div className='flex items-center justify-center h-[500px]'><span className="loader"></span></div>;
+    if (error) return <div>{error.message}</div>;
+
+
+    // useEffect(() => {
+    //     fetchVendors();
+    // }, [reload]);
 
     return (
         <div className="overflow-x-auto">
-            {vendors ?
+            {vendors &&
                 <table className="rounded mt-3 md:mt-0 w-full table-auto">
                     <thead className="  bg-[#F5F5F5]">
                         <tr >
@@ -125,7 +140,8 @@ const VendorsList = () => {
                         </tr>
                     </thead>
                     <tbody className=' border-b border-slate-100'>
-                    {vendors.length !== 0 ? vendors.map((item, index) => (
+                        {/* vendorsData?.length !== 0 ?  */}
+                        {vendors?.map((item, index) => (
                             <tr key={index} className='my-1'>
                                 <td className="py-2 px-1 w-max text-sm md:text-base md:p-4 text-nowrap flex flex-row items-center gap-2"><Image src={item.imageUrl} width={45} height={45} alt='' className="object-cover rounded-full h-9 w-9 md:h-10 md:w-10 md:mx-2" /><p>{item.name}</p></td>
                                 <td className="py-2 px-1 text-sm md:text-base md:p-4 text-nowrap">{item.id}</td>
@@ -142,14 +158,14 @@ const VendorsList = () => {
                                         <PopoverTrigger>
                                             <button className='text-slate-600 hover:text-black text-lg h-10'><RiEyeLine className='text-sm mt-1 md:text-xl' /></button>
                                         </PopoverTrigger>
-                                        <PopoverContent className='bg-slate-50 relative right-16 top-[-45] md:top-auto md:right-[22%] w-auto  md:w-max p-2 md:p-4'>
+                                        <PopoverContent className='bg-slate-50 relative md:top-auto md:right-[22%] w-auto md:w-max p-2 md:p-4'>
                                             <h4 className='font-semibold md:font-bold text-left items-center text-sm md:text-base'>Vendor Detail</h4>
                                             <div>
                                                 <div className='flex flex-col md:flex-row gap-1 md:gap-4 mt-2 md:mt-4'>
-                                                        <div className='flex justify-start items-start mr-2 md:mr-3 w-full flex-col gap-2'>
-                                                            <p className="font-medium text-gray-600 text-sm">Vendor Image: </p>
-                                                            <Image className='rounded-xl object-cover h-[131.53px] w-[125px] md:h-[171px] md:w-[150px] ' src={item!.imageUrl} height={150} width={150} alt='' />
-                                                        </div>
+                                                    <div className='flex justify-start items-start mr-2 md:mr-3 w-full flex-col gap-2'>
+                                                        <p className="font-medium text-gray-600 text-sm">Vendor Image: </p>
+                                                        <Image className='rounded-xl object-cover h-[131.53px] w-[125px] md:h-[171px] md:w-[150px] ' src={item!.imageUrl} height={150} width={150} alt='' />
+                                                    </div>
                                                     <div className="flex flex-col gap-1">
                                                         <div className='mt-1 md:mt-3 flex flex-col md:flex-row gap-0.5 md:gap-2'>
                                                             <div className="text-sm md:text-base font-medium text-gray-600 text-nowrap flex flex-row"><TiBriefcase className='text-2xl' /><p>Vendor Name: </p></div>
@@ -172,9 +188,9 @@ const VendorsList = () => {
                                                     </div>
                                                 </div>
                                                 <div className="mt-1 md:mt-3 flex flex-col md:flex-row gap-0.5 md:gap-2">
-                                                <div className="text-sm md:text-base text-black font-semibold max-w-32 md:max-w-full">
-                                                    <span className="text-sm md:text-base font-medium text-gray-600">Note: </span>
-                                                    {item.note}</div>
+                                                    <div className="text-sm md:text-base text-black font-semibold max-w-32 md:max-w-full">
+                                                        <span className="text-sm md:text-base font-medium text-gray-600">Note: </span>
+                                                        {item.note}</div>
                                                 </div>
                                             </div>
                                         </PopoverContent>
@@ -251,18 +267,16 @@ const VendorsList = () => {
                                     </AlertDialog>
                                 </td>
                             </tr>
-                    ))
-                    
-                    :
-                    <div className='flex justify-center text-center align-middle'>
-                        </div>
-                    }
+                        ))
+
+                            // :
+                            // <div className='flex justify-center text-center align-middle'>
+                            //     </div>
+                        }
                     </tbody>
                 </table>
-                :
-                <div className='flex items-center justify-center h-[500px]'>
-                    <span className="loader"></span>
-                </div>
+                //     :
+
             }
         </div>
     )
