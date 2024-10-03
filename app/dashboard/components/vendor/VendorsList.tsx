@@ -67,6 +67,10 @@ const VendorsList = () => {
         } catch (error) {
             console.error(error)
         }
+
+        finally {
+            fetchVendors();
+        }
     }
 
     // FILL EDIT INPUT FIELDS
@@ -101,30 +105,31 @@ const VendorsList = () => {
     };
 
     // FETCH VENDORS FUNCTION
-    const fetchVendors = async () : Promise<Vendor[]> => {
+    const fetchVendors = async (): Promise<Vendor[]> => {
         try {
             const response = await axios.get('/api/vendor');
+            setVendorsData(response.data.vendors)
             return response.data.vendors; // Assuming 'vendors' is the key in the response
         } catch (error) {
             throw new Error('Error fetching vendors'); // Throw error to be handled by React Query
         }
     };
 
-    const { data: vendors, error, isLoading } = useQuery<Vendor[], Error>({
-        queryKey: ['vendors'], // Array format for queryKey
-        queryFn: fetchVendors,  // The function to fetch data
-    });
-    if (isLoading) return <div className='flex items-center justify-center h-[500px]'><span className="loader"></span></div>;
-    if (error) return <div>{error.message}</div>;
+    // let { data: vendors, error, isLoading } = useQuery<Vendor[], Error>({
+    //     queryKey: ['vendors'], // Array format for queryKey
+    //     queryFn: fetchVendors,  // The function to fetch data
+    // });
+    // if (isLoading) return <div className='flex items-center justify-center h-[500px]'><span className="loader"></span></div>;
+    //if (error) return <div>{error.message}</div>;
 
 
-    // useEffect(() => {
-    //     fetchVendors();
-    // }, [reload]);
+    useEffect(() => {
+        fetchVendors();
+    }, []);
 
     return (
         <div className="overflow-x-auto">
-            {vendors &&
+            {vendorsData ?
                 <table className="rounded mt-3 md:mt-0 w-full table-auto">
                     <thead className="  bg-[#F5F5F5]">
                         <tr >
@@ -141,7 +146,7 @@ const VendorsList = () => {
                     </thead>
                     <tbody className=' border-b border-slate-100'>
                         {/* vendorsData?.length !== 0 ?  */}
-                        {vendors?.map((item, index) => (
+                        {vendorsData?.map((item, index) => (
                             <tr key={index} className='my-1'>
                                 <td className="py-2 px-1 w-max text-sm md:text-base md:p-4 text-nowrap flex flex-row items-center gap-2"><Image src={item.imageUrl} width={45} height={45} alt='' className="object-cover rounded-full h-9 w-9 md:h-10 md:w-10 md:mx-2" /><p>{item.name}</p></td>
                                 <td className="py-2 px-1 text-sm md:text-base md:p-4 text-nowrap">{item.id}</td>
@@ -268,15 +273,11 @@ const VendorsList = () => {
                                 </td>
                             </tr>
                         ))
-
-                            // :
-                            // <div className='flex justify-center text-center align-middle'>
-                            //     </div>
                         }
                     </tbody>
                 </table>
-                //     :
-
+                :
+                <div className='flex items-center justify-center h-[500px]'><span className="loader"></span></div>
             }
         </div>
     )

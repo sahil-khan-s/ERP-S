@@ -4,7 +4,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 //ICONS
 import { RiDeleteBin6Line, RiEyeLine, RiEdit2Line } from "react-icons/ri";
 
@@ -20,7 +20,7 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
         status: string;
     }
 
-    // const [complainces, setCompliances] = useState<complianceType[] | null>();
+    const [complainces, setCompliances] = useState<complianceType[] | null>();
 
     //EDIT FORM USESTATE
     const [assignTo, setAssignTo] = React.useState<string>("");
@@ -86,36 +86,43 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
         }
     };
 
-    const fetchCompliance = async (): Promise<complianceType[]> => {
-        try {
-            const response = await axios.get('/api/compliance');
-            return response.data.complianceIssue; // Assuming 'complianceIssue' is the key in the response
-        } catch (error) {
-            throw new Error('Error fetching complianceIssue'); // Throw error to be handled by React Query
+    // const fetchCompliance = async (): Promise<complianceType[]> => {
+    //     try {
+    //         const response = await axios.get('/api/compliance');
+    //         return response.data.complianceIssue; // Assuming 'complianceIssue' is the key in the response
+    //     } catch (error) {
+    //         throw new Error('Error fetching complianceIssue'); // Throw error to be handled by React Query
+    //     }
+    // };
+
+    // const { data: complainces, error, isLoading } = useQuery<complianceType[], Error>({
+    //     queryKey: ['complianceIssue'], // Array format for queryKey
+    //     queryFn: fetchCompliance,  // The function to fetch data
+    // });
+    // if (isLoading) return <div className='flex items-center justify-center h-[500px]'><span className="loader"></span></div>;
+    // if (error) return <div>{error.message}</div>;
+
+   //   FETCH COMPLIANCE FUNCTION
+    const fetchCompliance = async () => {
+        try{
+            const response = await fetch("/api/compliance");
+            const data = await response.json();
+            setCompliances(await data.complianceIssue);
+        }
+        catch{
+            console.log(Error)
         }
     };
-
-    const { data: complainces, error, isLoading } = useQuery<complianceType[], Error>({
-        queryKey: ['complianceIssue'], // Array format for queryKey
-        queryFn: fetchCompliance,  // The function to fetch data
-    });
-    if (isLoading) return <div className='flex items-center justify-center h-[500px]'><span className="loader"></span></div>;
-    if (error) return <div>{error.message}</div>;
-
-    // FETCH COMPLIANCE FUNCTION
-    // const fetchCompliance = async () => {
-    //     const response = await fetch("/api/compliance");
-    //     const data = await response.json();
-    //     setCompliances(await data.complianceIssue);
-    // };
+  
+  
     //      UseEffect
-    // useEffect(() => {
-    //   fetchCompliance();
-    // }, [reload]);
+    useEffect(() => {
+      fetchCompliance();
+    }, []);
 
     return (
         <div className=" h-92 overflow-x-auto">
-            {complainces &&
+            {complainces ?
                 <table className=" rounded w-full">
                     <thead className="  bg-[#F5F5F5]">
                         <tr >
@@ -246,10 +253,10 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
                         //     </div>
                     }
                 </table>
-                // :
-                // <div className='flex items-center justify-center h-[500px]'>
-                //     <span className="loader"></span>
-                // </div>
+                :
+                <div className='flex items-center justify-center h-[500px]'>
+                    <span className="loader"></span>
+                </div>
             }
         </div>
     )
