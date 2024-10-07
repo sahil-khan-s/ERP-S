@@ -30,7 +30,7 @@ export default function Register() {
       alert(data.message || 'Something went wrong');
     }
   };
-
+  
   return (
     <>
     {/* <form onSubmit={handleSubmit}>
