@@ -39,7 +39,7 @@ export default function Nav() {
     const [editPasswordActive, setEditPasswordActive] = useState<boolean>(false)
     useEffect(() => {
         fetchData()
-        fetchUnreadNotifications();
+        // fetchUnreadNotifications();
 
     }, []);
 
@@ -94,20 +94,20 @@ export default function Nav() {
     const [hasUnread, setHasUnread] = useState(false);
 
 
-    const fetchUnreadNotifications = async () => {
-        try {
-            const response = await fetch('/api/notifications');
-            if (response.ok) {
-                const data = await response.json();
-                const unreadNotifications = data.filter((notification: any) => !notification.isRead);
-                setHasUnread(unreadNotifications.length > 0);
-            } else {
-                console.error('Failed to fetch notifications');
-            }
-        } catch (error) {
-            console.error('Error fetching notifications:', error);
-        }
-    };
+    // const fetchUnreadNotifications = async () => {
+    //     try {
+    //         const response = await fetch('/api/notifications');
+    //         if (response.ok) {
+    //             const data = await response.json();
+    //             const unreadNotifications = data.filter((notification: any) => !notification.isRead);
+    //             setHasUnread(unreadNotifications.length > 0);
+    //         } else {
+    //             console.error('Failed to fetch notifications');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error fetching notifications:', error);
+    //     }
+    // };
 
     //////--------------Edit profile ------------------///
     const [formData, setFormData] = useState({ name: '', email: '', password: '' });

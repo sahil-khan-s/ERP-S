@@ -17,10 +17,10 @@ const RiskDashboard = () => {
          <RiskSummary/>
         </div>
         <div>
-        <div className='flex justify-center items-center'>
+        <div className='flex mx-3 md:mx-5 flex-col justify-center items-center md:justify-start md:items-start'>
         <ComplianceChart count={327}/>
-        </div>
         <RiskColorGraph/>
+        </div>
         </div>
       </div>
     </div>
