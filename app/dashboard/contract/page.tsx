@@ -14,7 +14,7 @@ import { Contract as ContractInterface, Task as TaskInterface } from "@prisma/cl
 import { toggleTaskEditing } from "@/features/contract-tasks.reducer";
 import EditTaskPopup from "../components/contract/editTaskPopup";
 import { getTodayTasks } from "./layout";
-import Loader from "../components/common/Loader";
+import Loader, { LoaderSize } from "../components/common/Loader";
 export default function Contract() {
   const [openTaskPopUp, setOpenTaskPopUp] = useState(false);
 
@@ -192,7 +192,7 @@ export default function Contract() {
               // <h2 className="text-xl text-black font-outfit capitalize text-center">
               //   loading...
               // </h2>
-              <Loader />
+              <Loader size={LoaderSize.S} />
             ) : (
               allTasks.map((task, index) => {
                 return task.status == "incomplete" ? (
@@ -233,7 +233,7 @@ export default function Contract() {
               // <h2 className="text-xl text-black font-outfit capitalize text-center">
               //   loading...
               // </h2>
-              <Loader />
+              <Loader size={LoaderSize.S} />
             ) : (
               allTasks.map((task, index) => {
                 return task.status == "complete" ? (
@@ -292,7 +292,7 @@ export default function Contract() {
               {
                 allContracts == undefined
                   ?
-                  <Loader />
+                  <Loader size={LoaderSize.S} />
                   :
                   allContracts.map((contract: ContractInterface, index: number) => {
                     return <ContractCard
