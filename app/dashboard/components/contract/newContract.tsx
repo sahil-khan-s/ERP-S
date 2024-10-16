@@ -13,6 +13,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import { getAllContracts } from '../../contract/layout';
+import Loader from '../common/Loader';
 
 interface ContractData {
     title: string
@@ -32,6 +33,7 @@ export function unixTimestamp(time: string) {
 
 
 const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: (open: boolean) => void }) => {
+    const [loading, setLoading] = useState(false);
     const { register, handleSubmit, control, formState: { errors }, watch } = useForm<ContractData>({
         defaultValues: {
             title: "",
@@ -47,10 +49,13 @@ const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: (open: bo
     });
 
     const dateRange = watch('dateRange');
-    const [buttonLoading,setButtonLoading] = useState(false)
+    const [buttonLoading, setButtonLoading] = useState(false)
 
     const onSubmit = async (data: ContractData) => {
-        setButtonLoading(true)
+        if (loading) {
+            return;
+        }
+        setLoading(true);
         try {
             const dateFrom = unixTimestamp(data.dateRange.from?.toString() || '');
             const dateTo = unixTimestamp(data.dateRange.to?.toString() || '');
@@ -60,10 +65,10 @@ const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: (open: bo
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ 
-                    ...data, 
-                    dateFrom, 
-                    dateTo, 
+                body: JSON.stringify({
+                    ...data,
+                    dateFrom,
+                    dateTo,
                     from: "John Doe" //TODO: replace the from's hard coated value to a real signed in user name
                 })
             })
@@ -86,7 +91,9 @@ const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: (open: bo
             console.log("Error while uploading contract ==>", error);
             alert("Error occurred, check console for details.")
         }
-        finally{false}
+        finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -97,33 +104,33 @@ const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: (open: bo
 
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="flex justify-between gap-x-3 min-w-[359px] mt-4 items-center p-4 border-gray-400 h-14 rounded-2xl border-[0.48px]">
-                        <input 
+                        <input
                             {...register("title", { required: "Contract title is required" })}
-                            className="w-full placeholder:text-[#16151C33] placeholder:font-light placeholder:font-outfit font-outfit placeholder:text-sm text-black font-light text-sm outline-none" 
-                            type="text" 
-                            placeholder="Contract Title" 
+                            className="w-full placeholder:text-[#16151C33] placeholder:font-light placeholder:font-outfit font-outfit placeholder:text-sm text-black font-light text-sm outline-none"
+                            type="text"
+                            placeholder="Contract Title"
                         />
                     </div>
                     {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
 
                     <div className='my-5'>
                         <h2 className='font-lexend mb-1 font-semibold text-[#16151C]'>For</h2>
-                        <input 
+                        <input
                             {...register("to", { required: "Contractor name is required" })}
-                            className='w-full py-2 px-4 border-gray-400 rounded-lg border-[0.48px] placeholder:text-[#16151C33] placeholder:font-light placeholder:font-outfit font-outfit placeholder:text-sm text-black font-light text-sm outline-none' 
-                            placeholder='Name of the contractor for which the contract is' 
-                            type="text" 
+                            className='w-full py-2 px-4 border-gray-400 rounded-lg border-[0.48px] placeholder:text-[#16151C33] placeholder:font-light placeholder:font-outfit font-outfit placeholder:text-sm text-black font-light text-sm outline-none'
+                            placeholder='Name of the contractor for which the contract is'
+                            type="text"
                         />
                         {errors.to && <p className="text-red-500 text-sm mt-1">{errors.to.message}</p>}
                     </div>
 
                     <div className='my-5'>
                         <h2 className='font-lexend mb-1 font-semibold text-[#16151C]'>Location</h2>
-                        <input 
+                        <input
                             {...register("location", { required: "Location is required" })}
-                            className='w-full py-2 px-4 border-gray-400 rounded-lg border-[0.48px] placeholder:text-[#16151C33] placeholder:font-light placeholder:font-outfit font-outfit placeholder:text-sm text-black font-light text-sm outline-none' 
-                            placeholder='Location' 
-                            type="text" 
+                            className='w-full py-2 px-4 border-gray-400 rounded-lg border-[0.48px] placeholder:text-[#16151C33] placeholder:font-light placeholder:font-outfit font-outfit placeholder:text-sm text-black font-light text-sm outline-none'
+                            placeholder='Location'
+                            type="text"
                         />
                         {errors.location && <p className="text-red-500 text-sm mt-1">{errors.location.message}</p>}
                     </div>
@@ -132,11 +139,11 @@ const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: (open: bo
                     <ul className='flex justify-start w-full flex-wrap gap-3 items-center'>
                         {['active', 'renewal', 'modified', 'viewed', 'signed', 'notSigned'].map((status) => (
                             <li key={status} className='flex items-center gap-x-2'>
-                                <input 
+                                <input
                                     {...register("status")}
-                                    type="radio" 
-                                    className='size-5' 
-                                    id={status} 
+                                    type="radio"
+                                    className='size-5'
+                                    id={status}
                                     value={status}
                                 />
                                 <label htmlFor={status}>{status.charAt(0).toUpperCase() + status.slice(1)}</label>
@@ -193,32 +200,32 @@ const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: (open: bo
                     {errors.dateRange && <p className="text-red-500 text-sm mt-1">{errors.dateRange.message}</p>}
 
                     <h2 className='font-lexend mt-6 mb-2 font-semibold text-[#16151C]'>Content</h2>
-                    <textarea 
+                    <textarea
                         {...register("content", { required: "Content is required" })}
-                        rows={3} 
-                        className='w-full outline-none h-20 font-lexend font-light text-[#16151C] p-1 border-[0.48px] rounded-xl border-gray-400' 
+                        rows={3}
+                        className='w-full outline-none h-20 font-lexend font-light text-[#16151C] p-1 border-[0.48px] rounded-xl border-gray-400'
                         placeholder='content of the contract'
                     ></textarea>
                     {errors.content && <p className="text-red-500 text-sm mt-1">{errors.content.message}</p>}
 
                     <div className='mx-auto flex items-center gap-x-2 my-6 justify-center'>
-                        <button 
+                        <button
                             type="button"
-                            onClick={() => setOpenContractPopUp(false)} 
+                            onClick={() => setOpenContractPopUp(false)}
                             className='border-[1px] w-40 border-[#A2A1A833] rounded-lg py-2'
                         >
                             Cancel
                         </button>
-                        {buttonLoading?
-                         <div className='bg-[#DDFF8F] rounded-lg py-2 w-40 flex justify-center items-center'>
-<div className='submit-loader'></div>
-                        </div>
-                        : <button 
-                            type="submit" 
+                        <button
+                            type="submit"
                             className="bg-[#DDFF8F] rounded-lg py-2 w-40"
                         >
-                            Save
-                        </button>}
+                            {
+                                loading ?
+                                    <Loader size={4} /> :
+                                    <p>Save</p>
+                            }
+                        </button>
                     </div>
                 </form>
             </div>

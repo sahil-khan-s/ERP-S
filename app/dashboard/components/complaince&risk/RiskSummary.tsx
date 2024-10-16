@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 const RiskSummary = () => {
@@ -5,7 +6,7 @@ const RiskSummary = () => {
     <div className="flex flex-col gap-2.5 md:gap-8 border rounded-2xl p-4 lg:p-7 w-full md:max-w-72">
       <div className="flex justify-between items-center">
         <h4 className="text-xl font-semibold">Risk Summary</h4>
-        <button className="text-gray-600 cursor-pointer">•••</button>
+        <Link href={"/dashboard/compliance&risk"} className="text-gray-600 cursor-pointer">•••</Link>
       </div>
 
       <div className="flex flex-row items-center justify-between">

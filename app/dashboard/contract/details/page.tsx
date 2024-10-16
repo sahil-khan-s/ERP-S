@@ -8,6 +8,7 @@ import { Contract as ContractInterface } from '@prisma/client';
 import { useSelector } from 'react-redux';
 import { store, Store } from '@/store/store';
 import { toggleContractEditing } from '@/features/contracts.reducer';
+import Loader, { LoaderSize } from '../../components/common/Loader';
 const page = () => {
     const contracts = useSelector((state: Store) => { return state.contracts.allContracts })
 
@@ -41,7 +42,9 @@ const page = () => {
                 <div className="flex overflow-y-scroll flex-col gap-y-2 mt-10 h-36 md:min-h-[660px] md:max-h-[650px]">
                     {
                         !contracts ?
-                            <h2>Loading...</h2> :
+                            <div className='w-full h-full flex justify-center items-center'>
+                                <Loader size={LoaderSize.L} />
+                            </div> :
                             contracts.map((contract, index) => {
                                 return <div className='cursor-pointer' key={index} onClick={() => setShowDetails(contract)}>
                                     <ContractCard
