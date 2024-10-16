@@ -7,62 +7,20 @@ import { addTasks } from "@/features/contract-tasks.reducer";
 import { addContracts, toggleContractEditing } from '@/features/contracts.reducer';
 import { useSelector } from 'react-redux';
 import EditContract from '../components/contract/editContract';
-
-export const getTodayTasks = async () => {
-  try {
-    const res = await fetch("/api/contracts-section/tasks-route/today-tasks");
-    const data = await res.json();
-    if (data.success) {
-      store.dispatch(addTasks({ tasks: data.tasks }))
-    } else {
-      store.dispatch(addTasks({ tasks: [] }))
-      throw new Error("Something went wrong while getting tasks");
-    }
-  } catch (error) {
-    store.dispatch(addTasks({ tasks: [] }))
-    throw new Error("Error while getting the tasks");
-  }
-}
+import { getAllContracts } from './services'; 
 
 
-export const getAllContracts = async () => {
-
-  try {
-    const res = await fetch("/api/contracts-section/contracts");
-    if (!res.ok) {
-      throw new Error("Something went wrong while getting contracts");
-    }
-    const data = await res.json();
-    if (data.success) {
-      store.dispatch(addContracts({ contracts: data.contracts }))
-    } else {
-      throw new Error("Something went wrong while getting contracts");
-    }
-  } catch (error) {
-    throw new Error("Error while getting the contracts");
-  }
-}
-
-
+// Layout component
 const layout = ({ children }: { children: React.ReactNode }) => {
   const [openContractPopUp, setOpenContractPopUp] = useState(false);
-
   const { contractToEdit, isEditingEnabled } = useSelector((state: Store) => state.contracts);
 
-
   useEffect(() => {
-    getAllContracts()
+    getAllContracts(); // Handle contract fetching outside layout
   }, []);
 
-
-
-  function toggleContractPopUp() {
-    setOpenContractPopUp(false);
-  }
-
-  function removeEditingMode() {
-    store.dispatch(toggleContractEditing());
-  }
+  const toggleContractPopUp = () => setOpenContractPopUp(false);
+  const removeEditingMode = () => store.dispatch(toggleContractEditing());
 
   return (
     <div className='bg-white p-5 min-h-screen'>

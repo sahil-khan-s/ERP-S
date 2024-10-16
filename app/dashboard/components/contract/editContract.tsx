@@ -23,7 +23,7 @@ interface ContractData {
 }
 
 import { unixTimestamp } from './newContract';
-import { getAllContracts } from '../../contract/layout';
+import { getAllContracts } from '../../contract/services';
 import Loader, { LoaderSize } from '../common/Loader';
 
 const EditContract = ({ cancelEdit, contract }: { cancelEdit: any, contract: Contract }) => {

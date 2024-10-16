@@ -3,7 +3,7 @@ import { Contract as ContractInterface } from "@prisma/client"
 import { dateOnly } from '../contractcard'
 import { store } from '@/store/store'
 import { setContractToEdit, toggleContractEditing } from '@/features/contracts.reducer'
-import { getAllContracts } from '@/app/dashboard/contract/layout'
+import { getAllContracts } from '@/app/dashboard/contract/services'
 import Image from 'next/image'
 import editIcon from "@/public/edit.png";
 import deleteIcon from "@/public/delete.png";

@@ -12,7 +12,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { getAllContracts } from '../../contract/layout';
+import { getAllContracts } from '../../contract/services';
 import Loader from '../common/Loader';
 
 interface ContractData {

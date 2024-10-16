@@ -14,7 +14,7 @@ import { Task } from '@prisma/client';
 import { timeOnly } from './task';
 import { store } from '@/store/store';
 import { toggleTaskEditing } from '@/features/contract-tasks.reducer';
-import { getTodayTasks } from '../../contract/layout';
+import { getTodayTasks } from '../../contract/services';
 
 
 // function which makes a unixTimestamp from 24H format time "00:00" and  ISO date in a format of "Sat Jul 13 2024 00:00:00 GMT+0500 (Pakistan Standard Time)". 

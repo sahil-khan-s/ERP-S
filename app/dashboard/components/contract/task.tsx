@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { getTodayTasks } from '../../contract/layout'
+import { getTodayTasks } from '../../contract/services'
 import { store, Store } from '@/store/store'
 import { deleteTask, resetTasks, setTaskToEdit, updateStatus } from '@/features/contract-tasks.reducer'
 import { useSelector } from 'react-redux'

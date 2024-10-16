@@ -13,7 +13,7 @@ import { toggleContractEditing } from "@/features/contracts.reducer";
 import { Contract as ContractInterface, Task as TaskInterface } from "@prisma/client";
 import { toggleTaskEditing } from "@/features/contract-tasks.reducer";
 import EditTaskPopup from "../components/contract/editTaskPopup";
-import { getTodayTasks } from "./layout";
+import { getTodayTasks } from "./services";
 import Loader, { LoaderSize } from "../components/common/Loader";
 import DashboardContractCard from "../components/dashboard/DashboardContractCard";
 export default function Contract() {

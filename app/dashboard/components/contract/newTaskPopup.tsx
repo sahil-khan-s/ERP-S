@@ -10,7 +10,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { getTodayTasks } from '../../contract/layout';
+import { getTodayTasks } from '../../contract/services';
 
 
 // function which makes a unixTimestamp from 24H format time "00:00" and  ISO date in a format of "Sat Jul 13 2024 00:00:00 GMT+0500 (Pakistan Standard Time)". 

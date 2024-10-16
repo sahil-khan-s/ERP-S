@@ -2,7 +2,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"build": "prisma generate && prisma migrate deploy && next build",
+		"build": " next build",
 		"start": "NODE_ENV=production node server.js",
 		"ins": "npm install -f",
 		"seed": "node --loader ts-node/esm prisma/seed.js"

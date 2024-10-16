@@ -7,7 +7,7 @@ import EditContract from "./components/contract/editContract";
 import { store, Store } from "@/store/store";
 import { toggleContractEditing } from "@/features/contracts.reducer";
 import { useEffect } from "react";
-import { getAllContracts } from "./contract/layout";
+import { getAllContracts } from "./contract/services";
 
 export default function RootLayout({
   children,
