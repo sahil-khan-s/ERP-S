@@ -14,7 +14,8 @@ import { Contract as ContractInterface, Task as TaskInterface } from "@prisma/cl
 import { toggleTaskEditing } from "@/features/contract-tasks.reducer";
 import EditTaskPopup from "../components/contract/editTaskPopup";
 import { getTodayTasks } from "./layout";
-import Loader from "../components/common/Loader";
+import Loader, { LoaderSize } from "../components/common/Loader";
+import DashboardContractCard from "../components/dashboard/DashboardContractCard";
 export default function Contract() {
   const [openTaskPopUp, setOpenTaskPopUp] = useState(false);
 
@@ -192,7 +193,7 @@ export default function Contract() {
               // <h2 className="text-xl text-black font-outfit capitalize text-center">
               //   loading...
               // </h2>
-              <Loader />
+              <Loader size={LoaderSize.S} />
             ) : (
               allTasks.map((task, index) => {
                 return task.status == "incomplete" ? (
@@ -233,7 +234,7 @@ export default function Contract() {
               // <h2 className="text-xl text-black font-outfit capitalize text-center">
               //   loading...
               // </h2>
-              <Loader />
+              <Loader size={LoaderSize.S} />
             ) : (
               allTasks.map((task, index) => {
                 return task.status == "complete" ? (
@@ -266,7 +267,7 @@ export default function Contract() {
           </div>
 
           {/* contracts */}
-          <div className="w-full mb-20 md:mb-0 rounded-2xl p-4 border-[0.48px] border-gray-500">
+          {/* <div className="w-full mb-20 md:mb-0 rounded-2xl p-4 border-[0.48px] border-gray-500">
             <div className="flex justify-between items-center">
               <h2 className="text-[20px] font-outfit">Contracts</h2>
               <div className="flex gap-x-2">
@@ -292,7 +293,7 @@ export default function Contract() {
               {
                 allContracts == undefined
                   ?
-                  <Loader />
+                  <Loader size={LoaderSize.S} />
                   :
                   allContracts.map((contract: ContractInterface, index: number) => {
                     return <ContractCard
@@ -303,7 +304,9 @@ export default function Contract() {
               }
 
             </div>
-          </div>
+          </div> */}
+
+          <DashboardContractCard />
         </div>
       </div>
     </main>

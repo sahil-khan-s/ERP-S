@@ -9,8 +9,6 @@ const layout = ({ children }: { children: React.ReactNode }) => {
         <div className='bg-white p-5 min-h-screen w-screen md:w-full'>
             <Nav />
 
-
-
             <AddPerformancePopUp open={newPerformancePopUp} onClose={setNewPerformancePopUp} />
 
             {/* search, filter and add new contract button */}
