@@ -2,28 +2,11 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
-import { store, Store } from '@/store/store';
-import { addFeedbacks, ModifiedFeedback } from '@/features/feedback.reducer.ts';
+import { Store } from '@/store/store';
+import { ModifiedFeedback } from '@/features/feedback.reducer.ts';
 import AddCommentPopUp from '../../components/performanceEvaluation/addCommentPopup';
+import { getAllFeedbacks } from '../helpers';
 
-
-export const getAllFeedbacks = async () => {
-    try {
-        const res = await fetch('/api/performanceEvaluation/feedback/getAll');
-        if (!res.ok) {
-            throw new Error('Failed to fetch random feedback');
-        }
-        const data = await res.json();
-        if (!data.success) {
-            throw new Error('No data received');
-        }
-        store.dispatch(addFeedbacks({ feedbacks: data.feedbacks }))
-        return data;
-    } catch (error) {
-        console.error('Error fetching random feedback:', error);
-        throw error;
-    }
-}
 
 
 export default function Feedbacks() {

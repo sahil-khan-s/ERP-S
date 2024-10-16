@@ -45,7 +45,7 @@ const NewTaskPopUp = ({ setOpenTaskPopUp }: { setOpenTaskPopUp: React.Dispatch<R
         };
 
         try {
-            const response = await fetch("/api/contracts-section/tasks/add", {
+            const response = await fetch("/api/contracts-section/tasks-route/add", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

@@ -3,7 +3,8 @@
 	"scripts": {
 		"dev": "next dev",
 		"build": "prisma generate && prisma migrate deploy && next build",
-		"start": "next start",
+		"start": "NODE_ENV=production node server.js",
+		"ins": "npm install -f",
 		"seed": "node --loader ts-node/esm prisma/seed.js"
 	},
 	"dependencies": {

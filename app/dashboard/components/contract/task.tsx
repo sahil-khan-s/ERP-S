@@ -43,7 +43,7 @@ const Task = ({ task }: { task: TaskInterface }) => {
         }
         try {
 
-            const response = await fetch("/api/contracts-section/tasks/delete", {
+            const response = await fetch("/api/contracts-section/tasks-route/delete", {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json"
@@ -86,7 +86,7 @@ const Task = ({ task }: { task: TaskInterface }) => {
         // setLoading(true);
 
         try {
-            const response = await fetch("/api/contracts-section/tasks/toggle-status", {
+            const response = await fetch("/api/contracts-section/tasks-route/toggle-status", {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
