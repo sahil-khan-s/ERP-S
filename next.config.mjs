@@ -4,6 +4,7 @@ import withSvgr from 'next-plugin-svgr';
 
 const nextConfig = {
   images: {
+    domains: ['firebasestorage.googleapis.com'],
     remotePatterns: [
       {
         protocol: 'https',

@@ -14,6 +14,7 @@ import { Contract as ContractInterface, Task as TaskInterface } from "@prisma/cl
 import { toggleTaskEditing } from "@/features/contract-tasks.reducer";
 import EditTaskPopup from "../components/contract/editTaskPopup";
 import { getTodayTasks } from "./layout";
+import Loader from "../components/common/Loader";
 export default function Contract() {
   const [openTaskPopUp, setOpenTaskPopUp] = useState(false);
 
@@ -188,9 +189,10 @@ export default function Contract() {
           {/* incomplete tasks */}
           <div className="flex flex-col mt-6 gap-y-6 max-h-56 overflow-y-scroll">
             {!allTasks ? (
-              <h2 className="text-xl text-black font-outfit capitalize text-center">
-                loading...
-              </h2>
+              // <h2 className="text-xl text-black font-outfit capitalize text-center">
+              //   loading...
+              // </h2>
+              <Loader />
             ) : (
               allTasks.map((task, index) => {
                 return task.status == "incomplete" ? (
@@ -228,9 +230,10 @@ export default function Contract() {
 
           <div className="flex flex-col mt-6 gap-y-6 overflow-y-scroll max-h-56">
             {!allTasks ? (
-              <h2 className="text-xl text-black font-outfit capitalize text-center">
-                loading...
-              </h2>
+              // <h2 className="text-xl text-black font-outfit capitalize text-center">
+              //   loading...
+              // </h2>
+              <Loader />
             ) : (
               allTasks.map((task, index) => {
                 return task.status == "complete" ? (
@@ -289,7 +292,7 @@ export default function Contract() {
               {
                 allContracts == undefined
                   ?
-                  <h2 className="text-xl text-black font-outfit capitalize text-center">loading...</h2>
+                  <Loader />
                   :
                   allContracts.map((contract: ContractInterface, index: number) => {
                     return <ContractCard

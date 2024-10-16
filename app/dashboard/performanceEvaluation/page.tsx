@@ -1,73 +1,14 @@
 "use client";
-import { changeRandomFeedback } from '@/features/feedback.reducer.ts';
-import { store, Store } from '@/store/store';
+import { Store } from '@/store/store';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip } from "recharts";
 import AddCommentPopUp from '../components/performanceEvaluation/addCommentPopup';
 import Link from 'next/link';
-import { addPerformances, ModifiedPerformance } from '@/features/performance.reducer';
+import { ModifiedPerformance } from '@/features/performance.reducer';
 import EditPerformancePopUp from "../components/performanceEvaluation/editPerformance"
-export const getRandomFeedback = async (): Promise<any> => {
-    try {
-        const res = await fetch('/api/performanceEvaluation/feedback/random');
-        if (!res.ok) {
-            throw new Error('Failed to fetch random feedback');
-        }
-        const data = await res.json();
-        if (!data.success) {
-            throw new Error('No data received');
-        }
+import { getAllPerformances, getRandomFeedback } from './helpers';
 
-        store.dispatch(changeRandomFeedback({ randomFeedback: data.feedback }))
-        return data;
-    } catch (error) {
-        console.error('Error fetching random feedback:', error);
-        throw error;
-    }
-}
-
-const registerFeedback = async ({ vendorId, feedbackContent }: { vendorId: number | string, feedbackContent: string }) => {
-    try {
-        const res = await fetch('/api/performanceEvaluation/feedback/register', {
-            method: "POST",
-            body: JSON.stringify({
-                vendorId,
-                content: feedbackContent
-            })
-        });
-
-        if (!res.ok) {
-            throw new Error('Failed to fetch random feedback');
-        }
-        const data = await res.json();
-        if (!data.success) {
-            throw new Error('Something went wrong while adding a feedback');
-        }
-        return data;
-    } catch (error) {
-        console.error('Error fetching random feedback:', error);
-        throw error;
-    }
-}
-
-export const getAllPerformances = async (): Promise<void> => {
-    try {
-        const res = await fetch('/api/performanceEvaluation/performance/rating/get');
-        if (!res.ok) {
-            throw new Error('Failed to fetch Data from database');
-        }
-        const data = await res.json();
-        if (!data.success) {
-            throw new Error('No data received');
-        }
-
-        store.dispatch(addPerformances({ performances: data.performances }))
-    } catch (error) {
-        console.error('Error fetching random feedback:', error);
-        throw error;
-    }
-}
 
 const CustomTooltip = ({ active, payload, label }: { active: boolean, payload: any, label: string }) => {
     if (active && payload && payload.length) {
