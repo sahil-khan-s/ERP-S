@@ -30,6 +30,7 @@ export function unixTimestamp(time: string) {
     return date.getTime() / 1000
 }
 
+
 const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: (open: boolean) => void }) => {
     const { register, handleSubmit, control, formState: { errors }, watch } = useForm<ContractData>({
         defaultValues: {
@@ -46,8 +47,10 @@ const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: (open: bo
     });
 
     const dateRange = watch('dateRange');
+    const [buttonLoading,setButtonLoading] = useState(false)
 
     const onSubmit = async (data: ContractData) => {
+        setButtonLoading(true)
         try {
             const dateFrom = unixTimestamp(data.dateRange.from?.toString() || '');
             const dateTo = unixTimestamp(data.dateRange.to?.toString() || '');
@@ -83,6 +86,7 @@ const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: (open: bo
             console.log("Error while uploading contract ==>", error);
             alert("Error occurred, check console for details.")
         }
+        finally{false}
     }
 
     return (
@@ -205,12 +209,16 @@ const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: (open: bo
                         >
                             Cancel
                         </button>
-                        <button 
+                        {buttonLoading?
+                         <div className='bg-[#DDFF8F] rounded-lg py-2 w-40 flex justify-center items-center'>
+<div className='submit-loader'></div>
+                        </div>
+                        : <button 
                             type="submit" 
                             className="bg-[#DDFF8F] rounded-lg py-2 w-40"
                         >
                             Save
-                        </button>
+                        </button>}
                     </div>
                 </form>
             </div>

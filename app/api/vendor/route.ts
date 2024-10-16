@@ -76,6 +76,7 @@ export const DELETE = async (request: Request): Promise<NextResponse> => {
 			where: { id: id }
 		});
 		if (!vendor) {
+			console.log("......................")
 			throw new Error("Failed to delete vendor");
 		}
 		return NextResponse.json(
@@ -86,7 +87,7 @@ export const DELETE = async (request: Request): Promise<NextResponse> => {
 			{ status: 200 }
 		);
 	} catch (error) {
-		console.error(error)
+		console.log(">>>>>>>>>>><<<<<<<<<")
 
 		return NextResponse.json(
 			{
