@@ -34,7 +34,7 @@ export default function Login() {
 
     try {
       router.push("/dashboard");
-      // await axios.post("/api/handleAuth", data);
+      // await axios.post("/api/handleAuth", data); 
     } catch (error) {
       setError(true);
       setErrorMessage("Wrong credentials please try again!");
