@@ -68,7 +68,10 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
     }
 
     //     DELETE FUNCTION
+    const [deleteLoading, setDeleteLoading] = useState<boolean>(false)
+
     const deleteCompliance = async (id: number) => {
+        setDeleteLoading(true)
         try {
             const response = await fetch('/api/compliance', {
                 method: 'DELETE',
@@ -81,7 +84,9 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
             if (data.success) {
                 fetchCompliance();
             }
+            setDeleteLoading(false)
         } catch (error) {
+            setDeleteLoading(false)
             console.error("An error occurred while deleting the compliance issue:", error);
         }
     };
@@ -102,22 +107,22 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
     // if (isLoading) return <div className='flex items-center justify-center h-[500px]'><span className="loader"></span></div>;
     // if (error) return <div>{error.message}</div>;
 
-   //   FETCH COMPLIANCE FUNCTION
+    //   FETCH COMPLIANCE FUNCTION
     const fetchCompliance = async () => {
-        try{
+        try {
             const response = await fetch("/api/compliance");
             const data = await response.json();
             setCompliances(await data.complianceIssue);
         }
-        catch{
+        catch {
             console.log(Error)
         }
     };
-  
-  
+
+
     //      UseEffect
     useEffect(() => {
-      fetchCompliance();
+        fetchCompliance();
     }, []);
 
     return (
@@ -239,7 +244,12 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
                                             </AlertDialogHeader>
                                             <AlertDialogFooter>
                                                 <AlertDialogCancel className='text-xs md:text-sm'>Cancel</AlertDialogCancel>
-                                                <AlertDialogAction onClick={() => { deleteCompliance(item.id); }} className='text-xs md:text-sm bg-[#ff3b3b] hover:bg-[#ff4d4d]'>Delete</AlertDialogAction>
+                                                {
+                                                    deleteLoading ? 
+                                                    <AlertDialogCancel className='flex justify-center items-center bg-[#ff4d4d] hover:bg-[#ff4d4d] w-[78px] h-[40px]'><div className='delete-loader'></div></AlertDialogCancel>
+                                                        : <AlertDialogAction onClick={() => { deleteCompliance(item.id); }} className='text-xs md:text-sm bg-[#ff3b3b] hover:bg-[#ff4d4d]'>Delete</AlertDialogAction>
+
+                                                }
                                             </AlertDialogFooter>
                                         </AlertDialogContent>
                                     </AlertDialog>

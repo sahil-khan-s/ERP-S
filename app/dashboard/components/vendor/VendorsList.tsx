@@ -82,22 +82,27 @@ const VendorsList = () => {
     }
 
     //     DELETE FUNCTION
+
+    const [deleteLoading, setDeleteLoading] = useState<boolean>(false)
     const deleteVendor = async (id: number) => {
         try {
+            setDeleteLoading(true)
             const response = await fetch('/api/vendor', {
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ id }),
+                body: JSON.stringify({ id:id }),
             });
             const data = await response.json();
             if (data.success) {
                 setVendorsData(null)
                 fetchVendors()
+                setDeleteLoading(false)
             }
         } catch (error) {
-            console.error("An error occurred while deleting the vendor:", error);
+            setDeleteLoading(false)
+            console.log("An error occurred while deleting the vendor: <<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         }
     };
 
@@ -138,7 +143,7 @@ const VendorsList = () => {
                             <th className="py-3 px-0.5 md:px-4 md:py-5 text-center md:text-left text-sm md:text-base font-medium">Category</th>
                             <th className="py-3 px-0.5 md:px-4 md:py-5 text-center md:text-left text-sm md:text-base font-medium">Type</th>
                             <th className="py-3 px-0.5 md:px-4 md:py-5 text-center md:text-left text-sm md:text-base font-medium">Status</th>
-                            <th className="py-3 px-0.5 md:px-4 md:py-5 text-center md:text-left text-sm md:text-base font-medium">Action</th>
+                            <th onClick={()=>console.log(vendorsData)} className="py-3 px-0.5 md:px-4 md:py-5 text-center md:text-left text-sm md:text-base font-medium">Action</th>
                         </tr>
                     </thead>
                     <tbody className=' border-b border-slate-100'>
@@ -245,7 +250,7 @@ const VendorsList = () => {
                                                 </AlertDialogDescription>
                                             </AlertDialogHeader>
                                             <AlertDialogFooter>
-                                                <AlertDialogCancel className='text-gray-900 font-semibold py-2 rounded-lg focus:outline-none focus:border border-slate-300-outline'>Cancel</AlertDialogCancel>
+                                                <AlertDialogAction className='text-gray-900 font-semibold py-2 rounded-lg focus:outline-none focus:border border-slate-300-outline'>Cancel</AlertDialogAction>
                                                 <AlertDialogAction onClick={() => { editData(item.id) }} className=" bg-[#DDFF8F] hover:bg-[#C8F064] text-gray-900 font-semibold py-2 rounded-lg focus:outline-none focus:border border-slate-300-outline">Save</AlertDialogAction>
                                             </AlertDialogFooter>
                                         </AlertDialogContent>
@@ -263,7 +268,9 @@ const VendorsList = () => {
                                             </AlertDialogHeader>
                                             <AlertDialogFooter>
                                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                <AlertDialogAction onClick={() => { deleteVendor(item.id); }} className='bg-[#ff3b3b] hover:bg-[#ff4d4d]'>Delete</AlertDialogAction>
+                                                {deleteLoading ? <AlertDialogCancel className='flex justify-center items-center bg-[#ff4d4d] w-[78px] h-[40px]'><div className='delete-loader'></div></AlertDialogCancel>
+                                                    :
+                                                    <AlertDialogAction onClick={() => { deleteVendor(item.id); }} className='bg-[#ff3b3b] hover:bg-[#ff4d4d]'>Delete</AlertDialogAction>}
                                             </AlertDialogFooter>
                                         </AlertDialogContent>
                                     </AlertDialog>

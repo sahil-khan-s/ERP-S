@@ -31,6 +31,7 @@ export function unixTimestamp(time: string) {
     return date.getTime() / 1000
 }
 
+
 const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: (open: boolean) => void }) => {
     const [loading, setLoading] = useState(false);
     const { register, handleSubmit, control, formState: { errors }, watch } = useForm<ContractData>({
@@ -48,6 +49,7 @@ const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: (open: bo
     });
 
     const dateRange = watch('dateRange');
+    const [buttonLoading, setButtonLoading] = useState(false)
 
     const onSubmit = async (data: ContractData) => {
         if (loading) {

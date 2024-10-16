@@ -8,12 +8,14 @@ import Link from "next/link";
 import Image from 'next/image';
 import logo from "../../public/Logo.png"
 import { SubmitButton } from '../submit-button';
+import axios from 'axios';
 
 export default function Login() {
 
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [loader, setloader] = useState(false)
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
   
 
@@ -23,43 +25,21 @@ export default function Login() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const data = {
+      email:formData.email,
+      password:formData.password,
+    };
 
     try {
-      setloader(true)
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const { user, message } = await response.json();
-
-      if (response.ok) {
-        console.log(user, 'user data coming ')
-        localStorage.setItem('user', JSON.stringify(user));
-        console.log('Stored user:', localStorage.getItem('user'));
-        // setUser(user);
-
-        // there is only one dashboard so no need to use admin or employee with dashboard.
-        // it will redirect to 404 page
-        // router.push(`/${user.role.toLowerCase()}Dashboard`);
-        router.push(`/dashboard`);
-      } else {
-        setError(message || 'Something went wrong');
-      }
+      router.push("/dashboard");
+      // await axios.post("/api/handleAuth", data); 
     } catch (error) {
-      console.error('Error during login:', error);
-      setError('An unexpected error occurred');
-    }
-    finally{ 
-      setloader(false)
+      setError(true);
+      setErrorMessage("Wrong credentials please try again!");
     }
   };
-
 
 //   useEffect(() => {
 //     const storedUser = localStorage.getItem('user');
