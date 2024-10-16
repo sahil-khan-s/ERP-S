@@ -24,8 +24,10 @@ interface ContractData {
 
 import { unixTimestamp } from './newContract';
 import { getAllContracts } from '../../contract/layout';
+import Loader, { LoaderSize } from '../common/Loader';
 
 const EditContract = ({ cancelEdit, contract }: { cancelEdit: any, contract: Contract }) => {
+    const [loading, setLoading] = useState(false);
     const [date, setDate] = useState<DateRange | undefined>({
         from: new Date(2022, 0, 20),
         to: addDays(new Date(2022, 0, 20), 20),
@@ -40,6 +42,10 @@ const EditContract = ({ cancelEdit, contract }: { cancelEdit: any, contract: Con
 
 
     const handleSubmit = async () => {
+        if (loading) {
+            return;
+        }
+        setLoading(true);
         const dateFrom = unixTimestamp(date?.from + "");
         const dateTo = unixTimestamp(date?.to + "");
 
@@ -77,6 +83,8 @@ const EditContract = ({ cancelEdit, contract }: { cancelEdit: any, contract: Con
         } catch (error) {
             console.log("Error while editing contract ==>", error);
             alert("Error occurred, check console for details.");
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -180,7 +188,11 @@ const EditContract = ({ cancelEdit, contract }: { cancelEdit: any, contract: Con
 
                 <div className='mx-auto flex items-center gap-x-2 my-6 justify-center'>
                     <button onClick={() => cancelEdit()} className='border-[1px] w-40 border-[#A2A1A833] rounded-lg py-2'>cancel</button>
-                    <button onClick={handleSubmit} className="bg-[#DDFF8F] rounded-lg py-2 w-40">Save</button>
+                    <button onClick={handleSubmit} className="bg-[#DDFF8F] rounded-lg py-2 w-40">
+                        {
+                            loading ? <Loader size={LoaderSize.XS} /> : "Save"
+                        }
+                    </button>
                 </div>
             </div>
         </div>
