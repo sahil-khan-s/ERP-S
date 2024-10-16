@@ -1,9 +1,18 @@
 import React from 'react';
 
-const Loader = () => {
+export enum LoaderSize {
+    XS = 4,
+    S = 10,
+    M = 12,
+    L = 16,
+    XL = 20,
+    XXL = 24,
+    XXXL = 32,
+}
+const Loader = ({ size, borderTop }: { size: LoaderSize; borderTop?: number }) => {
     return (
-        <div className="flex justify-center items-center h-screen">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid border-opacity-75"></div>
+        <div className='flex items-center justify-center w-full'>
+            <div className={`animate-spin rounded-full border-[#678422] border-solid border-opacity-100 border-t-2 h-${size} w-${size}`}></div>
         </div>
     );
 };

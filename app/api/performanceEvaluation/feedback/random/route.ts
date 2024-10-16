@@ -8,6 +8,16 @@ export const GET = async (): Promise<NextResponse> => {
 			throw new Error("Failed to fetch random feedback");
 		}
 
+		if (!feedbacks || feedbacks.length == 0) {
+			return NextResponse.json(
+				{
+					success: false,
+					massage: "feedbacks not found",
+				},
+				{ status: 200 }
+			);
+		}
+
 		const randomFeedback =
 			feedbacks[Math.floor(Math.random() * feedbacks.length)];
 

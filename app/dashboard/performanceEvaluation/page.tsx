@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { ModifiedPerformance } from '@/features/performance.reducer';
 import EditPerformancePopUp from "../components/performanceEvaluation/editPerformance"
 import { getAllPerformances, getRandomFeedback } from './helpers';
+import Loader, { LoaderSize } from '../components/common/Loader';
 
 
 const CustomTooltip = ({ active, payload, label }: { active: boolean, payload: any, label: string }) => {
@@ -52,14 +53,19 @@ const page = () => {
     const { allPerformances } = useSelector((state: Store) => state.performances);
     const [selectedPerformance, setSelectedPerformance] = useState<ModifiedPerformance | undefined>(undefined);
     const [selectedPerformanceForEdit, setSelectedPerformanceForEdit] = useState<ModifiedPerformance | undefined>(undefined);
+    const [loading, setLoading] = useState(true);
 
 
     const toPercent = (decimal: number) => `${decimal}.0`;
 
 
     useEffect(() => {
-        getRandomFeedback();
-        getAllPerformances();
+        getRandomFeedback().then(() => {
+            getAllPerformances()
+        })
+            .finally(() => {
+                setLoading(false)
+            })
     }, []);
 
 
@@ -146,15 +152,20 @@ const page = () => {
                     {/* random feedback */}
                     {
                         <div className='border-[#6BA10F] border-[1px] shadowLg rounded-lg mt-1 p-4'>
-                            {
-                                randomFeedback !== undefined ? <div className='flex justify-start items-center gap-x-2'>
-                                    <img className='size-8 rounded-full' src={randomFeedback?.vendorImage} alt="a portrait of vendor who give a feedback" />
-                                    <p className='fontLexend font-semibold text-sm capitalize'>{randomFeedback?.vendorName}</p>
-                                </div> :
-                                    <h2 className='fontLexend font-semibold text-sm capitalize'>loading....</h2>
-                            }
-                            <p className='text-[13.1px] mt-4 text-black/60'>{randomFeedback?.content || "Loading ..."}</p>
 
+                            {
+                                loading ?
+                                    <div className='h-full w-full'>
+                                        <Loader size={LoaderSize.M} />
+                                    </div> :
+                                    <div>
+                                        <div className='flex justify-start items-center gap-x-2'>
+                                            <img className='size-8 rounded-full' src={randomFeedback?.vendorImage} alt="a portrait of vendor who give a feedback" />
+                                            <p className='fontLexend font-semibold text-sm capitalize'>{randomFeedback?.vendorName}</p>
+                                        </div>
+                                        <p className='text-[13.1px] mt-4 text-black/60'>{randomFeedback?.content}</p>
+                                    </div>
+                            }
                             <hr className='mt-3' />
                             <div className='flex justify-between mt-2 items-center'>
                                 <div className='flex items-center justify-start gap-x-2'>

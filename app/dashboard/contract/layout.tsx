@@ -51,7 +51,6 @@ const layout = ({ children }: { children: React.ReactNode }) => {
 
 
   useEffect(() => {
-
     getAllContracts()
   }, []);
 

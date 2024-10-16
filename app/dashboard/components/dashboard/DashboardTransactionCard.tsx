@@ -4,12 +4,13 @@ import React from "react";
 import { PiArrowLineUpRightLight, PiArrowLineDownRightLight } from "react-icons/pi";
 
 import Image from "next/image";
+import Link from "next/link";
 
 const DashboardTransactionCard = () => {
   const transactions = [
     {
       id: 1,
-      icon:<PiArrowLineDownRightLight/>,
+      icon: <PiArrowLineDownRightLight />,
       title: "Active User",
       amount: "-0.32154 BTC",
       date: "Aug 4, 2022",
@@ -18,7 +19,7 @@ const DashboardTransactionCard = () => {
     },
     {
       id: 2,
-      icon:<PiArrowLineUpRightLight/>,
+      icon: <PiArrowLineUpRightLight />,
       title: "Transactions",
       amount: "- $4,210.21",
       date: "Aug 4, 2022",
@@ -27,7 +28,7 @@ const DashboardTransactionCard = () => {
     },
     {
       id: 3,
-      icon:<PiArrowLineDownRightLight/>,
+      icon: <PiArrowLineDownRightLight />,
       title: "Cards Issue",
       amount: "-0.01254 BTC",
       date: "Aug 4, 2022",
@@ -40,7 +41,7 @@ const DashboardTransactionCard = () => {
     <div className="border rounded-xl p-4">
       <div className="mt-4 flex w-full justify-between items-center mb-8">
         <h3 className="text-xl  md:text-xl font-semibold">Transaction</h3>
-        <button className="text-gray-600 cursor-pointer">•••</button>
+        <Link href={"/dashboard/transactionManagment"} className="text-gray-600 cursor-pointer">•••</Link>
 
       </div>
       {transactions.map((transaction) => (
