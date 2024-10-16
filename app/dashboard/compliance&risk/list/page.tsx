@@ -1,13 +1,13 @@
 "use client"
 //HOOKS
-import React from "react";
+import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 //COMPONENTS
 import Nav from "../../components/common/nav";
 import SearchBar from "../../components/common/SearchBar";
 import ComplainceList from "../../components/complaince&risk/ComplainceList";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import {Dialog,DialogContent,DialogDescription,DialogHeader,DialogTitle,DialogTrigger} from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 
 interface ComplianceFormData {
   assignTo: string;
@@ -36,8 +36,10 @@ export default function Vendor() {
     setOpen(false);
   }
 
+  const [buttonLoading, setButtonLoading] = useState<boolean>(true)
   //  POST API
   const handleForm = async (data: ComplianceFormData) => {
+    setButtonLoading(true)
     try {
       const response = await fetch("/api/compliance", {
         method: "POST",
@@ -49,8 +51,11 @@ export default function Vendor() {
       if (!response.ok) {
         throw new Error('Failed to submit compliance issue');
       }
+      setButtonLoading(false)
       resetInputFields();
     } catch (error) {
+
+      setButtonLoading(false)
       console.error(error);
     }
   }
@@ -80,20 +85,20 @@ export default function Vendor() {
                       <form onSubmit={handleSubmit(handleForm)} className='h-full w-full'>
                         <div className="mb-2 md:mb-4 flex gap-2 md:gap-4">
                           <div className="w-full">
-                            <input 
-                              {...register("assignTo", {required: "Assign to is required"})} 
-                              className={`text-black bg-white border-slate-300 appearance-none border rounded-xl w-full px-3 py-2 md:p-4 text-xs md:text-sm leading-tight focus:outline-none focus:ring-1 focus:ring-black ${errors.assignTo ? "border-red-500" : ""}`} 
-                              type="text" 
-                              placeholder="Assign to" 
+                            <input
+                              {...register("assignTo", { required: "Assign to is required" })}
+                              className={`text-black bg-white border-slate-300 appearance-none border rounded-xl w-full px-3 py-2 md:p-4 text-xs md:text-sm leading-tight focus:outline-none focus:ring-1 focus:ring-black ${errors.assignTo ? "border-red-500" : ""}`}
+                              type="text"
+                              placeholder="Assign to"
                             />
                             {errors.assignTo && <p className="text-red-500 text-xs mt-1">{errors.assignTo.message}</p>}
                           </div>
                           <div className="w-full">
-                            <input 
-                              {...register("title", {required: "Title is required"})} 
-                              className={`text-black border-slate-300 appearance-none border rounded-xl w-full px-3 py-2 md:p-4 text-xs md:text-sm leading-tight focus:outline-none focus:ring-1 focus:ring-black ${errors.title ? "border-red-500" : ""}`} 
-                              type="text" 
-                              placeholder="Title" 
+                            <input
+                              {...register("title", { required: "Title is required" })}
+                              className={`text-black border-slate-300 appearance-none border rounded-xl w-full px-3 py-2 md:p-4 text-xs md:text-sm leading-tight focus:outline-none focus:ring-1 focus:ring-black ${errors.title ? "border-red-500" : ""}`}
+                              type="text"
+                              placeholder="Title"
                             />
                             {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title.message}</p>}
                           </div>
@@ -118,16 +123,20 @@ export default function Vendor() {
                           </div>
                         </div>
                         <div className="mb-1 md:mb-2">
-                          <textarea 
-                            {...register("description", {required: "Description is required"})} 
-                            className={`text-black border-slate-300 appearance-none border rounded-xl w-full px-3 py-2 md:p-4 text-xs md:text-sm leading-tight focus:outline-none focus:ring-1 focus:ring-black ${errors.description ? "border-red-500" : ""}`} 
+                          <textarea
+                            {...register("description", { required: "Description is required" })}
+                            className={`text-black border-slate-300 appearance-none border rounded-xl w-full px-3 py-2 md:p-4 text-xs md:text-sm leading-tight focus:outline-none focus:ring-1 focus:ring-black ${errors.description ? "border-red-500" : ""}`}
                             placeholder="Description"
                           ></textarea>
                           {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description.message}</p>}
                         </div>
                         <div className="flex md:mt-2 flex-row gap-3">
                           <button type="button" onClick={resetInputFields} className="bg-white border border-gray-300 text-gray-800 font-medium py-2 px-4 hover:bg-slate-50 rounded-lg focus:outline-none focus:shadow-outline text-xs md:text-sm">Cancel</button>
-                          <button type="submit" className="w-20 bg-[#DDFF8F] hover:bg-[#C8F064] text-gray-800 font-medium py-2 rounded-lg focus:outline-none focus:border border-slate-300-outline text-xs md:text-sm">Submit</button>
+                          {buttonLoading ? <button className="w-20 bg-[#DDFF8F] hover:bg-[#C8F064] text-gray-800 font-medium py-2 rounded-lg focus:outline-none focus:border border-slate-300-outline text-xs md:text-sm">Submit</button>
+                            :
+                            <button type="submit" className=" bg-[#DDFF8F] hover:bg-[#C8F064] rounded-lg focus:outline-none focus:border border-slate-300-outline flex items-center justify-between w-20"><div className="submit-loader"></div></button>
+
+                          }
                         </div>
                       </form>
                     </DialogDescription>

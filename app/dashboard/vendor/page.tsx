@@ -23,6 +23,7 @@ import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import axios from "axios";
 //React hook form
 import { useForm, Controller } from "react-hook-form";
+import { DivideIcon } from "lucide-react";
 
 interface VendorFormData {
   selectedImage: string;
@@ -45,6 +46,8 @@ export default function Vendor() {
   const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
   const [image, setImage] = React.useState<File | null>(null);
   let imageUrl: string;
+
+  const [buttonLoading, setButtonLoading] = useState(false)
 
   // PREVIEW IMAGE
   const fileChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,6 +83,7 @@ export default function Vendor() {
   const handleForm = async (data: VendorFormData) => {
     // await handleImageUpload();
     try {
+      setButtonLoading(true)
       const response = await fetch("/api/vendor", {
         method: "POST",
         headers: {
@@ -90,11 +94,17 @@ export default function Vendor() {
       if (response.ok) {
         resetData();
         setOpen(true);
+        setButtonLoading(false)
+        
       } else {
         throw new Error('Failed to submit form');
       }
+    
     } catch (error) {
       console.error(error);
+    }
+    finally{
+      setButtonLoading(false)
     }
   }
 
@@ -265,12 +275,15 @@ export default function Vendor() {
               >
                 Cancel
               </button>
-              <Button
+              {buttonLoading ? <div
+                className="w-20 bg-[#DDFF8F] hover:bg-[#C8F064] text-gray-700 font-semibold py-2 rounded-lg focus:outline-none focus:border border-slate-300-outline flex justify-center items-center">
+                <div className="submit-loader text-black bg-black"></div>
+              </div> : <Button
                 type="submit"
                 className="w-20 bg-[#DDFF8F] hover:bg-[#C8F064] text-gray-700 font-semibold py-2 rounded-lg focus:outline-none focus:border border-slate-300-outline"
               >
                 Submit
-              </Button>
+              </Button>}
             </div>
           </form>
         </div>
