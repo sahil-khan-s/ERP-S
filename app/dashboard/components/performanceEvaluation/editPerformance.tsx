@@ -1,7 +1,7 @@
 "use client";
 import { ModifiedPerformance } from '@/features/performance.reducer';
 import React, { useState, useEffect } from 'react';
-import { getAllPerformances } from '../../performanceEvaluation/page';
+import { getAllPerformances } from '../../performanceEvaluation/helpers';
 
 const AppPerformancePopup = ({
     onClose,

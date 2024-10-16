@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from 'react'
-import Contract from './page'
 import Nav from '../components/common/nav'
 import NewContract from '../components/contract/newContract';
 import { Store, store } from '@/store/store';
@@ -11,7 +10,7 @@ import EditContract from '../components/contract/editContract';
 
 export const getTodayTasks = async () => {
   try {
-    const res = await fetch("/api/contracts-section/tasks/today-tasks");
+    const res = await fetch("/api/contracts-section/tasks-route/today-tasks");
     const data = await res.json();
     if (data.success) {
       store.dispatch(addTasks({ tasks: data.tasks }))

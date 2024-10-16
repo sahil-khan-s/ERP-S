@@ -37,9 +37,9 @@ import { useState } from "react";
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <Link href="#" className="px-4 py-2 font-medium shadow-md  rounded-lg p-2">
+            <button className="px-4 py-2 font-medium shadow-md  rounded-lg p-2">
               Log In
-            </Link>
+            </button>
             {dropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg">
                 <Link href="/login" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
@@ -56,7 +56,7 @@ import { useState } from "react";
   
         {/* Hamburger Button for Mobile */}
         <div className="md:hidden">
-          <Link href={"/dashboard"}
+          <Link href={"/login"}
             className="active px-4 py-2 font-medium"
           >
            Sign-In

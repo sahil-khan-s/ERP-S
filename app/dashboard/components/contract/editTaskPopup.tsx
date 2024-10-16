@@ -61,7 +61,7 @@ const EditTaskPopup = ({ task }: { task: Task }) => {
         };
 
         try {
-            const response = await fetch("/api/contracts-section/tasks/edit", {
+            const response = await fetch("/api/contracts-section/tasks-route/edit", {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
