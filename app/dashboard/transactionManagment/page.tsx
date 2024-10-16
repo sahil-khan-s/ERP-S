@@ -26,10 +26,10 @@ export default function Transaction() {
       <section className="min-h-screen p-4 bg-white ">
         <div className="flex flex-col gap-8">
           <div
-            className="grid grid-cols-2 gap-2 justify-between overflow-auto min-w-full"
+            className="flex flex-col lg:flex-row md:gap-4 lg:gap-2 justify-between overflow-auto min-w-full"
             style={{ gridTemplateColumns: "67% 32%" }}
           >
-            <div>
+            <div className="flex flex-col">
               <div className="flex justify-between items-center w-full gap-4">
                 {/* Active Users, Transaction and Cash issued cards */}
                 <TransactionScreenCard
@@ -50,6 +50,7 @@ export default function Transaction() {
                   icon={<ArrowDropDownIcon fontSize="large" />}
                   percentage="32%"
                 />
+                <div className="hidden lg:block">
                 <TransactionScreenCard
                   title="Card Issued"
                   textColor="#FFBC02"
@@ -58,11 +59,12 @@ export default function Transaction() {
                   details="3.442"
                   icon={<ArrowDropUpIcon fontSize="large" />}
                   percentage="32%"
-                />
+                  />
+                  </div>
               </div>
               <LineChart />
             </div>
-            <div className="grid grid-cols-1 gap-4">
+            <div className="flex flex-col gap-4">
               <TransactionDetails
                 mainTitle="Transaction Details"
                 logo={TransactionSvg}

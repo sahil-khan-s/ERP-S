@@ -35,24 +35,45 @@ const contracts = [
     contact: "John Smith",
     date: "24 OCT '17",
   },
+  {
+    id: 3,
+    initials: "SC",
+    title: "Service Contract",
+    name: "Johny Jameson",
+    location: "London, UK",
+    number: "#1604160001",
+    contact: "John Smith",
+    date: "24 OCT '17",
+  },
+  {
+    id: 3,
+    initials: "SC",
+    title: "Service Contract",
+    name: "Johny Jameson",
+    location: "London, UK",
+    number: "#1604160001",
+    contact: "John Smith",
+    date: "24 OCT '17",
+  },
 ];
 
 const DashboardContractCard = () => {
   return (
-    <div className="border-[1px] border-black border-opacity-[0.28] rounded-xl py-4 pl-4 pr-2">
+    <div className="border rounded-xl py-4 pl-4 pr-2">
       <div className="flex justify-between items-center my-4">
-        <h3 className="font-normal text-2xl">Contracts</h3>
+        <h3 className="text-xl  md:text-xl font-semibold">Contracts</h3>
         <div className="flex items-center gap-2">
-          <button className="px-3 py-2 bg-white border-[1px] border-black border-opacity-[0.26] rounded-xl flex justify-center items-center">
+          <button className="px-3 py-2 bg-white border text-sm md:text-base h-10 md:h-auto rounded-xl flex justify-center items-center">
             <EditIcon className="text-[#686464] cursor-pointer mr-2" />
             Edit
           </button>
-          <button className="px-3 py-2 bg-white border-[1px] border-black border-opacity-[0.26] rounded-xl">
+          <button className="px-3 py-2 bg-white border text-sm md:text-base h-10 md:h-auto rounded-xl">
             View All
           </button>
         </div>
       </div>
 
+      <div className="flex flex-col gap-">
       {contracts.map((contract) => (
         <div key={contract.id} className="flex items-center">
           <div className="flex items-center my-2">
@@ -77,6 +98,7 @@ const DashboardContractCard = () => {
           </div>
         </div>
       ))}
+      </div>
     </div>
   );
 };

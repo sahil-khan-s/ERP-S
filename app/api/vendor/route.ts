@@ -5,9 +5,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
 	try {
-		const { imageUrl, vendorName, category, contractValue, email, date, type, address, note } = await request.json();
+		prisma.$connect()
+		const { selectedImage, vendorName, category, contractValue, email, date, type, address, note } = await request.json();
 		const newVendor = await prisma.vendor.create({
-			data: { imageUrl, name: vendorName, contractvalue: contractValue, vendorCategory: category, email, date, type, address, note },
+			data: { imageUrl: selectedImage, name: vendorName, contractvalue: contractValue, vendorCategory: category, email, date, type, address, note },
 		});
 
 		return NextResponse.json(
@@ -40,10 +41,8 @@ export const GET = async (): Promise<NextResponse> => {
 			},
 		});
 		if (!vendors) {
-
 			throw new Error("Failed to fetch vendor");
 		}
-
 		return NextResponse.json(
 			{
 				success: true,
@@ -54,7 +53,6 @@ export const GET = async (): Promise<NextResponse> => {
 		);
 	} catch (error) {
 		console.error(error);
-
 		return NextResponse.json(
 			{
 				success: false,
@@ -70,6 +68,7 @@ export const GET = async (): Promise<NextResponse> => {
 
 
 //         DELETE REQUEST
+
 export const DELETE = async (request: Request): Promise<NextResponse> => {
 	try {
 		const { id } = await request.json();
@@ -102,6 +101,7 @@ export const DELETE = async (request: Request): Promise<NextResponse> => {
 };
 
 //       PATCH REQUEST
+
 export const PATCH = async (request: NextRequest): Promise<NextResponse> => {
 	try {
 		const { id, name, vendorCategory, contractvalue, email, type, address, note } = await request.json();

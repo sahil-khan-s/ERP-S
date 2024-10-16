@@ -8,13 +8,13 @@ import { LuClipboardList } from "react-icons/lu";
 const riskInformation = [
   {
     no:"Risk 1",
-    image:"https://firebasestorage.googleapis.com/v0/b/epr-s-52978.appspot.com/o/images%2F5.jpg?alt=media&token=bf4d88a9-04ef-473d-b982-829e550cd357",
+    image:"https://i.pinimg.com/originals/a7/66/92/a766923c29305a16ce461b2ae54f4c68.jpg",
     riskOwner:"John Doe",
     description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
     level:"High"
   }, {
     no:"Risk 2",
-    image:"https://firebasestorage.googleapis.com/v0/b/epr-s-52978.appspot.com/o/images%2F7.jpg?alt=media&token=a5fdab38-b45e-438a-860d-2ca5500e9276",
+    image:"https://i.pinimg.com/736x/de/ec/4e/deec4e943cd5d56830d960909477c006.jpg",
     riskOwner:"John Doe",
     description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
     level:"High"
