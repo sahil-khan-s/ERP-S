@@ -5,6 +5,7 @@ import { store } from "@/store/store";
 import { Provider } from "react-redux";
 import "./globals.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import AuthProvider from "./context/auth-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <AuthProvider>
       <QueryClientProvider client={queryClient}>
       <body className={inter.className}>
         <div className="font-">
@@ -32,6 +34,7 @@ export default function RootLayout({
         </div>
       </body>
       </QueryClientProvider>
+      </AuthProvider>
     </html>
   );
 }

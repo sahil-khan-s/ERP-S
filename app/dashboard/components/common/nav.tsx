@@ -17,6 +17,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { storage } from '@/lib/firebaseConfig'
 import { CiCamera } from "react-icons/ci";
+import { signOut } from 'next-auth/react';
 
 
 interface User {
@@ -59,10 +60,10 @@ export default function Nav() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const handleSignOut = () => {
+    const handleSignOut =async () => {
         localStorage.removeItem('user');
-        // setUser(null);
-        router.push('/signin');
+        await signOut()
+        router.push('/login');
     };
 
     const [modalOpen, setModalOpen] = useState(false);
