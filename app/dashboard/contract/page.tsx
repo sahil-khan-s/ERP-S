@@ -13,9 +13,9 @@ import { toggleContractEditing } from "@/features/contracts.reducer";
 import { Contract as ContractInterface, Task as TaskInterface } from "@prisma/client";
 import { toggleTaskEditing } from "@/features/contract-tasks.reducer";
 import EditTaskPopup from "../components/contract/editTaskPopup";
-import { getTodayTasks } from "./layout";
 import Loader, { LoaderSize } from "../components/common/Loader";
 import DashboardContractCard from "../components/dashboard/DashboardContractCard";
+import { getTodayTasks } from "./helper";
 export default function Contract() {
   const [openTaskPopUp, setOpenTaskPopUp] = useState(false);
 

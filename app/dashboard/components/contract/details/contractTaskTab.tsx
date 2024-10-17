@@ -3,10 +3,10 @@ import { Contract as ContractInterface } from "@prisma/client"
 import { dateOnly } from '../contractcard'
 import { store } from '@/store/store'
 import { setContractToEdit, toggleContractEditing } from '@/features/contracts.reducer'
-import { getAllContracts } from '@/app/dashboard/contract/layout'
 import Image from 'next/image'
 import editIcon from "@/public/edit.png";
 import deleteIcon from "@/public/delete.png";
+import { getAllContracts } from '@/app/dashboard/contract/helper'
 const ContractTaskTab = ({ contract, setShowDetails }: { contract: ContractInterface, setShowDetails: React.Dispatch<React.SetStateAction<ContractInterface | undefined>> }) => {
     function editContract() {
         store.dispatch(toggleContractEditing())

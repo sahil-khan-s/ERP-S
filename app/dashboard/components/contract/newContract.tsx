@@ -12,8 +12,8 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { getAllContracts } from '../../contract/layout';
 import Loader from '../common/Loader';
+import { getAllContracts } from '../../contract/helper';
 
 interface ContractData {
     title: string

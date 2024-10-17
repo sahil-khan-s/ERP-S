@@ -23,8 +23,8 @@ interface ContractData {
 }
 
 import { unixTimestamp } from './newContract';
-import { getAllContracts } from '../../contract/layout';
 import Loader, { LoaderSize } from '../common/Loader';
+import { getAllContracts } from '../../contract/helper';
 
 const EditContract = ({ cancelEdit, contract }: { cancelEdit: any, contract: Contract }) => {
     const [loading, setLoading] = useState(false);
