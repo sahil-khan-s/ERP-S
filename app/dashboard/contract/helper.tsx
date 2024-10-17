@@ -1,7 +1,7 @@
 import { Store, store } from "@/store/store";
 import { addTasks } from "@/features/contract-tasks.reducer";
 import { addContracts } from "@/features/contracts.reducer";
-
+ 
 export const getTodayTasks = async (): Promise<void> => {
     try {
       const res = await fetch("/api/contracts-section/tasks-route/today-tasks");
