@@ -107,7 +107,7 @@ const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: (open: bo
                         <div className='flex flex-col md:flex-row gap-x-3 justify-between items-center'>
                     <div className='w-80'>
                     <h2 className='font-lexend mb-1 font-semibold text-[#16151C]'>Title</h2>
-                            <div className="flex justify-between gap-x-3 min-w-auto  mt-4 items-center p-4 border-gray-400 h-14 rounded-2xl border-[0.48px]">
+                            <div className="flex justify-between gap-x-3 min-w-auto  md:mt-4 items-center p-4 border-gray-400 h-14 rounded-2xl border-[0.48px]">
 
                                 <input
                                     {...register("title", { required: "Contract title is required" })}
@@ -142,7 +142,7 @@ const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: (open: bo
                         </div>
                         <div className='w-80'>
 
-                            <h2 className='font-lexend mt-8 mb-3 font-semibold text-[#16151C]'>Status</h2>
+                            <h2 className='font-lexend md:mt-8 mb-3 font-semibold text-[#16151C]'>Status</h2>
                             <ul className='flex justify-start w-full flex-wrap gap-3 items-center'>
                                 {['active', 'renewal', 'modified', 'viewed', 'signed', 'notSigned'].map((status) => (
                                     <li key={status} className='flex items-center gap-x-2'>
@@ -216,7 +216,7 @@ const NewContract = ({ setOpenContractPopUp }: { setOpenContractPopUp: (open: bo
                             {errors.content && <p className="text-red-500 text-sm mt-1">{errors.content.message}</p>}
                         </div>
                     </div>
-                    <div className='mx-auto flex items-center gap-x-2 my-6 justify-center'>
+                    <div className='mx-auto flex items-center gap-x-2 mt-3 md:my-6 justify-center'>
                         <button
                             type="button"
                             onClick={() => setOpenContractPopUp(false)}
