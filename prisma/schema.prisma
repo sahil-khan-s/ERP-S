@@ -1,0 +1,129 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model User {
+  id       String @id @default(uuid())
+  email    String @unique
+  password String
+  name     String
+}
+
+// contract(id, title, location, from, to, dateFrom, dateTo, content, status)  schema.
+
+model Contract {
+  id       String         @id @default(uuid())
+  title    String
+  location String
+  from     String
+  to       String
+  dateFrom DateTime
+  dateTo   DateTime
+  content  String
+  status   ContractStatus @default(active)
+}
+
+enum ContractStatus {
+  active
+  renewal
+  modified
+  viewed
+  signed
+  notSigned
+}
+
+// task(title , status, time)  schema
+model Task {
+  id     Int        @id @default(autoincrement())
+  title  String
+  time   DateTime
+  status TaskStatus @default(complete)
+}
+
+enum TaskStatus {
+  complete
+  incomplete
+}
+
+// Vendors schema
+model Vendor {
+  id             Int      @id @default(autoincrement())
+  imageUrl       String
+  name           String
+  contractvalue  String
+  vendorCategory String
+  email          String
+  date           DateTime
+  type           String
+  address        String
+  note           String
+
+  // below field are for performance and evaluation screen.
+  feedbacks   Feedback[]
+  Performance Performance?
+}
+
+// transaction management screen schema
+
+model TransactionDetails {
+  id              String   @id @default(uuid())
+  image           String?
+  title           String
+  amount          Float
+  transactionDate DateTime @default(now())
+}
+
+model TransactionList {
+  id            String        @id @default(uuid())
+  name          String
+  shopName      String
+  paymentMethod PaymentMethod
+  approved      Status
+  amount        Int
+  createdAt     DateTime      @default(now())
+}
+
+enum Status {
+  Accepted
+  Declined
+}
+
+enum PaymentMethod {
+  Cash
+  Invoice
+  CreditCard
+}
+
+// performance And evaluation.
+
+model Feedback {
+  id       Int    @id @default(autoincrement())
+  content  String
+  comment  String
+  venodrId Int
+  vendor   Vendor @relation(fields: [venodrId], references: [id])
+}
+
+model Performance {
+  id              Int    @id @default(autoincrement())
+  evaluationScore Float
+  rating          Json
+  vendorId        Int    @unique
+  vendor          Vendor @relation(fields: [vendorId], references: [id])
+}
+
+// Compliance issue schema
+model complianceIssues {
+  id           Int      @id @default(autoincrement())
+  description  String
+  assignTo     String
+  title        String
+  type         String
+  status       String
+}
