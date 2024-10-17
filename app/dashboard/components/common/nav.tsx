@@ -17,7 +17,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { storage } from '@/lib/firebaseConfig'
 import { CiCamera } from "react-icons/ci";
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
+
 
 
 interface User {
@@ -30,6 +31,9 @@ interface User {
 
 
 export default function Nav() {
+
+     const {data:session}=useSession();
+    const [sessionData, setSessionData] = useState<object | null>({})
     const [user,setUser] = useState();
     const [isOpenNotification, setIsOpenNotification] = useState(false);
     const [open, setOpen] = useState(false);
@@ -209,14 +213,16 @@ export default function Nav() {
         //     channel.unbind('new-job'); // Unbind specific event
         //     pusher.unsubscribe(process.env.NEXT_PUBLIC_PUSHER_CHANNEL!);
         // };
+       
    // 
+   setSessionData(session)
   }, []); // Empty dependency array ensures this runs once
 
     return (
 
         <div className="flex justify-between items-center max-h-screen pt-5">
             <div className="">
-                <h1 className="text-lg  whitespace-nowrap">Welcome back , <span className="text-sm md:text-md lg:text-lg whitespace-nowrap font-semibold">admin</span></h1>
+                <h1 className="text-lg  whitespace-nowrap">Welcome back , <span className="text-sm md:text-md lg:text-lg whitespace-nowrap font-semibold">{session?.user?.name}</span></h1>
             </div>
 
             <div className="flex items-center gap-2 md:gap-5">
@@ -259,7 +265,7 @@ export default function Nav() {
                             <div className=" flex items-center">
                                 <div className="hidden md:block">
                                     {/* <h1 className="font-semibold">{user?.name}</h1> */}
-                                    <h1 className="font-semibold">admin@admin.com</h1>
+                                    <h1 className="font-semibold">{session?.user?.email}</h1>
                                 </div>
                                 <div className="">
                                     
@@ -377,7 +383,6 @@ export default function Nav() {
                                                     </ListItemButton>
                                                 </div>
                                             </Link>
-
                                         </List>
                                     </Box>
                                 </Modal>

@@ -65,7 +65,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <div className='bg-white p-5 min-h-screen'>
+    <div className='bg-white p-3 md:p-5 min-h-screen'>
       <Nav />
 
       {
@@ -81,7 +81,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
 
         <div className="flex gap-x-5 justify-between">
           {/* input filed */}
-          <div className="flex justify-start gap-x-3 md:gap-x-0 md:justify-between w-[250px] md:w-[359px] items-center  p-2 md:p-4 border-gray-500 h-10 md:h-14 rounded-2xl border-[0.48px]">
+          <div className="flex justify-start gap-x-3 md:gap-x-0 md:justify-between w-[220px] md:w-[359px] items-center  p-2 md:p-4 border-gray-500 h-10 md:h-14 rounded-2xl border-[0.48px]">
             <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clipPath="url(#clip0_1_471)">
                 <path d="M12.0181 11.2302L14.8752 14.0874" stroke="black" strokeOpacity="0.6" strokeWidth="1.42857" strokeLinecap="round" strokeLinejoin="round" />
@@ -102,7 +102,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
             </div>
           </div>
 
-          <button className="flex justify-between gap-x-2 items-center p-2 md:p-4 border-gray-500  h-10 md:h-14 rounded-2xl border-[0.48px]">
+          {/* <button className="flex justify-between gap-x-2 items-center p-2 md:p-4 border-gray-500  h-10 md:h-14 rounded-2xl border-[0.48px]">
             <p className="text-black font-outfit hidden md:block font-light text-sx md:text-sm capitalize">filter</p>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M2.6687 2.02393H14.0973" stroke="black" strokeOpacity="0.6" strokeWidth="1.42857" strokeLinecap="round" strokeLinejoin="round" />
@@ -111,7 +111,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
               <path d="M5.84326 13.4524H10.9226" stroke="black" strokeOpacity="0.6" strokeWidth="1.42857" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
 
-          </button>
+          </button> */}
         </div>
 
 

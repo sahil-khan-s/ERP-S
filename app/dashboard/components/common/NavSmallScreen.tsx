@@ -18,6 +18,7 @@ import { HiOutlineSquares2X2, HiOutlineUserGroup, HiOutlineUserCircle } from "re
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import CloseIcon from '@mui/icons-material/Close';
 import AddCardIcon from '@mui/icons-material/AddCard';
+import { useSession } from 'next-auth/react';
 // import Context from "context/context";
 // import { HiOutlineHome } from "react-icons/hi";
 // import { HiUsers } from "react-icons/hi2";
@@ -149,6 +150,8 @@ export default function NavSmallScreen() {
     //     }
     // }
 
+    const {data:session}=useSession();
+
     
     return (
         <>
@@ -222,8 +225,7 @@ export default function NavSmallScreen() {
 
                                         {/*-------------- add dynamic username and picture -------- */}
                                             <HiOutlineUserCircle className=" w-16 h-16 rounded-full" />
-                                        
-                                        <p className="mt-3 text-sm font-semibold">Admin</p>
+                                        <p className="mt-3 text-sm font-semibold">{session?.user?.name}</p>
                                     </div>
 
                                     {/* Close Button */}

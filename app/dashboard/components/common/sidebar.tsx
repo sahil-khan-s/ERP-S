@@ -26,6 +26,7 @@ import { FaRegChartBar } from "react-icons/fa";
 import { FaListUl } from "react-icons/fa6";
 import { MdManageSearch } from "react-icons/md";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
+import { signOut } from "next-auth/react";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
@@ -43,6 +44,12 @@ const Sidebar = () => {
     setIsSmallScreen(matches);
     setOpen(!matches);
   }, [matches]);
+
+  const handleSignOut =async () => {
+    localStorage.removeItem('user');
+    await signOut()
+    router.push('/login');
+};
 
   return (
     <>
@@ -376,7 +383,7 @@ const Sidebar = () => {
               </div>
             )}
           </div>
-          <div className="absolute bottom-7  ">
+          <div onClick={()=>{handleSignOut}} className="absolute bottom-7  ">
             {open ? (
               <>
                 <div className="cursor-pointer px-10 gap-4 flex items-center ">
