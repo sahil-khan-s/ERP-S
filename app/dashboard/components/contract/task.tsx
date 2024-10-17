@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { getTodayTasks } from '../../contract/layout'
 import { store, Store } from '@/store/store'
 import { deleteTask, resetTasks, setTaskToEdit, updateStatus } from '@/features/contract-tasks.reducer'
 import { useSelector } from 'react-redux'
@@ -10,6 +9,7 @@ import editIcon from "@/public/edit.png";
 
 import { Task as TaskInterface } from '@prisma/client'
 import Image from 'next/image'
+import { getTodayTasks } from '../../contract/helper';
 
 
 // function which return a time only in a formate of "HH:MM AM" from a ISOstring date. 
