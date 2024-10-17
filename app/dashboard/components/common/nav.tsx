@@ -32,9 +32,9 @@ interface User {
 
 export default function Nav() {
 
-     const {data:session}=useSession();
+    const { data: session } = useSession();
     const [sessionData, setSessionData] = useState<object | null>({})
-    const [user,setUser] = useState();
+    const [user, setUser] = useState();
     const [isOpenNotification, setIsOpenNotification] = useState(false);
     const [open, setOpen] = useState(false);
     const router = useRouter();
@@ -64,7 +64,7 @@ export default function Nav() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const handleSignOut =async () => {
+    const handleSignOut = async () => {
         localStorage.removeItem('user');
         await signOut()
         router.push('/login');
@@ -201,22 +201,22 @@ export default function Nav() {
         // const channel = pusher.subscribe(process.env.NEXT_PUBLIC_PUSHER_CHANNEL!);
 
         // channel.bind('new-job', (data: any) => {
-            // setNotifications((prev) => [...prev, data.message]);
-            // // Only open the drawer if it is not already open
-            // if (!notificationDrawerOpen) {
-            //     setNotificationDrawerOpen(true);
-            // }
-       // });
+        // setNotifications((prev) => [...prev, data.message]);
+        // // Only open the drawer if it is not already open
+        // if (!notificationDrawerOpen) {
+        //     setNotificationDrawerOpen(true);
+        // }
+        // });
 
         // Cleanup: Unsubscribe when component unmounts
         // return () => {
         //     channel.unbind('new-job'); // Unbind specific event
         //     pusher.unsubscribe(process.env.NEXT_PUBLIC_PUSHER_CHANNEL!);
         // };
-       
-   // 
-   setSessionData(session)
-  }, []); // Empty dependency array ensures this runs once
+
+        // 
+        setSessionData(session)
+    }, []); // Empty dependency array ensures this runs once
 
     return (
 
@@ -268,12 +268,12 @@ export default function Nav() {
                                     <h1 className="font-semibold">{session?.user?.email}</h1>
                                 </div>
                                 <div className="">
-                                    
-                                        <AccountCircleSharpIcon
-                                            style={{ fontSize: "50px" }}
-                                            className="text-[40px] "
-                                        />
-                                    
+
+                                    <AccountCircleSharpIcon
+                                        style={{ fontSize: "50px" }}
+                                        className="text-[40px] "
+                                    />
+
                                 </div>
                                 <div className="flex items-center md:flex">
                                     <ExpandMoreIcon
@@ -400,14 +400,14 @@ export default function Nav() {
                                     </div>
                                     <div className="flex items-center gap-4 mb-4">
                                         <div>
-                                        {profilePicture ? (
-                                                    <Image src={profilePicture} alt="Profile Picsmture" width={60} height={60} className="rounded-full" />
-                                                ) : (
-                                                    <label htmlFor='image'><div className='h-[60px] w-[60px] bg-slate-50 border rounded flex justify-center items-center'><CiCamera /></div></label>
-                                                )}
+                                            {profilePicture ? (
+                                                <Image src={profilePicture} alt="Profile Picsmture" width={60} height={60} className="rounded-full" />
+                                            ) : (
+                                                <label htmlFor='image'><div className='h-[60px] w-[60px] bg-slate-50 border rounded flex justify-center items-center'><CiCamera /></div></label>
+                                            )}
                                         </div>
                                         <div>
-                                            <input type="file" name='image' id='image' accept="image/*" onChange={handleFileChange} className='hidden'/>
+                                            <input type="file" name='image' id='image' accept="image/*" onChange={handleFileChange} className='hidden' />
                                             {profilePicture && (
                                                 <button onClick={removeProfilePicture} className="text-red-600 mt-2">
                                                     Remove
@@ -504,17 +504,17 @@ export default function Nav() {
                                                     className="shadow-sm border ring-1  rounded-md w-full sm:text-sm p-3 "
                                                     value={formData.password}
                                                     onChange={handleChange}
-                                                />:
-                                                <input
-                                                type="password"
-                                                id="password"
-                                                name="password"
-                                                placeholder="******"
-                                                className="shadow-sm border rounded-md w-full sm:text-sm p-3 outline-none caret-transparent"
-                                                value={formData.password}
-                                                // onChange={handleChange}
-                                            />}
-                                                <label htmlFor='password' onClick={()=>{setEditPasswordActive(true)}}>
+                                                /> :
+                                                    <input
+                                                        type="password"
+                                                        id="password"
+                                                        name="password"
+                                                        placeholder="******"
+                                                        className="shadow-sm border rounded-md w-full sm:text-sm p-3 outline-none caret-transparent"
+                                                        value={formData.password}
+                                                    // onChange={handleChange}
+                                                    />}
+                                                <label htmlFor='password' onClick={() => { setEditPasswordActive(true) }}>
                                                     <BorderColorIcon className='text-gray-500 cursor-pointer' />
                                                 </label>
                                             </div>
