@@ -42,11 +42,11 @@ export default function Nav() {
     const [editNameActive, setEditNameActive] = useState<boolean>(false)
     const [editEmailActive, setEditEmailActive] = useState<boolean>(false)
     const [editPasswordActive, setEditPasswordActive] = useState<boolean>(false)
-    useEffect(() => {
-        fetchData()
-        // fetchUnreadNotifications();
+    // useEffect(() => {
+    // fetchData()
+    // fetchUnreadNotifications();
 
-    }, []);
+    // }, []);
 
     const fetchData = () => {
         // if (!user) {
@@ -115,8 +115,8 @@ export default function Nav() {
     // };
 
     //////--------------Edit profile ------------------///
-    const [formData, setFormData] = useState({ name: '', email: '', password: '' });
-    const [profilePicture, setProfilePicture] = useState<string | null>(null);
+    const [formData, setFormData] = useState({ name: session?.user?.name || "", email: session?.user?.email || "", password: "" });
+    const [profilePicture, setProfilePicture] = useState<string | null>(session?.user?.image || null);
     const [image, setImage] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -519,19 +519,20 @@ export default function Nav() {
                                                 </label>
                                             </div>
                                         </div>
-                                        <div className="flex gap-1">
-                                            <button
-                                                type="submit"
-                                                className="w-[140px] hover:shadow border font-medium flex items-center justify-center h-[37px] rounded-[11px] bg-[#DDFF8F]"
-                                            >
-                                                Submit
-                                            </button>
+                                        <div className="flex gap-x-4 justify-center items-center">
+
                                             <button
                                                 type="button"
                                                 className="ml-4 border-red-500 text-red-500 hover:bg-red-500 hover:text-white w-[140px] border font-medium flex items-center justify-center h-[37px] rounded-[11px]"
                                                 onClick={() => { setDrawerOpen(false); emptyInputField(); }}
                                             >
                                                 Cancel
+                                            </button>
+                                            <button
+                                                type="submit"
+                                                className="w-[140px] hover:shadow border font-medium flex items-center justify-center h-[37px] rounded-[11px] bg-[#DDFF8F]"
+                                            >
+                                                Submit
                                             </button>
                                         </div>
                                     </form>

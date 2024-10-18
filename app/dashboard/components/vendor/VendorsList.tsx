@@ -11,22 +11,22 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+export interface Vendor {
+    id: number;
+    imageUrl: string;
+    name: string;
+    contractvalue: string;
+    vendorCategory: string;
+    email: string;
+    date: string;
+    type: string;
+    address: string;
+    note: string;
+};
+const VendorsList = ({ vendors, setVendors }: { vendors: Vendor[] | null, setVendors: React.Dispatch<React.SetStateAction<Vendor[] | null>> }) => {
 
-const VendorsList = () => {
-    interface Vendor {
-        id: number;
-        imageUrl: string;
-        name: string;
-        contractvalue: string;
-        vendorCategory: string;
-        email: string;
-        date: string;
-        type: string;
-        address: string;
-        note: string;
-    };
 
-    const [vendorsData, setVendorsData] = useState<Vendor[] | null>()
+    // const [vendorsData, setVendorsData] = useState<Vendor[] | null>()
     const [reload, setReload] = useState(false)
 
     //     EDIT VENDOR useStates
@@ -92,11 +92,11 @@ const VendorsList = () => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ id:id }),
+                body: JSON.stringify({ id: id }),
             });
             const data = await response.json();
             if (data.success) {
-                setVendorsData(null)
+                setVendors(null)
                 fetchVendors()
                 setDeleteLoading(false)
             }
@@ -110,7 +110,7 @@ const VendorsList = () => {
     const fetchVendors = async (): Promise<Vendor[]> => {
         try {
             const response = await axios.get('/api/vendor');
-            setVendorsData(response.data.vendors)
+            setVendors(response.data.vendors)
             return response.data.vendors; // Assuming 'vendors' is the key in the response
         } catch (error) {
             throw new Error('Error fetching vendors'); // Throw error to be handled by React Query
@@ -131,7 +131,7 @@ const VendorsList = () => {
 
     return (
         <div className="overflow-x-auto">
-            {vendorsData ?
+            {vendors ?
                 <table className="rounded mt-3 md:mt-0 w-full table-auto">
                     <thead className="  bg-[#F5F5F5]">
                         <tr >
@@ -143,12 +143,12 @@ const VendorsList = () => {
                             <th className="py-3 px-0.5 md:px-4 md:py-5 text-center md:text-left text-sm md:text-base font-medium">Category</th>
                             <th className="py-3 px-0.5 md:px-4 md:py-5 text-center md:text-left text-sm md:text-base font-medium">Type</th>
                             <th className="py-3 px-0.5 md:px-4 md:py-5 text-center md:text-left text-sm md:text-base font-medium">Status</th>
-                            <th onClick={()=>console.log(vendorsData)} className="py-3 px-0.5 md:px-4 md:py-5 text-center md:text-left text-sm md:text-base font-medium">Action</th>
+                            <th onClick={() => console.log(vendors)} className="py-3 px-0.5 md:px-4 md:py-5 text-center md:text-left text-sm md:text-base font-medium">Action</th>
                         </tr>
                     </thead>
                     <tbody className=' border-b border-slate-100'>
                         {/* vendorsData?.length !== 0 ?  */}
-                        {vendorsData?.map((item, index) => (
+                        {vendors?.map((item, index) => (
                             <tr key={index} className='my-1'>
                                 <td className="py-2 px-1 w-max text-sm md:text-base md:p-4 text-nowrap flex flex-row items-center gap-2"><Image src={item.imageUrl} width={45} height={45} alt='' className="object-cover rounded-full h-9 w-9 md:h-10 md:w-10 md:mx-2" /><p>{item.name}</p></td>
                                 <td className="py-2 px-1 text-sm md:text-base md:p-4 text-nowrap">{item.id}</td>
@@ -250,7 +250,9 @@ const VendorsList = () => {
                                                 </AlertDialogDescription>
                                             </AlertDialogHeader>
                                             <AlertDialogFooter>
-                                                <AlertDialogAction className='text-gray-900 font-semibold py-2 rounded-lg focus:outline-none focus:border border-slate-300-outline'>Cancel</AlertDialogAction>
+                                                <AlertDialogAction className='bg-white text-black hover:bg-white border-2'>
+                                                    <button>Cancel</button>
+                                                </AlertDialogAction>
                                                 <AlertDialogAction onClick={() => { editData(item.id) }} className=" bg-[#DDFF8F] hover:bg-[#C8F064] text-gray-900 font-semibold py-2 rounded-lg focus:outline-none focus:border border-slate-300-outline">Save</AlertDialogAction>
                                             </AlertDialogFooter>
                                         </AlertDialogContent>
