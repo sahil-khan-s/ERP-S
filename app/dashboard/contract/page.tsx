@@ -122,7 +122,7 @@ export default function Contract() {
   return (
     <main className="max-h-screen w-screen md:w-full bg-white mt-10">
       {/* Stats Cards */}
-      <div className="min-h-[154px] w-full gap-y-4 gap-x-2 mt-10 flex flex-wrap justify-between md:justify-start lg:justify-between items-center">
+      <div className="min-h-[154px] w-full gap-y-2 md:gap-y-4 gap-x-0 md:gap-x-2 mt-10 flex flex-wrap justify-between md:justify-start lg:justify-between items-center">
         {stats.map((state, index) => (
           <StatsCard key={index} data={state} />
         ))}
