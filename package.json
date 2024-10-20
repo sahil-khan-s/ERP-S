@@ -2,7 +2,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"build": "next build",
+		"build": "npm install --legacy-peer-deps && npm run build",
 		"start": "NODE_ENV=production node server.js",
 		"ins": "npm install -f",
 		"seed": "node --loader ts-node/esm prisma/seed.js"
