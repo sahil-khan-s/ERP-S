@@ -26,6 +26,7 @@ import { FaRegChartBar } from "react-icons/fa";
 import { FaListUl } from "react-icons/fa6";
 import { MdManageSearch } from "react-icons/md";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
+import { signOut } from "next-auth/react";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
@@ -43,6 +44,12 @@ const Sidebar = () => {
     setIsSmallScreen(matches);
     setOpen(!matches);
   }, [matches]);
+
+  const handleSignOut =async () => {
+    localStorage.removeItem('user');
+    await signOut()
+    router.push('/login');
+};
 
   return (
     <>
@@ -66,7 +73,7 @@ const Sidebar = () => {
           }}
         >
           <div className="px-1 h-screen bg-black">
-            <div className="flex  px-1 items-center justify-evenly   mt-5 ">
+            <div className="flex  px-1 items-center justify-evenly gap-7  mt-5 ">
               {isSmallScreen ? (
                 <div
                   onClick={() => router.push("/")}
@@ -272,7 +279,6 @@ const Sidebar = () => {
                   <div className="mt-2 hover:bg-[#DDFF8F] group rounded-xl h-[35px] py-1.5 flex justify-center pr-1 items-center">
                     <BsGraphUpArrow className="group-hover:text-black text-xl" />
                   </div>
-                  
                 )}
               </div>
             </Link>
@@ -377,7 +383,7 @@ const Sidebar = () => {
               </div>
             )}
           </div>
-          <div className="absolute bottom-7  ">
+          <div onClick={()=>{handleSignOut}} className="absolute bottom-7  ">
             {open ? (
               <>
                 <div className="cursor-pointer px-10 gap-4 flex items-center ">

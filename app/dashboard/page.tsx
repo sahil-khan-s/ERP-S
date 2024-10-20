@@ -1,11 +1,23 @@
+'use client'
 import Nav from "./components/common/nav";
 import DashboardLineChart from "./components/dashboard/DashboardLineChart";
 import DashboardTransactionCard from "./components/dashboard/DashboardTransactionCard";
 import DashboardContractCard from "./components/dashboard/DashboardContractCard";
 import ComplianceChart from "./components/complaince&risk/Chart";
 import RiskSummary from "./components/complaince&risk/RiskSummary";
+import { useSession } from "next-auth/react";
+import { } from "lucide-react"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import Link from "next/link";
 
-export default async function Home() {
+export default function Home() {
+
+  const { data: session } = useSession()
+  console.log(session)
   return (
     <>
       <section className="bg-white px-4 py-1">
@@ -20,7 +32,19 @@ export default async function Home() {
             <div className="box md:my-4 flex w-full justify-between">
               <div className="flex flex-row gap-2 justify-between items-center w-full">
                 <h3 className="text-xl  md:text-xl font-semibold">Status</h3>
-                <button className="text-gray-600 cursor-pointer">•••</button>
+
+                <Popover>
+                  <PopoverTrigger>
+                    <button className="text-gray-600 cursor-pointer">•••</button>
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <div className="flex justify-start items-center gap-x-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-up-right"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
+                      <Link href={"/dashboard/contract"}>See Details</Link>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+
               </div>
             </div>
             <div className="flex gap-2 items-center py-2 md:m\py-0">
@@ -36,7 +60,18 @@ export default async function Home() {
           <div className="border rounded-xl p-3 md:p-4">
             <div className="box my-3 md:my-4 flex w-full justify-between">
               <h3 className="text-xl  md:text-xl font-semibold">Total Sum Calculation</h3>
-              <button className="text-gray-600 cursor-pointer">•••</button>
+              {/* <button className="text-gray-600 cursor-pointer">•••</button> */}
+              <Popover>
+                <PopoverTrigger>
+                  <button className="text-gray-600 cursor-pointer">•••</button>
+                </PopoverTrigger>
+                <PopoverContent>
+                  <div className="flex items-center justify-start gap-x-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-up-right"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
+                    <Link href={"/dashboard/contract"}>See Details</Link>
+                  </div>
+                </PopoverContent>
+              </Popover>
             </div>
             <div className="flex justify-center md:my-10 items-center">
               <ComplianceChart count={121} />

@@ -13,9 +13,9 @@ import { toggleContractEditing } from "@/features/contracts.reducer";
 import { Contract as ContractInterface, Task as TaskInterface } from "@prisma/client";
 import { toggleTaskEditing } from "@/features/contract-tasks.reducer";
 import EditTaskPopup from "../components/contract/editTaskPopup";
-import { getTodayTasks } from "./services";
 import Loader, { LoaderSize } from "../components/common/Loader";
 import DashboardContractCard from "../components/dashboard/DashboardContractCard";
+import { getTodayTasks } from "./helper";
 export default function Contract() {
   const [openTaskPopUp, setOpenTaskPopUp] = useState(false);
 
@@ -122,7 +122,7 @@ export default function Contract() {
   return (
     <main className="max-h-screen w-screen md:w-full bg-white mt-10">
       {/* Stats Cards */}
-      <div className="min-h-[154px] w-full gap-y-4 gap-x-2 mt-10 flex flex-wrap justify-between md:justify-start lg:justify-between items-center">
+      <div className="min-h-[154px] w-full gap-y-2 md:gap-y-4 gap-x-0 md:gap-x-2 mt-10 flex flex-wrap justify-between md:justify-start lg:justify-between items-center">
         {stats.map((state, index) => (
           <StatsCard key={index} data={state} />
         ))}

@@ -11,17 +11,6 @@ const nextConfig = {
       },
     ],
   },
-  webpack: (config) => {
-    // Fix for regenerator runtime in Edge Runtime
-    config.module.rules.push({
-      test: /\.js$/,
-      issuer: /\.[jt]sx?$/,
-      use: ["babel-loader"],
-      type: "javascript/auto",
-    });
-
-    return config;
-  },
 };
 
 export default withSvgr(nextConfig);

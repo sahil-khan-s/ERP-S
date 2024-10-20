@@ -157,7 +157,7 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
                                     <Popover>
                                         <PopoverTrigger >
                                             <button className='text-slate-600 hover:text-black flex items-center my-5'><RiEyeLine className='text-sm lg:text-xl' /></button>                                        </PopoverTrigger>
-                                        <PopoverContent className='w-52 md:w-96 bg-[#f8f8f8] relative right-16 top-[-45] md:top-auto md:right-[30%] w-max-42'>
+                                        <PopoverContent className='w-60 md:w-[420px] bg-[#f8f8f8] relative right-[25%] top-[40%] md:right-[55%] md:top-[30%] w-max-42'>
                                             <div className='font-bold items-center mb-3 lg:mb-4 text-center  md:text-base'>Compliance Detail</div>
                                             <div className='flex flex-col gap-3 md:gap-4'>
                                                 <div className='inline-flex border-b border-slate-200 items-center'>
