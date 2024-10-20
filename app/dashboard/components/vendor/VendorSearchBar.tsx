@@ -1,4 +1,7 @@
+"use client"
+
 import React from 'react'
+
 //ICONS
 import { CiSearch } from "react-icons/ci";
 import { GoFilter } from "react-icons/go";

@@ -1,4 +1,7 @@
-import React from 'react';
+"use client"
+
+import React from 'react'
+;
 import Nav from '../../components/common/nav';
 import RiskTabs from '../../components/complaince&risk/RiskTabs';
 import ComplianceChart from '../../components/complaince&risk/Chart';

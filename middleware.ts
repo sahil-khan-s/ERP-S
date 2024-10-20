@@ -1,21 +1,20 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { auth } from "./auth";
-
-export async function middleware(request: NextRequest) {
-	const session = await auth();
-	const path = request.nextUrl.pathname;
-	const isPublicRoute =
-		path === "/" || path === "/login" || path === "/register";
-	if (!session && !isPublicRoute) {
-		return NextResponse.redirect(new URL("/login", request.url));
-	}
-	if (session && isPublicRoute) {
-		return NextResponse.redirect(new URL("/dashboard", request.url));
-	}
-	return NextResponse.next();
-}
+import { getToken } from 'next-auth/jwt';
 
 export const config = {
-	matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+	matcher: ['/', '/blocks/:path*', '/documentation/:path*', '/pages/:path*', '/uikit/:path*', '/utilities/:path*'], // Adjust matcher based on your routes
 };
+
+export async function middleware(req: NextRequest) {
+	const signInPage = '/login';
+	const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+	console.log(session); // For debugging, remove or comment out for production
+
+	if (session) {
+		return NextResponse.next(); // Allow access if user is logged in
+	}
+
+	const signInUrl = new URL(signInPage, req.nextUrl.origin);
+	return NextResponse.redirect(signInUrl);
+}

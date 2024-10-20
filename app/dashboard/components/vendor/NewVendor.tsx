@@ -1,4 +1,7 @@
-import React from 'react';
+"use client"
+
+import React from 'react'
+;
 import VendorChartDetail from './VendorChartDetail';
 import { TiLocationOutline, TiBriefcase } from "react-icons/ti";
 

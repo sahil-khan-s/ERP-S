@@ -1,4 +1,7 @@
+"use client"
+
 import React from 'react'
+
 import active from "@/public/icons/activeContracts.svg";
 import modified from "@/public/icons/modifiedContracts.svg";
 import viewed from "@/public/icons/viewedContracts.svg";

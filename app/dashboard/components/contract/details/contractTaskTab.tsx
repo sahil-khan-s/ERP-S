@@ -1,4 +1,7 @@
+"use client"
+
 import React from 'react'
+
 import { Contract as ContractInterface } from "@prisma/client"
 import { dateOnly } from '../contractcard'
 import { store } from '@/store/store'

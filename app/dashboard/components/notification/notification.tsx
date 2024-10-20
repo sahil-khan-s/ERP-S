@@ -1,4 +1,7 @@
+"use client"
+
 import React from 'react'
+
 import { Notification as NotificationInterface } from '../../notification/page'
 
 const Notification = ({ notification }: { notification: NotificationInterface }) => {

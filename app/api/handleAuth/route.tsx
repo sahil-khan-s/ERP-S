@@ -1,7 +1,9 @@
-import { signIn } from "@/auth";
+import NextAuth  from "@/auth";
 import { NextResponse } from "next/server";
 
+const signIn = NextAuth;
 export const POST = async (req: any) => {
+
   const data = await req.json();
   console.log(data);
 

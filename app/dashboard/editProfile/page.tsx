@@ -1,4 +1,7 @@
-import React from 'react';
+"use client"
+
+import React from 'react'
+;
 import Nav from '../components/common/nav';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { HiOutlineTrash } from "react-icons/hi";

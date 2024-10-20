@@ -1,4 +1,7 @@
-import React from 'react';
+"use client"
+
+import React from 'react'
+;
 //COMPONENTS
 import RiskAssessment from '../components/complaince&risk/RiskAssessment';
 import ComplianceAlerts from '../components/complaince&risk/ComplianceAlerts';

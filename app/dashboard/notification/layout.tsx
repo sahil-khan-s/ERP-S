@@ -1,4 +1,7 @@
+"use client"
+
 import React from 'react'
+
 import Nav from '../components/common/nav'
 
 const layout = ({ children }: { children: React.ReactNode }) => {

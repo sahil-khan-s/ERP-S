@@ -1,4 +1,7 @@
+"use client"
+
 import React from 'react'
+
 import VendorPageChart from './NewVendorChart'
 
 const cont = 121 // ..........................
