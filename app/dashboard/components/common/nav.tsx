@@ -17,27 +17,41 @@ import CloseIcon from '@mui/icons-material/Close';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { storage } from '@/lib/firebaseConfig'
 import { CiCamera } from "react-icons/ci";
-import { signOut, useSession } from 'next-auth/react';
 
 
 
 interface User {
-    id: number;
     name: string;
     email: string;
-    profilePicture?: string;
+    image?: string; // Optional if not provided
 }
 
-
+interface SessionData {
+    user: User;
+}
 
 export default function Nav() {
 
-    const { data: session } = useSession();
-    const [sessionData, setSessionData] = useState<object | null>({})
+    const [sessionData, setSessionData] = useState<SessionData | null>(null);
+    const router = useRouter();
+
+    useEffect(() => {
+        const user = localStorage.getItem('user');
+
+        if (user) {
+            try {
+                // Ensure we're only parsing valid JSON
+                const parsedUser = JSON.parse(user);
+                setSessionData(parsedUser);
+            } catch (error) {
+                console.error("Error parsing user data from localStorage:", error);
+            }
+        }
+    }, []);
+
     const [user, setUser] = useState();
     const [isOpenNotification, setIsOpenNotification] = useState(false);
     const [open, setOpen] = useState(false);
-    const router = useRouter();
 
     const [editNameActive, setEditNameActive] = useState<boolean>(false)
     const [editEmailActive, setEditEmailActive] = useState<boolean>(false)
@@ -64,10 +78,10 @@ export default function Nav() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const handleSignOut = async () => {
+    const handleSignOut = () => {
+        // Remove user data from localStorage on logout
         localStorage.removeItem('user');
-        await signOut()
-        router.push('/login');
+        router.push('/login'); // Redirect to login page after logout
     };
 
     const [modalOpen, setModalOpen] = useState(false);
@@ -115,8 +129,8 @@ export default function Nav() {
     // };
 
     //////--------------Edit profile ------------------///
-    const [formData, setFormData] = useState({ name: session?.user?.name || "", email: session?.user?.email || "", password: "" });
-    const [profilePicture, setProfilePicture] = useState<string | null>(session?.user?.image || null);
+    const [formData, setFormData] = useState({ name: sessionData?.user?.name || "", email: sessionData?.user?.email || "", password: "" });
+    const [profilePicture, setProfilePicture] = useState<string | null>(sessionData?.user?.image || null);
     const [image, setImage] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -193,36 +207,12 @@ export default function Nav() {
     const [notificationDrawerOpen, setNotificationDrawerOpen] = useState(false);
     const [notifications, setNotifications] = useState<string[]>([]);
 
-    useEffect(() => {
-        // const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
-        //     cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
-        // });
-
-        // const channel = pusher.subscribe(process.env.NEXT_PUBLIC_PUSHER_CHANNEL!);
-
-        // channel.bind('new-job', (data: any) => {
-        // setNotifications((prev) => [...prev, data.message]);
-        // // Only open the drawer if it is not already open
-        // if (!notificationDrawerOpen) {
-        //     setNotificationDrawerOpen(true);
-        // }
-        // });
-
-        // Cleanup: Unsubscribe when component unmounts
-        // return () => {
-        //     channel.unbind('new-job'); // Unbind specific event
-        //     pusher.unsubscribe(process.env.NEXT_PUBLIC_PUSHER_CHANNEL!);
-        // };
-
-        // 
-        setSessionData(session)
-    }, []); // Empty dependency array ensures this runs once
-
+ 
     return (
 
         <div className="flex justify-between items-center max-h-screen pt-5">
             <div className="">
-                <h1 className="text-lg  whitespace-nowrap">Welcome back , <span className="text-sm md:text-md lg:text-lg whitespace-nowrap font-semibold">{session?.user?.name}</span></h1>
+                <h1 className="text-lg  whitespace-nowrap">Welcome back , <span className="text-sm md:text-md lg:text-lg whitespace-nowrap font-semibold">{sessionData?.user?.name}</span></h1>
             </div>
 
             <div className="flex items-center gap-2 md:gap-5">
@@ -265,7 +255,7 @@ export default function Nav() {
                             <div className=" flex items-center">
                                 <div className="hidden md:block">
                                     {/* <h1 className="font-semibold">{user?.name}</h1> */}
-                                    <h1 className="font-semibold">{session?.user?.email}</h1>
+                                    <h1 className="font-semibold">{sessionData?.user?.email}</h1>
                                 </div>
                                 <div className="">
 

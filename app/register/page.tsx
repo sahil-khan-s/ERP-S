@@ -24,14 +24,20 @@ export default function Register() {
     setError(null);
 
     try {
-      await axios.post("/api/handleAuth", data);
+      const response = await axios.post("/api/handleAuth", { action: 'register', ...data });
+
+      // Store user data in localStorage upon successful registration
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+
       router.push('/login');
     } catch (error: any) {
-      setError(error.message);
+      setError(error.response?.data?.message || "Registration failed");
     } finally {
       setLoading(false);
     }
   };
+
+
 
   return (
     <div className="min-h-screen flex">

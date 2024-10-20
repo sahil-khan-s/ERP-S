@@ -5,7 +5,6 @@ import DashboardTransactionCard from "./components/dashboard/DashboardTransactio
 import DashboardContractCard from "./components/dashboard/DashboardContractCard";
 import ComplianceChart from "./components/complaince&risk/Chart";
 import RiskSummary from "./components/complaince&risk/RiskSummary";
-import { useSession } from "next-auth/react";
 import { } from "lucide-react"
 import {
   Popover,
@@ -16,8 +15,7 @@ import Link from "next/link";
 
 export default function Home() {
 
-  const { data: session } = useSession()
-  console.log(session)
+  
   return (
     <>
       <section className="bg-white px-4 py-1">
