@@ -55,7 +55,7 @@
 		"next-iron-session": "^4.2.0",
 		"next-plugin-svgr": "^1.1.10",
 		"postgres": "^3.4.3",
-		"react": "^17.0.",
+		"react": "^17.0.2",
 		"react-bootstrap": "^2.10.2",
 		"react-calendar": "^5.0.0",
 		"react-chartjs-2": "4.0.0",
