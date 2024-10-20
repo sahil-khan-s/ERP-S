@@ -137,7 +137,7 @@ export default function Login() {
               </div>
             </div>
           ) : (
-            <div className="pt-10">
+            <div className="pt-7">
               <SubmitButton>Sign In</SubmitButton>
             </div>
           )}
