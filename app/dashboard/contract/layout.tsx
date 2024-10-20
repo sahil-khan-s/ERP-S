@@ -5,6 +5,7 @@ import Nav from "../components/common/nav";
 import NewContract from "../components/contract/newContract";
 import { Store, store } from "@/store/store";
 import { addTasks } from "@/features/contract-tasks.reducer";
+
 import { addContracts, toggleContractEditing } from "@/features/contracts.reducer";
 import { useSelector } from "react-redux";
 import EditContract from "../components/contract/editContract";
@@ -18,10 +19,18 @@ import { getAllContracts } from "./helper";
 
 // Layout Component
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+import { addContracts, toggleContractEditing } from '@/features/contracts.reducer';
+import { useSelector } from 'react-redux';
+import EditContract from '../components/contract/editContract';
+
+
+// Layout component
+const layout = ({ children }: { children: React.ReactNode }) => {
   const [openContractPopUp, setOpenContractPopUp] = useState(false);
   const { contractToEdit, isEditingEnabled } = useSelector((state: Store) => state.contracts);
 
   useEffect(() => {
+
     getAllContracts();
   }, []);
 
@@ -32,6 +41,13 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const removeEditingMode = (): void => {
     store.dispatch(toggleContractEditing());
   };
+
+    getAllContracts(); // Handle contract fetching outside layout
+  }, []);
+
+  const toggleContractPopUp = () => setOpenContractPopUp(false);
+  const removeEditingMode = () => store.dispatch(toggleContractEditing());
+
 
   return (
     <div className="bg-white p-3 md:p-5 min-h-screen">
@@ -107,4 +123,6 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   );
 };
 
+
 export default Layout;
+

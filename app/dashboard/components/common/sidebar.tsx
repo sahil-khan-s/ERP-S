@@ -73,7 +73,7 @@ const Sidebar = () => {
           }}
         >
           <div className="px-1 h-screen bg-black">
-            <div className="flex  px-1 items-center justify-evenly gap-7  mt-5 ">
+            <div className="flex  px-1 items-center justify-evenly   mt-5 ">
               {isSmallScreen ? (
                 <div
                   onClick={() => router.push("/")}
@@ -279,6 +279,7 @@ const Sidebar = () => {
                   <div className="mt-2 hover:bg-[#DDFF8F] group rounded-xl h-[35px] py-1.5 flex justify-center pr-1 items-center">
                     <BsGraphUpArrow className="group-hover:text-black text-xl" />
                   </div>
+                  
                 )}
               </div>
             </Link>

@@ -141,8 +141,14 @@ export default function Login() {
               <SubmitButton>Sign In</SubmitButton>
             </div>
           )}
-
+          <p className="text-center text-sm text-gray-600 pt-4">
+            Don't have an account?{' '}
+            <Link href="/register" className="font-bold text-gray-800">
+              Sign up
+            </Link>
+          </p>
           {error && <p className="text-red-500 text-center">{error}</p>}
+
         </form>
       </div>
     </div>

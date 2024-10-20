@@ -23,6 +23,7 @@ interface ContractData {
 }
 
 import { unixTimestamp } from './newContract';
+
 import Loader, { LoaderSize } from '../common/Loader';
 import { getAllContracts } from '../../contract/helper';
 
