@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { store, Store } from '@/store/store'
-import { deleteTask, resetTasks, setTaskToEdit, updateStatus } from '@/features/contract-tasks.reducer'
+import { deleteTask, setTaskToEdit, updateStatus } from '@/features/contract-tasks.reducer'
 import { useSelector } from 'react-redux'
 
 import deleteIcon from "@/public/delete.png";
@@ -26,7 +26,6 @@ export function timeOnly(time: Date) {
 
 const Task = ({ task }: { task: TaskInterface }) => {
     const isChecked = task.status === "complete";
-    const [loading, setLoading] = useState(false);
 
     const { allTasks, isEditingEnabled } = useSelector((state: Store) => { return state.tasks })
 
@@ -84,8 +83,6 @@ const Task = ({ task }: { task: TaskInterface }) => {
 
         store.dispatch(updateStatus({ index: allTasks?.indexOf(task), status: isChecked ? "incomplete" : "complete" }))
 
-        // setLoading(true);
-
         try {
             const response = await fetch("/api/contracts-section/tasks-route/toggle-status", {
                 method: "PATCH",
@@ -99,41 +96,35 @@ const Task = ({ task }: { task: TaskInterface }) => {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            // await getTodayTasks();
-            // setLoading(false);
         } catch (error) {
             console.error(error);
         }
     }
 
     return (
-        loading ? <div>
-            <h2>updating...</h2>
-        </div> :
-            <div>
-                <div className='flex justify-between items-center'>
-                    <div className='flex items-center gap-x-2'>
-                        <input onChange={(e) => toggleStatus()} checked={isChecked} className='size-4 text-black outline-none border-[0.48px] border-gray-500' type="checkbox" name="" id="" />
-                        <p className='font-outfit text-[15px] text-[#A2A1A8]'>{task.title}</p>
-                    </div>
-                    {
-                        !isEditingEnabled ?
-                            <p className='font-outfit text-[15px] text-[#A2A1A8]'>{timeOnly(task.time)}</p> :
-                            <div className='flex justify-end items-center'>
-                                <button className='px-2' onClick={setTaskForEdit} >
-                                    {/* <Image  className='size-4' src={editIcon} ></Image>
-                                     */}
-                                    <Image height={16} width={16} src={editIcon} alt='edit icon' />
-                                </button>
-                                <button className='px-2' onClick={deleteTheTask} >
-                                    <Image height={16} width={16} src={deleteIcon} alt='delete icon' />
-                                </button>
-                            </div>
-                    }
-                </div>
 
-                <hr className='h-[0.48px] bg-black/20 ml-8 mt-4' />
+        <div>
+            <div className='flex justify-between items-center'>
+                <div className='flex items-center gap-x-2'>
+                    <input onChange={(e) => toggleStatus()} checked={isChecked} className='size-4 text-black outline-none border-[0.48px] border-gray-500' type="checkbox" name="" id="" />
+                    <p className='font-outfit text-[15px] text-[#A2A1A8]'>{task.title}</p>
+                </div>
+                {
+                    !isEditingEnabled ?
+                        <p className='font-outfit text-[15px] text-[#A2A1A8]'>{timeOnly(task.time)}</p> :
+                        <div className='flex justify-end items-center'>
+                            <button className='px-2' onClick={setTaskForEdit} >
+                                <Image height={16} width={16} src={editIcon} alt='edit icon' />
+                            </button>
+                            <button className='px-2' onClick={deleteTheTask} >
+                                <Image height={16} width={16} src={deleteIcon} alt='delete icon' />
+                            </button>
+                        </div>
+                }
             </div>
+
+            <hr className='h-[0.48px] bg-black/20 ml-8 mt-4' />
+        </div>
     )
 }
 

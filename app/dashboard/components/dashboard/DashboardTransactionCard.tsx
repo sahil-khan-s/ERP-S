@@ -3,7 +3,6 @@
 import React from "react";
 import { PiArrowLineUpRightLight, PiArrowLineDownRightLight } from "react-icons/pi";
 
-import Image from "next/image";
 import Link from "next/link";
 
 const DashboardTransactionCard = () => {

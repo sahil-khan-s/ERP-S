@@ -5,10 +5,30 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
 	try {
-		prisma.$connect()
-		const { selectedImage, vendorName, category, contractValue, email, date, type, address, note } = await request.json();
+		prisma.$connect();
+		const {
+			selectedImage,
+			vendorName,
+			category,
+			contractValue,
+			email,
+			date,
+			type,
+			address,
+			note,
+		} = await request.json();
 		const newVendor = await prisma.vendor.create({
-			data: { imageUrl: selectedImage, name: vendorName, contractvalue: contractValue, vendorCategory: category, email, date, type, address, note },
+			data: {
+				imageUrl: selectedImage,
+				name: vendorName,
+				contractvalue: contractValue,
+				vendorCategory: category,
+				email,
+				date,
+				type,
+				address,
+				note,
+			},
 		});
 
 		return NextResponse.json(
@@ -37,7 +57,7 @@ export const GET = async (): Promise<NextResponse> => {
 	try {
 		const vendors = await prisma.vendor.findMany({
 			orderBy: {
-				id: 'desc',
+				id: "desc",
 			},
 		});
 		if (!vendors) {
@@ -65,18 +85,15 @@ export const GET = async (): Promise<NextResponse> => {
 	}
 };
 
-
-
 //         DELETE REQUEST
 
 export const DELETE = async (request: Request): Promise<NextResponse> => {
 	try {
 		const { id } = await request.json();
 		const vendor = await prisma.vendor.delete({
-			where: { id: id }
+			where: { id: id },
 		});
 		if (!vendor) {
-			console.log("......................")
 			throw new Error("Failed to delete vendor");
 		}
 		return NextResponse.json(
@@ -87,8 +104,6 @@ export const DELETE = async (request: Request): Promise<NextResponse> => {
 			{ status: 200 }
 		);
 	} catch (error) {
-		console.log(">>>>>>>>>>><<<<<<<<<")
-
 		return NextResponse.json(
 			{
 				success: false,
@@ -105,10 +120,27 @@ export const DELETE = async (request: Request): Promise<NextResponse> => {
 
 export const PATCH = async (request: NextRequest): Promise<NextResponse> => {
 	try {
-		const { id, name, vendorCategory, contractvalue, email, type, address, note } = await request.json();
+		const {
+			id,
+			name,
+			vendorCategory,
+			contractvalue,
+			email,
+			type,
+			address,
+			note,
+		} = await request.json();
 		const updatedVendor = await prisma.vendor.update({
 			where: { id: parseInt(id) },
-			data: { name, contractvalue, vendorCategory, email, type, address, note },
+			data: {
+				name,
+				contractvalue,
+				vendorCategory,
+				email,
+				type,
+				address,
+				note,
+			},
 		});
 		return NextResponse.json(
 			{
@@ -129,4 +161,3 @@ export const PATCH = async (request: NextRequest): Promise<NextResponse> => {
 		await prisma.$disconnect();
 	}
 };
-

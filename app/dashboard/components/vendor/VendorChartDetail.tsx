@@ -4,7 +4,7 @@ import React from 'react'
 
 import VendorPageChart from './NewVendorChart'
 
-const cont = 121 // ..........................
+const cont = 121
 
 const VendorChartDetail = () => {
   return (
@@ -15,10 +15,10 @@ const VendorChartDetail = () => {
       </div>
       <div className="flex justify-between mt-2">
         <div className="text-sm font-semibold flex flex-row">
-        <div className='h-3 w-3 m-1 mx-2 rounded-full bg-[#000]'>
-        </div>
-          <p>Contract Value</p>
+          <div className='h-3 w-3 m-1 mx-2 rounded-full bg-[#000]'>
           </div>
+          <p>Contract Value</p>
+        </div>
         <div className="text-sm font-bold">42</div>
       </div>
       <div className="flex justify-between mt-2">
@@ -26,7 +26,7 @@ const VendorChartDetail = () => {
           <div className='h-3 w-3 m-1 mx-2 rounded-full bg-[#DDFF8F]'>
           </div>
           <p>Resources</p>
-          </div>
+        </div>
         <div className="text-sm font-bold">79</div>
       </div>
     </div>

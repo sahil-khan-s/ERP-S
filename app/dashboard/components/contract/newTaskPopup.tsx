@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Calendar } from "@/components/ui/calendar"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
@@ -14,7 +14,6 @@ import {
 import { getTodayTasks } from '../../contract/helper';
 
 
-// function which makes a unixTimestamp from 24H format time "00:00" and  ISO date in a format of "Sat Jul 13 2024 00:00:00 GMT+0500 (Pakistan Standard Time)". 
 function makeUnixTimestamp(time: string, date: Date | undefined) {
     if (!date) {
         return undefined;

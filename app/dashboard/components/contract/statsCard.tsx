@@ -8,7 +8,6 @@ import viewed from "@/public/icons/viewedContracts.svg";
 import signed from "@/public/icons/signedContracts.svg";
 import notSigned from "@/public/icons/notSignedContracts.svg";
 import renewal from "@/public/icons/renewalContract.svg";
-import Image from 'next/image';
 const StatsCard = ({ data }: { data: { title: string, value: number } }) => {
 
     let IconComponent;
@@ -42,7 +41,6 @@ const StatsCard = ({ data }: { data: { title: string, value: number } }) => {
         <div className="flex flex-col justify-start md:justify-between min-w-[100px] md:min-w-[150px] w-[30%] md:w-[15%] p-3 md:p-5 rounded-2xl border-gray-500 border-[0.48px]">
             <div className="h-8 md:h-10 flex justify-end items-center mb-2">
                 <div className="flex justify-center items-center h-full aspect-square border-gray-500 border-[0.48px] rounded-md md:rounded-xl">
-                    {/* <Image className='h-full w-full object-contain' height={20} width={20} src={IconComponent} alt="icon for a start card" /> */}
                     <IconComponent />
                 </div>
             </div>
