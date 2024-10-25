@@ -5,20 +5,8 @@ import bcrypt from "bcryptjs";
 export const POST = async (req: Request) => {
   const data = await req.json();
 
-  try {
-    await signIn("credentials", {
-      ...data,
-      redirect: false,
-    });
-    return NextResponse.json(
-      {
-        success: true,
-        massage: "Action Successful",
-      },
-      { status: 200 }
-    );
-  } catch (error) {
-    console.error(error);
+  if (data.action === 'register') {
+    const { name, email, password } = data;
 
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);

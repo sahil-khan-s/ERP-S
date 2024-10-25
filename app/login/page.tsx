@@ -38,6 +38,7 @@ export default function Login() {
     }
   };
 
+
   return (
     <div className="min-h-screen flex">
       <div className='hidden sm:block bg-black w-[40%] relative'>

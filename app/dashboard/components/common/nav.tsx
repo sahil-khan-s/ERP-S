@@ -37,14 +37,19 @@ export default function Nav() {
 
         if (user) {
             try {
-                // Ensure we're only parsing valid JSON
+                // Ensure the data is valid JSON
                 const parsedUser = JSON.parse(user);
                 setSessionData(parsedUser);
             } catch (error) {
                 console.error("Error parsing user data from localStorage:", error);
+                // Optionally, you can remove the invalid data from localStorage
+                localStorage.removeItem('user');
             }
+        } else {
+            console.warn("No user data found in localStorage");
         }
     }, []);
+
 
     const [user, setUser] = useState();
     const [open, setOpen] = useState(false);
@@ -167,10 +172,7 @@ export default function Nav() {
     const [notificationDrawerOpen, setNotificationDrawerOpen] = useState(false);
     const [notifications, setNotifications] = useState<string[]>([]);
 
-    useEffect(() => {
-        setSessionData(session)
-    }, []); // Empty dependency array ensures this runs once
-
+ 
     return (
 
         <div className="flex justify-between items-center max-h-screen pt-5">
@@ -216,7 +218,8 @@ export default function Nav() {
                         <div className="hidden md:block">
                             <div className=" flex items-center">
                                 <div className="hidden md:block">
-                                    <h1 className="font-semibold">{session?.user?.email}</h1>
+                                    {/* <h1 className="font-semibold">{user?.name}</h1> */}
+                                    <h1 className="font-semibold">{sessionData?.user?.email}</h1>
                                 </div>
                                 <div className="">
 
