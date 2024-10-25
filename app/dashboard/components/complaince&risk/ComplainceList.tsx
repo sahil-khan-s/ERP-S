@@ -2,8 +2,6 @@
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 //ICONS
 import { RiDeleteBin6Line, RiEyeLine, RiEdit2Line } from "react-icons/ri";
@@ -91,7 +89,7 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
         }
     };
 
-    // const fetchCompliance = async (): Promise<complianceType[]> => {
+
     //     try {
     //         const response = await axios.get('/api/compliance');
     //         return response.data.complianceIssue; // Assuming 'complianceIssue' is the key in the response
@@ -115,7 +113,7 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
             setCompliances(await data.complianceIssue);
         }
         catch {
-            console.log(Error)
+            console.error(Error)
         }
     };
 
@@ -245,8 +243,8 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
                                             <AlertDialogFooter>
                                                 <AlertDialogCancel className='text-xs md:text-sm'>Cancel</AlertDialogCancel>
                                                 {
-                                                    deleteLoading ? 
-                                                    <AlertDialogCancel className='flex justify-center items-center bg-[#ff4d4d] hover:bg-[#ff4d4d] w-[78px] h-[40px]'><div className='delete-loader'></div></AlertDialogCancel>
+                                                    deleteLoading ?
+                                                        <AlertDialogCancel className='flex justify-center items-center bg-[#ff4d4d] hover:bg-[#ff4d4d] w-[78px] h-[40px]'><div className='delete-loader'></div></AlertDialogCancel>
                                                         : <AlertDialogAction onClick={() => { deleteCompliance(item.id); }} className='text-xs md:text-sm bg-[#ff3b3b] hover:bg-[#ff4d4d]'>Delete</AlertDialogAction>
 
                                                 }
@@ -257,10 +255,6 @@ const ComplainceList = ({ reload }: { reload: boolean }) => {
                             </tr>
                         </tbody>
                     ))
-                        //:
-                        //     <div className='h-52 w-[70vh] absolute left-[40%] items-center'>
-                        //         <p className='text-center text-nowrap m-24 font-xl font-semibold'>The Compliance list is currently empty.</p>
-                        //     </div>
                     }
                 </table>
                 :

@@ -49,12 +49,10 @@ const ContractTaskTab = ({ contract, setShowDetails }: { contract: ContractInter
             getAllContracts();
 
         } catch (error) {
-            console.log("Error while deleting contract ==>", error);
+            console.error("Error while deleting contract ==>", error);
             alert("Error occurred, check console for details.")
         }
     }
-
-
 
     return (
         <div className='min-h-[660px]'>

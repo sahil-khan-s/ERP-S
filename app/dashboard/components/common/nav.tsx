@@ -4,16 +4,13 @@ import BorderColorIcon from '@mui/icons-material/BorderColor';
 import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Link from 'next/link'
-import { Dialog, List, ListItemButton, ListItemIcon, ListItemText, Box, Modal } from '@mui/material';
+import { List, ListItemButton, ListItemIcon, ListItemText, Box, Modal } from '@mui/material';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import CloseIcon from '@mui/icons-material/Close';
-// import Pusher from 'pusher-js';
-// import Context from "context/context";
-// import { fetchRole } from "../../employeePerformance/helpers";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { storage } from '@/lib/firebaseConfig'
 import { CiCamera } from "react-icons/ci";
@@ -35,33 +32,13 @@ export default function Nav() {
     const { data: session } = useSession();
     const [sessionData, setSessionData] = useState<object | null>({})
     const [user, setUser] = useState();
-    const [isOpenNotification, setIsOpenNotification] = useState(false);
     const [open, setOpen] = useState(false);
     const router = useRouter();
 
     const [editNameActive, setEditNameActive] = useState<boolean>(false)
     const [editEmailActive, setEditEmailActive] = useState<boolean>(false)
     const [editPasswordActive, setEditPasswordActive] = useState<boolean>(false)
-    // useEffect(() => {
-    // fetchData()
-    // fetchUnreadNotifications();
 
-    // }, []);
-
-    const fetchData = () => {
-        // if (!user) {
-        //     const parsedUser = fetchRole();
-        //     if (!parsedUser) {
-        //         router.replace("/");
-        //         return;
-        //     }
-        //     setUser(parsedUser);
-        // }
-    }
-
-    // const profile = user?.profilePicture
-
-    const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const handleSignOut = async () => {
@@ -95,24 +72,8 @@ export default function Nav() {
         setEditPasswordActive(false);
     }
 
-
     const [hasUnread, setHasUnread] = useState(false);
 
-
-    // const fetchUnreadNotifications = async () => {
-    //     try {
-    //         const response = await fetch('/api/notifications');
-    //         if (response.ok) {
-    //             const data = await response.json();
-    //             const unreadNotifications = data.filter((notification: any) => !notification.isRead);
-    //             setHasUnread(unreadNotifications.length > 0);
-    //         } else {
-    //             console.error('Failed to fetch notifications');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error fetching notifications:', error);
-    //     }
-    // };
 
     //////--------------Edit profile ------------------///
     const [formData, setFormData] = useState({ name: session?.user?.name || "", email: session?.user?.email || "", password: "" });
@@ -162,7 +123,6 @@ export default function Nav() {
 
         try {
             await handleImageUpload();
-            console.log(imageURL)
             const response = await fetch('/api/users/update', {
                 method: 'POST',
                 headers: {
@@ -194,27 +154,6 @@ export default function Nav() {
     const [notifications, setNotifications] = useState<string[]>([]);
 
     useEffect(() => {
-        // const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
-        //     cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
-        // });
-
-        // const channel = pusher.subscribe(process.env.NEXT_PUBLIC_PUSHER_CHANNEL!);
-
-        // channel.bind('new-job', (data: any) => {
-        // setNotifications((prev) => [...prev, data.message]);
-        // // Only open the drawer if it is not already open
-        // if (!notificationDrawerOpen) {
-        //     setNotificationDrawerOpen(true);
-        // }
-        // });
-
-        // Cleanup: Unsubscribe when component unmounts
-        // return () => {
-        //     channel.unbind('new-job'); // Unbind specific event
-        //     pusher.unsubscribe(process.env.NEXT_PUBLIC_PUSHER_CHANNEL!);
-        // };
-
-        // 
         setSessionData(session)
     }, []); // Empty dependency array ensures this runs once
 
@@ -247,7 +186,6 @@ export default function Nav() {
 
 
                             </div>
-                            {/* <Link href="/dashboard/notification"> */}
                             <div onClick={() => { setNotificationDrawerOpen(true) }} className="relative cursor-pointer" >
                                 <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M2.50408 14.1375C2.30156 15.4261 3.20701 16.3205 4.31564 16.7662C8.56588 18.4751 14.4805 18.4751 18.7308 16.7662C19.8394 16.3205 20.7449 15.4261 20.5423 14.1375C20.4179 13.3455 19.8024 12.6861 19.3464 12.0422C18.7492 11.1884 18.6898 10.2572 18.6898 9.26639C18.6898 5.43753 15.4812 2.33362 11.5232 2.33362C7.56523 2.33362 4.35666 5.43753 4.35666 9.26639C4.35657 10.2572 4.29723 11.1884 3.69997 12.0422C3.244 12.6861 2.62855 13.3455 2.50408 14.1375Z" stroke="black" strokeWidth="0.952381" strokeLinecap="round" strokeLinejoin="round" />
@@ -260,11 +198,10 @@ export default function Nav() {
 
                             </div>
                         </div>
-                        {/* </Link> */}
+
                         <div className="hidden md:block">
                             <div className=" flex items-center">
                                 <div className="hidden md:block">
-                                    {/* <h1 className="font-semibold">{user?.name}</h1> */}
                                     <h1 className="font-semibold">{session?.user?.email}</h1>
                                 </div>
                                 <div className="">
@@ -278,7 +215,6 @@ export default function Nav() {
                                 <div className="flex items-center md:flex">
                                     <ExpandMoreIcon
                                         className="cursor-pointer"
-                                        // onClick={handleChangePassword} 
                                         onClick={handleModalOpen}
                                     />
                                 </div>
@@ -313,10 +249,6 @@ export default function Nav() {
                                 >
                                     <Box sx={{ bgcolor: 'background.paper', borderRadius: '8px' }}>
                                         <List sx={{ pt: 0 }}>
-
-                                            {/* <div className="flex md:hidden bg-red-200 justify-start mt-4">
-                                        <h1 className="font-semibold pl-4">{user?.email}</h1>
-                                    </div> */}
 
 
                                             <ListItemButton onClick={() => { handleModalClose(); setDrawerOpen(true); fillInputFeild(); }}>
@@ -438,7 +370,6 @@ export default function Nav() {
                                                         placeholder="Morty Smith"
                                                         className="shadow-sm border rounded-md w-full sm:text-sm p-3 outline-none caret-transparent"
                                                         value={formData.name}
-                                                    // onChange={handleChange}
                                                     />}
                                                 <label htmlFor='name' onClick={() => { setEditNameActive(true) }}>
                                                     <BorderColorIcon className='text-gray-500 cursor-pointer' />
@@ -467,28 +398,12 @@ export default function Nav() {
                                                         placeholder="xyz@gmail.com"
                                                         className="shadow-sm border rounded-md w-full sm:text-sm p-3 outline-none caret-transparent"
                                                         value={formData.email}
-                                                    // onChange={handleChange}
                                                     />}
                                                 <label htmlFor='email' onClick={() => { setEditEmailActive(true) }}>
                                                     <BorderColorIcon className='text-gray-500 cursor-pointer' />
                                                 </label>
                                             </div>
                                         </div>
-                                        {/* <div className="mb-4">
-                                            <label htmlFor="oldPassword" className="block text-sm font-medium mb-2">
-                                                Old Password
-                                            </label>
-                                            <input
-                                                type="password"
-                                                id="oldPassword"
-                                                name="oldPassword"
-                                                placeholder="****"
-
-                                                className="shadow-sm border  rounded-md w-full sm:text-sm px-3 py-2"
-                                                value={formData.oldPassword}
-                                                onChange={handleChange}
-                                            />
-                                        </div> */}
 
                                         {/* ---------- password --------- */}
                                         <div className="mb-10">
@@ -512,7 +427,6 @@ export default function Nav() {
                                                         placeholder="******"
                                                         className="shadow-sm border rounded-md w-full sm:text-sm p-3 outline-none caret-transparent"
                                                         value={formData.password}
-                                                    // onChange={handleChange}
                                                     />}
                                                 <label htmlFor='password' onClick={() => { setEditPasswordActive(true) }}>
                                                     <BorderColorIcon className='text-gray-500 cursor-pointer' />

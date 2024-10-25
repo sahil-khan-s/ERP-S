@@ -1,7 +1,7 @@
-"use client" 
+"use client"
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState, Fragment, useContext } from 'react';
+import { useState, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useRouter } from 'next/navigation';
 //ICONS
@@ -17,28 +17,18 @@ import { HiOutlineSquares2X2, HiOutlineUserGroup, HiOutlineUserCircle } from "re
 //COMPONENTS
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import CloseIcon from '@mui/icons-material/Close';
-import AddCardIcon from '@mui/icons-material/AddCard';
 import { useSession } from 'next-auth/react';
-// import Context from "context/context";
-// import { HiOutlineHome } from "react-icons/hi";
-// import { HiUsers } from "react-icons/hi2";
-// import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
-// import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
-// import { storage } from '@/lib/firebaseConfig'
+
 
 export default function NavSmallScreen() {
 
-    const router = useRouter()
+    // const router = useRouter()
 
-    // const { user, setUser } = useContext(Context);
     const [userData, setUserData] = useState<any>({ name: '', email: '', password: '' });
     const [editName, setEditName] = useState("")
     const [editEmail, setEditEmail] = useState("")
     const [editPassword, setEditPassword] = useState("")
     const [editProfilePicture, setEditProfilePicture] = useState("")
-    // const [profilePicture, setProfilePicture] = useState<string | null>(null);
-    // const [image, setImage] = useState<any>(null);
-    // let profile = user?.profilePicture
 
     const [editNameActive, setEditNameActive] = useState<boolean>(false)
     const [editEmailActive, setEditEmailActive] = useState<boolean>(false)
@@ -49,24 +39,9 @@ export default function NavSmallScreen() {
     const [drawerOpen, setDrawerOpen] = useState(false); // profile 
 
 
-
-    //   IMAGE PREVIEW
-    // const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     const file = event.target.files?.[0];
-    //     setImage(event.target.files?.[0])
-    //     if (file) {
-    //         const reader = new FileReader();
-    //         reader.onloadend = () => {
-    //             const base64 = reader.result as string;
-    //             setEditProfilePicture(base64);
-    //         };
-    //         reader.readAsDataURL(file);
-    //     }
+    // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     setUserData({ ...userData, [e.target.name]: e.target.value });
     // };
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setUserData({ ...userData, [e.target.name]: e.target.value });
-    };
 
     const emptyInputField = () => {
         setUserData({ name: "", email: "", password: "" });
@@ -74,20 +49,6 @@ export default function NavSmallScreen() {
         setEditEmailActive(false);
         setEditPasswordActive(false);
     }
-
-    // const fillNavbarData = () => {
-    //     setUserData({ name: user.name, email: user.email });
-    //     profile = user?.profilePicture
-    // }
-
-    // const fillProfileData = async () => {
-    //     setEditEmail(user.email)
-    //     setEditName(user.name)
-    //     setEditPassword(user.password)
-    //     setEditProfilePicture(user.profilePicture)
-    //     profile = user?.profilePicture
-
-    // }
 
     const openProfileModel = () => {
         // fillProfileData()
@@ -104,55 +65,10 @@ export default function NavSmallScreen() {
         setEditProfilePicture("");
     }
 
-    // const handleSignOut = () => {
-    //     localStorage.removeItem('user');
-    //     setUser(null);
-    //     router.push('/signin');
-    // };
 
-    // IMAGE TO STRING
-    // const handleImageUpload = async () => {
-    //     const storageRef = ref(storage, `profile-Picture/${image.name}`)
-    //     try {
-    //         await uploadBytes(storageRef, image)
-    //         imageURL = await getDownloadURL(storageRef)
-    //     } catch (error) {
-    //         console.error(error)
-    //     }
-    // }
+    const { data: session } = useSession();
 
-    // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     console.log(editEmail, editName, editPassword)
-    //     try {
-    //         await handleImageUpload();
-    //         console.log(imageURL)
-    //         const response = await fetch('/api/users/update', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify({ name: editName, email: editEmail, password: editPassword, profilePicture: imageURL, userId: user?.id }),
-    //         });
 
-    //         if (response.ok) {
-    //             const updatedUser = await response.json();
-    //             localStorage.setItem('user', JSON.stringify(updatedUser));
-    //             setUser(updatedUser);
-    //             emptyInputField();
-    //             setDrawerOpen(false);
-    //             router.push('/dashboard');
-    //         } else {
-    //             throw new Error('Failed to update profile');
-    //         }
-    //     } catch (error) {
-    //         console.error('Failed to update profile', error);
-    //     }
-    // }
-
-    const {data:session}=useSession();
-
-    
     return (
         <>
             <div className="relative block md:hidden  items-center justify-center px-4 py-4 bg-[#000000] text-white">
@@ -160,9 +76,9 @@ export default function NavSmallScreen() {
                 <div className='flex justify-between items-center'>
                     <div>
                         <button
-                            onClick={() => { setIsNavOpen(true);
-                              // fillNavbarData(); 
-                              }}
+                            onClick={() => {
+                                setIsNavOpen(true);
+                            }}
                             className=" p-2 text-black bg-[#D5F68A] rounded-md"
                         >
                             <svg
@@ -224,7 +140,7 @@ export default function NavSmallScreen() {
                                     <div className="bg-[#DDFF8F] pb-2 pt-10 flex items-center border-[1px] pt flex-col">
 
                                         {/*-------------- add dynamic username and picture -------- */}
-                                            <HiOutlineUserCircle className=" w-16 h-16 rounded-full" />
+                                        <HiOutlineUserCircle className=" w-16 h-16 rounded-full" />
                                         <p className="mt-3 text-sm font-semibold">{session?.user?.name}</p>
                                     </div>
 
@@ -279,7 +195,7 @@ export default function NavSmallScreen() {
 
                                             <button>
 
-                                            Transaction Managment
+                                                Transaction Managment
                                             </button>
                                         </Link>
                                         <Link className="flex items-center mx-4 rounded-md hover:bg-[#DDFF8F] hover:text-black text-gray-50 font-medium py-1 pl-3 sm:pl-7" href="/dashboard/performanceEvaluation">
@@ -287,7 +203,7 @@ export default function NavSmallScreen() {
 
                                             <button>
 
-                                            Performance Evaluation
+                                                Performance Evaluation
                                             </button>
                                         </Link>
                                         <Link className="flex items-center mx-4 rounded-md hover:bg-[#DDFF8F] hover:text-black text-gray-50 font-medium py-1 pl-3 sm:pl-7" href="/dashboard/compliance&risk">
@@ -303,19 +219,19 @@ export default function NavSmallScreen() {
 
                                             <button>
 
-                                           Management
+                                                Management
                                             </button>
                                         </Link>
                                         <Link className="flex items-center mx-4 rounded-md hover:bg-[#DDFF8F] hover:text-black text-gray-50 font-medium py-1 pl-3 sm:pl-7" href="/dashboard/compliance&risk/list">
-                                        <FaListUl className="text-2xl mr-4" />
+                                            <FaListUl className="text-2xl mr-4" />
                                             <button>
 
-                                             List
+                                                List
                                             </button>
                                         </Link>
 
                                         {/* ADD LOGOUT FUNCTION */}
-                                        <div  className='absolute bottom-5 w-full'>
+                                        <div className='absolute bottom-5 w-full'>
                                             <Link className="flex items-center mx-4 rounded-md hover:bg-[#DDFF8F] hover:text-black text-gray-50 font-medium py-1 pl-3 sm:pl-7" href="#">
                                                 <IoIosLogOut className="text-2xl mr-4 " />
                                                 Logout
@@ -388,7 +304,6 @@ export default function NavSmallScreen() {
                                                             placeholder="Morty Smith"
                                                             className="shadow-sm border rounded-md w-full sm:text-sm p-3 caret-transparent ring-0 outline-none"
                                                             value={editName}
-                                                        // onChange={handleChange}
                                                         />}
                                                     <label htmlFor='name' onClick={() => { setEditNameActive(true) }}>
                                                         <BorderColorIcon className='text-gray-500 cursor-pointer' />
@@ -417,28 +332,12 @@ export default function NavSmallScreen() {
                                                             placeholder="Morty Smith"
                                                             className="shadow-sm border rounded-md w-full sm:text-sm p-3 caret-transparent ring-0 outline-none"
                                                             value={editEmail}
-                                                        // onChange={handleChange}
                                                         />}
                                                     <label htmlFor='email' onClick={() => { setEditEmailActive(true) }}>
                                                         <BorderColorIcon className='text-gray-500 cursor-pointer' />
                                                     </label>
                                                 </div>
                                             </div>
-                                            {/* <div className="mb-4">
-                            <label htmlFor="oldPassword" className="block text-sm font-medium mb-2">
-                                Old Password
-                            </label>
-                            <input
-                                type="password"
-                                id="oldPassword"
-                                name="oldPassword"
-                                placeholder="****"
-
-                                className="shadow-sm border  rounded-md w-full sm:text-sm px-3 py-2"
-                                value={userData.oldPassword}
-                                onChange={handleChange}
-                            />
-                        </div> */}
 
                                             {/* ---------- password --------- */}
                                             <div className="mb-10">
@@ -462,7 +361,6 @@ export default function NavSmallScreen() {
                                                             placeholder="****"
                                                             className="shadow-sm border rounded-md w-full sm:text-sm p-3 caret-transparent ring-0 outline-none"
                                                             value={editPassword}
-                                                        // onChange={handleChange}
                                                         />}
                                                     <label htmlFor='password' onClick={() => { setEditPasswordActive(true) }}>
                                                         <BorderColorIcon className='text-gray-500 cursor-pointer' />

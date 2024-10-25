@@ -5,15 +5,11 @@ import {
     SelectContent,
     SelectGroup,
     SelectItem,
-    SelectLabel,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { assert } from 'console';
-import { Alert } from '@mui/material';
-import { Store, store } from '@/store/store';
+import { store } from '@/store/store';
 
-import { Performance } from '@prisma/client';
 import { getAllPerformances } from '../../performanceEvaluation/helpers';
 
 const fetchVendors = async () => {
@@ -22,7 +18,7 @@ const fetchVendors = async () => {
         const data = await res.json();
         return data.vendors;
     } catch (error) {
-        console.log(error);
+        console.error(error);
         throw new Error("Something went wrong while getting Vendors");
     }
 }
@@ -71,7 +67,6 @@ const AppPerformancePopup = ({
                     let isPerformanceAvailable: boolean = false;
 
                     for (let item of allPerformances) {
-                        console.log(item.vendorId, vendor.id);
                         if (item.vendorId == vendor.id) {
                             isPerformanceAvailable = true;
                             break;
@@ -218,7 +213,6 @@ const AppPerformancePopup = ({
                                         ratings[month as keyof typeof ratings] === 0 ? "" : ratings[month as keyof typeof ratings]
                                     }
                                     onChange={(e) => {
-                                        console.log(e.target.value);
                                         handleRatingChange(month, e.target.value);
                                     }}
                                     className="p-2 placeholder:font-outfit font-outfit text-sm rounded-lg border-gray-400 h-12 border-[0.48px] outline-none"
