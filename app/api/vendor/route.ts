@@ -87,7 +87,6 @@ export const DELETE = async (request: Request): Promise<NextResponse> => {
 			{ status: 200 }
 		);
 	} catch (error) {
-		console.log(">>>>>>>>>>><<<<<<<<<")
 
 		return NextResponse.json(
 			{

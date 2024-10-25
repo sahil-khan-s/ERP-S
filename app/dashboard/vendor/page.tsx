@@ -74,18 +74,7 @@ export default function Vendor() {
     }
   }
 
-  // IMAGE TO STRING
-  // const handleImageUpload = async () => {
-  //   if (image) {
-  //     const storageRef = ref(storage, `images/${image.name}`)
-  //     try {
-  //       await uploadBytes(storageRef, image)
-  //       imageUrl = await getDownloadURL(storageRef)
-  //     } catch (error) {
-  //       console.error(error)
-  //     }
-  //   }
-  // }
+  
 
   // POST API
   const handleForm = async (data: VendorFormData) => {

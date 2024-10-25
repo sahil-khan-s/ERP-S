@@ -102,7 +102,6 @@ const VendorsList = ({ vendors, setVendors }: { vendors: Vendor[] | null, setVen
             }
         } catch (error) {
             setDeleteLoading(false)
-            console.log("An error occurred while deleting the vendor: <<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         }
     };
 
