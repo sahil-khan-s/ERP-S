@@ -15,9 +15,6 @@ import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popove
 //ICONS
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { HiOutlineCamera } from "react-icons/hi2";
-// FIREBASE
-// import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
-// import { storage } from '@/lib/firebaseConfig'
 
 import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -65,19 +62,6 @@ export default function Vendor() {
     setSelectedImage(null);
     setImage(null);
   }
-
-  // IMAGE TO STRING
-  // const handleImageUpload = async () => {
-  //   if (image) {
-  //     const storageRef = ref(storage, `images/${image.name}`)
-  //     try {
-  //       await uploadBytes(storageRef, image)
-  //       imageUrl = await getDownloadURL(storageRef)
-  //     } catch (error) {
-  //       console.error(error)
-  //     }
-  //   }
-  // }
 
   // POST API
   const handleForm = async (data: VendorFormData) => {
