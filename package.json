@@ -1,9 +1,11 @@
 {
 	"private": true,
 	"scripts": {
-		"preinstall": "npm install --legacy-peer-deps",
+		"dev": "next dev",
 		"build": "next build",
-		"start": "next start"
+		"start": "next dev",
+		"ins": "npm install -f",
+		"seed": "node --loader ts-node/esm prisma/seed.js"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.11.4",
@@ -34,6 +36,7 @@
 		"axios": "^1.7.1",
 		"bcrypt-ts": "^5.0.2",
 		"bcryptjs": "^2.4.3",
+		"chart.js": "^4.4.2",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",
 		"date-fns": "^3.6.0",
@@ -65,7 +68,6 @@
 		"react-redux": "^9.1.2",
 		"recharts": "^2.12.7",
 		"sharp": "^0.33.3",
-		"chart.js": "^3.9.1",
 		"tailwind-merge": "^2.4.0",
 		"tailwindcss-animate": "^1.0.7",
 		"vercel": "^37.6.0"
