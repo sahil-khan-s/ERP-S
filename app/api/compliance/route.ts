@@ -99,7 +99,7 @@ export const PATCH = async (request: NextRequest): Promise<NextResponse> => {
 		const { description, assignTo, title, type, status, id } =
 			await request.json();
 		const newComplianceIssue = await prisma.complianceIssues.update({
-			where: { id: parseInt(id) },
+			where: { id: typeof id === "string" ? parseInt(id) : id },
 			data: { description, assignTo, title, type, status },
 		});
 		return NextResponse.json(
