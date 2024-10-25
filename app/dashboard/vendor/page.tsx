@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { cn, readFileAsDataUrl } from "@/lib/utils";
 //COMPONENTS
 import Nav from "../components/common/nav";
@@ -21,7 +21,7 @@ import axios from "axios";
 //React hook form
 import { useForm, Controller } from "react-hook-form";
 import { DivideIcon } from "lucide-react";
-
+import { Vendor as VendorInterface } from "../components/vendor/VendorsList";
 interface VendorFormData {
   selectedImage: string;
   vendorName: string;
@@ -36,7 +36,8 @@ interface VendorFormData {
 
 export default function Vendor() {
   const [open, setOpen] = useState<boolean>(true);
-
+  const [vendors, setVendors] = useState<VendorInterface[] | null>([]);
+  const [filteredVendors, setFilteredVendors] = useState<VendorInterface[] | null>(vendors)
   const { register, handleSubmit, control, formState: { errors }, reset } = useForm<VendorFormData>();
 
   // input form 
@@ -63,6 +64,29 @@ export default function Vendor() {
     setImage(null);
   }
 
+
+  const filterVendors = (search: string) => {
+    if (search) {
+      const filtered = vendors?.filter((vendor) => vendor.name.toLowerCase().includes(search.toLowerCase())) || [];
+      setFilteredVendors(filtered)
+    } else {
+      setFilteredVendors(vendors)
+    }
+  }
+
+  // IMAGE TO STRING
+  // const handleImageUpload = async () => {
+  //   if (image) {
+  //     const storageRef = ref(storage, `images/${image.name}`)
+  //     try {
+  //       await uploadBytes(storageRef, image)
+  //       imageUrl = await getDownloadURL(storageRef)
+  //     } catch (error) {
+  //       console.error(error)
+  //     }
+  //   }
+  // }
+
   // POST API
   const handleForm = async (data: VendorFormData) => {
     // await handleImageUpload();
@@ -79,18 +103,34 @@ export default function Vendor() {
         resetData();
         setOpen(true);
         setButtonLoading(false)
-        
+
       } else {
         throw new Error('Failed to submit form');
       }
-    
+
     } catch (error) {
       console.error(error);
     }
-    finally{
+    finally {
       setButtonLoading(false)
     }
   }
+
+  // FETCH VENDORS FUNCTION
+  const fetchVendors = async (): Promise<VendorInterface[]> => {
+    try {
+      const response = await axios.get('/api/vendor');
+      setVendors(response.data.vendors)
+      return response.data.vendors; // Assuming 'vendors' is the key in the response
+    } catch (error) {
+      throw new Error('Error fetching vendors'); // Throw error to be handled by React Query
+    }
+  };
+
+
+  useEffect(() => {
+    fetchVendors();
+  }, []);
 
   return (
     <div className="bg-white px-4 md:px-8">
@@ -100,7 +140,7 @@ export default function Vendor() {
           <main>
             <div className="bg-white py-2 rounded">
               <div className="flex justify-between items-center px-2 mb-2 md:mt-2 md:mb-4">
-                <SearchBar />
+                <SearchBar filterVendors={filterVendors} />
                 <button onClick={() => setOpen(false)} className="md:block hidden text-sm bg-[#DDFF8F] text-black px-[15.24px] py-3 rounded-[11.43px] w-42">
                   Add New Vendor<AddCircleOutlineIcon className="mx-1" />
                 </button>
@@ -111,7 +151,7 @@ export default function Vendor() {
               <div className="px-1">
                 {/* Rendor Conditionally */}
                 {/* <NewVendor /> */}
-                <VendorsList />
+                <VendorsList vendors={filteredVendors} setVendors={setVendors} />
               </div>
             </div>
           </main>
@@ -130,7 +170,7 @@ export default function Vendor() {
                 >
                   <HiOutlineCamera className="text-slate-500 text-xl" />
                   <span className="mt-2 text-sm text-gray-500">Upload Image</span>
-                  <input 
+                  <input
                     {...register("selectedImage", { required: "Image is required" })}
                     onChange={fileChangeHandler}
                     id="image-upload"
@@ -190,10 +230,10 @@ export default function Vendor() {
                   rules={{ required: "Date is required" }}
                   render={({ field }) => (
                     <Popover>
-                      <PopoverTrigger asChild>
+                      <PopoverTrigger asChild className="flex justify-start">
                         <Button
                           className={cn(
-                            "bg-white ring-0 border border-slate-300 h-12 appearance-none rounded-xl w-full px-4 py-3 hover:bg-white text-gray-700 focus:ring-1 leading-tight outline-none text-base",
+                            "bg-white ring-0 border border-slate-300 h-12 appearance-none rounded-xl w-full px-4 py-3 hover:bg-white text-gray-700 focus:ring-1 leading-tight font-normal outline-none text-base",
                             !field.value && "text-muted-foreground"
                           )}
                         >
