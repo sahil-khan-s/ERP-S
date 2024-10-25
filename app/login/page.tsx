@@ -33,15 +33,6 @@ export default function Login() {
     }
   };
 
-
-  //   useEffect(() => {
- //     const storedUser = localStorage.getItem('user');
- //     if (storedUser) {
- //     //   setUser(JSON.parse(storedUser)); // Set user from localStorage if exists
- //       router.push('/dashboard'); // Redirect to dashboard
- //     }
- //   }, [router, setUser]);
-
   return (
     <div className="min-h-screen flex">
       <div className='hidden sm:block bg-black w-[40%] relative'>

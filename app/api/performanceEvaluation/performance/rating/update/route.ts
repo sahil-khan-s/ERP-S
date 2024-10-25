@@ -5,7 +5,6 @@ export const PATCH = async (req: NextRequest): Promise<NextResponse> => {
 		const { vendorId, yearlyRating, performanceId, evaluationScore } =
 			await req.json();
 
-		// check that the params are valid and not undefined. only one is required between vendorId and performanceId
 		if (
 			!(vendorId || yearlyRating || evaluationScore) ||
 			(!performanceId && typeof performanceId === "object")

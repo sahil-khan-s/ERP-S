@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 
 export const POST = async (req: any) => {
   const data = await req.json();
-  console.log(data);
 
   try {
     await signIn("credentials", {
@@ -18,7 +17,7 @@ export const POST = async (req: any) => {
       { status: 200 }
     );
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
     return NextResponse.json(
       {

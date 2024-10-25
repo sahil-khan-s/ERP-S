@@ -81,7 +81,7 @@ const EditContract = ({ cancelEdit, contract }: { cancelEdit: any, contract: Con
 
 
         } catch (error) {
-            console.log("Error while editing contract ==>", error);
+            console.error("Error while editing contract ==>", error);
             alert("Error occurred, check console for details.");
         } finally {
             setLoading(false);

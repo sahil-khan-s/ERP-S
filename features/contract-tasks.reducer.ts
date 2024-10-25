@@ -1,12 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { Task } from "@prisma/client";
-// export interface Task {
-// 	id: number;
-// 	title: string;
-// 	time: string;
-// 	status: string;
-// }
 
 export interface TaskInitialStatus {
 	allTasks: Array<Task> | undefined;

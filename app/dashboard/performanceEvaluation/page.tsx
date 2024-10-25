@@ -83,7 +83,6 @@ const page = () => {
                 (randomFeedback && openCommentPopUp) && <AddCommentPopUp feedback={randomFeedback} setOpenCommentPopUp={setOpenCommentPopUp} />
             }
             <div className='w-full flex flex-col lg:flex-row justify-between lg:pr-1 lg:gap-x-5'>
-                {/* venders */}
 
 
                 {/* edit performance popup */}

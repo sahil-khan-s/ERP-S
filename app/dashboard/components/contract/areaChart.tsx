@@ -6,7 +6,6 @@ import {
   YAxis,
   ResponsiveContainer,
   CartesianGrid,
-  Tooltip,
 } from "recharts";
 import React from "react";
 export interface DataPoint {
