@@ -1,5 +1,3 @@
-// edit the details of the contract whose Id is sent in the req.body.
-
 import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 

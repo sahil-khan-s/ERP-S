@@ -5,8 +5,6 @@ import DashboardTransactionCard from "./components/dashboard/DashboardTransactio
 import DashboardContractCard from "./components/dashboard/DashboardContractCard";
 import ComplianceChart from "./components/complaince&risk/Chart";
 import RiskSummary from "./components/complaince&risk/RiskSummary";
-import { useSession } from "next-auth/react";
-import { } from "lucide-react"
 import {
   Popover,
   PopoverContent,
@@ -16,8 +14,6 @@ import Link from "next/link";
 
 export default function Home() {
 
-  const { data: session } = useSession()
-  console.log(session)
   return (
     <>
       <section className="bg-white px-4 py-1">
@@ -60,7 +56,6 @@ export default function Home() {
           <div className="border rounded-xl p-3 md:p-4">
             <div className="box my-3 md:my-4 flex w-full justify-between">
               <h3 className="text-xl  md:text-xl font-semibold">Total Sum Calculation</h3>
-              {/* <button className="text-gray-600 cursor-pointer">•••</button> */}
               <Popover>
                 <PopoverTrigger>
                   <button className="text-gray-600 cursor-pointer">•••</button>

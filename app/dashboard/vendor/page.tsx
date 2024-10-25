@@ -6,7 +6,6 @@ import { cn, readFileAsDataUrl } from "@/lib/utils";
 import Nav from "../components/common/nav";
 import SearchBar from "../components/common/SearchBar";
 import VendorsList from "../components/vendor/VendorsList";
-import NewVendor from "../components/vendor/NewVendor";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select"
 import { format } from "date-fns"
 import { Button } from "@/components/ui/button"
@@ -15,15 +14,10 @@ import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popove
 //ICONS
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { HiOutlineCamera } from "react-icons/hi2";
-// FIREBASE
-// import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
-// import { storage } from '@/lib/firebaseConfig'
 
-import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import axios from "axios";
 //React hook form
 import { useForm, Controller } from "react-hook-form";
-import { DivideIcon } from "lucide-react";
 import { Vendor as VendorInterface } from "../components/vendor/VendorsList";
 interface VendorFormData {
   selectedImage: string;
@@ -45,8 +39,6 @@ export default function Vendor() {
 
   // input form 
   const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
-  const [image, setImage] = React.useState<File | null>(null);
-  let imageUrl: string;
 
   const [buttonLoading, setButtonLoading] = useState(false)
 
@@ -56,7 +48,6 @@ export default function Vendor() {
     if (file) {
       const dataUrl = await readFileAsDataUrl(file);
       setSelectedImage(dataUrl);
-      setImage(file);
     }
   }
 
@@ -64,7 +55,6 @@ export default function Vendor() {
   const resetData = () => {
     reset();
     setSelectedImage(null);
-    setImage(null);
   }
 
 
@@ -77,22 +67,8 @@ export default function Vendor() {
     }
   }
 
-  // IMAGE TO STRING
-  // const handleImageUpload = async () => {
-  //   if (image) {
-  //     const storageRef = ref(storage, `images/${image.name}`)
-  //     try {
-  //       await uploadBytes(storageRef, image)
-  //       imageUrl = await getDownloadURL(storageRef)
-  //     } catch (error) {
-  //       console.error(error)
-  //     }
-  //   }
-  // }
 
-  // POST API
   const handleForm = async (data: VendorFormData) => {
-    // await handleImageUpload();
     try {
       setButtonLoading(true)
       const response = await fetch("/api/vendor", {
@@ -152,7 +128,6 @@ export default function Vendor() {
                 </button>
               </div>
               <div className="px-1">
-                {/* Rendor Conditionally */}
                 {/* <NewVendor /> */}
                 <VendorsList vendors={filteredVendors} setVendors={setVendors} />
               </div>

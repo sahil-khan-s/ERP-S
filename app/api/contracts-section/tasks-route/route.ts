@@ -17,7 +17,7 @@ export const GET = async (): Promise<NextResponse> => {
 			{ status: 200 }
 		);
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		return NextResponse.json(
 			{
 				success: false,
