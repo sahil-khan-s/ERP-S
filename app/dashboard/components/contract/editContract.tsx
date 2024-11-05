@@ -23,6 +23,7 @@ interface ContractData {
 }
 
 import { unixTimestamp } from './newContract';
+
 import Loader, { LoaderSize } from '../common/Loader';
 import { getAllContracts } from '../../contract/helper';
 
@@ -81,7 +82,7 @@ const EditContract = ({ cancelEdit, contract }: { cancelEdit: any, contract: Con
 
 
         } catch (error) {
-            console.log("Error while editing contract ==>", error);
+            console.error("Error while editing contract ==>", error);
             alert("Error occurred, check console for details.");
         } finally {
             setLoading(false);

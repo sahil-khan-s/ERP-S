@@ -1,18 +1,15 @@
 "use client";
-import Image from "next/image";
 import StatsCard from "../components/contract/statsCard";
 import Task from "../components/contract/task";
-import ContractCard from "../components/contract/contractcard";
-import Link from "next/link";
 import StateChart, { DataPoint } from "../components/contract/areaChart";
 import { useEffect, useState } from "react";
 import NewTaskPopUp from "../components/contract/newTaskPopup";
 import { useSelector } from "react-redux";
 import { store, Store } from "@/store/store";
 import { toggleContractEditing } from "@/features/contracts.reducer";
-import { Contract as ContractInterface, Task as TaskInterface } from "@prisma/client";
 import { toggleTaskEditing } from "@/features/contract-tasks.reducer";
 import EditTaskPopup from "../components/contract/editTaskPopup";
+
 import Loader, { LoaderSize } from "../components/common/Loader";
 import DashboardContractCard from "../components/dashboard/DashboardContractCard";
 import { getTodayTasks } from "./helper";
@@ -73,10 +70,6 @@ export default function Contract() {
       percent: 0,
     },
   ];
-
-  const handleEditClick = () => {
-    store.dispatch(toggleContractEditing())
-  }
 
 
   const enableTaskEditing = () => {
@@ -190,9 +183,7 @@ export default function Contract() {
           {/* incomplete tasks */}
           <div className="flex flex-col mt-6 gap-y-6 max-h-56 overflow-y-scroll">
             {!allTasks ? (
-              // <h2 className="text-xl text-black font-outfit capitalize text-center">
-              //   loading...
-              // </h2>
+
               <Loader size={LoaderSize.S} />
             ) : (
               allTasks.map((task, index) => {
@@ -231,9 +222,7 @@ export default function Contract() {
 
           <div className="flex flex-col mt-6 gap-y-6 overflow-y-scroll max-h-56">
             {!allTasks ? (
-              // <h2 className="text-xl text-black font-outfit capitalize text-center">
-              //   loading...
-              // </h2>
+
               <Loader size={LoaderSize.S} />
             ) : (
               allTasks.map((task, index) => {

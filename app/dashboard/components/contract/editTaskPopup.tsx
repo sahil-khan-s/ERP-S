@@ -16,7 +16,6 @@ import { store } from '@/store/store';
 import { toggleTaskEditing } from '@/features/contract-tasks.reducer';
 import { getTodayTasks } from '../../contract/helper';
 
-
 // function which makes a unixTimestamp from 24H format time "00:00" and  ISO date in a format of "Sat Jul 13 2024 00:00:00 GMT+0500 (Pakistan Standard Time)". 
 function makeUnixTimestamp(time: string, date: Date | undefined) {
     if (!date) {

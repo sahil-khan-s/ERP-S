@@ -24,23 +24,20 @@ export default function Login() {
     setError(null);
 
     try {
-      await axios.post("/api/handleAuth", data);
-      router.push("/dashboard");
+      const response = await axios.post("/api/handleAuth", { action: 'login', ...data });
+
+      // Store user data in localStorage upon successful login
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+
+      router.push("/dashboard"); // Redirect to the dashboard or wherever you want after login
     } catch (error) {
-      setError("Wrong credentials please try again!");
+      // setError(error);
+      console.log(error)
     } finally {
       setLoading(false);
     }
   };
 
-
-  //   useEffect(() => {
- //     const storedUser = localStorage.getItem('user');
- //     if (storedUser) {
- //     //   setUser(JSON.parse(storedUser)); // Set user from localStorage if exists
- //       router.push('/dashboard'); // Redirect to dashboard
- //     }
- //   }, [router, setUser]);
 
   return (
     <div className="min-h-screen flex">
@@ -137,12 +134,18 @@ export default function Login() {
               </div>
             </div>
           ) : (
-            <div className="pt-10">
+            <div className="pt-7">
               <SubmitButton>Sign In</SubmitButton>
             </div>
           )}
-
+          <p className="text-center text-sm text-gray-600 pt-4">
+            Don't have an account?{' '}
+            <Link href="/register" className="font-bold text-gray-800">
+              Sign up
+            </Link>
+          </p>
           {error && <p className="text-red-500 text-center">{error}</p>}
+
         </form>
       </div>
     </div>

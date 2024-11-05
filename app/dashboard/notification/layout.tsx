@@ -1,4 +1,7 @@
+"use client"
+
 import React from 'react'
+
 import Nav from '../components/common/nav'
 
 const layout = ({ children }: { children: React.ReactNode }) => {
@@ -6,7 +9,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
         <div className='bg-white p-5 min-h-screen'>
             <Nav />
 
-            {/* search, filter and add new contract button */}
+
             <div className="flex justify-start items-center mt-10">
 
                 <div className="flex gap-x-2 md:gap-x-5 justify-between">

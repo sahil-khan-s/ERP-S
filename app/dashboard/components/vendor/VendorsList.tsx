@@ -9,7 +9,6 @@ import { TiBriefcase } from 'react-icons/ti';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 export interface Vendor {
     id: number;
@@ -25,9 +24,6 @@ export interface Vendor {
 };
 const VendorsList = ({ vendors, setVendors }: { vendors: Vendor[] | null, setVendors: React.Dispatch<React.SetStateAction<Vendor[] | null>> }) => {
 
-
-    // const [vendorsData, setVendorsData] = useState<Vendor[] | null>()
-    const [reload, setReload] = useState(false)
 
     //     EDIT VENDOR useStates
     const [editName, setEditName] = React.useState<string>("")
@@ -102,6 +98,7 @@ const VendorsList = ({ vendors, setVendors }: { vendors: Vendor[] | null, setVen
             }
         } catch (error) {
             setDeleteLoading(false)
+            console.error("An error occurred while deleting the vendor");
         }
     };
 
@@ -115,13 +112,6 @@ const VendorsList = ({ vendors, setVendors }: { vendors: Vendor[] | null, setVen
             throw new Error('Error fetching vendors'); // Throw error to be handled by React Query
         }
     };
-
-    // let { data: vendors, error, isLoading } = useQuery<Vendor[], Error>({
-    //     queryKey: ['vendors'], // Array format for queryKey
-    //     queryFn: fetchVendors,  // The function to fetch data
-    // });
-    // if (isLoading) return <div className='flex items-center justify-center h-[500px]'><span className="loader"></span></div>;
-    //if (error) return <div>{error.message}</div>;
 
 
     useEffect(() => {
@@ -142,11 +132,10 @@ const VendorsList = ({ vendors, setVendors }: { vendors: Vendor[] | null, setVen
                             <th className="py-3 px-0.5 md:px-4 md:py-5 text-center md:text-left text-sm md:text-base font-medium">Category</th>
                             <th className="py-3 px-0.5 md:px-4 md:py-5 text-center md:text-left text-sm md:text-base font-medium">Type</th>
                             <th className="py-3 px-0.5 md:px-4 md:py-5 text-center md:text-left text-sm md:text-base font-medium">Status</th>
-                            <th onClick={() => console.log(vendors)} className="py-3 px-0.5 md:px-4 md:py-5 text-center md:text-left text-sm md:text-base font-medium">Action</th>
+                            <th className="py-3 px-0.5 md:px-4 md:py-5 text-center md:text-left text-sm md:text-base font-medium">Action</th>
                         </tr>
                     </thead>
                     <tbody className=' border-b border-slate-100'>
-                        {/* vendorsData?.length !== 0 ?  */}
                         {vendors?.map((item, index) => (
                             <tr key={index} className='my-1'>
                                 <td className="py-2 px-1 w-max text-sm md:text-base md:p-4 text-nowrap flex flex-row items-center gap-2"><Image src={item.imageUrl} width={45} height={45} alt='' className="object-cover rounded-full h-9 w-9 md:h-10 md:w-10 md:mx-2" /><p>{item.name}</p></td>

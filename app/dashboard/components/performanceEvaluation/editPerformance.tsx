@@ -1,6 +1,6 @@
 "use client";
 import { ModifiedPerformance } from '@/features/performance.reducer';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { getAllPerformances } from '../../performanceEvaluation/helpers';
 
 const AppPerformancePopup = ({
@@ -33,9 +33,6 @@ const AppPerformancePopup = ({
             return;
         }
 
-
-
-        // modify the rating value for the month,.
 
 
         setRatings((prevRatings) => {
@@ -146,7 +143,6 @@ const AppPerformancePopup = ({
                                         ratings?.find((rating) => rating.name === month)?.value !== -1 ? ratings?.find((rating) => rating.name === month)?.value : ""
                                     }
                                     onChange={(e) => {
-                                        console.log(e.target.value);
                                         handleRatingChange(month, e.target.value);
                                     }}
                                     className="p-2 placeholder:font-outfit font-outfit text-sm rounded-lg border-gray-400 h-12 border-[0.48px] outline-none"

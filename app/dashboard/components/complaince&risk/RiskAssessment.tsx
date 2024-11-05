@@ -1,4 +1,8 @@
-import React from 'react';
+"use client"
+
+
+import React from 'react'
+;
 import RiskChart from './Chart';
 import RiskColorGraph from './ColorGraph';
 import RiskComplianceAlert from './RiskComplianceAlert';

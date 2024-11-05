@@ -1,8 +1,6 @@
 import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-//                            POST REQUEST
-
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
 	try {
 		const { description, assignTo, title, type } = await request.json();
@@ -43,9 +41,6 @@ export const GET = async (): Promise<NextResponse> => {
 		},
 	});
 
-	//         throw new Error("Failed to fetch compliance Issue");
-	//     }
-
 	if (!complianceIssue) {
 		return NextResponse.json(
 			{
@@ -56,19 +51,7 @@ export const GET = async (): Promise<NextResponse> => {
 			{ status: 200 }
 		);
 	}
-	// } catch (error) {
-	//     console.error(error);
 
-	//     return NextResponse.json(
-	//         {
-	//             success: false,
-	//             massage: "Failed to fetch compliance Issue",
-	//         },
-	//         { status: 500 }
-	//     );
-	// } finally {
-	//     await prisma.$disconnect();
-	// }
 	return NextResponse.json({
 		success: true,
 		message: "api work properly",
@@ -116,7 +99,7 @@ export const PATCH = async (request: NextRequest): Promise<NextResponse> => {
 		const { description, assignTo, title, type, status, id } =
 			await request.json();
 		const newComplianceIssue = await prisma.complianceIssues.update({
-			where: { id: parseInt(id) },
+			where: { id: typeof id === "string" ? parseInt(id) : id },
 			data: { description, assignTo, title, type, status },
 		});
 		return NextResponse.json(

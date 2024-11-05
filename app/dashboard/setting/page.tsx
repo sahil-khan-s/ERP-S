@@ -1,4 +1,7 @@
+"use client"
+
 import React from 'react'
+
 import Nav from '../components/common/nav'
 import {Select,SelectContent,SelectItem,SelectTrigger,SelectValue} from "@/components/ui/select"
   

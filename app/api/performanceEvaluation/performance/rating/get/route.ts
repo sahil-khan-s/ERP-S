@@ -5,7 +5,6 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
 		// add the vendor performance
 		const performances = await prisma.performance.findMany();
 
-		// also add the vendor Name to each performance
 		let modifiedPerformances = [];
 		for (const performance of performances) {
 			const vendor = await prisma.vendor.findUnique({

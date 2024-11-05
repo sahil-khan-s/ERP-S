@@ -1,8 +1,12 @@
+"use client"
+
 import React from 'react'
+
 import { Contract as ContractInterface } from "@prisma/client"
 import { dateOnly } from '../contractcard'
 import { store } from '@/store/store'
 import { setContractToEdit, toggleContractEditing } from '@/features/contracts.reducer'
+
 import Image from 'next/image'
 import editIcon from "@/public/edit.png";
 import deleteIcon from "@/public/delete.png";
@@ -49,12 +53,10 @@ const ContractTaskTab = ({ contract, setShowDetails }: { contract: ContractInter
             getAllContracts();
 
         } catch (error) {
-            console.log("Error while deleting contract ==>", error);
+            console.error("Error while deleting contract ==>", error);
             alert("Error occurred, check console for details.")
         }
     }
-
-
 
     return (
         <div className='min-h-[660px]'>
