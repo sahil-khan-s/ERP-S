@@ -283,8 +283,8 @@ const Sidebar = () => {
 
             {/* -------Compliance and Risk-------- */}
             <Link href="/dashboard/compliance&risk">
-              {open ? (
-                <NavigationMenu>
+                {open ? (
+                  <NavigationMenu>
                   <NavigationMenuList>
                     <NavigationMenuItem>
                       <NavigationMenuTrigger className={
@@ -293,7 +293,7 @@ const Sidebar = () => {
                           : "my-2 rounded-lg font-light hover:bg-[#DDFF8F] group hover:text-black pl-3 hover:font-normal text-white"
                       }> <FaRegChartBar className="text-xl ml-2 mr-3" />Compliance & Risk</NavigationMenuTrigger>
                       <NavigationMenuContent className="flex flex-col">
-                        <Link href={"/dashboard/compliance&risk/managment"}> <NavigationMenuLink className="w-full mb-3 font-light hover:font-normal hover:bg-[#DDFF8F] overflow-hidden py-1.5 rounded-lg hover:text-black px-3 flex flex-row items-center"> <MdManageSearch className="text-2xl ml-2 mr-3" /><p >Managent</p></NavigationMenuLink></Link>
+                        {/* <Link href={"/dashboard/compliance&risk/managment"}> <NavigationMenuLink className="w-full mb-3 font-light hover:font-normal hover:bg-[#DDFF8F] overflow-hidden py-1.5 rounded-lg hover:text-black px-3 flex flex-row items-center"> <MdManageSearch className="text-2xl ml-2 mr-3" /><p >Managent</p></NavigationMenuLink></Link> */}
                         <Link href={"/dashboard/compliance&risk/list"}> <NavigationMenuLink className="w-full mb-3 font-light hover:font-normal hover:bg-[#DDFF8F] overflow-hidden py-1.5 rounded-lg hover:text-black px-3 flex flex-row items-center"> <FaListUl className="text-md ml-2 mr-3" /><p >List</p></NavigationMenuLink></Link>
                       </NavigationMenuContent>
                     </NavigationMenuItem>
@@ -306,7 +306,7 @@ const Sidebar = () => {
                     <FaRegChartBar className={currentPath == "/dashboard/compliance&risk" ? "text-black text-xl" : "group-hover:text-black text-white text-xl"} />
                   </div>
                   {(currentPath == "/dashboard/compliance&risk" || currentPath == "/dashboard/compliance&risk/managment" || currentPath == "/dashboard/compliance&risk/list") && <>
-                    <Link href={"/dashboard/compliance&risk/managment"}> <div className={currentPath !== "/dashboard/compliance&risk/managment" ? "w-full mb-3  text-white hover:bg-[#DDFF8F]  py-1.5 rounded-xl mt-2 hover:text-black px-3 items-center" : "w-full mb-3 text-black py-1.5 rounded-xl mt-2 px-3 items-center bg-[#DDFF8F]"}> <MdManageSearch className="text-2xl ml-2" /></div></Link>
+                    {/* <Link href={"/dashboard/compliance&risk/managment"}> <div className={currentPath !== "/dashboard/compliance&risk/managment" ? "w-full mb-3  text-white hover:bg-[#DDFF8F]  py-1.5 rounded-xl mt-2 hover:text-black px-3 items-center" : "w-full mb-3 text-black py-1.5 rounded-xl mt-2 px-3 items-center bg-[#DDFF8F]"}> <MdManageSearch className="text-2xl ml-2" /></div></Link> */}
                     <Link href={"/dashboard/compliance&risk/list"}> <div className={currentPath !== "/dashboard/compliance&risk/list" ? "w-full mb-3  text-white hover:bg-[#DDFF8F]  py-2.5 rounded-xl mt-2 hover:text-black px-3 items-center" : "w-full mb-3 text-black py-2.5 rounded-xl mt-2 px-3 items-center bg-[#DDFF8F]"}> <FaListUl className="text-md ml-2 mr-3" /></div></Link>
                   </>}
                 </div>)}

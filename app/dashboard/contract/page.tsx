@@ -255,6 +255,8 @@ export default function Contract() {
             </div>
           </div>
 
+          {/* contracts */}
+         
 
           <DashboardContractCard />
         </div>

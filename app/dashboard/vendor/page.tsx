@@ -67,7 +67,6 @@ export default function Vendor() {
     }
   }
 
-
   const handleForm = async (data: VendorFormData) => {
     try {
       setButtonLoading(true)
@@ -100,6 +99,7 @@ export default function Vendor() {
     try {
       const response = await axios.get('/api/vendor');
       setVendors(response.data.vendors)
+      console.log(vendors , response.data.vendors);
       return response.data.vendors; // Assuming 'vendors' is the key in the response
     } catch (error) {
       throw new Error('Error fetching vendors'); // Throw error to be handled by React Query
@@ -118,8 +118,10 @@ export default function Vendor() {
         <div className="bg-gray-100">
           <main>
             <div className="bg-white py-2 rounded">
-              <div className="flex justify-between items-center px-2 mb-2 md:mt-2 md:mb-4">
-                <SearchBar filterVendors={filterVendors} />
+              <div onClick={fetchVendors} className="flex justify-between items-center px-2 mb-2 md:mt-2 md:mb-4">
+                <SearchBar onClick={fetchVendors} 
+                // filterVendors={filterVendors}
+                 />
                 <button onClick={() => setOpen(false)} className="md:block hidden text-sm bg-[#DDFF8F] text-black px-[15.24px] py-3 rounded-[11.43px] w-42">
                   Add New Vendor<AddCircleOutlineIcon className="mx-1" />
                 </button>
@@ -129,7 +131,7 @@ export default function Vendor() {
               </div>
               <div className="px-1">
                 {/* <NewVendor /> */}
-                <VendorsList vendors={filteredVendors} setVendors={setVendors} />
+                <VendorsList vendors={vendors} setVendors={setVendors} />
               </div>
             </div>
           </main>

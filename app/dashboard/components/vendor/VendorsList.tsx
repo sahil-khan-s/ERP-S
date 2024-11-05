@@ -124,7 +124,7 @@ const VendorsList = ({ vendors, setVendors }: { vendors: Vendor[] | null, setVen
                 <table className="rounded mt-3 md:mt-0 w-full table-auto">
                     <thead className="  bg-[#F5F5F5]">
                         <tr >
-                            <th className="md:block hidden py-3 px-0.5 md:px-4 md:py-5 text-left text-sm md:text-base font-medium text-nowrap">Vendor Name</th>
+                            <th onClick={()=>console.log(vendors)} className="md:block hidden py-3 px-0.5 md:px-4 md:py-5 text-left text-sm md:text-base font-medium text-nowrap">Vendor Name</th>
                             <th className="md:hidden block py-3 px-0.5 md:px-4 md:py-5 text-left mx-2 md:text-left text-sm md:text-base font-medium text-nowrap">Name</th>
                             <th className="py-3 px-0.5 md:px-4 md:py-5 text-center md:text-left text-sm md:text-base font-medium">ID</th>
                             <th className="md:hidden block py-3 px-0.5 md:px-4 md:py-5 text-center text-sm md:text-base md:text-left font-medium text-nowrap">Value</th>

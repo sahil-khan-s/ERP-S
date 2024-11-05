@@ -214,14 +214,14 @@ export default function NavSmallScreen() {
                                                 Compliance & Risk
                                             </button>
                                         </Link>
-                                        <Link className="flex items-center mx-4 rounded-md hover:bg-[#DDFF8F] hover:text-black text-gray-50 font-medium py-1 pl-3 sm:pl-7" href="/dashboard/compliance&risk/managment">
+                                        {/* <Link className="flex items-center mx-4 rounded-md hover:bg-[#DDFF8F] hover:text-black text-gray-50 font-medium py-1 pl-3 sm:pl-7" href="/dashboard/compliance&risk/managment">
                                             <MdManageSearch className="text-2xl mr-4 " />
 
                                             <button>
 
                                                 Management
                                             </button>
-                                        </Link>
+                                        </Link> */}
                                         <Link className="flex items-center mx-4 rounded-md hover:bg-[#DDFF8F] hover:text-black text-gray-50 font-medium py-1 pl-3 sm:pl-7" href="/dashboard/compliance&risk/list">
                                             <FaListUl className="text-2xl mr-4" />
                                             <button>
