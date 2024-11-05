@@ -284,7 +284,7 @@ const Sidebar = () => {
             </Link>
 
             {/* -------Compliance and Risk-------- */}
-            <Link href="/dashboard/compliance&risk">
+            {/* <Link href="/dashboard/compliance&risk">
                 {open ? (
                   <NavigationMenu>
                   <NavigationMenuList>
@@ -312,7 +312,7 @@ const Sidebar = () => {
                   <Link href={"/dashboard/compliance&risk/list"}> <div className={currentPath !== "/dashboard/compliance&risk/list" ? "w-full mb-3  text-white hover:bg-[#DDFF8F]  py-2.5 rounded-xl mt-2 hover:text-black px-3 items-center":"w-full mb-3 text-black py-2.5 rounded-xl mt-2 px-3 items-center bg-[#DDFF8F]"}> <FaListUl className="text-md ml-2 mr-3"/></div></Link>
                   </>}
                 </div>)}
-            </Link>
+            </Link> */}
           </div>
 
           <div className="absolute bottom-20">

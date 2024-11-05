@@ -290,7 +290,7 @@ export default function NavSmallScreen() {
                                             Performance Evaluation
                                             </button>
                                         </Link>
-                                        <Link className="flex items-center mx-4 rounded-md hover:bg-[#DDFF8F] hover:text-black text-gray-50 font-medium py-1 pl-3 sm:pl-7" href="/dashboard/compliance&risk">
+                                        {/* <Link className="flex items-center mx-4 rounded-md hover:bg-[#DDFF8F] hover:text-black text-gray-50 font-medium py-1 pl-3 sm:pl-7" href="/dashboard/compliance&risk">
                                             <FaRegChartBar className="text-2xl mr-4" />
 
                                             <button>
@@ -312,7 +312,7 @@ export default function NavSmallScreen() {
 
                                              List
                                             </button>
-                                        </Link>
+                                        </Link> */}
 
                                         {/* ADD LOGOUT FUNCTION */}
                                         <div  className='absolute bottom-5 w-full'>
